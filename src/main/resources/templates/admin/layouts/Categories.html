@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<!-- CONTENT PAGE Start -->
+<th:block th:fragment="content">
+	<!-- Form Start -->
+	<div class="container-fluid pt-4 px-0">
+		<div class="row g-4">
+			<div class="col-12" th:if="${not #lists.isEmpty(categories)} ">
+				<div class="bg-light rounded h-100 p-4">
+					<h6 class="mb-4">Thể Loại</h6>
+					<div th:if="${successMessage}" class="alert alert-success">
+						<p th:text="${successMessage}"></p>
+					</div>
+					<div th:if="${errorMessage}" class="alert alert-danger" th:text="${errorMessage}">
+					</div>
+					<div class="col-sm-12 col-xl-6">
+						<form th:action="@{/admin/categories/save}" th:method="post" th:object="${category}">
+							<div class="mb-3">
+								<label for="id" class="form-label">Mã Loại:</label> <input type="text"
+									class="form-control" name="id" id="id" aria-describedby="id" th:field="*{id}">
+								<small class="text-danger" th:if="${#fields.hasErrors('id')}" th:errors="*{id}"></small>
+							</div>
+							<div class="mb-3">
+								<label for="categoryName" class="form-label">Tên Thể Loại:</label>
+								<input type="text" class="form-control" name="categoryName" id="categoryName"
+									th:field="*{categoryName}">
+								<small class="text-danger" th:if="${#fields.hasErrors('categoryName')}"
+									th:errors="*{categoryName}"></small>
+
+							</div>
+
+							<div class="text-end mt-3">
+								<button type="submit" class="btn btn-primary"
+									onclick="showConfirmation('Bạn có chắc chắn muốn thêm thể loại?', event, this.form, '/admin/categories/save?page=0')">
+									<i class="fas fa-plus"></i> Thêm
+								</button>
+								<button type="submit" class="btn btn-secondary" 
+									onclick="showConfirmation('Bạn có chắc chắn muốn sửa thể loại?', event, this.form, '/admin/categories/update?page=0')">
+									<i class="fas fa-edit"></i> Sửa
+								</button>
+								<button type="submit" class="btn btn-danger" 
+									onclick="showConfirmation('Bạn có chắc chắn muốn xóa thể loại?', event, this.form, '/admin/categories/delete?page=0')">
+									<i class="fas fa-trash-alt"></i> Xóa
+								</button>
+								<button type="submit" class="btn btn-success" 
+									th:formaction="@{/admin/categories(page=${currentPage})}">
+									<i class="fas fa-sync-alt"></i> Làm mới
+								</button>
+								<button type="submit" class="btn btn-info m-2"
+									th:formaction="@{/admin/setcategories?pages}">
+									<i class="fas fa-code"></i> Đặt Mã</button>
+							</div>
+							
+						</form>
+					</div>
+
+				</div>
+
+			</div>
+			<div th:if="${not #lists.isEmpty(setCategories)}" class="row g-4">
+				<div class="col-12">
+					<div class="bg-light rounded h-100 p-4">
+						<h6 class="mb-4">Đặt Thể Loại</h6>
+						<div class="col-sm-12 col-xl-6">
+							<div>
+								<form method="post" th:object="${setCategory}">
+									<input type="hidden" th:field="*{id}" />
+
+									<div class="mb-3">
+										<label for="productId" class="form-label">Mã Sản phẩm:</label>
+										<input type="text" class="form-control" name="productId" id="productId"
+											aria-describedby="productId" th:field="*{productId.id}">
+
+									</div>
+
+									<div class="mb-3">
+										<label for="categoryId" class="form-label">Mã Thể Loại:</label>
+										<input type="text" class="form-control" name="categoryId" id="categoryId"
+											th:field="*{categoryId.id}">
+									</div>
+									<div class="m-n2">
+										<button type="submit" class="btn btn-primary m-2"
+											th:formaction="@{/admin/setcategories/save(pages=${currentPages})}">
+											<i class="fas fa-save"></i> Lưu</button>
+										<button type="submit" class="btn btn-danger m-2"
+											th:formaction="@{/admin/setcategories/delete(pages=${currentPages})}">
+											<i class="fas fa-trash-alt"></i> Xóa</button>
+										<button type="submit" class="btn btn-success m-2"
+											th:formaction="@{/admin/categories(page=${currentPages})}">
+											<i class="fas fa-sync-alt"></i> Làm mới</button>
+									</div>
+									
+								</form>
+
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+			</div>
+
+			<!-- Form End -->
+			<!-- Table Start -->
+			<div class="container-fluid pt-4 px-0">
+				<div class="row g-4">
+					<div class="col-12">
+						<div class="bg-light rounded h-100 p-4">
+							<h6 class="card-title mb-4 custom-title">Danh Sách Thể Loại</h6>
+							<form th:action="@{/admin/categories/search}" method="GET"
+								th:if="${not #lists.isEmpty(categories)}">
+								<div class="container-fluid pt-3 px-0">
+									<div class="row g-4 mb-3">
+										<div class="col-md-6">
+											<div class="form-group">
+												<label for="search">Tìm kiếm</label>
+												<input placeholder="Tên Thể Loại ..." class="form-control"
+													name="keyword" type="text" th:value="${keyword}" />
+											</div>
+										</div>
+
+										<div class="col-md-2">
+											<div class="form-group">
+												<label>&nbsp;</label>
+												<button type="submit" class="btn btn-outline-primary w-100"> <i class="fas fa-search"></i>Tìm
+													kiếm</button>
+											</div>
+										</div>
+										<div class="col-md-2">
+											<div class="form-group">
+												<label>&nbsp;</label>
+												<button type="" class="btn btn-outline-primary w-100"
+													th:formaction="@{/admin/categories(page=${currentPage})}">  <i class="fas fa-sync-alt"></i> Làm mới
+												</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</form>
+							<!-- Table End -->
+							<div class="table-responsive" th:if="${not #lists.isEmpty(categories)}">
+								<table class="table text-start align-middle table-bordered table-hover mb-0">
+									<thead>
+										<tr>
+											<th scope="col">#</th>
+											<th scope="col"> <a
+													th:href="@{/admin/categories/sort(field='id', direct=${sortDirection})}">
+													Mã Thể Loại
+												</a></th>
+											<th scope="col"> <a
+													th:href="@{/admin/categories/sort(field='categoryName', direct=${sortDirection})}">
+													Tên Thể Loại
+												</a></th>
+											<th scope="col">Action</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr th:each="cas,casIndex : ${categories}">
+											<td th:text="${casIndex.index +1}"></td>
+											<td th:text="${cas.id}"></td>
+											<td th:text="${cas.categoryName}"></td>
+
+											<td>
+												<a
+													th:href="@{/admin/categories/edit(id=${cas.id}, page=${currentPage})}">
+													<i class='bx bx-edit'></i>
+												</a>
+											</td>
+
+										</tr>
+
+									</tbody>
+								</table>
+
+							</div>
+							<!-- Table End -->
+							<div>
+								<div class="table-responsive" th:if="${not #lists.isEmpty(setCategories)}">
+									<table class="table text-start align-middle table-bordered table-hover mb-0">
+										<thead>
+											<tr>
+												<th>ID</th>
+												<th>Product</th>
+												<th>Category</th>
+												<th>Action</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr th:each="setCategory : ${setCategories}">
+												<td th:text="${setCategory.id}"></td>
+												<td th:text="${setCategory.productId.productName}"></td>
+												<td th:text="${setCategory.categoryId.categoryName}"></td>
+												<td>
+													<a
+														th:href="@{/admin/setcategories/edit(id=${setCategory.id}, pages=${currentPages})}"><i class='bx bx-edit'></i></a>
+
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+
+								<!-- Phân trang -->
+								<th:block th:if="${totalPages > 1}">
+									<div class="pagination justify-content-center mt-4">
+										<ul class="pagination">
+											<th:block th:if="${currentPages > 0}">
+												<li class="page-item">
+													<a class="page-link" th:href="@{/admin/setcategories?pages=0}"
+														><i
+														class='bx bx-chevrons-left'></i></a>
+												</li>
+												<li class="page-item">
+													<a class="page-link"
+														th:href="@{/admin/setcategories?pages=__${currentPages - 1}__}"
+													> <i class='bx bx-chevron-left'></i></a>
+												</li>
+											</th:block>
+											<th:block th:if="${currentPages >= 3}">
+												<li class="page-item">
+													<a class="page-link" th:href="@{/admin/setcategories?pages=0}"
+														th:text="'1'"></a>
+												</li>
+												<li class="page-item page-link" th:text="..."></li>
+											</th:block>
+											<th:block th:each="i: ${#numbers.sequence(startPages, endPages)}">
+												<li class="page-item" th:class="${i == currentPages ? 'active' : ''}">
+													<a class="page-link"
+														th:href="@{/admin/setcategories?pages=__${i}__}"
+														th:text="${i+1}"></a>
+												</li>
+											</th:block>
+											<th:block th:if="!${currentPages >= totalPages - 3}">
+												<li class="page-item page-link" th:text="..."></li>
+												<li class="page-item">
+													<a class="page-link"
+														th:href="@{/admin/setcategories?pages=__${totalPages-1}__}"
+														th:text="${totalPages}"></a>
+												</li>
+											</th:block>
+											<th:block th:if="${totalPages-2 >= currentPages }">
+												<li class="page-item">
+													<a class="page-link"
+														th:href="@{/admin/setcategories?pages=__${currentPages + 1}__}"
+														><i
+														class='bx bx-chevron-right'></i></a>
+												</li>
+												<li class="page-item">
+													<a class="page-link"
+														th:href="@{/admin/setcategories?pages=__${totalPages-1}__}"
+														> <i class='bx bx-chevrons-right'></i></a>
+												</li>
+											</th:block>
+										</ul>
+									</div>
+								</th:block>
+
+
+
+							</div>
+							<!-- Phân trang -->
+							<th:block th:if="${totalPage > 1}">
+								<div class="pagination justify-content-center mt-4">
+									<ul class="pagination">
+										<th:block th:if="${currentPage > 0}">
+											<li class="page-item">
+												<a class="page-link" th:href="@{/admin/categories?page=0}"
+													><i
+													class='bx bx-chevrons-left'></i></a>
+											</li>
+											<li class="page-item">
+												<a class="page-link"
+													th:href="@{/admin/categories?page=__${currentPage - 1}__}"
+													> <i class='bx bx-chevron-left'></i></a>
+											</li>
+										</th:block>
+										<th:block th:if="${currentPage >= 3}">
+											<li class="page-item">
+												<a class="page-link" th:href="@{/admin/categories?page=0}"
+													th:text="'1'"></a>
+											</li>
+											<li class="page-item page-link" th:text="..."></li>
+										</th:block>
+										<th:block th:each="i: ${#numbers.sequence(startPage, endPage)}">
+											<li class="page-item" th:class="${i == currentPage ? 'active' : ''}">
+												<a class="page-link" th:href="@{/admin/categories?page=__${i}__}"
+													th:text="${i+1}"></a>
+											</li>
+										</th:block>
+										<th:block th:if="!${currentPage >= totalPage - 3}">
+											<li class="page-item page-link" th:text="..."></li>
+											<li class="page-item">
+												<a class="page-link"
+													th:href="@{/admin/categories?page=__${totalPage-1}__}"
+													th:text="${totalPage}"></a>
+											</li>
+										</th:block>
+										<th:block th:if="${totalPage-2 >= currentPage }">
+											<li class="page-item">
+												<a class="page-link"
+													th:href="@{/admin/categories?page=__${currentPage + 1}__}"
+													><i
+													class='bx bx-chevron-right'></i></a>
+											</li>
+											<li class="page-item">
+												<a class="page-link"
+													th:href="@{/admin/categories?page=__${totalPage-1}__}"
+													> <i class='bx bx-chevrons-right'></i></a>
+											</li>
+										</th:block>
+									</ul>
+								</div>
+							</th:block>
+
+
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Table End -->
+
+</th:block>
+
+<!-- Back to Top -->
+<a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+
+</html>

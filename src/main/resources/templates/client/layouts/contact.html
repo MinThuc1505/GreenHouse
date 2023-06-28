@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<!-- CONTENT PAGE START-->
+<th:block th:fragment="content">
+
+	<section class="page-header">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="content">
+						<h1 class="page-name">Liên hệ</h1>
+						<ol class="breadcrumb">
+							<li><a href="/client/index">Trang chủ</a></li>
+							<li class="active">Liên hệ</li>
+						</ol>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section class="bg">
+		<div class="container">
+			<div class="row">
+				<div class="bg1 col-md-6">
+
+				</div>
+				<div class="bg2 col-md-6">
+
+					<h3>Bạn cần hỗ trợ gì?</h3>
+					<p>Sự lựa chọn của bạn là sự ưu tiên hàng đầu và quan trọng nhất của chúng tôi</p>
+					<form class="form1">
+						<div class="form-group">
+							<label for="name">Họ và tên:</label>
+							<input type="text" class="form-control" id="name" placeholder="Nhập họ và tên">
+						</div>
+						<div class="form-group">
+							<label for="email">Email:</label>
+							<input type="email" class="form-control" id="email" placeholder="Nhập địa chỉ email">
+						</div>
+						<div class="form-group">
+							<label for="description">Tin nhắn:</label>
+							<textarea class="form-control" id="description" rows="5"
+								placeholder="Đừng ngại hỏi về đơn hàng của bạn"></textarea>
+						</div>
+						<button type="submit" class="btn btn-primarybtn btn-main btn-medium btn-round">Gửi</button>
+					</form>
+
+				</div>
+			</div>
+		</div>
+
+	</section>
+</th:block>
+<!-- CONTENT PAGE END-->
+
+
+
+</html>

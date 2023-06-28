@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<!-- Content Start -->
+<th:block th:fragment="content">
+	<!-- Form Start -->
+	<div class="container-fluid pt-4 px-0">
+		<div class="bg-light rounded h-100 p-4">
+			<h6 class="mb-4">Giảm Giá</h6>
+			<div th:if="${successMessage}" class="alert alert-success" th:text="${successMessage}">
+			</div>
+			<div class="row">
+				<div class="col-lg-8 m-auto">
+					<form method="POST" th:object="${discountEdit}">
+						<input type="hidden" name="id" th:field="*{id}">
+						<div class="mb-3">
+							<label for="discount-code" class="form-label">Mã Giảm:</label>
+							<input type="text" name="discountCode" class="form-control" id="discount-code"
+								th:field="*{discountCode}">
+							<small class="text-danger" th:if="${#fields.hasErrors('discountCode')}"
+								th:errors="*{discountCode}"></small>
+						</div>
+						<div class="mb-3">
+							<label for="discount-percent" class="form-label">Phần trăm giảm:</label>
+							<div class="input-group mb-3">
+								<input value="" type="number" name="discountPercent" class="form-control"
+									th:field="*{discountPercent}">
+								<span class="input-group-text">%</span>
+							</div>
+							<small class="text-danger" th:if="${#fields.hasErrors('discountPercent')}"
+								th:errors="*{discountPercent}"></small>
+						</div>
+						<div class="mb-3">
+							<label for="quantity" class="form-label">Số Lượng:</label>
+							<input type="number" name="quantity" class="form-control" th:field="*{quantity}" />
+							<small class="text-danger" th:if="${#fields.hasErrors('quantity')}"
+								th:errors="*{quantity}"></small>
+
+						</div>
+
+						<div class="mb-3">
+							<label for="start-date" class="form-label">Ngày bắt đầu hiệu lực:</label>
+							<input type="text" name="startDate" class="form-control" id="start-date"
+								th:field="*{startDate}" th:value="${#dates.format(startDate, 'dd/MM/yyyy')}" />
+							<small class="text-danger" th:if="${#fields.hasErrors('startDate')}"
+								th:errors="*{startDate}"></small>
+						</div>
+						<div class="mb-3">
+							<label for="end-date" class="form-label">Ngày kết thúc hiệu lực:</label>
+							<input type="text" name="endDate" class="form-control" id="end-date" th:field="*{endDate}"
+								th:value="${#dates.format(endDate, 'dd/MM/yyyy')}">
+							<small class="text-danger" th:if="${#fields.hasErrors('endDate')}"
+								th:errors="*{endDate}"></small>
+						</div>
+
+						<div class="m-n2">
+							<button type="submit" th:formaction="@{/admin/discount/create}"
+								class="btn btn-outline-success m-2">Thêm</button>
+							<button type="submit" th:formaction="@{/admin/discount/update}"
+								class="btn btn-outline-primary m-2">Cập nhật</button>
+							<button type="submit" th:formaction="@{/admin/discount}"
+								class="btn btn-outline-secondary m-2">Làm mới</button>
+							<button type="submit" th:formaction="@{/admin/discount/delete}"
+								class="btn btn-outline-danger m-2">Xóa</button>
+
+
+						</div>
+					</form>
+
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Form End -->
+	<!-- Table Start -->
+	<div class="container-fluid pt-4 px-0">
+		<div class="row g-4">
+			<div class="col-12">
+				<div class="bg-light rounded h-100 p-4">
+					<h6 class="mb-4">Danh Sách Giảm Giá</h6>
+					<div class="search-box pb-4">
+						<form action="">
+							<div class="input-wrapper">
+								<button class="icon" type="submit">
+									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="25"
+										height="25">
+										<path
+											d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8
+											 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z" />
+									</svg>
+								</button>
+								<input placeholder="Tìm kiếm ..." class="input" name="text" type="text">
+							</div>
+						</form>
+					</div>
+					<div class="table-responsive">
+						<table class="table text-start align-middle table-bordered table-hover mb-0"
+							id="discount-table">
+							<thead>
+								<tr>
+
+									<th scope="col">ID</th>
+									<th scope="col">Mã
+										giảm</th>
+									<th scope="col">Phần
+										trăm giảm</th>
+									<th scope="col">Số
+										lượng</th>
+									<th scope="col">Ngày bắt
+										đầu hiệu lực</th>
+									<th scope="col">Ngày kết
+										thúc hiệu lực</th>
+									<th scope="col"></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="discount, index : ${discounts}">
+									<td th:text="${discount.id}"></td>
+									<td th:text="${discount.discountCode}"></td>
+									<td th:text="${discount.discountPercent + '%'}"></td>
+									<td th:text="${discount.quantity}"></td>
+									<td th:text="${#dates.format(discount.startDate, 'dd/MM/yyyy')}"></td>
+									<td th:text="${#dates.format(discount.endDate, 'dd/MM/yyyy')}"></td>
+
+									<td>
+										<a href="#" th:href="@{/admin/discount/edit(id=${discount.id})}"><i
+												class="fa fa-edit"></i></a>
+
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<!-- Phân trang -->
+					<th:block th:if="${totalPages > 1}">
+						<div class="pagination justify-content-center mt-4">
+							<ul class="pagination">
+								<th:block th:if="${currentPage > 0}">
+									<li class="page-item">
+										<a class="page-link" th:href="@{/admin/discount/page?p=0}"><i
+												class='bx bx-chevrons-left'></i></a>
+									</li>
+									<li class="page-item">
+										<a class="page-link"
+											th:href="@{/admin/discount/page?p=__${currentPage - 1}__}"><i
+												class='bx bx-chevron-left'></i></a>
+									</li>
+								</th:block>
+								<th:block th:if="${currentPage >= 3}">
+									<li class="page-item">
+										<a class="page-link" th:href="@{/admin/discount/page?p=0}" th:text="'1'"></a>
+									</li>
+									<li class="page-item page-link" th:text="..."></li>
+								</th:block>
+								<th:block th:each="i: ${#numbers.sequence(startPage, endPage)}">
+									<li class="page-item" th:class="${i == currentPage ? 'active' : ''}">
+										<a class="page-link" th:href="@{/admin/discount/page?p=__${i}__}"
+											th:text="${i+1}"></a>
+									</li>
+								</th:block>
+								<th:block th:if="!${currentPage >= totalPages - 3}">
+									<li class="page-item page-link" th:text="..."></li>
+									<li class="page-item">
+										<a class="page-link" th:href="@{/admin/discount/page?p=__${totalPages-1}__}"
+											th:text="${totalPages}"></a>
+									</li>
+								</th:block>
+								<th:block th:if="${totalPages-2 >= currentPage }">
+									<li class="page-item">
+										<a class="page-link" th:href="@{/admin/discount/page?p=__${currentPage + 1}__}"
+											><i class='bx bx-chevron-right'></i></a>
+									</li>
+									<li class="page-item">
+										<a class="page-link" th:href="@{/admin/discount/page?p=__${totalPages-1}__}"
+											><i class='bx bx-chevrons-right'></i></a>
+									</li>
+								</th:block>
+							</ul>
+						</div>
+					</th:block>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Table End -->
+</th:block>
+<!-- Content End -->
+<!-- Back to Top -->
+<a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+
+</html>

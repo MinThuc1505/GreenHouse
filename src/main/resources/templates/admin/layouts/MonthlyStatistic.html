@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+	<title>Statistic</title>
+
+</head>
+
+<body>
+
+	<!-- Content Start -->
+	<th:block th:fragment="content">
+		<!-- Sale & Revenue Start -->
+		<div class="container-fluid pt-4 px-0">
+			<div class="row g-4">
+				<div class="col-lg-6">
+					<div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+						<i class="fa fa-chart-line fa-3x text-primary"></i>
+						<div class="ms-3">
+							<p class="mb-2">Doanh thu </p>
+							<h6 class="mb-0"> <span class="bage" th:text="${ formattedTotalRevenue}"></span></h6>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-6">
+					<div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+						<i class="fa fa-chart-bar fa-3x text-primary"></i>
+						<div class="ms-3">
+							<p class="mb-2">Tổng số sản phẩm </p>
+							<h6 class="mb-0" th:text="${productCount + ' SP'}"></h6>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Sale & Revenue End -->
+		<!-- Chart Start -->
+		<div class="container-fluid pt-4 px-0">
+			<div class="row g-4">
+				<div class="col-sm-12 col-xl-12">
+					<div class="bg-light rounded h-100 p-4">
+						<h6 class="mb-4">Biểu đồ doanh thu năm</h6>
+						<canvas id="myChart"></canvas>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script th:inline="javascript">
+
+			/*<![CDATA[*/
+			var data = /*[[${data}]]*/ null;
+			var years = [];
+			var revenues = [];
+			for (var i = 0; i < data.length; i++) {
+				years.push(data[i][0]);
+				revenues.push(data[i][1]);
+			}
+
+			var ctx = document.getElementById('myChart').getContext('2d');
+			var chart = new Chart(ctx, {
+				type: 'bar',
+				data: {
+					labels: years,
+					datasets: [{
+						label: 'Doanh thu theo năm',
+						data: revenues,
+						backgroundColor: 'rgba(51,204,255,.7)',
+						borderColor: '#009CFF',
+						borderWidth: 1
+					}]
+				},
+				options: {
+					scales: {
+						y: {
+							beginAtZero: true
+						}
+					}
+				}
+			});
+			/*]]>*/
+		</script>
+		<!-- Chart End -->
+		<!-- Table Start -->
+		<div class="container-fluid pt-4 px-0">
+			<div class="row g-4">
+				<div class="col-12">
+					<div class="bg-light rounded h-100 p-4">
+						<h6 class="mb-4">Thống Kê Doanh Thu Theo Thời Gian</h6>
+
+						<div class="row">
+							<div class="mb-5">
+								<form id="myForm" th:action="@{/admin/monthlyStatistic}" th:method="get">
+									<div class="row">
+										<div class="col">
+											<label for="startDate" class="form-label">Chọn Thời Gian Bắt Đầu:</label>
+											<input type="date" id="startDate" name="startDate" class="form-control"
+												pattern="yyyy-MM-dd" th:value="${param.startDate}">
+
+
+											<!-- <input type="date" id="startDate" name="startDate" class="form-control"> -->
+										</div>
+										<div class="col">
+											<label for="endDate" class="form-label">Chọn Thời Gian Kết Thúc:</label>
+											<input type="date" id="endDate" name="endDate" class="form-control"
+												pattern="yyyy-MM-dd" th:value="${param.endDate}">
+										</div>
+										<div class="col" style="margin-top: 30px;">
+											<button type="submit" class="btn btn-primary">Xem</button>
+										</div>
+									</div>
+								</form>
+
+								<div class="data_table table-responsive mt-5">
+									<table id="example1"
+										class="table text-start align-middle table-bordered table-hover mb-0">
+										<thead>
+											<tr>
+												<th>#</th>
+												<th>Ngày Giao Dịch</th>
+												<th>Sản Phẩm</th>
+												<th>Tổng Số Lượng Bán</th>
+												<th>Giá Bán</th>
+												<th>Tổng Tiền</th>
+											</tr>
+										</thead>
+										<tbody id="product-table-body1">
+											<tr th:each="item, itemIndex : ${page}">
+												<td th:text="${itemIndex.index + 1}"></td>
+												<td th:text="${item[0]}"></td>
+												<td th:text="${item[1]}"></td>
+												<td th:text="${item[2]}"></td>
+												<td th:text="${#numbers.formatDecimal(item[3], 0, 'COMMA', 0, 'POINT')}"></td>
+												<td th:text="${#numbers.formatDecimal(item[4], 0, 'COMMA', 0, 'POINT')}"></td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+								
+							</div>
+
+
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Table End -->
+
+
+	</th:block>
+	<!-- Content End -->
+	<!-- Back to Top -->
+	<a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+
+
+</body>
+
+
+</html>

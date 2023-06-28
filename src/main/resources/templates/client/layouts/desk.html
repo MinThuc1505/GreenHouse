@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<th:block th:fragment="content">
+  <section class="room">
+    <header class="desk">
+      <div class="container">
+        <div class="page-title-inner flex-row  medium-flex-wrap container">
+          <h1 class="entry-title mb-0">Bàn làm việc</h1>
+          <div class="is-small">
+            <nav><a href="\client\index">Trang chủ</a> <span class="divider">&#47;</span> <a
+                href="\client\livingRoom">Phòng làm việc</a> <span class="divider">&#47;</span>Bàn làm việc</nav>
+          </div>
+
+        </div>
+    </header>
+  </section>
+  <!-- Shop Start -->
+	<section class="filter-products mt-3">
+		<div class="container">
+			<div class="row">
+				<form method="post" action="#">
+					<div class="type-filter">
+						<span class="title-filter">Giá</span>
+						<select id="price" class="form-select">
+							<option value="">Chọn giá</option>
+							<option value="1000000">Dưới 1.000.000</option>
+							<option value="5000000">Dưới 5.000.000</option>
+							<option value="10000000">Dưới 10.000.000</option>
+						</select>
+					</div>
+					<div class="type-filter">
+						<span class="title-filter">Loại sản phẩm</span>
+						<select id="category" class="form-select">
+							<option value="">Chọn loại sản phẩm</option>
+							<option value="sofa">Sofa</option>
+							<option value="giuong">Giường</option>
+							<option value="ban">Bàn</option>
+						</select>
+					</div>
+					<div class="type-filter">
+						<span class="title-filter">Phòng</span>
+						<select id="room" class="form-select">
+							<option value="">Chọn phòng sử dụng</option>
+							<option value="phongkhach">Phòng khách</option>
+							<option value="phongngu">Phòng ngủ</option>
+							<option value="phongbep">Phòng bếp</option>
+						</select>
+					</div>
+					<div class="submit-filter">
+						<button type="submit" class="fancy">
+							<span class="top-key"></span>
+							<span class="text">Áp dụng</span>
+							<span class="bottom-key-1"></span>
+							<span class="bottom-key-2"></span>
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</section>
+
+	<section class="products section">
+		<div class="container">
+			<div class="row">
+        <div class="col-md-3">
+					<div class="product-item">
+						<div class="product-thumb">
+							<img class="img-responsive"
+								src="https://nhaxinh.com/wp-content/uploads/2021/10/giuong_iris_1m6_stone3-300x200.jpg"
+								alt="product-img" />
+							<div class="preview-meta">
+								<ul>
+									<li>
+										<span data-toggle="modal" data-target="#product-modal">
+											<i class="tf-ion-ios-search-strong"></i>
+										</span>
+									</li>
+
+									<li>
+										<a href="#!"><i class="tf-ion-android-cart"></i></a>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<div class="product-content">
+							<h4><a href="product-details">Giường Hộc Kéo Iris 1M6 Vải Belfast 41
+								</a></h4>
+							<p class="price">14,900,001<span> VNĐ</span></p>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div class="product-item">
+						<div class="product-thumb">
+							<img class="img-responsive"
+								src="https://nhaxinh.com/wp-content/uploads/2022/05/ban-console-glenn-84888k-3105577-600x400.jpg"
+								alt="product-img" />
+							<div class="preview-meta">
+								<ul>
+									<li>
+										<span data-toggle="modal" data-target="#product-modal">
+											<i class="tf-ion-ios-search-strong"></i>
+										</span>
+									</li>
+									<li>
+										<a href="#!"><i class="tf-ion-android-cart"></i></a>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<div class="product-content">
+              <h4><a href="product-details">Bàn ăn Peak hiện đại mặt Ceramic vân mây
+              </a></h4>
+							<p class="price">29,200,001<span> VNĐ</span></p>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div class="product-item">
+						<div class="product-thumb">
+							<img class="img-responsive"
+								src="https://nhaxinh.com/wp-content/uploads/2022/12/GHE-LAM-VIEC-LABORA-LIGHT-BROWN-85723K-600x387.jpg"
+								alt="product-img" />
+							<div class="preview-meta">
+								<ul>
+									<li>
+										<span data-toggle="modal" data-target="#product-modal">
+											<i class="tf-ion-ios-search-strong"></i>
+										</span>
+									</li>
+
+									<li>
+										<a href="#!"><i class="tf-ion-android-cart"></i></a>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<div class="product-content">
+							<h4><a href="product-details">Bàn ăn Peak hiện đại mặt Ceramic vân mây
+              </a></h4>
+							<p class="price">11,200,000<span> VNĐ</span></p>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div class="product-item">
+						<div class="product-thumb">
+							<img class="img-responsive"
+								src="https://nhaxinh.com/wp-content/uploads/2022/06/ban-an-peak-van-may-hien-dai-ceramic-600x400.jpg"
+								alt="product-img" />
+							<div class="preview-meta">
+								<ul>
+									<li>
+										<span data-toggle="modal" data-target="#product-modal">
+											<i class="tf-ion-ios-search-strong"></i>
+										</span>
+									</li>
+
+									<li>
+										<a href="#!"><i class="tf-ion-android-cart"></i></a>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<div class="product-content">
+							<h4><a href="product-details">Bàn ăn Peak hiện đại mặt Ceramic vân mây
+              </a></h4>
+							<p class="price">45,800,000<span> VNĐ</span></p>
+						</div>
+					</div>
+				</div>
+        <div class="col-md-3">
+					<div class="product-item">
+						<div class="product-thumb">
+							<img class="img-responsive"
+								src="https://nhaxinh.com/wp-content/uploads/2022/06/ban-an-peak-van-may-hien-dai-ceramic-600x400.jpg"
+								alt="product-img" />
+							<div class="preview-meta">
+								<ul>
+									<li>
+										<span data-toggle="modal" data-target="#product-modal">
+											<i class="tf-ion-ios-search-strong"></i>
+										</span>
+									</li>
+
+									<li>
+										<a href="#!"><i class="tf-ion-android-cart"></i></a>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<div class="product-content">
+							<h4><a href="product-details">Bàn ăn Peak hiện đại mặt Ceramic vân mây
+              </a></h4>
+							<p class="price">45,800,000<span> VNĐ</span></p>
+						</div>
+					</div>
+				</div>
+        <div class="col-md-3">
+					<div class="product-item">
+						<div class="product-thumb">
+							<img class="img-responsive"
+								src="https://nhaxinh.com/wp-content/uploads/2022/06/ban-an-peak-van-may-hien-dai-ceramic-600x400.jpg"
+								alt="product-img" />
+							<div class="preview-meta">
+								<ul>
+									<li>
+										<span data-toggle="modal" data-target="#product-modal">
+											<i class="tf-ion-ios-search-strong"></i>
+										</span>
+									</li>
+
+									<li>
+										<a href="#!"><i class="tf-ion-android-cart"></i></a>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<div class="product-content">
+							<h4><a href="product-details">Bàn ăn Peak hiện đại mặt Ceramic vân mây
+              </a></h4>
+							<p class="price">45,800,000<span> VNĐ</span></p>
+						</div>
+					</div>
+				</div>
+        <div class="col-md-3">
+					<div class="product-item">
+						<div class="product-thumb">
+							<img class="img-responsive"
+								src="https://nhaxinh.com/wp-content/uploads/2022/06/ban-an-peak-van-may-hien-dai-ceramic-600x400.jpg"
+								alt="product-img" />
+							<div class="preview-meta">
+								<ul>
+									<li>
+										<span data-toggle="modal" data-target="#product-modal">
+											<i class="tf-ion-ios-search-strong"></i>
+										</span>
+									</li>
+
+									<li>
+										<a href="#!"><i class="tf-ion-android-cart"></i></a>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<div class="product-content">
+							<h4><a href="product-details">Bàn ăn Peak hiện đại mặt Ceramic vân mây
+              </a></h4>
+							<p class="price">45,800,000<span> VNĐ</span></p>
+						</div>
+					</div>
+				</div>
+        <div class="col-md-3">
+					<div class="product-item">
+						<div class="product-thumb">
+							<img class="img-responsive"
+								src="https://nhaxinh.com/wp-content/uploads/2022/06/ban-an-peak-van-may-hien-dai-ceramic-600x400.jpg"
+								alt="product-img" />
+							<div class="preview-meta">
+								<ul>
+									<li>
+										<span data-toggle="modal" data-target="#product-modal">
+											<i class="tf-ion-ios-search-strong"></i>
+										</span>
+									</li>
+
+									<li>
+										<a href="#!"><i class="tf-ion-android-cart"></i></a>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<div class="product-content">
+							<h4><a href="product-details">Bàn ăn Peak hiện đại mặt Ceramic vân mây
+              </a></h4>
+							<p class="price">45,800,000<span> VNĐ</span></p>
+						</div>
+					</div>
+				</div>
+        <div class="col-md-3">
+					<div class="product-item">
+						<div class="product-thumb">
+							<img class="img-responsive"
+								src="https://nhaxinh.com/wp-content/uploads/2022/06/ban-an-peak-van-may-hien-dai-ceramic-600x400.jpg"
+								alt="product-img" />
+							<div class="preview-meta">
+								<ul>
+									<li>
+										<span data-toggle="modal" data-target="#product-modal">
+											<i class="tf-ion-ios-search-strong"></i>
+										</span>
+									</li>
+
+									<li>
+										<a href="#!"><i class="tf-ion-android-cart"></i></a>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<div class="product-content">
+							<h4><a href="product-details">Bàn ăn Peak hiện đại mặt Ceramic vân mây
+              </a></h4>
+							<p class="price">45,800,000<span> VNĐ</span></p>
+						</div>
+					</div>
+				</div>
+        <div class="col-md-3">
+					<div class="product-item">
+						<div class="product-thumb">
+							<img class="img-responsive"
+								src="https://nhaxinh.com/wp-content/uploads/2022/06/ban-an-peak-van-may-hien-dai-ceramic-600x400.jpg"
+								alt="product-img" />
+							<div class="preview-meta">
+								<ul>
+									<li>
+										<span data-toggle="modal" data-target="#product-modal">
+											<i class="tf-ion-ios-search-strong"></i>
+										</span>
+									</li>
+
+									<li>
+										<a href="#!"><i class="tf-ion-android-cart"></i></a>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<div class="product-content">
+							<h4><a href="product-details">Bàn ăn Peak hiện đại mặt Ceramic vân mây
+              </a></h4>
+							<p class="price">45,800,000<span> VNĐ</span></p>
+						</div>
+					</div>
+				</div>
+        <div class="col-md-3">
+					<div class="product-item">
+						<div class="product-thumb">
+							<img class="img-responsive"
+								src="https://nhaxinh.com/wp-content/uploads/2022/06/ban-an-peak-van-may-hien-dai-ceramic-600x400.jpg"
+								alt="product-img" />
+							<div class="preview-meta">
+								<ul>
+									<li>
+										<span data-toggle="modal" data-target="#product-modal">
+											<i class="tf-ion-ios-search-strong"></i>
+										</span>
+									</li>
+
+									<li>
+										<a href="#!"><i class="tf-ion-android-cart"></i></a>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<div class="product-content">
+							<h4><a href="product-details">Bàn ăn Peak hiện đại mặt Ceramic vân mây
+              </a></h4>
+							<p class="price">45,800,000<span> VNĐ</span></p>
+						</div>
+					</div>
+				</div>
+
+				<!-- Modal -->
+				<div class="modal product-modal fade" id="product-modal">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<i class="tf-ion-close"></i>
+					</button>
+					<div class="modal-dialog " role="document">
+						<div class="modal-content">
+							<div class="modal-body">
+								<div class="row">
+									<div class="col-md-8 col-sm-6 col-xs-12">
+										<div class="modal-image">
+											<img class="img-responsive" src="https://nhaxinh.com/wp-content/uploads/2022/06/ban-an-peak-van-may-hien-dai-ceramic-600x400.jpg"
+												alt="product-img" />
+										</div>
+									</div>
+									<div class="col-md-4 col-sm-6 col-xs-12">
+										<div class="product-short-details">
+											<h2 class="product-title">Bàn ăn Peak hiện đại mặt Ceramic vân mây</h2>
+											<p class="product-price">45,800,000<span> VNĐ</span></p>
+											<p class="product-short-description">
+												Bàn ăn Peak hiện đại với bề mặt Ceramic được nhập khẩu từ Ý. Mặt Ceramic
+												với khả năng chịu nhiệt tốt cùng họa tiết vân mây tinh xảo tạo cảm giác
+												vừa vững chắc, vừa uyển chuyển. Chân bàn được thiết kế theo hình tam
+												giác với các góc cạnh bo tròn hiện đại cùng những đường nét uốn lượn mềm
+												mại. Bàn ăn Peak với tông màu trắng trang nhã mang lại một không gian
+												sang trọng và đẳng cấp.
+											</p>
+											<a href="cart" class="btn btn-main">Thêm vào giỏ hàng</a>
+											<a href="product-details" class="btn btn-transparent">Xem thông tin chi tiết</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div><!-- /.modal -->
+
+			</div>
+		</div>
+	</section>
+	<!-- Shop End -->
+
+  <section class="banner">
+
+    <img src="https://nhaxinh.com/wp-content/uploads/2023/02/cua-hang-360-do-nha-xinh.jpg" alt=""
+      class="background-image" />
+    <div id="text-box-430012277" class="text-center1">
+      <div class="text-box-content text dark">
+        <div class="text-inner">
+          <div id="text-1246727486" class="text">
+            <h2 class="uppercase"><strong>CỬA HÀNG 360 ĐỘ</strong></h2>
+            <p>
+              Trải nghiệm ngay sản phẩm của GreenHouse một cách chân thực trên
+              tay bạn. Tham quan, xem thông tin sản phẩm chi tiết với góc nhìn
+              360 độ hoàn chỉnh.
+            </p>
+          </div>
+          <a href="" target="self" class="button white">
+            <span>Xem Chi Tiết</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+</th:block>
+</html>

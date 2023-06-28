@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<!-- Content Start -->
+<th:block th:fragment="content">
+    <!-- Form Start -->
+    <div class="container pt-4">
+        <div class="card p-4">
+            <h6 class="card-title mb-4 custom-title">Sản Phẩm</h6>
+
+            <div th:if="${successMessage}" class="alert alert-success">
+                <div class="d-flex align-items-center">
+                    <i class="bi bi-check-circle-fill me-2"></i>
+                    <p th:text="${successMessage}"></p>
+                </div>
+            </div>
+            <div th:if="${errorMessage}" class="alert alert-danger">
+                <div class="d-flex align-items-center">
+                    <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                    <p th:text="${errorMessage}"></p>
+                </div>
+            </div>
+            <div th:if="${noResultsMessage}" class="alert alert-info">
+                <p th:text="${noResultsMessage}"></p>
+            </div>
+            
+            
+            <form th:method="post" id="productForm" th:object="${product}" enctype="multipart/form-data">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="mb-3">
+                            <label for="id" class="form-label">Mã Sản Phẩm:</label>
+                            <input type="text" class="form-control" name="id" id="id" aria-describedby="id"
+                                th:field="*{id}">
+                            <small class="text-danger" th:if="${#fields.hasErrors('id')}" th:errors="*{id}"></small>
+                            
+                        </div>
+                        <div class="mb-3">
+                            <label for="productName" class="form-label">Tên Sản Phẩm:</label>
+                            <input type="text" class="form-control" name="productName" id="productName"
+                                th:field="*{productName}">
+                            <small class="text-danger" th:if="${#fields.hasErrors('productName')}"
+                                th:errors="*{productName}"></small>
+                        </div>
+                        <div class="mb-3">
+                            <label for="price" class="form-label">Giá Sản Phẩm:</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control" name="price" th:field="*{price}">
+                                <span class="input-group-text">.00</span>
+                            </div>
+                            <small class="text-danger" th:if="${#fields.hasErrors('price')}"
+                                th:errors="*{price}"></small>
+                        </div>
+                        <div class="mb-3">
+                            <label for="inStock" class="form-label">Số Lượng (Trong Kho):</label>
+                            <input type="number" class="form-control" name="inStock" id="inStock" th:field="*{inStock}">
+                            <small class="text-danger" th:if="${#fields.hasErrors('inStock')}"
+                                th:errors="*{inStock}"></small>
+                        </div>
+                        <div class="mb-3">
+                            <label for="description" class="form-label">Mô Tả:</label>
+                            <textarea class="form-control" placeholder="...." id="description" name="description"
+                                style="height: 150px;" th:field="*{description}"></textarea>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="mb-3">
+                            <div class="image-container" id="image-container">
+                                <img th:src="${imageSrc}" alt="" />
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="tempImages" class="form-label">Chọn Hình:</label>
+                            <input class="form-control" type="file" name="tempImages" onchange="displayImage(event)"
+                                th:value="tempImages">
+                        </div>
+                        <div class="text-end mt-3">
+                            <button type="submit" class="btn btn-primary"
+                                onclick="showConfirmation('Bạn có chắc chắn muốn thêm sản phẩm?', event, this.form, '/admin/products/save?page=0')">
+                                <i class="fas fa-plus"></i> Thêm
+                            </button>
+                            <button type="submit" class="btn btn-secondary" 
+                                onclick="showConfirmation('Bạn có chắc chắn muốn sửa sản phẩm?', event, this.form, '/admin/products/update?page=0')">
+                                <i class="fas fa-edit"></i> Sửa
+                            </button>
+                            <button type="submit" class="btn btn-success" 
+                                th:formaction="@{/admin/products(page=${currentPage})}">
+                                <i class="fas fa-sync-alt"></i> Làm mới
+                            </button>
+                            <button type="submit" class="btn btn-danger" 
+                                onclick="showConfirmation('Bạn có chắc chắn muốn xóa sản phẩm?', event, this.form, '/admin/products/delete?page=0')">
+                                <i class="fas fa-trash-alt"></i> Xóa
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+
+    <!-- Form End -->
+    <!-- Table Start -->
+    <div class="container-fluid pt-4 px-0">
+        <div class="row g-4">
+            <div class="col-12">
+                <div class="bg-light rounded h-100 p-4">
+                    <h6 class="card-title mb-4 custom-title">Danh Sách Sản Phẩm</h6>
+                    <form th:action="@{/admin/products/search(page=${currentPage})}" method="GET">
+                        <div class="container-fluid pt-3 px-0">
+                            <div class="row g-4 mb-3">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="search">Tìm kiếm</label>
+                                        <input placeholder="Tên Sản Phẩm, giá ..." class="form-control" name="keyword"
+                                            type="text" th:value="${searchKeyword}" />
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label>&nbsp;</label>
+                                        <button type="submit" class="btn btn-outline-primary w-100">  <i class="fas fa-search"></i> Tìm kiếm</button>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label>&nbsp;</label>
+                                        <button type="" class="btn btn-outline-primary w-100"
+                                            th:formaction="@{/admin/products(page=${currentPage})}"> <i class="fas fa-sync-alt"></i> Làm mới</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="table-responsive">
+                        <table id="sortTable"
+                            class="table text-start table-striped align-middle table-bordered table-hover mb-0">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">
+                                        <a th:href="@{/admin/products/sort(field='id', direct=${sortDirection})}">Mã Sản
+                                            Phẩm</a>
+                                    </th>
+                                    <th scope="col">
+                                        <a
+                                            th:href="@{/admin/products/sort(field='productName', direct=${sortDirection})}">Tên
+                                            Sản Phẩm</a>
+                                    </th>
+                                    <th scope="col">
+                                        <a th:href="@{/admin/products/sort(field='price', direct=${sortDirection})}">Giá
+                                            Sản Phẩm</a>
+                                    </th>
+                                    <th scope="col">
+                                        <a th:href="@{/admin/products/sort(field='inStock', direct=${sortDirection})}">Số
+                                            lượng</a>
+                                    </th>
+                                    <th scope="col">
+                                        <a
+                                            th:href="@{/admin/products/sort(field='description', direct=${sortDirection})}">Mô
+                                            Tả</a>
+                                    </th>
+                                    <th scope="col">Image</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tableContainer" >
+                                <tr th:each="pro, proIndex : ${products}">
+                                    <td th:text="${proIndex.index + 1}"></td>
+                                    <td th:text="${pro.id}"></td>
+                                    <td th:text="${pro.productName}"></td>
+                                    <td th:text="${#numbers.formatDecimal(pro.price, 0, 'COMMA', 0, 'POINT')}"></td>
+                                    <td th:text="${pro.inStock}"></td>
+                                    <td th:text="${pro.description}"></td>
+                                    <td th:text="${pro.image}"></td>
+                                    <td>
+                                        <a id="editButton" th:href="@{/admin/products/edit(id=${pro.id}, page=${currentPage})}"  >
+                                        <i class='bx bx-edit' ></i>
+                                    </a>
+                                    
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- Phân trang -->
+                    <th:block th:if="${totalPages > 1}">
+                        <div class="pagination justify-content-center mt-4">
+                            <ul class="pagination" id="paginationContainer">
+                                <th:block th:if="${currentPage > 0}">
+                                    <li class="page-item">
+                                        <a class="page-link"
+                                            th:href="@{/admin/products(page=0, keyword=${searchKeyword})}">
+                                            <i class='bx bx-chevrons-left'></i>
+                                        </a>
+                                    </li>
+                                    <li class="page-item">
+                                        <a class="page-link"
+                                            th:href="@{/admin/products(page=${currentPage - 1}, keyword=${searchKeyword})}">
+                                            <i class='bx bx-chevron-left'></i>
+                                        </a>
+                                    </li>
+                                </th:block>
+                                <th:block th:if="${currentPage >= 3}">
+                                    <li class="page-item">
+                                        <a class="page-link"
+                                            th:href="@{/admin/products(page=0, keyword=${searchKeyword})}"
+                                            th:text="'1'"></a>
+                                    </li>
+                                    <li class="page-item page-link" th:text="..."></li>
+                                </th:block>
+                                <th:block th:each="i: ${#numbers.sequence(startPage, endPage)}">
+                                    <li class="page-item" th:class="${i == currentPage ? 'active' : ''}">
+                                        <a class="page-link"
+                                            th:href="@{/admin/products(page=${i}, keyword=${searchKeyword})}"
+                                            th:text="${i+1}"></a>
+                                    </li>
+                                </th:block>
+                                <th:block th:if="!${currentPage >= totalPages - 3}">
+                                    <li class="page-item page-link" th:text="..."></li>
+                                    <li class="page-item">
+                                        <a class="page-link"
+                                            th:href="@{/admin/products(page=${totalPages-1}, keyword=${searchKeyword})}"
+                                            th:text="${totalPages}"></a>
+                                    </li>
+                                </th:block>
+                                <th:block th:if="${totalPages-2 >= currentPage}">
+                                    <li class="page-item">
+                                        <a class="page-link"
+                                            th:href="@{/admin/products(page=${currentPage + 1}, keyword=${searchKeyword})}">
+                                            <i class='bx bx-chevron-right'></i>
+                                        </a>
+                                    </li>
+                                    <li class="page-item">
+                                        <a class="page-link"
+                                            th:href="@{/admin/products(page=${totalPages-1}, keyword=${searchKeyword})}">
+                                            <i class='bx bx-chevrons-right'></i>
+                                        </a>
+                                    </li>
+                                </th:block>
+                            </ul>
+                        </div>
+                    </th:block>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Table End -->
+
+</th:block>
+<!-- Content End -->
+<!-- Back to Top -->
+<a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+
+</html>

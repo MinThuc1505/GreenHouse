@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<!-- HEAD START -->
+<th:block th:replace="~{client/layouts/template.html :: head}"></th:block>
+<!-- HEAD END -->
+
+<body>
+  <div id="notification-container"></div>
+
+  <div class="notification" th:data-type="${typeMessage}" th:text="${message}"></div>
+
+
+  <!-- TOP HEADER BAR START -->
+  <th:block th:replace="~{client/layouts/template.html :: top-header-bar}"></th:block>
+  <!-- TOP HEADER BAR END -->
+
+  <!-- MAIN MENU START -->
+  <th:block th:replace="~{client/layouts/template.html :: main-menu}"></th:block>
+  <!-- MAIN MENU END -->
+
+  <!-- CONTENT PAGE Start -->
+  <th:block th:replace="~{${'client/layouts/' + template} :: ${fragment}}">
+  </th:block>
+  <!-- CONTENT PAGE End -->
+
+  <!-- FOOTER START -->
+  <th:block th:replace="~{client/layouts/template.html :: footer}"></th:block>
+  <!-- FOOTER END -->
+
+  <!-- SCRIPT START -->
+  <th:block th:replace="~{client/layouts/template.html :: script}"></th:block>
+  <!-- SCRIPT END -->
+</body>
+
+</html>

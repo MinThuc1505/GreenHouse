@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<!-- Content Start -->
+<th:block th:fragment="content">
+    <!-- Table DISCOUNT Start -->
+    <div class="container-fluid pt-4 px-0">
+        <div class="row g-4">
+            <div class="col-12">
+                <div class="bg-light rounded h-100 p-4">
+                    <h6 class="mb-3">Danh Sách Sản Phẩm Đang Giảm Giá</h6>
+                    <!-- DANH SACH SAN PHAM START-->
+                    <div class="table-responsive mt-3">
+                        <table class="table text-start align-middle table-bordered table-hover mb-0" id="product-table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">ID</th>
+                                    <th scope="col">Tên Sản Phẩm</th>
+                                    <th scope="col">Phần Trăm Giảm</th>
+                                    <th scope="col">Số lượng</th>
+                                    <th scope="col">Ngày bắt đầu</th>
+                                    <th scope="col">Ngày kết thúc</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="setDiscount : ${setDiscounts}">
+                                    <td th:text="${setDiscount[0]}"></td>
+                                    <td th:text="${setDiscount[1]}"></td>
+                                    <td th:text="${setDiscount[2]}"></td>
+                                    <td th:text="${setDiscount[3]}"></td>
+                                    <td th:text="${setDiscount[4]}"></td>
+                                    <td th:text="${setDiscount[5]}"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- DANH SACH SAN PHAM END-->
+                    <!-- <th:block th:if="${totalProductPages > 1}">
+                        <div class="pagination justify-content-center mt-4">
+                            <ul class="pagination">
+                                <th:block th:if="${currentProductPage > 0}">
+                                    <li class="page-item">
+                                        <a class="page-link" th:href="@{/admin/setDiscount/page?pageP=0}"
+                                            th:text="'First'"></a>
+                                    </li>
+                                    <li class="page-item">
+                                        <a class="page-link"
+                                            th:href="@{/admin/setDiscount/page?pageP=__${currentProductPage - 1}__}"
+                                            th:text="'Previous'"></a>
+                                    </li>
+                                </th:block>
+                                <th:block th:if="${currentProductPage >= 3}">
+                                    <li class="page-item">
+                                        <a class="page-link" th:href="@{/admin/setDiscount/page?pageP=0}"
+                                            th:text="'1'"></a>
+                                    </li>
+                                    <li class="page-item page-link" th:text="..."></li>
+                                </th:block>
+                                <th:block th:each="i: ${#numbers.sequence(startProductPage, endProductPage)}">
+                                    <li class="page-item" th:class="${i == currentProductPage ? 'active' : ''}">
+                                        <a class="page-link" th:href="@{/admin/setDiscount/page?pageP=__${i}__}"
+                                            th:text="${i+1}"></a>
+                                    </li>
+                                </th:block>
+                                <th:block th:if="!${currentProductPage >= totalProductPages - 3}">
+                                    <li class="page-item page-link" th:text="..."></li>
+                                    <li class="page-item">
+                                        <a class="page-link"
+                                            th:href="@{/admin/setDiscount/page?pageP=__${totalProductPages-1}__}"
+                                            th:text="${totalProductPages}"></a>
+                                    </li>
+                                </th:block>
+                                <th:block th:if="${totalProductPages-2 >= currentProductPage }">
+                                    <li class="page-item">
+                                        <a class="page-link"
+                                            th:href="@{/admin/setDiscount/page?pageP=__${currentProductPage + 1}__}"
+                                            th:text="'Next'"></a>
+                                    </li>
+                                    <li class="page-item">
+                                        <a class="page-link"
+                                            th:href="@{/setDiscount/page?pageP=__${totalProductPages-1}__}"
+                                            th:text="'Last'"></a>
+                                    </li>
+                                </th:block>
+                            </ul>
+                        </div>
+                    </th:block> -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Table SET DISCOUNT End -->
+</th:block>
+<!-- Content End -->
+<!-- Back to Top -->
+<a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+
+</html>

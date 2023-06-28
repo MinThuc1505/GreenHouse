@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<th:block th:fragment="content">
+	<section class="page-header">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="content">
+						<h1 class="page-name">Tài Khoản</h1>
+						<ol class="breadcrumb">
+							<li><a href="admin/index">Trang Chủ</a></li>
+							<li class="active">Tài Khoản</li>
+						</ol>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<div class="container">
+		<br>
+		<br>
+		<div class="row">
+			<form id="myForm" th:action="@{/client/profile}" th:object="${account}" th:method="post"  enctype="multipart/form-data">
+			<div class="col-lg-4">
+				<!-- <img src="images/hinh1.jpg" alt="Profile image" class="rounded-circle  w-100 h-100"> -->
+				<div class="row">
+					<div class="col position-relative">
+						<label for="profile-image-input" class="profile-image-label">
+							<img id="profile-image-preview" th:src="${'/images/'+account.image}" alt="Profile image">
+						</label>
+						<input type="file" id="profile-image-input" name="image1" class="form-control" th:value="${image1}"
+							accept="image/*" onchange="previewImage(this)" multiple style="width: 70%;">
+						<input type="hidden" th:field="*{image}">
+					</div>
+					
+					<div class="row mt-3">
+						<div class="col">
+							<h4 class="fw-bold" th:text="${account.username}"></h4>
+							<p th:text="${account.fullname}"></p>
+
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-8">
+				<div class="media-body">
+				
+						<input type="hidden" id="id" th:value="${account.id}" name="id">
+						<div class="form-group">
+							<label for="phone">Username:</label> <input type="text" id="username" class="form-control"
+								name="username" th:value="${account.username}" th:field="*{username}" />
+								<small class="text-danger" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></small>
+						</div>
+						<div class="form-group">
+							<label for="full-name">Full Name:</label> <input type="text"
+								id="fullname" class="form-control" name="fullname"
+								th:value="${account.fullname}" />
+								<small class="text-danger" th:if="${#fields.hasErrors('fullname')}" th:errors="*{fullname}"></small>
+
+						</div>
+						<div class="form-group">
+							 <input type="hidden" id="password"
+								class="form-control" name="password" th:value="${account.password}" />
+								<small class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></small>
+								
+
+						</div>
+						
+						<div class="form-group">
+							<label for="email">Email:</label> <input type="email" id="email"
+								class="form-control" name="email" th:value="${account.email}" required/>
+								<small class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></small>
+
+						</div>
+						<div class="form-group">
+							<label for="phone">Phone:</label> <input type="text" id="phone"
+								class="form-control" name="phone" th:value="${account.phone}"  />
+								<small class="text-danger" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></small> 
+
+						</div>
+						<div class="form-group">
+							<label for="country">Địa Chỉ:</label> <input type="text"
+								id="address" class="form-control" name="address"
+								th:value="${account.address}" />
+						</div>
+						<form action="@{/client/profile}" method="post"><button type="submit"
+								class="btn btn-default">Edit</button></form>
+					</div>
+			</form>
+			<hr>
+			<h3>Bảng Điều Khiển</h3>
+			<div class="dashboard-wrapper user-dashboard " style="margin-bottom: 50px;">
+				<div class="table-responsive">
+					<table class="table">
+						<thead>
+							<tr>
+								<th>Order ID</th>
+								<th>Date</th>
+								<th>Items</th>
+								<th>Total Price</th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="item: ${listBill}">
+								<td th:text="${item[0]}"></td>
+								<td th:text="${item[1]}"></td>
+								<td th:text="${item[2]}"></td>
+								<td th:text="${#numbers.formatDecimal(item[3], 0, 'COMMA', 0, 'POINT')}"></td>
+								<td><a href="#" class="btn btn-default">View</a></td>
+							</tr>
+
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+
+
+	</div>
+	</div>
+
+</th:block>
+
+
+</html>

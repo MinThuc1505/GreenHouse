@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+
+
+<!-- CONTENT PAGE START-->
+<th:block th:fragment="content">
+	<!-- Page Header Start -->
+
+	<section class="page-header">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="content">
+						<h1 class="page-name">Cart</h1>
+						<ol class="breadcrumb">
+							<li><a href="index">Home</a></li>
+							<li class="active">cart</li>
+						</ol>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- Page Header End -->
+
+	<!-- Cart Start -->
+	<div class="page-wrapper">
+		<div class="cart shopping">
+			<div class="container">
+				<div class="row">
+					<div class="block">
+						<div class="product-list">
+							<table class="table">
+								<thead>
+									<tr>
+										<th>
+											<input type="checkbox" id="checkAllId" th:onclick="checkAll()"
+												th:onchange="toggleDeleteButton()">
+										</th>
+										<th class="">Sản phẩm</th>
+										<th class="">Giá sản phẩm</th>
+										<th class="">Số lượng</th>
+										<th class="">Tổng cộng</th>
+										<th class="" id="delete-btn">
+											<button class="noselect" th:onclick="deleteCarts()">
+												<span class="text">Delete</span><span class="icon"><svg
+														xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+														viewBox="0 0 24 24">
+														<path
+															d="M24 20.188l-8.315-8.209 8.2-8.282-3.697-3.697-8.212 8.318-8.31-8.203-3.666 3.666 8.321 8.24-8.206 8.313 3.666 3.666 8.237-8.318 8.285 8.203z">
+														</path>
+													</svg>
+												</span>
+											</button>
+										</th>
+									</tr>
+								</thead>
+								<tbody id="cart-tableBody">
+									<tr class="" th:each="cart, iStat : ${carts}">
+										<td>
+											<input type="checkbox" th:value="${cart[0]}" th:onclick="check()"
+												th:onchange="toggleDeleteButton()">
+										</td>
+										<td class="">
+											<div class="product-info">
+												<img width="80" th:src="${'/images/'+cart[1]}" alt="" />
+												<p th:text="${cart[2]}"></p>
+											</div>
+										</td>
+										<td class=""
+											th:text="${#numbers.formatDecimal(cart[3], 0, 'COMMA', 0, 'POINT')} + ' VND'">
+										</td>
+										<td class=""><input type="number" class="qty" name="quantity" min="1"
+												th:value="${cart[4]}"
+												th:onchange="updateQuantity([[${cart}]],[[${iStat}]])"></td>
+										<td class="cart-totalPrice"
+											th:text="${#numbers.formatDecimal(cart[3] * cart[4], 0, 'COMMA', 0, 'POINT')}+ ' VND'">
+										</td>
+										<td class="" >
+
+										</td>
+									</tr>
+								</tbody>
+							</table>
+							<a class="Btn" id="payButton" th:onclick="pay()">
+								Pay
+								<svg class="svgIcon" viewBox="0 0 576 512">
+									<path
+										d="M512 80c8.8 0 16 7.2 16 16v32H48V96c0-8.8 7.2-16 16-16H512zm16 144V416c0 8.8-7.2 16-16 16H64c-8.8 0-16-7.2-16-16V224H528zM64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H512c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64zm56 304c-13.3 0-24 10.7-24 24s10.7 24 24 24h48c13.3 0 24-10.7 24-24s-10.7-24-24-24H120zm128 0c-13.3 0-24 10.7-24 24s10.7 24 24 24H360c13.3 0 24-10.7 24-24s-10.7-24-24-24H248z">
+									</path>
+								</svg>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script>
+		// Lắng nghe sự kiện khi click vào nút Pay
+		function pay() {
+			var checkedIDs = [];
+			var checkboxes = document.querySelectorAll('#cart-tableBody input[type="checkbox"]:checked');
+
+			checkboxes.forEach(function (checkbox) {
+				checkedIDs.push(checkbox.value);
+			});
+			var checkedIDsStr = checkedIDs.join(',');
+
+			// Tạo URL mới với query parameter
+			var url = '/client/order?checkedIDs=' + encodeURIComponent(checkedIDsStr);
+
+			// Chuyển hướng trình duyệt đến trang mới với URL có chứa query parameter
+			if (checkedIDsStr.length > 0) {
+				window.location.href = url;
+			}
+		}
+		function toggleDeleteButton() {
+			var checkboxes = document.querySelectorAll('#cart-tableBody input[type="checkbox"]:checked');
+			var deleteButton = document.getElementById('delete-btn');
+			deleteButton.style.display = checkboxes.length > 0 ? 'block' : 'none';
+		}
+		function deleteCarts() {
+			var checkedIDs = [];
+			var checkboxes = document.querySelectorAll('#cart-tableBody input[type="checkbox"]:checked');
+
+			checkboxes.forEach(function (checkbox) {
+				checkedIDs.push(checkbox.value);
+			});
+			var checkedIDsStr = checkedIDs.join(',');
+
+			// Tạo URL mới với query parameter
+			var url = '/client/cart/delete?checkedIDs=' + encodeURIComponent(checkedIDsStr);
+
+			// Chuyển hướng trình duyệt đến trang mới với URL có chứa query parameter
+			if (checkedIDsStr.length > 0) {
+				window.location.href = url;
+			}
+		}
+	</script>
+	<!-- Cart End -->
+</th:block>
+
+
+</html>

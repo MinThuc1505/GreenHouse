@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<!-- Content Start -->
+<th:block th:fragment="content">
+	<!-- Form Start -->
+	<div class="container-fluid pt-4 px-0">
+		<div class="bg-light rounded h-100 p-4">
+			<h6 class="mb-4">Người Dùng</h6>
+			<div th:if="${successMessage}" class="alert alert-success" th:text="${successMessage}">
+			</div>
+			<div th:if="${errorMessage}" class="alert alert-danger" th:text="${errorMessage}">
+			</div>
+			<div class="row">
+				<div class=" col-xl-7">
+					<form id="UserForm" th:action="@{/admin/user/update}" th:object="${account}" th:method="post"
+						enctype="multipart/form-data">
+						<input type="hidden" name="id" th:field="*{id}">
+						<input type="hidden" name="oldPassword" th:value="${oldPassword}">
+						<div class="mb-3">
+							<label for="id" class="form-label">Họ và Tên:</label> <input type="text"
+								class="form-control" name="fullname" aria-describedby="id" th:field="*{fullname}">
+							<small class="text-danger" th:if="${#fields.hasErrors('fullname')}"
+								th:errors="*{fullname}"></small>
+						</div>
+						<div class="mb-3">
+							<label for="id" class="form-label">Tên tài khoản:</label> <input type="text" class="form-control"
+								name="username" th:field="*{username}">
+							<small class="text-danger" th:if="${#fields.hasErrors('username')}"
+								th:errors="*{username}"></small>
+
+						</div>
+
+
+						<div class="mb-3">
+							<label for="password" class="form-label">Mật Khẩu:</label> <input type="text"
+								class="form-control" name="password" th:field="*{password}" th:placeholder="${account.password != null ? 'Encoded: '+oldPassword : ''}">
+							<small class="text-danger" th:if="${#fields.hasErrors('password')}"
+								th:errors="*{password}"></small>
+
+						</div>
+						<div class="mb-3">
+							<label for="name" class="form-label">Email:</label> <input type="text" class="form-control"
+								name="email" th:field="*{email}">
+							<small class="text-danger" th:if="${#fields.hasErrors('email')}"
+								th:errors="*{email}"></small>
+						</div>
+						<div class="mb-3">
+							<label for="name" class="form-label">Số Điện Thoại:</label> <input type="text"
+								class="form-control" name="phone" th:field="*{phone}">
+							<small class="text-danger" th:if="${#fields.hasErrors('phone')}"
+								th:errors="*{phone}"></small>
+						</div>
+						<div class="mb-3">
+
+							<label for="name" class="form-label">Địa chỉ:</label> <input type="text"
+								class="form-control" name="address" th:field="*{address}">
+
+						</div>
+						<input type="hidden" th:field="*{image}">
+						<div class="mb-3">
+							<label for="tempImage" class="form-label">Chọn
+								Hình:</label> <input class="form-control" type="file" 
+								name="tempImage" onchange="displayImage(event)" th:value="tempImage">
+						</div>
+						<div class="form-check form-check-inline">
+							<label for="role" class="form-label">Vai trò:</label><br>
+							<input class="form-check-input" type="radio" name="role" id="inlineRadio1"
+								th:field="*{role}" value="true" th:checked="${role != null and role}">
+							<label class="form-check-label" for="inlineRadio1">Admin</label>
+						</div>
+						<div class="form-check form-check-inline"><input class="form-check-input" type="radio"
+								name="role" id="inlineRadio2" th:field="*{role}" value="false"
+								th:checked="${role != null and !role}">
+							<label class="form-check-label" for="inlineRadio2">User</label>
+						</div>
+						<div class="mb-3">
+							<label for="role" class="form-label">Trạng thái:</label><br>
+							<div class="form-check form-check-inline">
+								<input class="form-check-input" type="radio" name="active" id="inlineRadio0"
+									th:field="*{active}" value="true" th:checked="${active != null and active}">
+								<label class="form-check-label" for="inlineRadio0">Kích hoạt</label>
+							</div>
+							<div class="form-check form-check-inline">
+								<input class="form-check-input" type="radio" name="active" id="inlineRadio3"
+									th:field="*{active}" value="false" th:checked="${active != null and !active}">
+								<label class="form-check-label" for="inlineRadio3">Chưa kích hoạt</label>
+							</div>
+						</div>
+
+						<div class="m-n2" style="padding-top: 14px;">
+							<button type="submit" class="btn btn-outline-primary m-2"
+							th:formaction="@{/admin/user/save(page=${currentPage})}">Lưu</button>
+						<button type="submit" class="btn btn-outline-success m-2"
+							th:formaction="@{/admin/user(page=${currentPage})}">Làm mới</button>
+						<button type="submit" class="btn btn-outline-danger m-2"
+							th:formaction="@{/admin/user/delete(page=${currentPage})}">Xóa</button>
+					 </div>
+					</form>
+				</div>
+				<div class="col-lg-5">
+					<div class="image-container" id="image-container" style="margin-top: 20%;">
+						<img th:src="${imageSrc}" alt="" />
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Form End -->
+	<!-- Table Start -->
+	<div class="container-fluid pt-4 px-0">
+		<div class="row g-4">
+			<div class="col-12">
+				<div class="bg-light rounded h-100 p-4">
+
+					<h6 class="mb-4">Danh Sách Người Dùng</i></h6>
+					<div class="search-box pb-4">
+						<div class="input-wrapper">
+							<form th:action="@{/admin/user/search}" method="get">
+								<button onclick="searchAccounts()" class="icon" type="submit">
+									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="25"
+										height="25">
+										<path
+											d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z" />
+									</svg>
+								</button>
+								<input id="searchInput" placeholder="Tìm kiếm ..." class="input" name="keyword"
+									type="text">
+							</form>
+						</div>
+					</div>
+					<div class="table-responsive">
+						<table id="searchResults" style="width: 100%;"
+							class="table text-start align-middle table-bordered table-hover mb-0">
+							<div id="product-list" class="table-responsive">
+								<colgroup>
+									<col style="width: 25px;">
+									<col style="width: 10%;">
+									<col style="width: 10%;">
+									<col style="width: 10%;">
+									<col style="width: 10%;">
+									<col style="width: 10%;">
+									<col style="width: 10%;">
+									<col style="width: 10%;">
+									<col style="width: 20%;">
+									<col style="width: 25px;">
+								</colgroup>
+								<thead>
+									<tr>
+										<th scope="col">#</th>
+										<th scope="col"> <a
+												th:href="@{/admin/user/sort(field='id', direct=${sortDirection})}">
+												UserName
+											</a></th>
+										<th scope="col"><a
+												th:href="@{/admin/user/sort(field='username', direct=${sortDirection})}">
+												Họ và tên
+											</a></th>
+										<th scope="col">Password</th>
+										<th scope="col">Email</th>
+										<th scope="col"> Số điện thoại</th>
+										<th scope="col"> Địa chỉ</th>
+										<th scope="col"> Hình ảnh</th>
+										<th scope="col">Vai trò</th>
+										<th scope="col">Trạng thái</th>
+										<th scope="col"></th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="cat : ${accounts}">
+										<td th:text="${cat.id}"></td>
+										<td th:text="${cat.username}"></td>
+										<td th:text="${cat.fullname}"></td>
+										<td>
+											<span th:inline="text">
+												<span th:text="${#strings.repeat('*', cat.password.length())}"></span>
+											</span>
+										</td>
+										<td th:text="${cat.email}"></td>
+										<td th:text="${cat.phone}"></td>
+										<td th:text="${cat.address}"></td>
+										<td th:text="${cat.image}"></td>
+										<td th:text="${cat.role ? 'Admin' : 'User'}"></td>
+										<td th:text="${cat.active ? 'Kích hoạt' : 'Chưa kích hoạt'}"></td>
+										<td>
+											<a th:href="@{/admin/user/edit(id=${cat.id}, page=${currentPage})}">
+												<i class='bx bx-edit'></i>
+										</td>
+									</tr>
+
+								</tbody>
+						</table>
+					</div>
+
+					<!-- Phân trang -->
+					<th:block th:if="${totalPages > 1}">
+						<div class="pagination justify-content-center mt-4">
+							<ul class="pagination">
+								<th:block th:if="${currentPage > 0}">
+									<li class="page-item">
+										<a class="page-link" th:href="@{/admin/user?page=0}" ><i class='bx bx-chevrons-left'></i></a>
+									</li>
+									<li class="page-item">
+										<a class="page-link" th:href="@{/admin/user?page=__${currentPage - 1}__}"
+											>  <i class='bx bx-chevron-left'></i></a>
+									</li>
+								</th:block>
+								<th:block th:if="${currentPage >= 3}">
+									<li class="page-item">
+										<a class="page-link" th:href="@{/admin/user?page=0}" th:text="'1'"></a>
+									</li>
+									<li class="page-item page-link" th:text="..."></li>
+								</th:block>
+								<th:block th:each="i: ${#numbers.sequence(startPage, endPage)}">
+									<li class="page-item" th:class="${i == currentPage ? 'active' : ''}">
+										<a class="page-link" th:href="@{/admin/user?page=__${i}__}"
+											th:text="${i+1}"></a>
+									</li>
+								</th:block>
+								<th:block th:if="!${currentPage >= totalPages - 3}">
+									<li class="page-item page-link" th:text="..."></li>
+									<li class="page-item">
+										<a class="page-link" th:href="@{/admin/user?page=__${totalPages-1}__}"
+											th:text="${totalPages}"></a>
+									</li>
+								</th:block>
+								<th:block th:if="${totalPages-2 >= currentPage }">
+									<li class="page-item">
+										<a class="page-link" th:href="@{/admin/user?page=__${currentPage + 1}__}"
+											>  <i class='bx bx-chevron-right'></i></a>
+									</li>
+									<li class="page-item">
+										<a class="page-link" th:href="@{/admin/user?page=__${totalPages-1}__}"
+											>  <i class='bx bx-chevrons-right'></i></a>
+									</li>
+								</th:block>
+							</ul>
+						</div>
+					</th:block>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Table End -->
+</th:block>
+
+
+<!-- Back to Top -->
+<a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+
+</html>

@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<!-- Content Start -->
+<th:block th:fragment="content">
+	<!-- Table DISCOUNT Start -->
+	<div class="container-fluid pt-4 px-0">
+		<div class="row g-4">
+			<div class="col-12">
+				<div class="bg-light rounded h-100 p-4">
+					<h6 class="mb-3">Danh Sách Mã Giảm Giá</h6>
+					<!-- LOC MA GIAM GIA START -->
+					<form action="/admin/setDiscount/discount/filter" method="post">
+						<div class="container-fluid pt-3 px-0">
+							<div class="row g-4 mb-3">
+								<div class="col-md-4">
+									<div class="form-group">
+										<label for="discountPercent">Phần trăm giảm giá</label>
+										<select class="form-select" id="discountPercent" name="discountPercent">
+											<option value="100.0">Chọn phần trăm giảm giá</option>
+											<option value="0.1">
+												< 10%</option>
+											<option value="0.2">
+												< 20%</option>
+											<option value="0.3">
+												< 30%</option>
+											<option value="0.4">
+												< 40%</option>
+											<option value="0.5">
+												< 50%</option>
+										</select>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<label for="search">Tìm kiếm</label>
+										<input type="text" class="form-control" id="search" name="search"
+											placeholder="Mã giảm giá...">
+									</div>
+								</div>
+
+								<div class="col-md-2">
+									<div class="form-group">
+										<label>&nbsp;</label>
+										<button type="submit" class="btn btn-outline-primary w-100">Tìm
+											kiếm</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</form>
+					<!-- LOC MA GIAM GIA END -->
+					<div class="table-responsive" id="tableDiscount">
+						<table class="table text-start align-middle table-bordered table-hover mb-0">
+							<thead>
+								<tr>
+									<th scope="col">ID</th>
+									<th scope="col">Mã giảm</th>
+									<th scope="col">Phần trăm giảm</th>
+									<th scope="col">Ngày bắt đầu hiệu lực</th>
+									<th scope="col">Ngày kết thúc hiệu lực</th>
+									<th scope="col">Action</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="item, iStat : ${discounts}">
+									<td th:text="${item.id}"></td>
+									<td th:text="${item.discountCode}"></td>
+									<td th:text="${item.discountPercent}"></td>
+									<td th:text="${item.startDate}"></td>
+									<td th:text="${item.endDate}"></td>
+									<td th:if="${item.endDate >= nowDate}">
+										<button type="button" class="btn btn-primary w-100 copy-btn"
+											th:id="'btn-'+${item.id}" th:onclick="addCopyEvent([[${item.id}]]);
+										">Copy</button>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<!-- Phân trang -->
+					<th:block th:if="${totalDiscountPages > 1}">
+						<div class="pagination justify-content-center mt-4">
+							<ul class="pagination">
+								<th:block th:if="${currentDiscountPage > 0}">
+									<li class="page-item">
+										<a class="page-link" th:href="@{/admin/setDiscount/page?pageD=0}"
+											th:text="'First'"></a>
+									</li>
+									<li class="page-item">
+										<a class="page-link"
+											th:href="@{/admin/setDiscount/page?pageD=__${currentDiscountPage - 1}__}"
+											th:text="'Previous'"></a>
+									</li>
+								</th:block>
+								<th:block th:if="${currentDiscountPage >= 3}">
+									<li class="page-item">
+										<a class="page-link" th:href="@{/admin/setDiscount/page?pageD=0}"
+											th:text="'1'"></a>
+									</li>
+									<li class="page-item page-link" th:text="..."></li>
+								</th:block>
+								<th:block th:each="i: ${#numbers.sequence(startDiscountPage, endDiscountPage)}">
+									<li class="page-item" th:class="${i == currentDiscountPage ? 'active' : ''}">
+										<a class="page-link" th:href="@{/admin/setDiscount/page?pageD=__${i}__}"
+											th:text="${i+1}"></a>
+									</li>
+								</th:block>
+								<th:block th:if="!${currentDiscountPage >= totalDiscountPages - 3}">
+									<li class="page-item page-link" th:text="..."></li>
+									<li class="page-item">
+										<a class="page-link"
+											th:href="@{/admin/setDiscount/page?pageD=__${totalDiscountPages-1}__}"
+											th:text="${totalDiscountPages}"></a>
+									</li>
+								</th:block>
+								<th:block th:if="${totalDiscountPages-2 >= currentDiscountPage }">
+									<li class="page-item">
+										<a class="page-link"
+											th:href="@{/admin/setDiscount/page?pageD=__${currentDiscountPage + 1}__}"
+											th:text="'Next'"></a>
+									</li>
+									<li class="page-item">
+										<a class="page-link"
+											th:href="@{/setDiscount/page?pageD=__${totalDiscountPages-1}__}"
+											th:text="'Last'"></a>
+									</li>
+								</th:block>
+							</ul>
+						</div>
+					</th:block>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Table DISCOUNT End -->
+	<!-- Table SET DISCOUNT Start -->
+	<div class="container-fluid pt-4 px-0">
+		<div class="row g-4">
+			<div class="col-12">
+				<div class="bg-light rounded h-100 p-4">
+					<h6 class="mb-3">Danh Sách Sản Phẩm</h6>
+					<!-- DISCOUNT CODE -->
+					<div class="discount-code">
+						<div class="col-md-4">
+							<div class="form-group">
+								<label for="discount-code">ID Mã giảm</label> <input type="text" class="form-control"
+									id="discount-code" placeholder="ID mã giảm giá...">
+							</div>
+						</div>
+					</div>
+					<!-- DISCOUNT CODE -->
+					<!-- LOC SAN PHAM START-->
+					<form action="/admin/setDiscount/product/filter" method="POST">
+						<div class="container-fluid pt-4 px-0">
+							<div class="row g-4">
+								<div class="col-md-4">
+									<div class="form-group">
+										<label for="price">Giá sản phẩm</label>
+										<select id="price" name="price" class="form-select" required>
+											<option value="0">Chọn giá</option>
+											<option value="5000000" th:selected="${priceOld == 5000000}">Dưới 5.000.000
+											</option>
+											<option value="20000000" th:selected="${priceOld == 20000000}">Dưới
+												20.000.000</option>
+											<option value="50000000" th:selected="${priceOld == 50000000}">Dưới
+												50.000.000</option>
+											<option value="100000000" th:selected="${priceOld == 100000000}">Dưới
+												100.000.000</option>
+										</select>
+									</div>
+								</div>
+								<div class="col-md-4">
+									<div class="form-group">
+										<label for="category">Loại sản phẩm</label>
+										<select class="form-select" id="category" name="category">
+											<option value="">Chọn loại sản phẩm</option>
+											<option th:each="category : ${categories}" th:value="${category.id}"
+												th:selected="${categoryOld == category.id}"
+												th:text="${category.categoryName}"></option>
+										</select>
+									</div>
+								</div>
+								<div class="col-md-2">
+									<div class="row">
+										<div class="form-group">
+											<label>&nbsp;</label>
+											<button type="submit" class="btn btn-outline-primary w-100">Tìm
+												kiếm</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</form>
+					<!-- LOC SAN PHAM END-->
+					<!-- DANH SACH SAN PHAM START-->
+					<div class="table-responsive mt-3">
+						<table class="table text-start align-middle table-bordered table-hover mb-0" id="product-table">
+							<thead>
+								<tr>
+									<th>
+										<input type="checkbox" id="checkAllId"
+											th:onclick="checkAll()">
+									</th>
+									<th scope="col">Mã Sản Phẩm</th>
+									<th scope="col">Tên Sản Phẩm</th>
+									<th scope="col">Giá Sản Phẩm</th>
+									<th scope="col">Trong kho</th>
+									<th scope="col">Mô Tả</th>
+									<th scope="col">Hình</th>
+									<th scope="col"><a class="btn btn-primary w-100"
+											th:onclick="apply()">Áp dụng</a></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="product, i : ${products}">
+									<td>
+										<input type="checkbox" th:value="${product.id}" th:onclick="check()">
+									</td>
+									<td th:text="${product.id}"></td>
+									<td th:text="${product.productName}"></td>
+									<td th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT')}"></td>
+									<td th:text="${product.inStock}"></td>
+									<td th:text="${product.description}"></td>
+									<td th:text="${product.image}"></td>
+									<td></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<!-- DANH SACH SAN PHAM END-->
+					<th:block th:if="${totalProductPages > 1}">
+						<div class="pagination justify-content-center mt-4">
+							<ul class="pagination">
+								<th:block th:if="${currentProductPage > 0}">
+									<li class="page-item">
+										<a class="page-link" th:href="@{/admin/setDiscount/page?pageP=0}"
+											th:text="'First'"></a>
+									</li>
+									<li class="page-item">
+										<a class="page-link"
+											th:href="@{/admin/setDiscount/page?pageP=__${currentProductPage - 1}__}"
+											th:text="'Previous'"></a>
+									</li>
+								</th:block>
+								<th:block th:if="${currentProductPage >= 3}">
+									<li class="page-item">
+										<a class="page-link" th:href="@{/admin/setDiscount/page?pageP=0}"
+											th:text="'1'"></a>
+									</li>
+									<li class="page-item page-link" th:text="..."></li>
+								</th:block>
+								<th:block th:each="i: ${#numbers.sequence(startProductPage, endProductPage)}">
+									<li class="page-item" th:class="${i == currentProductPage ? 'active' : ''}">
+										<a class="page-link" th:href="@{/admin/setDiscount/page?pageP=__${i}__}"
+											th:text="${i+1}"></a>
+									</li>
+								</th:block>
+								<th:block th:if="!${currentProductPage >= totalProductPages - 3}">
+									<li class="page-item page-link" th:text="..."></li>
+									<li class="page-item">
+										<a class="page-link"
+											th:href="@{/admin/setDiscount/page?pageP=__${totalProductPages-1}__}"
+											th:text="${totalProductPages}"></a>
+									</li>
+								</th:block>
+								<th:block th:if="${totalProductPages-2 >= currentProductPage }">
+									<li class="page-item">
+										<a class="page-link"
+											th:href="@{/admin/setDiscount/page?pageP=__${currentProductPage + 1}__}"
+											th:text="'Next'"></a>
+									</li>
+									<li class="page-item">
+										<a class="page-link"
+											th:href="@{/setDiscount/page?pageP=__${totalProductPages-1}__}"
+											th:text="'Last'"></a>
+									</li>
+								</th:block>
+							</ul>
+						</div>
+					</th:block>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Table SET DISCOUNT End -->
+	<script>
+		function addCopyEvent(tableId) {
+			// Sao chép giá trị vào clipboard
+			var tempInput = $('<input>').val(tableId).appendTo('body').select();
+			console.log(tableId);
+			document.execCommand('copy');
+			tempInput.remove();
+			// Thay đổi nội dung của nút "Copy" sang "Copied"
+			var btnCopy = $('.copy-btn#btn-' + tableId + '');
+			btnCopy.text('Copied');
+			setTimeout(function () {
+				btnCopy.text('Copy');
+			}, 1500);
+			// Thêm thông báo cho người dùng
+			notificationDATA('Đã sao chép ID: ' + tableId, 'success');
+		}
+		function notificationDATA(message, type) {
+			if (message != "") {
+				var html = `<div class="alert alert-${type} alert-dismissible fade show" role="alert">
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              ${message}
+            </div>`;
+				var delay = 3000; // Thời gian 3 giây mặc định
+				var $notification = $(html).appendTo('#notification-container');
+				// Hiển thị thông báo và đặt timeout để tự động đóng sau 3s
+				$notification.fadeIn('fast', function () {
+					var timeout = setTimeout(function () {
+						$notification.fadeOut('slow', function () {
+							$(this).remove();
+						});
+					}, delay);
+					// Xóa timeout khi người dùng đóng thông báo
+					$(".btn-close").click(function () {
+						clearTimeout(timeout);
+					});
+				});
+			}
+		};
+		// Lắng nghe sự kiện khi click vào nút Apply
+		function apply() {
+			var checkedIDs = [];
+			var checkboxes = document.querySelectorAll('#product-table tbody input[type="checkbox"]:checked');
+			var idDiscount = document.querySelector('#discount-code').value;
+
+			if (idDiscount != '' && checkboxes.length > 0) {
+				checkboxes.forEach(function (checkbox) {
+					checkedIDs.push(checkbox.value);
+				});
+				var checkedIDsStr = checkedIDs.join(',');
+
+				// Tạo URL mới với query parameter
+				var url = '/admin/setDiscount/apply?productIDs=' + encodeURIComponent(checkedIDsStr)+'&idDiscountCode=' + encodeURIComponent(idDiscount);
+
+				// Chuyển hướng trình duyệt đến trang mới với URL có chứa query parameter
+				window.location.href = url;
+			}
+
+		}
+		// Lắng nghe sự kiện khi click vào ô checkbox trên cùng
+		function checkAll() {
+			var checkboxes = document.querySelectorAll('#product-table tbody input[type="checkbox"]');
+			checkboxes.forEach(function (checkbox) {
+				checkbox.checked = $('#checkAllId').is(':checked');
+			}, $('#checkAllId'));
+		}
+
+		// Lắng nghe sự kiện khi click vào các ô checkbox trong tbody
+		function check() {
+			var checkboxes = document.querySelectorAll('#product-table tbody input[type="checkbox"]');
+			var allChecked = true;
+			checkboxes.forEach(function (checkbox) {
+				if (!checkbox.checked) {
+					allChecked = false;
+				}
+			});
+			$('#checkAllId').prop('checked', allChecked);
+		}
+	</script>
+</th:block>
+<!-- Content End -->
+<!-- Back to Top -->
+<a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+
+</html>

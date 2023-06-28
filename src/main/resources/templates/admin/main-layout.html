@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head th:replace="~{admin/layouts/template.html :: head}"></head>
+
+<body class="bg-white">
+	<div id="notification-container" class="notification-container"></div>
+
+	<div class="notification" th:data-type="${typeMessage}" th:text="${message}"></div>
+
+	<div class="container-xxl position-relative bg-white d-flex p-0">
+		<!-- Spinner Start -->
+		<th:block th:replace="~{admin/layouts/template.html :: spiner}"></th:block>
+		<!-- Spinner End -->
+
+
+		<!-- Sidebar Start -->
+		<th:block th:replace="~{admin/layouts/template.html :: slidebar}"></th:block>
+		<!-- Sidebar End -->
+
+
+		<!-- Content Start -->
+		<div class="content">
+			<!-- Navbar Start -->
+			<th:block th:replace="~{admin/layouts/template.html :: navbar}"></th:block>
+			<!-- Navbar End -->
+
+
+			<!-- CONTENT PAGE Start -->
+			<th:block th:replace="~{${'admin/layouts/' + template} :: ${fragment}}">
+			</th:block>
+			<!-- CONTENT PAGE End -->
+
+
+			<!-- Footer Start -->
+			<th:block th:replace="~{admin/layouts/template.html :: footer}"></th:block>
+			<!-- Footer End -->
+		</div>
+		<!-- Content End -->
+		<!-- Modal -->
+		<th:block th:replace="~{admin/layouts/template.html :: modalLogOut}"></th:block>
+		<!-- End Modal -->
+
+
+		<!-- Back to Top -->
+		<a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+	</div>
+
+
+	<th:block th:replace="~{admin/layouts/template.html :: script}"></th:block>
+
+</body>
+
+</html>

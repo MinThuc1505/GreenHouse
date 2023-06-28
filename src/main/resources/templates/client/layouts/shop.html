@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+
+
+
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+
+
+<!-- CONTENT PAGE START-->
+<th:block th:fragment="content">
+
+	<!-- Page Header Start -->
+	<section class="page-header">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="content">
+						<h1 class="page-name">Shop</h1>
+						<ol class="breadcrumb">
+							<li><a href="/client/index">Home</a></li>
+							<li class="active">shop</li>
+						</ol>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- Page Header End -->
+
+	<!-- Shop Start -->
+	<section class="filter-products mt-3">
+		<div class="container">
+			<div class="row">
+				<form method="post" action="/client/shop/filter">
+					<div class="type-filter">
+						<span class="title-filter">Giá</span>
+						<select id="price" name="price" class="form-select" required>
+							<option value="0">Chọn giá</option>
+							<option value="5000000" th:selected="${priceOld == 5000000}">Dưới 5.000.000</option>
+							<option value="20000000" th:selected="${priceOld == 20000000}">Dưới 20.000.000</option>
+							<option value="50000000" th:selected="${priceOld == 50000000}">Dưới 50.000.000</option>
+							<option value="100000000" th:selected="${priceOld == 100000000}">Dưới 100.000.000</option>
+						</select>
+					</div>
+					<div class="type-filter">
+						<span class="title-filter">Loại sản phẩm</span>
+						<select id="category" name="category" class="form-select" required>
+							<option value="">Chọn loại sản phẩm</option>
+							<option th:each="category, iStat : ${categories}" th:value="${category.id}"
+								th:text="${category.categoryName}" th:selected="${categoryOld == category.id}"></option>
+						</select>
+					</div>
+					<div class="submit-filter">
+						<button type="submit" class="fancy">
+							<span class="top-key"></span>
+							<span class="text">Áp dụng</span>
+							<span class="bottom-key-1"></span>
+							<span class="bottom-key-2"></span>
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</section>
+
+	<section class="products section">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-3" th:each="product, iStat : ${products}"> 
+					<div class="product-item product-shop">
+						<div class="product-thumb">
+							<img class="img-responsive" th:src="a" th:lazy-src="${'/images/'+product.image}"
+								alt="product-img" />
+							<div class="preview-meta">
+								<ul>
+									<li>
+										<span
+											th:onclick="showProductDetails([[${product.id}]], [[${product.productName}]], [[${product.price}]], [[${product.image}]], [[${product.description}]])">
+											<i class="tf-ion-ios-search-strong"></i>
+										</span>
+									</li>
+									<li>
+										<a href="#" th:onclick="addToCart([[${product.id}]])"><i
+												class="tf-ion-android-cart"></i></a>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<div class="product-content"> 
+							<h4><a href="#"
+									th:onclick="showProductDetails([[${product.id}]], [[${product.productName}]], [[${product.price}]], [[${product.image}]], [[${product.description}]])"
+									th:text="${product.productName}">
+								</a></h4>
+							<p class="price"
+								th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT') +' VND'}">
+							</p>
+						</div>
+					</div>
+				</div>
+ 
+				<!-- Modal -->
+				<div class="modal product-modal fade" id="product-modal">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<i class="tf-ion-close"></i>
+					</button>
+					<div class="modal-dialog " role="document">
+						<div class="modal-content">
+							<div class="modal-body">
+								<div class="row">
+									<div class="col-md-8 col-sm-6 col-xs-12">
+										<div class="modal-image">
+											<img class="img-responsive" id="product-img" src="" alt="product-img" />
+											<p id="text-image"></p>
+										</div>
+									</div>
+									<div class="col-md-4 col-sm-6 col-xs-12">
+										<div class="product-short-details">
+											<h2 class="product-title" id="product-title"></h2>
+											<p class="product-price" id="product-price"></p>
+											<p class="product-short-description" id="product-description"></p>
+											<p id="modal-idProduct" style="display: none"></p>
+											<a href="#" class="btn btn-main" id="modal-addToCart" th:onclick="modalAddToCart()">Thêm vào giỏ hàng</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- /.modal -->
+
+
+			</div>
+		</div>
+	</section>
+	<!-- Shop End -->
+</th:block>
+<!-- CONTENT PAGE END-->
+
+
+
+
+
+</html>

@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<!-- Start Head Start -->
+<th:block th:fragment="head">
+
+	<head>
+
+		<!-- Basic Page Needs
+  ================================================== -->
+		<meta charset="utf-8">
+		<title>GreenHouse | Thương Hiệu Làm Nên Chất Lượng</title>
+
+		<!-- Mobile Specific Metas
+  ================================================== -->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="description" content="Construction Html5 Template">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+		<meta name="author" content="Themefisher">
+		<meta name="generator" content=" quyết định thương hiệu của bạn">
+
+		<!-- theme meta -->
+		<meta name="theme-name" content="GreenHouse" />
+		<!-- Favicon -->
+		<link rel="shortcut icon" type="image/x-icon" href="/client/images/la.png" />
+
+		<!-- Themefisher Icon font -->
+		<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+		<link rel="stylesheet" href="/client/plugins/themefisher-font/style.css">
+		<!-- bootstrap.min css -->
+		<link rel="stylesheet" href="/client/plugins/bootstrap/css/bootstrap.min.css">
+
+		<!-- Animate css -->
+		<link rel="stylesheet" href="/client/plugins/animate/animate.css">
+		<!-- Slick Carousel -->
+		<link rel="stylesheet" href="/client/plugins/slick/slick.css">
+		<link rel="stylesheet" href="/client/plugins/slick/slick-theme.css">
+		<!-- Recapcha -->
+		<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+		<!-- Main Stylesheet -->
+		<link rel="stylesheet" href="/client/css/style.css">
+
+	</head>
+</th:block>
+<!-- Start Head End -->
+
+<!-- Start Top Header Bar Start -->
+<th:block th:fragment="top-header-bar">
+	<section class="top-header">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-4 col-xs-12 col-sm-4">
+					<div class="languge">
+						<img src="images/vi.png" alt=""> <a style="color: black;" th:href="@{'?lang=vi'}">VN</a> <a
+							th:href="@{'?lang=en'}">EN</a>
+					</div>
+					
+				</div>
+				<div class="col-lg-4 col-xs-12 col-sm-4">
+					<!-- Site Logo -->
+					<div class="logo text-center">
+						<a href="/client/index"> <img src="images/logo.png" alt="">
+						</a>
+					</div>
+				</div>
+				<div class="col-lg-4 col-xs-12 col-sm-4">
+					<!-- Cart -->
+					<ul class="top-menu text-right list-inline">
+						<li class="cart-box">
+							<a href="/client/cart" >	<i class="tf-ion-android-cart"></i><span th:text="#{lo.mn.cart}"></span></a>
+							<th:block th:if="${qtyCart >= 0}">
+								<div class="cart-quantity" th:text="${qtyCart > 50 ? '50+' : qtyCart}"></div>
+							</th:block>
+						</li>
+						<!-- end Cart -->
+						<li class="dropdown menu-login cart-nav dropdown-slide">
+							<a href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"
+								data-delay="350" role="button" aria-haspopup="true" aria-expanded="false"><i
+									class='bx bxs-user-circle'></i>
+								<span th:if="${sessionUsername != null && sessionUsername != ''}"
+									th:text="${sessionUsername}">
+									<!-- Hiển thị nội dung khi có giá trị session -->
+								</span>
+								<th:block th:unless="${sessionUsername != null && sessionUsername != ''}">
+									<span th:text="#{lo.mn.account}"></span>
+
+								</th:block><span class="tf-ion-ios-arrow-down"></span>
+							</a>
+							<div class="dropdown-menu">
+								<div class="row">
+									<div class="col-lg-12 col-md-6 mb-sm-3">
+										<ul>
+											<th:block th:if="${sessionUsername != null && sessionUsername != ''}">
+												<li><a href="/client/profile" th:text="#{lo.mn.account}"></a></li>
+												<li><a href="/client/logout" th:text="#{lo.mn.logout}"></a></li>
+												<li><a href="/client/change-password"
+														th:text="#{lo.mn.changepasswod}"></a></li>
+											</th:block>
+											<th:block th:unless="${sessionUsername != null && sessionUsername != ''}">
+												<li><a href="/client/signin" th:text="#{lo.mn.signin}"></a></li>
+												<li><a href="/client/signup" th:text="#{lo.mn.signup}"></a></li>
+												<li><a href="/client/forgot-password" th:text="#{lo.mn.forgot}"></a>
+												</li>
+											</th:block>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</li>
+
+						<!-- End đăng nhập đăng ký -->
+					</ul>
+					<!-- / .nav .navbar-nav .navbar-right -->
+				</div>
+			</div>
+		</div>
+	</section>
+</th:block>
+<!-- End Top Header Bar End -->
+
+<!-- Main Menu Section Start -->
+<th:block th:fragment="main-menu">
+	<!-- Main Menu Section -->
+	<section class="menu sticky">
+		<nav class="navbar navigation">
+			<div class="container">
+				<div class="navbar-header">
+					<h2 class="menu-title">Main Menu</h2>
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+						aria-expanded="false" aria-controls="navbar">
+						<span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span
+							class="icon-bar"></span> <span class="icon-bar"></span>
+					</button>
+
+				</div>
+				<!-- / .navbar-header -->
+
+
+				<div class="menu-header">
+					<!-- Navbar Links -->
+					<div id="navbar" class="navbar-collapse collapse text-center">
+						<ul class="nav navbar-nav">
+
+							<!-- Home -->
+							<li class="dropdown "><a href="/client/index" th:text="#{lo.mn.home}"></a></li>
+							<!-- / Home -->
+
+
+							<!-- Sản Phẩm -->
+							<li class=" dropdown full-width dropdown-slide"><a href="#!" class="dropdown-toggle"
+									data-toggle="dropdown" data-hover="dropdown" data-delay="350" role="button"
+									aria-haspopup="true" aria-expanded="false" ><span th:text="#{lo.mn.product}"></span><span
+										class="tf-ion-ios-arrow-down"></span></a>
+								<div class="dropdown-menu">
+									<div class="row">
+										<!-- Sản Phẩm  -->
+										<div class="col-sm-4 col-xs-12">
+											<ul>
+												<li class="dropdown-header" th:text="#{lo.mn.furniture}"></li>
+												<li role="separator" class="divider"></li>
+												<li><a href="/client/shop?category=BR002" th:text="#{lo.mn.bdg}"></a>
+												</li>
+												<li><a href="/client/shop?category=DR001" th:text="#{lo.mn.ba}"></a>
+												</li>
+												<li><a href="/client/shop?category=WR006" th:text="#{lo.mn.blv}"></a>
+												</li>
+												<li><a href="/client/shop?category=LR004" th:text="#{lo.mn.bn}">c</a>
+												</li>
+												<li><a href="/client/shop?category=LR005" th:text="#{lo.mn.bb}"></a>
+												</li>
+												<li><a href="/client/shop?category=BR006" th:text="#{lo.mn.btd}"></a>
+												</li>
+												<li><a href="/client/shop?category=DR002" th:text="#{lo.mn.ga}"></a>
+												</li>
+												<li><a href="/client/shop?category=DR003" th:text="#{lo.mn.gb}"></a>
+												</li>
+												<li><a href="/client/shop?category=LR003" th:text="#{lo.mn.gtg}"></a>
+												</li>
+												<li><a href="/client/shop?category=WR002" th:text="#{lo.mn.glv}"></a>
+												</li>
+												<li><a href="/client/shop?category=WR003" th:text="#{lo.mn.gx}"></a>
+												</li>
+											</ul>
+										</div>
+										<div class="col-sm-4 col-xs-12">
+											<ul>
+												<li class="dropdown-header" th:text="#{lo.mn.cabinets}"></li>
+												<li role="separator" class="divider"></li>
+												<li><a href="/client/shop?category=WR004" th:text="#{lo.mn.ks}"></a>
+												</li>
+												<li><a href="/client/shop?category=WR005" th:text="#{lo.mn.kt}"></a>
+												</li>
+												<li><a href="/client/shop?category=LR001" th:text="#{lo.mn.sofa}"></a>
+												</li>
+												<li><a href="/client/shop?category=LR002" th:text="#{lo.mn.sfg}"></a>
+												</li>
+												<li><a href="/client/shop?category=DR004" th:text="#{lo.mn.tl}"></a>
+												</li>
+												<li><a href="/client/shop?category=BR003" th:text="#{lo.mn.ta}"></a>
+												</li>
+												<li><a href="/client/shop?category=BR004" th:text="#{lo.mn.tat}"></a>
+												</li>
+												<li><a href="/client/shop?category=BR005" th:text="#{lo.mn.thk}"></a>
+												</li>
+											</ul>
+										</div>
+										<div class="col-sm-4 col-xs-12">
+											<a href="shop.html"> <img class="img-responsive"
+													src="https://nhaxinh.com/wp-content/uploads/2021/10/nha-xinh-phong-khach-hien-dai-poppy-1-1200x800.jpg"
+													alt="menu image" />
+											</a>
+										</div>
+									</div>
+									<!-- / .row -->
+								</div> <!-- / .dropdown-menu -->
+							</li>
+							<!-- / Elements -->
+
+
+							<!-- Pages -->
+							<li class="dropdown dropdown-slide"><a href="#!" class="dropdown-toggle"
+									data-toggle="dropdown" data-hover="dropdown" data-delay="350" role="button"
+									aria-haspopup="true" aria-expanded="false" > <span th:text="#{lo.mn.room}"></span><span
+										class="tf-ion-ios-arrow-down"></span></a>
+								<div class="dropdown-menu">
+									<div class="row">
+										<!-- Basic -->
+										<div class="col-lg-12 col-md-6 mb-sm-3">
+											<ul>
+												<li class="dropdown-header" th:text="#{lo.mn.caterogy}"></li>
+												<li role="separator" class="divider"></li>
+												<li><a href="/client/room/dining-room" th:text="#{lo.mn.dining}"></a>
+												</li>
+												<li><a href="/client/room/bed-room" th:text="#{lo.mn.bed}"></a></li>
+												<li><a href="/client/room/living-room" th:text="#{lo.mn.living}"></a>
+												</li>
+												<li><a href="/client/room/work-room" th:text="#{lo.mn.blv}"></a>
+												</li>
+											</ul>
+										</div>
+									</div>
+									<!-- / .row -->
+								</div> <!-- / .dropdown-menu -->
+							</li>
+							<!-- / Pages -->
+							<!-- Blog -->
+							<li class="dropdown dropdown-slide"><a href="/client/blog" th:text="#{lo.mn.blog}">
+								</a></li>
+							<!-- / Blog -->
+
+							<!-- Liên Hệ Góp ý -->
+							<li class="dropdown dropdown-slide"><a href="/client/contact" th:text="#{lo.mn.contack}">
+								</a></li>
+							<!-- End Liên Hệ Góp ý -->
+						</ul>
+						<!-- / .nav .navbar-nav -->
+
+					</div>
+					<!--/.navbar-collapse -->
+				</div>
+
+			</div>
+			<!-- / .container -->
+		</nav>
+	</section>
+</th:block>
+<!-- Main Menu Section End -->
+
+<!-- Footer Start -->
+<th:block th:fragment="footer">
+	<footer class="footer section text-center">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-4">
+					<h4 class="ft">CÔNG TY NỘI THẤT GREENHOUSE</h4>
+					<div class="ft1">
+						<h4>Địa chỉ</h4>
+						<li>Quận 7: B5 - B6 Nguyễn Hữu Thọ, Phường Tân Phong, Quận 7,
+							TP.HCM</li>
+						<h4>Giấy chứng nhận kinh doanh</h4>
+						<li>Công ty Nội Thất GreenHouse Số 0314614473 do Phòng đăng
+							ký kinh doanh, Sở kế hoạch và đầu tư TP.HCM cấp ngày 11/09/2017</li>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<h4 class="ft">KẾT NỐI VỚI GREENHOUSE</h4>
+					<img src="images/logo.png" width="180" height="100px" alt="">
+					<ul class="social-media">
+						<li><a href="https://www.facebook.com/themefisher"> <i class="tf-ion-social-facebook"></i>
+							</a></li>
+						<li><a href="https://www.instagram.com/themefisher"> <i class="tf-ion-social-instagram"></i>
+							</a></li>
+						<li><a href="https://www.twitter.com/themefisher"> <i class="tf-ion-social-twitter"></i>
+							</a></li>
+						<li><a href="https://www.youtube.com/themefisher/"> <i class="tf-ion-social-youtube"></i>
+							</a></li>
+					</ul>
+				</div>
+				<div class="col-md-4">
+					<iframe
+						src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3929.4255413659957!2d105.75576211077947!3d9.981663390081632!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31a089d294a53693%3A0xf3d0fb7758da72d0!2zVHLGsOG7nW5nIENhbyDEkeG6s25nIEZQVCBQb2x5dGVjaG5pYyBD4bqnbiBUaMah!5e0!3m2!1sen!2s!4v1684427136196!5m2!1sen!2s"
+						width="100%" height="235" style="border: 2px;" allowfullscreen="" loading="lazy"
+						referrerpolicy="no-referrer-when-downgrade"></iframe>
+				</div>
+
+			</div>
+
+			<div class="copyright-text">
+				<p>GreenHouse &copy;2023, Designed &amp; Developed by
+					FamilyCoder</p>
+			</div>
+		</div>
+	</footer>
+	<!-- Back to Top -->
+	<a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bx bx-arrow-to-top"></i></a>
+
+</th:block>
+<!-- Footer End -->
+
+<!-- Script Start-->
+<th:block th:fragment="script">
+	<!-- Main jQuery -->
+	<script src="/client/plugins/jquery/dist/jquery.min.js"></script>
+	<!-- Bootstrap 3.1 -->
+	<script src="/client/plugins/bootstrap/js/bootstrap.min.js"></script>
+	<!-- Bootstrap Touchpin -->
+	<script src="/client/plugins/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.js"></script>
+	<!-- Instagram Feed Js -->
+	<script src="/client/plugins/instafeed/instafeed.min.js"></script>
+	<!-- Video Lightbox Plugin -->
+	<script src="/client/plugins/ekko-lightbox/dist/ekko-lightbox.min.js"></script>
+	<!-- Count Down Js -->
+	<script src="/client/plugins/syo-timer/build/jquery.syotimer.min.js"></script>
+
+	<!-- slick Carousel -->
+	<script src="/client/plugins/slick/slick.min.js"></script>
+	<script src="/client/plugins/slick/slick-animation.min.js"></script>
+
+	<!-- Google Mapl -->
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCC72vZw-6tGqFyRhhg5CkF2fqfILn2Tsw"></script>
+	<script type="text/javascript" src="plugins/google-map/gmap.js"></script>
+	<!-- Main Js File -->
+	<script src="/client/js/script.js" th:src="@{/client/js/script.js}"></script>
+</th:block>
+<!-- Script End -->
+
+</html>

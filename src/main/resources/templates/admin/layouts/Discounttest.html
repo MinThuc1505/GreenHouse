@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<!-- Content Start -->
+<th:block th:fragment="content">
+	<!-- Form Start -->
+	<div class="container-fluid pt-4 px-0">
+		<div class="bg-light rounded h-100 p-4">
+			<h6 class="mb-4">Giảm Giá</h6>
+			<div class="row">
+				<div class="col-lg-8 m-auto">
+					<form action="" method="">
+						<div class="mb-3">
+							<label for="discount-code" class="form-label">Mã Giảm:</label> <input type="text"
+								class="form-control" id="discount-code">
+						</div>
+						<div class="mb-3">
+							<label for="discount-percent" class="form-label">Phần
+								trăm giảm:</label>
+							<div class="input-group mb-3">
+								<input type="number" class="form-control" id="discount-percent">
+								<span class="input-group-text">%</span>
+							</div>
+						</div>
+						<!-- chỉnh sửa thêm form giảm giá thêm cột số lượng -->
+						<div class="mb-3">
+							<label for="quantity" class="form-label">Số Lượng:</label>
+							<input type="number" class="form-control" id="quantity">
+						</div>
+						<div class="mb-3">
+							<label for="start-date" class="form-label">Ngày bắt đầu
+								hiệu lực:</label> <input type="date" class="form-control" id="start-date">
+						</div>
+						<div class="mb-3">
+							<label for="end-date" class="form-label">Ngày kết thúc
+								hiệu lực:</label> <input type="date" class="form-control" id="end-date">
+						</div>
+						<div class="m-n2">
+							<button type="button" class="btn btn-outline-primary m-2">Thêm</button>
+							<button type="button" class="btn btn-outline-secondary m-2">Sửa</button>
+							<button type="button" class="btn btn-outline-success m-2">Làm
+								mới</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Form End -->
+	<!-- Table Start -->
+	<div class="container-fluid pt-4 px-0">
+		<div class="row g-4">
+			<div class="col-12">
+				<div class="bg-light rounded h-100 p-4">
+					<h6 class="mb-4">Danh Sách Sản Phẩm</h6>
+					<div class="search-box pb-4">
+						<form action="">
+							<div class="input-wrapper">
+								<button class="icon" type="submit">
+									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="25"
+										height="25">
+										<path
+											d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z" />
+									</svg>
+								</button>
+								<input placeholder="Tìm kiếm ..." class="input" name="text" type="text">
+							</div>
+						</form>
+					</div>
+					<div class="table-responsive">
+						<table class="table text-start align-middle table-bordered table-hover mb-0">
+							<thead>
+								<tr>
+									<th scope="col"><input class="form-check-input" type="checkbox"></th>
+									<th scope="col">#</th>
+									<th scope="col"><a id="sortById" href="#">ID</a></th>
+									<th scope="col"><a id="sortByDiscountCode" href="#">Mã giảm</a></th>
+									<th scope="col"><a id="sortByDiscountPercent" href="#">Phần trăm giảm</a></th>
+									<th scope="col"><a id="sortByQuantity" href="#">Số lượng</a></th>
+									<th scope="col"><a id="sortByStartDate" href="#">Ngày bắt đầu hiệu lực</a></th>
+									<th scope="col"><a id="sortByEndDate" href="#">Ngày kết thúc hiệu lực</a></th>
+									<th scope="col">Action</th>
+								</tr>
+							</thead>
+							<tbody id="discountTable">
+								<!-- Nội dung bảng sản phẩm sẽ được cập nhật bằng JavaScript -->
+							</tbody>
+						</table>
+					</div>
+					<!-- Phân trang -->
+					<div class="pagination justify-content-center mt-4">
+						<ul class="pagination" id="pagination">
+							<!-- Các nút phân trang sẽ được cập nhật bằng JavaScript -->
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Table End -->
+</th:block>
+<!-- Content End -->
+<!-- Back to Top -->
+<a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+<script>
+	$(document).ready(function () {
+		var discountTable = $('#discountTable'); // Thẻ chứa bảng sản phẩm
+		var pagination = $('#pagination'); // Thẻ chứa các nút phân trang
+
+		var currentPage = 0; // Trang hiện tại
+		var field = "id"; // Trường sắp xếp mặc định
+		var direct = true; // Thứ tự sắp xếp mặc định
+
+		function updateDiscountTable(page) {
+			// Gửi yêu cầu Ajax đến controller để lấy dữ liệu trang và sắp xếp
+			$.ajax({
+				url: "/admin/discount/test",
+				type: "GET",
+				data: {
+					page: page,
+					field: field,
+					direct: direct
+				},
+				success: function (data) {
+					// Cập nhật nội dung bảng sản phẩm
+					discountTable.empty();
+					data.discountList.forEach(function (discount, index) {
+						var row = "<tr>" +
+							"<td><input class='form-check-input' type='checkbox'></td>" +
+							"<td>" + (index + 1) + "</td>" +
+							"<td>" + discount.id + "</td>" +
+							"<td>" + discount.discountCode + "</td>" +
+							"<td>" + discount.discountPercent + "</td>" +
+							"<td>" + discount.quantity + "</td>" +
+							"<td>" + discount.startDate + "</td>" +
+							"<td>" + discount.endDate + "</td>" +
+							"<td>" +
+							"<a href=''><i class='fa fa-edit'></i></a>" +
+							"<a href=''><i class='fa fa-trash'></i></a>" +
+							"</td>" +
+							"</tr>";
+						discountTable.append(row);
+					});
+
+					// Cập nhật phân trang
+					pagination.empty();
+					if (data.totalPages > 1) {
+						for (var i = 0; i < data.totalPages; i++) {
+							var pageLink = "<li class='page-item " + (i === currentPage ? 'active' : '') +
+								"'><a class='page-link' href='#' data-page='" + i + "'>" + (i + 1) + "</a></li>";
+							pagination.append(pageLink);
+						}
+					}
+
+				
+				},
+				error: function (jqXHR, textStatus, errorThrown) {
+					console.log(textStatus, errorThrown);
+				}
+			});
+		}
+
+		// Gọi hàm cập nhật bảng sản phẩm ban đầu
+		updateDiscountTable(currentPage);
+
+		// Gán sự kiện cho các nút phân trang
+		pagination.on('click', '.page-link', function (e) {
+			e.preventDefault();
+			var page = $(this).data('page');
+			currentPage = page;
+			updateDiscountTable(page);
+		});
+
+		// Gán sự kiện cho các thẻ sắp xếp
+		$('#sortById').click(function (e) {
+			e.preventDefault();
+			field = "id";
+			direct = !direct;
+			updateDiscountTable(currentPage);
+		});
+
+		$('#sortByDiscountCode').click(function (e) {
+			e.preventDefault();
+			field = "discountCode";
+			direct = !direct;
+			updateDiscountTable(currentPage);
+		});
+
+		$('#sortByDiscountPercent').click(function (e) {
+			e.preventDefault();
+			field = "discountPercent";
+			direct = !direct;
+			updateDiscountTable(currentPage);
+		});
+
+		$('#sortByQuantity').click(function (e) {
+			e.preventDefault();
+			field = "quantity";
+			direct = !direct;
+			updateDiscountTable(currentPage);
+		});
+
+		$('#sortByStartDate').click(function (e) {
+			e.preventDefault();
+			field = "startDate";
+			direct = !direct;
+			updateDiscountTable(currentPage);
+		});
+
+		$('#sortByEndDate').click(function (e) {
+			e.preventDefault();
+			field = "endDate";
+			direct = !direct;
+			updateDiscountTable(currentPage);
+		});
+	});
+
+
+</script>
+
+</html>

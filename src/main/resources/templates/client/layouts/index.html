@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<!-- CONTENT PAGE START-->
+<th:block th:fragment="content">
+	<!-- Slider -->
+	<div class="hero-slider">
+		<div class="slider-item th-fullpage hero-area" style="background-image: url(images/slider/slider-1.png);">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-8 text-center">
+						<p data-duration-in=".3" data-animation-in="fadeInUp" data-delay-in=".1">NỔI BẬT</p>
+						<h1 data-duration-in=".3" data-animation-in="fadeInUp" data-delay-in=".5">
+							Tất cả ưu đãi <br> truy cập tại đây.
+						</h1>
+						<a data-duration-in=".3" data-animation-in="fadeInUp" data-delay-in=".8" class="btn" href="">Xem
+							Thêm..</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="slider-item th-fullpage hero-area"
+			style="background-image: url(https://theme.hstatic.net/200000065946/1000806110/14/slideshow_4.jpg?v=2504);">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-8 text-right">
+						<p data-duration-in=".3" data-animation-in="fadeInUp" data-delay-in=".1">NỔI BẬT</p>
+						<h1 data-duration-in=".3" data-animation-in="fadeInUp" data-delay-in=".5">
+							Tất cả ưu đãi <br> truy cập tại đây.
+						</h1>
+						<a data-duration-in=".3" data-animation-in="fadeInUp" data-delay-in=".8" class="btn" href="">Xem
+							Thêm..</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="slider-item th-fullpage hero-area" style="background-image: url(images/slider/slider-3.jpg);">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-8 text-right">
+						<p data-duration-in=".3" data-animation-in="fadeInUp" data-delay-in=".1">NỔI BẬT</p>
+						<h1 data-duration-in=".3" data-animation-in="fadeInUp" data-delay-in=".5">
+							Tất cả ưu đãi <br> truy cập tại đây.
+						</h1>
+						<a data-duration-in=".3" data-animation-in="fadeInUp" data-delay-in=".8" class="btn" href="">Xem
+							Thêm..</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- End Slider -->
+
+	<!-- Product New Section -->
+	<section class="products section ">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="title text-center">
+					<h2>Sản Phẩm Giảm Giá
+						<hr>
+					</h2>
+
+				</div>
+			</div>
+			<div class="row">
+				<!-- Sử dụng thymeleaf để lặp qua mảng và hiển thị dữ liệu -->
+				<div class="col-md-3" th:each="product: ${products}">
+					<div class="product-item product-shop">
+						<div class="product-thumb">
+							<span class="bage" th:text="${'-'+ product[4]+'%'}"></span>
+							 <img class="img-responsive"
+							th:src="${'/images/'+product[5]}" alt="Product Image" />
+							<div class="preview-meta">
+								<ul>
+									<li>
+										<span
+										th:onclick="showProductDetails([[${product[0]}]], [[${product[1]}]], [[${product[3]}]], [[${product[5]}]], [[${product[6]}]])">
+										<i class="tf-ion-ios-search-strong"></i>
+									</span>
+									</li>
+									<li>
+										<a href="#" th:onclick="addToCart([[${product[0]}]])"><i
+											class="tf-ion-android-cart"></i></a>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<div class="product-content">
+							<h4>
+								<a href="#"  th:text="${product[1]}"> </a>
+							</h4>
+							<div class="price-wrapper" style="display: flex;justify-content: space-between;align-items: center;">
+								<del  th:text="${#numbers.formatDecimal(product[2], 0, 'COMMA', 0, 'POINT')+'đ'}"></del>
+								<p class="price" th:text="${#numbers.formatDecimal(product[3], 0, 'COMMA', 0, 'POINT') +'đ'}"></p>
+							  </div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<!-- Modal -->
+			<div class="modal product-modal fade" id="product-modal">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<i class="tf-ion-close"></i>
+				</button>
+				<div class="modal-dialog " role="document">
+					<div class="modal-content">
+						<div class="modal-body">
+							<div class="row">
+								<div class="col-md-8 col-sm-6 col-xs-12">
+									<div class="modal-image">
+										<img class="img-responsive" id="product-img" src="" alt="product-img" />
+										<p id="text-image"></p>
+									</div>
+								</div>
+								<div class="col-md-4 col-sm-6 col-xs-12">
+									<div class="product-short-details">
+										<h2 class="product-title" id="product-title"></h2>
+										<p class="product-price" id="product-price"></p>
+										<p class="product-short-description" id="product-description"></p>
+										<p id="modal-idProduct" style="display: none"></p>
+										<a href="#" class="btn btn-main" id="modal-addToCart" th:onclick="modalAddToCart()">Thêm vào giỏ hàng</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- /.modal -->
+		</div>
+	</section>
+	<!-- End Product New Section -->
+	<div class="banner">
+		<img src="https://nhaxinh.com/wp-content/uploads/2023/02/cua-hang-360-do-nha-xinh.jpg" alt=""
+			class="background-image" />
+		<div id="text-box-430012277" class="text-center1">
+			<div class="text-box-content text dark">
+				<div class="text-inner">
+					<div id="text-1246727486" class="text">
+						<h2 class="uppercase"><strong>CỬA HÀNG 360 ĐỘ</strong></h2>
+						<p>
+							Trải nghiệm ngay sản phẩm của GreenHouse một cách chân thực trên
+							tay bạn. Tham quan, xem thông tin sản phẩm chi tiết với góc nhìn
+							360 độ hoàn chỉnh.
+						</p>
+					</div>
+					<a href="" target="self" class="button white">
+						<span>Xem Chi Tiết</span>
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="wrapper-home-banner-img">
+		<div class="container site-animation">
+			<div class="row">
+				<div class="title text-center">
+					<h2>Bộ sưu tập nổi bật
+						<hr>
+					</h2>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-4 col-xs-12 col-sm-4 padding-img">
+					<div class="row">
+						<div class="col-md-12 col-xs-6 col-sm-12 no_pdr fade-box">
+							<div class="fade-out">
+								<a href="#" class="fadeoutcenter">
+
+									<img class="lazyloaded" width="370" height="357"
+										data-src="//theme.hstatic.net/200000065946/1000806110/14/imgaView1.jpg?v=2507"
+										src="images/slider/phong-lam-viec.png" alt="Bộ sưu tập nội thất VIENNA" />
+
+								</a>
+							</div>
+						</div>
+						<div class="col-md-12 col-xs-6 col-sm-12 no_pdr padding-img fade-box">
+							<div class="fade-out">
+								<a href="#" class="fadeoutcenter">
+
+									<img class="lazyloaded" width="370" height="357"
+										data-src="//theme.hstatic.net/200000065946/1000806110/14/imgaView2.jpg?v=2507"
+										src="images/slider/hang-trang-tri.jpg" alt="Bộ sưu tập nội thất VLINE" />
+
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-8 col-xs-12 col-sm-8 padding-img fade-box">
+					<div class="fade-out">
+						<a href="#" class="fadeoutcenter">
+							<img class="lazyloaded"
+								data-src="//theme.hstatic.net/200000065946/1000806110/14/imgaView3.jpg?v=2507"
+								src="images/slider/Phong-khach-Pio-tao-nha-tinh-te-3-768x512.jpg"
+								alt="Hệ tủ bếp MOHO KITCHEN" />
+						</a>
+					</div>
+					<div class="row">
+						<div class="col-md-6 col-xs-6 col-sm-6 padding-img pd_lr fade-box">
+							<div class="fade-out">
+								<a href="#" class="fadeoutcenter">
+									<img class="lazyloaded"
+										data-src="//theme.hstatic.net/200000065946/1000806110/14/imgaView4.jpg?v=2507"
+										src="images/slider/banner-phong-an-nha-xinh-12-9-22.jpg"
+										alt="Bộ sưu tập nội thất FIJI" />
+								</a>
+							</div>
+						</div>
+						<div class="col-md-6 col-xs-6 col-sm-6 padding-img pd_lr fade-box">
+							<div class="fade-out">
+								<a href="" class="fadeoutcenter">
+									<img class="lazyloaded"
+										data-src="//theme.hstatic.net/200000065946/1000806110/14/imgaView4.jpg?v=2507"
+										src="images/slider/mau-phong-ngu-16-5-23.jpg" alt="Bộ sưu tập nội thất FIJI" />
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</th:block>
+<!-- CONTENT PAGE END-->
+
+</html>

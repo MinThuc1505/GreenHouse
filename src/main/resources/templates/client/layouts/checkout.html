@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<!-- CONTENT PAGE START-->
+<th:block th:fragment="content">
+	<section class="page-header">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="content">
+						<h1 class="page-name">Checkout</h1>
+						<ol class="breadcrumb">
+							<li><a href="/client/index">Home</a></li>
+							<li class="active">checkout</li>
+						</ol>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<div class="page-wrapper">
+		<div class="checkout shopping">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-7">
+						<div class="block billing-details">
+							<h4 class="widget-title">Thông tin người mua</h4>
+							<form class="checkout-form">
+								<input type="hidden" id="idAccount" name="idAccount" th:value="${account.id}">
+								<div class="form-group">
+									<label for="full_name">Họ và tên</label>
+									<input type="text" class="form-control" id="full_name" placeholder=""
+										th:value="${account.fullname}">
+								</div>
+								<!-- Sử dụng các giá trị tương ứng của đối tượng account để hiển thị giá trị của các trường dữ liệu kiểu text -->
+								<div class="form-group">
+									<label for="email">Email</label>
+									<input type="text" class="form-control" id="email" placeholder=""
+										th:value="${account.email}">
+								</div>
+								<div class="form-group">
+									<label for="phone">Số điện thoại</label>
+									<input type="text" class="form-control" id="phone" placeholder=""
+										th:value="${account.phone}">
+								</div>
+								<div class="form-group">
+									<label for="user_address">Địa chỉ</label>
+									<input type="text" class="form-control" id="user_address" placeholder=""
+										th:value="${account.address}">
+								</div>
+							</form>
+
+						</div>
+						<div class="block">
+							<h4 class="widget-title">Phương thức thanh toán</h4>
+							<div class="payment-method">
+								<div class="radio-tile-group">
+									<div class="input-container">
+										<input id="cod" class="radio-button" type="radio" name="radio" value="COD">
+										<div class="radio-tile">
+											<div class="icon cod-icon">
+												<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+													viewBox="0 0 24 24">
+													<path d="M0 0h24v24H0z" fill="none"></path>
+													<path
+														d="M19.15 8a2 2 0 0 0-1.72-1H15V5a1 1 0 0 0-1-1H4a2 2 0 0 0-2 2v10a2 2 0 0 0 1 1.73 3.49 3.49 0 0 0 7 .27h3.1a3.48 3.48 0 0 0 6.9 0 2 2 0 0 0 2-2v-3a1.07 1.07 0 0 0-.14-.52zM15 9h2.43l1.8 3H15zM6.5 19A1.5 1.5 0 1 1 8 17.5 1.5 1.5 0 0 1 6.5 19zm10 0a1.5 1.5 0 1 1 1.5-1.5 1.5 1.5 0 0 1-1.5 1.5z">
+													</path>
+												</svg>
+											</div>
+											<label for="cod" class="radio-tile-label">COD</label>
+										</div>
+									</div>
+
+									<div class="input-container">
+										<input id="VNPay" class="radio-button" type="radio" name="radio" value="VNPay">
+										<div class="radio-tile">
+											<div class="icon bank-icon">
+												<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+													viewBox="0 0 24 24">
+													<path d="M0 0h24v24H0z" fill="none"></path>
+													<path
+														d="M20 4H4c-1.103 0-2 .897-2 2v2h20V6c0-1.103-.897-2-2-2zM2 18c0 1.103.897 2 2 2h16c1.103 0 2-.897 2-2v-6H2v6zm3-3h6v2H5v-2z">
+													</path>
+												</svg>
+											</div>
+											<label for="bank" class="radio-tile-label">VNPay</label>
+										</div>
+									</div>
+								</div>
+								<div class="sub-bank" id="sub-bank">
+									<div class="wrapper">
+										<div class="card">
+											<input class="input" type="radio" name="card" value="NCB">
+											<span class="check"></span>
+											<label class="label">
+												<div class="title">NCB</div>
+												<div class="logo-bank">
+													<img src="https://sandbox.vnpayment.vn/paymentv2/images/img/logos/bank/big/ncb.svg"
+														alt="">
+												</div>
+											</label>
+										</div>
+										<div class="card">
+											<input class="input" type="radio" name="card" value="TPBank">
+											<span class="check"></span>
+											<label class="label">
+												<div class="title">TPBank</div>
+												<div class="logo-bank">
+													<img src="https://sandbox.vnpayment.vn/paymentv2/images/img/logos/bank/big/tpbank.svg"
+														alt="">
+												</div>
+											</label>
+										</div>
+										<div class="card">
+											<input class="input" type="radio" name="card" value="VISA">
+											<span class="check"></span>
+											<label class="label">
+												<div class="title">VISA</div>
+												<div class="logo-bank">
+													<img src="https://sandbox.vnpayment.vn/paymentv2/images/img/logos/bank/big/visa.svg"
+														alt="">
+												</div>
+											</label>
+										</div>
+										<div class="card">
+											<input class="input" type="radio" name="card" value="MasterCard">
+											<span class="check"></span>
+											<label class="label">
+												<div class="title">MasterCard</div>
+												<div class="logo-bank">
+													<img src="https://sandbox.vnpayment.vn/paymentv2/images/img/logos/bank/big/mastercard.svg"
+														alt="">
+												</div>
+											</label>
+										</div>
+										<div class="card">
+											<input class="input" type="radio" name="card" value="JCB">
+											<span class="check"></span>
+											<label class="label">
+												<div class="title">JCB</div>
+												<div class="logo-bank">
+													<img src="https://sandbox.vnpayment.vn/paymentv2/images/img/logos/bank/big/jcb.svg"
+														alt="">
+												</div>
+											</label>
+										</div>
+										<div class="card">
+											<input class="input" type="radio" name="card" value="EXIMBANK">
+											<span class="check"></span>
+											<label class="label">
+												<div class="title">EXIMBANK</div>
+												<div class="logo-bank">
+													<img src="https://sandbox.vnpayment.vn/paymentv2/images/img/logos/bank/big/eximbank.svg"
+														alt="">
+												</div>
+											</label>
+										</div>
+									</div>
+								</div>
+								<div id="order-button">
+									<label class="total"
+										th:text="'Tổng: '+${#numbers.formatDecimal(total, 0, 'COMMA', 0, 'POINT')}+ ' VND'"></label>
+									<input type="hidden" id="totalAmount" name="totalAmount" th:value="${total}">
+									<button type="button" class="btn btn-primary" th:onclick="payment()">Đặt
+										hàng</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-5">
+						<div class="product-checkout-details">
+							<div class="block">
+								<h4 class="widget-title">Sản phẩm mua</h4>
+								<div class="card-box">
+									<th:block th:each="cart, iStat : ${carts}">
+										<div class="media product-card">
+											<input type="hidden" th:value="${cart[0][0]}">
+											<a class="pull-left">
+												<img class="media-object" th:src="${'/images/'+cart[0][1]}"
+													alt="Image" />
+											</a>
+											<div class="media-body">
+												<h4 class="media-heading"><a th:text="${cart[0][2]}"></a>
+												</h4>
+												<p class="quantity" th:text="'SL: '+${cart[0][4]}"></p>
+												<p class="price"
+													th:text="'Giá: '+${#numbers.formatDecimal(cart[0][3], 0, 'COMMA', 0, 'POINT')} + ' VND'">
+												</p>
+												<p class="total"
+													th:text="'Tổng: '+${#numbers.formatDecimal(cart[0][4] * cart[0][3], 0, 'COMMA', 0, 'POINT')}+ ' VND'">
+												</p>
+											</div>
+										</div>
+										<hr>
+									</th:block>
+								</div>
+								<hr>
+								<div class="summary-total">
+									<span>Tổng tiền đơn hàng:</span>
+									<span class="total"
+										th:text="${#numbers.formatDecimal(total, 0, 'COMMA', 0, 'POINT')}+ ' VND'"></span>
+								</div>
+								<div class="verified-icon">
+									<img src="images/shop/verified.png">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script>
+		function payment() {
+			var orderType = document.querySelector('input[name="radio"]:checked').value;
+			var codeBank = "";
+			if (orderType == 'VNPay') {
+				var codeBank = document.querySelector('input[name="card"]:checked').value;
+			}
+			var checkedIDs = [];
+			var checkboxes = document.querySelectorAll('.card-box input[type="hidden"]');
+
+			checkboxes.forEach(function (checkbox) {
+				checkedIDs.push(checkbox.value);
+			});
+			var checkedIDsStr = checkedIDs.join(',');
+
+			var totalAmount = document.querySelector('input[name="totalAmount"]').value;
+			var idAccount = document.querySelector('#idAccount').value;
+			var url = "/client/payment/create-payment";
+			var data = { orderType: orderType, totalAmount: totalAmount, checkedIDs: checkedIDsStr, codeBank: codeBank };
+
+			// Gửi yêu cầu Ajax tới controller
+			$.ajax({
+				url: url,
+				method: "POST",
+				data: data,
+				success: function (response) {
+					window.location.href = response.data;
+				},
+				error: function (jqXHR, textStatus, errorThrown) {
+					// Xử lý lỗi (nếu có)
+				}
+			});
+		}
+
+		var codRadioButton = document.getElementById("cod");
+		var vnPayRadioButton = document.getElementById("VNPay");
+
+		var orderButton = document.getElementById("order-button");
+		var subBank = document.getElementById("sub-bank");
+
+		codRadioButton.addEventListener("change", function () {
+			if (this.checked) {
+				orderButton.style.display = "flex";
+				subBank.style.display = "none";
+			} else {
+				orderButton.style.display = "none";
+			}
+		});
+
+		vnPayRadioButton.addEventListener("change", function () {
+			if (this.checked) {
+				orderButton.style.display = "flex";
+				subBank.style.display = "flex";
+			} else {
+				orderButton.style.display = "none";
+				subBank.style.display = "none";
+			}
+		});
+	</script>
+</th:block>
+<!-- CONTENT PAGE END-->
+
+</html>

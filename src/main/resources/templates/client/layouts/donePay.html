@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+
+
+<!-- CONTENT PAGE START-->
+<th:block th:fragment="content">
+
+    <div class="container done-pay">
+        <div class="panel panel-success">
+            <div class="panel-heading">
+                <h3 class="panel-title">Thanh toán thành công</h3>
+            </div>
+            <div class="panel-body">
+                <p>Hóa đơn của bạn đã được thanh toán.</p>
+                <p>Cảm ơn bạn đã lựa chọn <span>GREEN HOUSE</span> để mua hàng.</p>
+                <button>
+                    <a href="/client/index"><span class="button_top"> Tiếp tục mua sắm
+                        </span></a>
+                </button>
+            </div>
+        </div>
+    </div>
+    <style>
+        .done-pay .panel-success {
+            border-color: #5cb85c;
+        }
+
+        .done-pay .panel-heading {
+            background-color: #5cb85c;
+            color: white;
+        }
+
+        .done-pay .panel-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+
+        .done-pay span {
+            color: #0fbd0f;
+            font-size: larger;
+            font-weight: bold;
+        }
+
+        .done-pay .panel-body {
+            text-align: center;
+        }
+
+        .done-pay button {
+            margin-top: 2rem;
+            /* Variables */
+            --button_radius: 0.75em;
+            --button_color: #fefffe;
+            --button_outline_color: #007a0a;
+            font-size: 17px;
+            font-weight: bold;
+            border: none;
+            border-radius: var(--button_radius);
+            background: var(--button_outline_color);
+        }
+
+        .done-pay .button_top {
+            display: block;
+            box-sizing: border-box;
+            border: 2px solid var(--button_outline_color);
+            border-radius: var(--button_radius);
+            padding: 0.75em 1.5em;
+            background: var(--button_color);
+            color: var(--button_outline_color);
+            transform: translateY(-0.2em);
+            transition: transform 0.1s ease;
+        }
+
+        .done-pay button:hover .button_top {
+            /* Pull the button upwards when hovered */
+            transform: translateY(-0.33em);
+        }
+
+        .done-pay button:active .button_top {
+            /* Push the button downwards when pressed */
+            transform: translateY(0);
+        }
+    </style>
+</th:block>
+
+
+</html>

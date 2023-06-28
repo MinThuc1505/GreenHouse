@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<!-- Content Start -->
+<th:block th:fragment="content">
+  <div class="container-fluid pt-4 px-0">
+    <!-- Table Start -->
+
+    <div class="row g-4">
+      <div class="col-12">
+        <div class="bg-light rounded h-100 p-4">
+          <h6 class="mb-4">Thống Kê Theo Loại Sản Phẩm</h6>
+
+          <div class="table-responsive">
+            <table id="example1" class="table text-start align-middle table-bordered table-hover mb-0">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Tên Loại Sản Phẩm</th>
+                  <th>Tổng Số Lượng Bán Được</th>
+                  <th>Tổng Tiền</th>
+                </tr>
+              </thead>
+              <tbody id="product-table-bodyCa" style="overflow-y: auto; max-height: 400px;">
+                <tr th:each="item, itemIndex : ${page.content}">
+                  <td th:text="${itemIndex.index + 1}"></td>
+                  <td th:text="${item[0]}"></td>
+                  <td th:text="${item[1]}"></td>
+                  <td th:text="${#numbers.formatDecimal(item[2], 0, 'COMMA', 0, 'POINT')}"></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <nav class="mt-5 d-flex justify-content-center align-items-center" aria-label="Page navigation">
+            <ul id="paginationCa" class="pagination justify-content-center">
+              <li th:class="${page.first} ? 'page-item disabled' : 'page-item'">
+                <a th:if="${!page.first}" th:href="@{/admin/productCategoryStatistics(p=0)}" class="page-link">
+                  <i class='bx bx-chevrons-left'></i>
+                </a>
+              </li>
+              <li th:class="${page.first || !page.hasPrevious()} ? 'page-item disabled' : 'page-item'">
+                <a th:if="${!page.first}" th:href="@{/admin/productCategoryStatistics(p=${page.number}-1)}" class="page-link">
+                  <i class='bx bx-chevron-left'></i>
+                </a>
+              </li>
+              <li th:if="${page.number > 3}" class="page-item disabled">
+                <span class="page-link">...</span>
+              </li>
+              <li
+                th:each="num : ${#numbers.sequence((page.number > 3 ? page.number - 3 : 0), (page.number < page.totalPages - 3 ? page.number + 3 : page.totalPages-1))}"
+                class="page-item" th:classappend="${page.number == num ? 'active' : ''}">
+                <a th:href="@{|/admin/productCategoryStatistics?p=${num}|}" class="page-link" th:text="${num+1}"></a>
+              </li>
+              <li th:if="${page.number < page.totalPages - 4}" class="page-item disabled">
+                <span class="page-link">...</span>
+              </li>
+              <li th:class="${page.last || !page.hasNext()} ? 'page-item disabled' : 'page-item'">
+                <a th:if="${!page.last}" th:href="@{/admin/productCategoryStatistics(p=${page.number}+1)}" class="page-link">
+                  <i class='bx bx-chevron-right'></i>
+                </a>
+              </li>
+              <li th:class="${page.last} ? 'page-item disabled' : 'page-item'">
+                <a th:if="${!page.last}" th:href="@{/admin/productCategoryStatistics(p=${page.totalPages-1})}" class="page-link">
+                  <i class='bx bx-chevrons-right'></i>
+                </a>
+              </li>
+            </ul>
+          </nav>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Table End -->
+</th:block>
+<!-- Content End -->
+<!-- Back to Top -->
+<a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+
+</html>
