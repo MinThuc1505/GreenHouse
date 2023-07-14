@@ -78,7 +78,7 @@ public class StatisticController {
 		Page<Object[]> page = productDAO.calculateCategoryRevenue(pageable);
 
 		model.addAttribute("page", page);
-		model.addAttribute("template", "ProductCategoryStatistics.html");
+		model.addAttribute("template", "categoryStatistics.html");
 		model.addAttribute("fragment", "content");
 		return "admin/main-layout";
 	}
@@ -132,7 +132,7 @@ public class StatisticController {
 		model.addAttribute("page", billPage);
 		Account account = session.get("account");
 		model.addAttribute("account", account);
-		model.addAttribute("template", "BillReport.html");
+		model.addAttribute("template", "billReport.html");
 		model.addAttribute("fragment", "content");
 		return "admin/main-layout";
 	}

@@ -1,0 +1,85 @@
+<!doctype html>
+<html class="no-js" lang="" xmlns:th="http://www.thymeleaf.org">
+<body>
+    <th:block th:fragment="content">
+        <div class="wizard-area">
+            <div class="container">
+                <div class="row">
+                    <div class="bar-chart-wp">
+                        <canvas height="140vh" width="180vw" id="barchart1"></canvas>
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="normal-table-list mg-t-30">
+                            <div class="basic-tb-hd">
+                                <h2>Thống kê doanh thu theo thời gian</h2>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-5">
+                                    <div class="form-group">
+                                        <label for="thoiGianBatDau">Thời gian bắt đầu:</label>
+                                        <div class="input-group">
+                                            <input type="date" id="thoiGianBatDau" class="form-control"
+                                                placeholder="Thời gian bắt đầu">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-5">
+                                    <div class="form-group">
+                                        <label for="thoiGianKetThuc">Thời gian kết thúc:</label>
+                                        <div class="input-group">
+                                            <input type="date" id="thoiGianKetThuc" class="form-control"
+                                                placeholder="Thời gian kết thúc">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-2 d-flex justify-content-between">
+                                    <div class="input-group">
+                                        <br>
+                                        <button class="btn btn-primary" type="button">Tìm kiếm</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="bsc-tbl-hvr">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Ngày giao dịch</th>
+                                            <th>Sản phẩm</th>
+                                            <th>Số lượng</th>
+                                            <th>Giá bán</th>
+                                            <th>Tổng tiền</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>2023-07-14</td>
+                                            <td>Sản phẩm A</td>
+                                            <td>5</td>
+                                            <td>100</td>
+                                            <td>500</td>
+                                        </tr>
+                                        <tr>
+                                            <td>2</td>
+                                            <td>2023-07-15</td>
+                                            <td>Sản phẩm B</td>
+                                            <td>3</td>
+                                            <td>150</td>
+                                            <td>450</td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </th:block>
+</body>
+
+</html>

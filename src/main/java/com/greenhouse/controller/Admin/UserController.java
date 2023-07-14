@@ -62,7 +62,7 @@ public class UserController {
 		model.addAttribute("account", account);
 		model.addAttribute("account", new Account());
 		model.addAttribute("accounts", accounts);
-		model.addAttribute("template", "User.html");
+		model.addAttribute("template", "user.html");
 		model.addAttribute("fragment", "content");
 		model.addAttribute("totalPages", totalPages);
 		model.addAttribute("currentPage", currentPage);

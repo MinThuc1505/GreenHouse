@@ -49,7 +49,7 @@ public class ProductController {
         setProductPageInfo(model, productPage, page);
 
         model.addAttribute("product", new Product());
-        model.addAttribute("template", "Products.html");
+        model.addAttribute("template", "product.html");
         model.addAttribute("fragment", "content");
 
         return "admin/main-layout";

@@ -23,5 +23,4 @@ public class IndexAdminController {
 		model.addAttribute("fragment", "content");
 		return "admin/main-layout";
 	}
-
 }

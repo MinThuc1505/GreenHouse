@@ -56,7 +56,7 @@ public class CategoryController {
         setCommonModelAttributes(model, categories, totalPage, currentPage, startAndEndPage);
         model.addAttribute("category", new Category());
         model.addAttribute("categories", categories);
-        model.addAttribute("template", "categories.html");
+        model.addAttribute("template", "category.html");
         model.addAttribute("fragment", "content");
 
         return "admin/main-layout";

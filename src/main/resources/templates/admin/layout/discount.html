@@ -1,0 +1,126 @@
+<!doctype html>
+<html class="no-js" lang="" xmlns:th="http://www.thymeleaf.org">
+
+<body>
+    <th:block th:fragment="content">
+        <div class="wizard-area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="normal-table-list mg-t-30">
+                            <div class="basic-tb-hd">
+                                <h2>Giảm giá</h2>
+                            </div>
+                            <form>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            <label for="maGiam">Mã Giảm:</label>
+                                            <div class="nk-int-st">
+                                                <input type="text" id="maGiam" class="form-control"
+                                                    placeholder="Mã Giảm">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="phanTramGiam">Giảm giá (%):</label>
+                                            <div class="nk-int-st">
+                                                <input type="number" min="1" max="50" value="1" id="phanTramGiam"
+                                                    class="form-control" placeholder="Phần trăm giảm">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="soLuong">Số Lượng:</label>
+                                            <div class="nk-int-st">
+                                                <input type="text" id="soLuong" class="form-control"
+                                                    placeholder="Số Lượng">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="ngayBatDau">Ngày bắt đầu hiệu lực:</label>
+                                            <input type="date" style="width: 200px;" id="ngayBatDau"
+                                                class="form-control" placeholder="Ngày bắt đầu hiệu lực">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="ngayKetThuc">Ngày kết thúc hiệu lực:</label>
+                                            <input type="date" style="width: 200px;" id="ngayKetThuc"
+                                                class="form-control" placeholder="Ngày kết thúc hiệu lực">
+                                        </div>
+
+                                    </div>
+                                    <div class="vw-ml-action-ls text-right">
+                                        <div class="btn-group ib-btn-gp active-hook nk-email-inbox">
+                                            <button class="btn btn-default btn-sm waves-effect"><i
+                                                    class="fas fa-save"></i>Lưu</button>
+                                            <button class="btn btn-default btn-sm waves-effect"><i
+                                                    class="fas fa-rotate-right"></i> Làm mới</button>
+                                            <button class="btn btn-default btn-sm waves-effect"><i
+                                                    class="fas fa-trash"></i> Xóa</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div>
+
+
+                    </div>
+
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="normal-table-list mg-t-30">
+                            <div class="basic-tb-hd">
+                                <h2>Danh sách giảm giá</h2>
+                            </div>
+                            <div class="bsc-tbl-hvr">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>ID</th>
+                                            <th>Mã giảm giá</th>
+                                            <th>Giảm giá (%)</th>
+                                            <th>Số lượng</th>
+                                            <th>Ngày bắt đầu</th>
+                                            <th>Ngày kết thúc</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>ID001</td>
+                                            <td>GHJIJBQWEQJWE1</td>
+                                            <td>10%</td>
+                                            <td>5</td>
+                                            <td>2023-07-14</td>
+                                            <td>2023-07-21</td>
+                                            <td>
+                                                <button class="btn btn-info">Sửa</button>
+                                                <button class="btn btn-danger">Xóa</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>2</td>
+                                            <td>ID002</td>
+                                            <td>GHJIJBQWEQJWE2</td>
+                                            <td>20%</td>
+                                            <td>8</td>
+                                            <td>2023-07-15</td>
+                                            <td>2023-07-23</td>
+                                            <td>
+                                                <button class="btn btn-info">Sửa</button>
+                                                <button class="btn btn-danger">Xóa</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </th:block>
+</body>
+
+</html>

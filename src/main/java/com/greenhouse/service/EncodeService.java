@@ -67,7 +67,9 @@ public class EncodeService {
             return sb.toString();
 
         } catch (Exception ex) {
-            return "";
+        	ex.printStackTrace();
+
+    		return "";
         }
     }
 

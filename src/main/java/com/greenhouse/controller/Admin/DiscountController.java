@@ -55,7 +55,7 @@ public class DiscountController {
 		}
 		Account account = sessionService.get("account");
 		model.addAttribute("account", account);
-		model.addAttribute("template", "Discount.html");
+		model.addAttribute("template", "discount.html");
 		model.addAttribute("fragment", "content");
 		return "admin/main-layout";
 	}
