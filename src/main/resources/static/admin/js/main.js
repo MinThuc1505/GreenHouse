@@ -145,7 +145,7 @@
  
 })(jQuery); 
 
-function displayImage(event) {
+/*function displayImage(event) {
 	var reader = new FileReader();
 	reader.onload = function () {
 		var uploadedImage = document.getElementById('uploadedImage');
@@ -153,4 +153,4 @@ function displayImage(event) {
 		uploadedImage.style.display = 'block';
 	};
 	reader.readAsDataURL(event.target.files[0]);
-}
+}*/

@@ -2,146 +2,196 @@
 <html class="no-js" lang="" xmlns:th="http://www.thymeleaf.org">
 
 <body>
+	<th:block th:fragment="content">
+		<div class="wizard-area">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+						<table class="table table-striped">
+							<thead>
+								<tr class="table-bordered custom-border">
+									<th></th>
+									<th>Mã Sản Phẩm</th>
+									<th>Tên Sản Phẩm</th>
+									<th>Giá Sản Phẩm</th>
+									<th>Số Lượng (Trong Kho)</th>
+									<th>Mô Tả</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr data-toggle="collapse" data-target="#product1">
+									<td><img src="" alt="Chưa có hình"></td>
+									<td>SP001</td>
+									<td>Sản phẩm 1</td>
+									<td>100.000 đồng</td>
+									<td>50</td>
+									<td >Mô tả sản phẩm 122222</td>
+								</tr>
+								<tr id="product1" class="collapse">
+									<td colspan="6" class="product-info border-1">
+										<h4>Thông tin sản phẩm</h4>
+										<form>
+											<div class="row">
+												<div class="col-md-4">
+													<div class="form-group"
+														style="border: 1px solid rgb(221, 218, 218); height: 250px;">
+														<div class="nk-int-st image-container">
+															<img class="object-fit" id="product4" src="#"
+																alt="Uploaded Image"
+																style="display: none; max-height: 250px; width: 100%;">
+														</div>
+													</div>
+												</div>
+												<div class="col-md-8">
+													<div class="row">
+														<div class="col-md-6">
+															<div class="form-group">
+																<label for="productCode" class="fw-bold">Mã Sản
+																	Phẩm (*)</label> <input type="text"
+																	class="form-control border-bottom" id="productCode">
+															</div>
+															<div class="form-group mt-3">
+																<label for="productName" class="fw-bold">Tên Sản
+																	Phẩm</label> <input type="text"
+																	class="form-control border-bottom" id="productName">
+															</div>
+															<div class="form-group mt-3">
+																<label for="productPrice" class="fw-bold">Giá
+																	Sản Phẩm</label> <input type="text"
+																	class="form-control border-bottom" id="productPrice">
+															</div>
+														</div>
+														<div class="col-md-6">
+															<div class="form-group">
+																<label for="productQuantity" class="fw-bold">Số
+																	Lượng</label> <input type="number" min="1" value="1"
+																	class="form-control text-center border-bottom"
+																	id="productQuantity" placeholder="Số Lượng (Trong Kho)">
+															</div>
+															<div class="form-group mt-3">
+																<label for="productDescription" class="fw-bold">Mô
+																	Tả</label>
+																<textarea class="form-control border-bottom" rows="3.5"
+																	id="productDescription"></textarea>
+															</div>
+														</div>
+													</div>
+													<div class="form-group mt-3">
+														<label for="fileInput" class="fw-bold">Chọn Hình</label>
+														<div class="input-group">
+															<input style="object-fit: contain;" type="file"
+																class="form-control" id="fileInput"
+																onchange="displayImageProduct(event, 'product4')">
+														</div>
+													</div>
+												</div>
+												<div class="col-md-12 text-right mt-5">
+													<div class="btn-group ib-btn-gp active-hook nk-email-inbox">
+														
+														<button class="btn btn-primary notika-btn-primary waves-effect"><i class="fa fa-save"></i> Lưu</button>
+														<button class="btn btn-info notika-btn-info waves-effect"><i class="fa fa-rotate-right"></i> Làm mới</button>
+														<button class="btn btn-danger notika-btn-danger waves-effect">	<i class="fa fa-trash"></i> Xóa</button>
+													</div>
+												</div>
+											</div>
+										</form>
+									</td>
+								</tr>
+								<tr data-toggle="collapse" data-target="#product2">
+									<td><img src="" alt="Chưa có hình"></td>
+									<td>SP001</td>
+									<td>Sản phẩm 1</td>
+									<td>100.000 đồng</td>
+									<td>50</td>
+									<td>Mô tả sản phẩm 122222</td>
+								</tr>
+								<tr id="product2" class="collapse">
+									<td colspan="6" class="product-info border-1">
+										<h4>Thông tin sản phẩm</h4>
+										<form>
+											<div class="row">
+												<div class="col-md-4">
+													<div class="form-group"
+														style="border: 1px solid rgb(221, 218, 218); height: 250px;">
+														<div class="nk-int-st image-container">
+															<img class="object-fit" id="product3" src=""
+																alt="Uploaded Image"
+																style="display: none; max-height: 250px; width: 100%;">
+														</div>
+													</div>
+												</div>
+												<div class="col-md-8">
+													<div class="row">
+														<div class="col-md-6">
+															<div class="form-group">
+																<label for="productCode" class="fw-bold">Mã Sản
+																	Phẩm (*)</label> <input type="text"
+																	class="form-control border-bottom" id="productCode">
+															</div>
+															<div class="form-group mt-3">
+																<label for="productName" class="fw-bold">Tên Sản
+																	Phẩm</label> <input type="text"
+																	class="form-control border-bottom" id="productName">
+															</div>
+															<div class="form-group mt-3">
+																<label for="productPrice" class="fw-bold">Giá
+																	Sản Phẩm</label> <input type="text"
+																	class="form-control border-bottom" id="productPrice">
+															</div>
+														</div>
+														<div class="col-md-6">
+															<div class="form-group">
+																<label for="productQuantity" class="fw-bold">Số
+																	Lượng</label> <input type="number" min="1" value="1"
+																	class="form-control text-center border-bottom"
+																	id="productQuantity" placeholder="Số Lượng (Trong Kho)">
+															</div>
+															<div class="form-group mt-3">
+																<label for="productDescription" class="fw-bold">Mô
+																	Tả</label>
+																<textarea class="form-control border-bottom" rows="3.5"
+																	id="productDescription"></textarea>
+															</div>
+														</div>
+													</div>
+													<div class="form-group mt-3">
+														<label for="fileInput" class="fw-bold">Chọn Hình</label>
+														<div class="input-group">
+															<input style="object-fit: contain;" type="file"
+																class="form-control" id="fileInput"
+																onchange="displayImageProduct(event,'product3')">
+														</div>
+													</div>
+												</div>
+												<div class="col-md-12 text-right mt-5">
+													<div class="btn-group ib-btn-gp active-hook nk-email-inbox">
+														
+														<button class="btn btn-primary notika-btn-primary waves-effect"><i class="fa fa-save"></i> Lưu</button>
+														<button class="btn btn-info notika-btn-info waves-effect"><i class="fa fa-rotate-right"></i> Làm mới</button>
+														<button class="btn btn-danger notika-btn-danger waves-effect">	<i class="fa fa-trash"></i> Xóa</button>
+													</div>
+												</div>
+											</div>
+										</form>
+									</td>
+								</tr>
 
-    <th:block th:fragment="content">
-        <div class="wizard-area">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        <div class="wizard-wrap-int">
-                            <div class="wizard-hd">
-                                <h2>Sản phẩm</h2>
-                            </div>
-                            <div id="rootwizard">
-                                <form>
-                                    <div class="row">
-                                        <div class="col-md-8">
-                                            <div class="form-group">
-                                                <label class="control-label">Mã Sản Phẩm</label>
-                                                <div class="nk-int-st">
-                                                    <input type="text" class="form-control" placeholder="Mã Sản Phẩm">
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="control-label">Tên Sản Phẩm</label>
-                                                <div class="nk-int-st">
-                                                    <input type="text" class="form-control" placeholder="Tên Sản Phẩm">
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="control-label">Giá Sản Phẩm</label>
-                                                <div class="nk-int-st">
-                                                    <input type="text" class="form-control" placeholder="Giá Sản Phẩm">
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="control-label">Số Lượng (Trong Kho)</label>
-                                                <div class="nk-int-st">
-                                                    <input type="number" min="1" value="1" class="form-control"
-                                                        placeholder="Số Lượng (Trong Kho)">
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="control-label">Mô Tả</label>
-                                                <div class="nk-int-st">
-                                                    <textarea class="form-control" placeholder="Mô Tả"></textarea>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="control-label">Chọn Hình</label>
-                                                <div class="input-group">
-                                                    <span class="input-group-btn">
-                                                        <span class="btn btn-default btn-file">
-                                                            Browse <input type="file" id="fileInput"
-                                                                onchange="displayImage(event)">
-                                                        </span>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group" style="border: 1px solid black; height: 400px;">
-                                                <div class="nk-int-st image-container">
-                                                    <img id="uploadedImage" src="#" alt="Uploaded Image"
-                                                        style="align-items: center;display: none; max-width: 100%; max-height: 400px;">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="vw-ml-action-ls text-right">
-                                            <div class="btn-group ib-btn-gp active-hook nk-email-inbox">
-                                                <button class="btn btn-default btn-sm waves-effect"><i
-                                                        class="fas fa-save"></i>Lưu</button>
-                                                <button class="btn btn-default btn-sm waves-effect"><i
-                                                        class="fas fa-rotate-right"></i> Làm mới</button>
-                                                <button class="btn btn-default btn-sm waves-effect"><i
-                                                        class="fas fa-trash"></i> Xóa</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
+								<!-- Thêm các dòng sản phẩm khác tương tự ở đây -->
+							</tbody>
+						</table>
 
-                        </div>
-                    </div>
-                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        <div class="normal-table-list mg-t-30">
-                            <div class="basic-tb-hd">
-                                <h2>Danh sách sản phẩm</h2>
-                            </div>
-                            <div class="bsc-tbl-hvr">
-                                <table class="table table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>Mã sản phẩm</th>
-                                            <th>Tên sản phẩm</th>
-                                            <th>Giá sản phẩm</th>
-                                            <th>Số lượng</th>
-                                            <th>Mô tả</th>
-                                            <th></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>SP001</td>
-                                            <td>Sản phẩm 1</td>
-                                            <td>100,000đ</td>
-                                            <td>10</td>
-                                            <td>Mô tả sản phẩm 1</td>
-                                            <td>
-                                                <button class="btn btn-info">Sửa</button>
-                                                <button class="btn btn-danger">Xóa</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>SP002</td>
-                                            <td>Sản phẩm 2</td>
-                                            <td>200,000đ</td>
-                                            <td>5</td>
-                                            <td>Mô tả sản phẩm 2</td>
-                                            <td>
-                                                <button class="btn btn-info">Sửa</button>
-                                                <button class="btn btn-danger">Xóa</button>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <script>
-            function displayImage(event) {
-                var image = document.getElementById('uploadedImage');
-                image.src = URL.createObjectURL(event.target.files[0]);
-                image.style.display = "block";
-            }
-        </script>
-    </th:block>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script>
+			function displayImageProduct(event,idImg) {
+				var image = document.getElementById(idImg);
+				image.src = URL.createObjectURL(event.target.files[0]);
+				image.style.display = "block";
+			}
+		</script>
+	</th:block>
 </body>
 
 
