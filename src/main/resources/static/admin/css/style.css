@@ -4722,3 +4722,10 @@ body{
     margin-left: 25px;
     width: 120px;
 }
+
+.text-break {
+        max-width: 150px; /* Độ rộng tối đa của ô */
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+}
