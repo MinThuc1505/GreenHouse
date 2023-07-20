@@ -6,213 +6,257 @@
         <!-- Compose user area Start-->
         <div class="inbox-area">
             <div class="container">
-                <div class="row">
-                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        <div class="view-mail-list sm-res-mg-t-30">
-                            <div class="view-mail-hd">
-                                <div class="view-mail-hrd">
-                                    <h2>Người dùng</h2>
-                                </div>
-                            </div>
-                            <div class="cmp-int mg-t-20">
-                                <form>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label class="control-label">Họ và Tên</label>
-                                                <div class="nk-int-st">
-                                                    <input type="text" class="form-control" placeholder="Họ và Tên">
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="control-label">Tên tài khoản</label>
-                                                <div class="nk-int-st">
-                                                    <input type="text" class="form-control" placeholder="Tên tài khoản">
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="control-label">Mật Khẩu</label>
-                                                <div class="nk-int-st">
-                                                    <input type="password" class="form-control" placeholder="Mật Khẩu">
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="control-label">Email</label>
-                                                <div class="nk-int-st">
-                                                    <input type="email" class="form-control" placeholder="Email">
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="control-label">Số Điện Thoại</label>
-                                                <div class="nk-int-st">
-                                                    <input type="text" class="form-control" placeholder="Số Điện Thoại">
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="control-label">Địa chỉ</label>
-                                                <div class="nk-int-st">
-                                                    <input type="text" class="form-control" placeholder="Địa chỉ">
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="control-label">Vai trò:</label>
-                                                <div class="nk-int-st">
-                                                    <select class="form-control">
-                                                        <option>Vai trò:</option>
-                                                        <option>Admin</option>
-                                                        <option>User</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="control-label">Trạng thái:</label>
-                                                <div class="nk-int-st">
-                                                    <select class="form-control">
-                                                        <option>Trạng thái:</option>
-                                                        <option>Kích hoạt</option>
-                                                        <option>Chưa kích hoạt</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="control-label">Chọn Hình</label>
-                                                <div class="input-group">
-                                                    <span class="input-group-btn">
-                                                        <span class="btn btn-default btn-file">
-                                                            Browse <input type="file" id="fileInput"
-                                                                onchange="displayImage(event)">
-                                                        </span>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group" style="border: 1px solid black; height: 400px;">
-                                                <div class="nk-int-st image-container">
-                                                    <img id="uploadedImage" src="#" alt="Uploaded Image"
-                                                        style="align-items: center;display: none; max-width: 100%; max-height: 400px;">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
-
-                            </div>
-                            <div class="vw-ml-action-ls text-right mg-t-20">
-                                <div class="btn-group ib-btn-gp active-hook nk-email-inbox">
-                                    <button class="btn btn-default btn-sm waves-effect"><i
-                                            class="fas fa-save"></i>Lưu</button>
-                                    <button class="btn btn-default btn-sm waves-effect"><i
-                                            class="fas fa-rotate-right"></i> Làm mới</button>
-                                    <button class="btn btn-default btn-sm waves-effect"><i
-                                            class="fas fa-trash"></i> Xóa</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        <div class="normal-table-list mg-t-30">
-                            <div class="basic-tb-hd">
-                                <h2>Danh sách tài khoản người dùng</h2>
-                            </div>
-                            <div class="bsc-tbl-hvr">
-                                <table class="table table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>Tên tài khoản</th>
-                                            <th>Họ và tên</th>
-                                            <th>Mật khẩu</th>
-                                            <th>Email</th>
-                                            <th>Số điện thoại</th>
-                                            <th>Địa chỉ</th>
-                                            <th>Vai trò</th>
-                                            <th>Trạng thái</th>
-                                            <th></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>taikhoan1</td>
-                                            <td>Nguyễn Văn A</td>
-                                            <td>mypassword1</td>
-                                            <td>email1@example.com</td>
-                                            <td>1234567890</td>
-                                            <td>Địa chỉ 1</td>
-                                            <td>Người dùng</td>
-                                            <td>Hoạt động</td>
-                                            <td>
-                                                <button class="btn btn-info">Sửa</button>
-                                                <button class="btn btn-danger">Xóa</button>
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>1</td>
-                                            <td>taikhoan1</td>
-                                            <td>Nguyễn Văn A</td>
-                                            <td>mypassword1</td>
-                                            <td>email1@example.com</td>
-                                            <td>1234567890</td>
-                                            <td>Địa chỉ 1</td>
-                                            <td>Quản lý</td>
-                                            <td>Hoạt động</td>
-                                            <td>
-                                                <button class="btn btn-info">Sửa</button>
-                                                <button class="btn btn-danger">Xóa</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>Sebastian</td>
-                                            <td>Johnston</td>
-                                            <td>@sebastian</td>
-                                            <td>Jaycee</td>
-                                        </tr>
-                                        <tr>
-                                            <td>4</td>
-                                            <td>Mitchell</td>
-                                            <td>Christin</td>
-                                            <td>@mitchell4u</td>
-                                            <td>AdskiDeAnus</td>
-                                        </tr>
-                                        <tr>
-                                            <td>5</td>
-                                            <td>Elizabeth</td>
-                                            <td>Belkitt</td>
-                                            <td>@belkitt</td>
-                                            <td>Goat</td>
-                                        </tr>
-                                        <tr>
-                                            <td>6</td>
-                                            <td>Benjamin</td>
-                                            <td>Parnell</td>
-                                            <td>@wayne234</td>
-                                            <td>Pokie</td>
-                                        </tr>
-                                        <tr>
-                                            <td>7</td>
-                                            <td>Katherine</td>
-                                            <td>Buckland</td>
-                                            <td>@anitabelle</td>
-                                            <td>Wokie</td>
-                                        </tr>
-                                        <tr>
-                                            <td>8</td>
-                                            <td>Nicholas</td>
-                                            <td>Walmart</td>
-                                            <td>@mwalmart</td>
-                                            <td>Spike</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+				<div class="row header-filter-product header-action-product">
+					<div class="filter-search col-md-6">
+						<div class="input-group">
+							<input type="text" class="form-control" placeholder="Tìm kiếm nhiều tài khoản...">
+							<span class="input-group-btn">
+								<button class="btn btn-default" type="button"><span
+										class="glyphicon glyphicon-search"></span></button>
+							</span>
+						</div>
+					</div>
+					<div class="action-product col-md-6">
+						<button class="btn btn-success">Thêm mới</button>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+						<table class="table table-striped">
+							<thead>
+								<tr class="table-bordered custom-border tr-thead">
+									<th class="text-center">#</th>
+						            <th></th>
+						            <th>Tên tài khoản</th>
+						            <th>Họ và tên</th>
+						            <th>Email</th>
+						            <th>Số điện thoại</th>
+						            <th>Địa chỉ</th>
+						            <th>Vai trò</th>
+						            <th>Trạng thái</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr data-toggle="collapse" data-target="#product1" class="tr-title-product">
+									<td class="text-center">1</td>
+						            <td><img src="" alt="#"></td>
+						            <td>john_doe</td>
+						            <td>John Doe</td>
+						            <td>john@example.com</td>
+						            <td>123456789</td>
+						            <td class="text-break" title="123 Main St, Cityyyyyyyyyyyyyyyyyyyyyyyyy" >123 Main St, Cityyyyyyyyyyyyyyyyyyyyyyyyy</td>
+						            <td>User</td>
+						            <td>Active</td>
+								</tr>
+								<tr id="product1" class="collapse">
+									<td colspan="12" class="product-info border-1">
+										<h4>Thông tin tài khoản</h4>
+										<form>
+										    <div class="row">
+										        <div class="col-md-4">
+										            <div class="form-group"
+										                style="border: 1px solid rgb(221, 218, 218); height: 250px;">
+										                <div class="nk-int-st image-container">
+										                    <img class="object-fit" id="product4" src="#"
+										                        alt="Uploaded Image"
+										                        style="display: none; max-height: 250px; width: 100%;">
+										                </div>
+										                 
+										            </div>
+										            <div class="form-group mt-3">
+										                	<label for="fileInput" class="fw-bold">Chọn Hình</label>
+												            <div class="input-group">
+												             <input style="object-fit: contain;" type="file"
+												                    class="form-control" id="fileInput"
+												                     onchange="displayImageUser(event, 'product4')">
+												            </div>
+												       </div>
+										        </div>
+										        <div class="col-md-8">
+										            <div class="row">
+										                <div class="col-md-6">
+										                    <div class="form-group mt-3">
+										                        <label for="username" class="fw-bold">Tên tài khoản</label>
+										                        <input type="text" class="form-control border-bottom" id="username">
+										                    </div>
+										                    <div class="form-group mt-3">
+										                        <label for="fullname" class="fw-bold">Họ và tên</label>
+										                        <input type="text" class="form-control border-bottom" id="fullname">
+										                    </div>
+										                     <div class="form-group mt-3">
+										                        <label for="phone" class="fw-bold">Số điện thoại</label>
+										                        <input type="tel" class="form-control border-bottom" id="phone">
+										                    </div>
+										                    <div class="form-group mt-3">
+															    <label for="role" class="fw-bold">Vai trò</label>
+															    <select class="form-control border-bottom" id="role">
+															        <option value="admin">Quản lý</option>
+															        <option value="user">Người dùng</option>
+															    </select>
+															</div>
+										                </div>
+										                <div class="col-md-6">
+										                    <div class="form-group">
+										                        <label for="password" class="fw-bold">Mật khẩu</label>
+										                        <input type="password" class="form-control border-bottom" id="password">
+										                    </div>
+										                    <div class="form-group mt-3">
+										                        <label for="email" class="fw-bold">Email</label>
+										                        <input type="email" class="form-control border-bottom" id="email">
+										                    </div>
+										                    <div class="form-group mt-3">
+										                        <label for="address" class="fw-bold">Địa chỉ</label>
+										                        <input type="text" class="form-control border-bottom" id="address">
+										                    </div>
+										                    <div class="form-group mt-3">
+															    <label class="fw-bold">Trạng thái</label>
+															    <div>
+															        <label class="radio-inline">
+															            <input type="radio" name="status" value="true"> Kích hoạt
+															        </label>
+															        <label class="radio-inline">
+															            <input type="radio" name="status" value="false"> Hủy kích hoạt
+															        </label>
+															    </div>
+															</div>
+										                </div>
+										            </div>
+										        </div>
+										        <div class="col-md-12 text-right mt-5">
+										            <div class="btn-group ib-btn-gp active-hook nk-email-inbox">
+										
+										                <button class="btn btn-primary notika-btn-primary waves-effect">
+										                    <i class="fa fa-save"></i> Lưu
+										                </button>
+										                <button class="btn btn-info notika-btn-info waves-effect">
+										                    <i class="fa fa-rotate-right"></i> Làm mới
+										                </button>
+										                <button class="btn btn-danger notika-btn-danger waves-effect">
+										                    <i class="fa fa-trash"></i> Xóa
+										                </button>
+										            </div>
+										        </div>
+										    </div>
+										</form>
+									</td>
+								</tr>
+								<tr data-toggle="collapse" data-target="#product2" class="tr-title-product">
+									<td class="text-center">1</td>
+						            <td><img src="" alt="#"></td>
+						            <td>john_doe</td>
+						            <td>John Doe</td>
+						            <td>john@example.com</td>
+						            <td>123456789</td>
+						            <td class="text-break" title="123 Main St, Cityyyyyyyyyyyyyyyyyyyyyyyyy" >123 Main St, Cityyyyyyyyyyyyyyyyyyyyyyyyy</td>
+						            <td>User</td>
+						            <td>Active</td>
+								</tr>
+								<tr id="product2" class="collapse">
+									<td colspan="12" class="product-info border-1">
+										<h4>Thông tin tài khoản</h4>
+										<form>
+										    <div class="row">
+										        <div class="col-md-4">
+										            <div class="form-group"
+										                style="border: 1px solid rgb(221, 218, 218); height: 250px;">
+										                <div class="nk-int-st image-container">
+										                    <img class="object-fit" id="product5" src="#"
+										                        alt="Uploaded Image"
+										                        style="display: none; max-height: 250px; width: 100%;">
+										                </div>
+										                 
+										            </div>
+										            <div class="form-group mt-3">
+										                	<label for="fileInput" class="fw-bold">Chọn Hình</label>
+												            <div class="input-group">
+												             <input style="object-fit: contain;" type="file"
+												                    class="form-control" id="fileInput"
+												                     onchange="displayImageUser(event, 'product5')">
+												            </div>
+												       </div>
+										        </div>
+										        <div class="col-md-8">
+										            <div class="row">
+										                <div class="col-md-6">
+										                    <div class="form-group mt-3">
+										                        <label for="username" class="fw-bold">Tên tài khoản</label>
+										                        <input type="text" class="form-control border-bottom" id="username">
+										                    </div>
+										                    <div class="form-group mt-3">
+										                        <label for="fullname" class="fw-bold">Họ và tên</label>
+										                        <input type="text" class="form-control border-bottom" id="fullname">
+										                    </div>
+										                     <div class="form-group mt-3">
+										                        <label for="phone" class="fw-bold">Số điện thoại</label>
+										                        <input type="tel" class="form-control border-bottom" id="phone">
+										                    </div>
+										                    <div class="form-group mt-3">
+															    <label for="role" class="fw-bold">Vai trò</label>
+															    <select class="form-control border-bottom" id="role">
+															        <option value="admin">Quản lý</option>
+															        <option value="user">Người dùng</option>
+															    </select>
+															</div>
+										                </div>
+										                <div class="col-md-6">
+										                    <div class="form-group">
+										                        <label for="password" class="fw-bold">Mật khẩu</label>
+										                        <input type="password" class="form-control border-bottom" id="password">
+										                    </div>
+										                    <div class="form-group mt-3">
+										                        <label for="email" class="fw-bold">Email</label>
+										                        <input type="email" class="form-control border-bottom" id="email">
+										                    </div>
+										                    <div class="form-group mt-3">
+										                        <label for="address" class="fw-bold">Địa chỉ</label>
+										                        <input type="text" class="form-control border-bottom" id="address">
+										                    </div>
+										                    <div class="form-group mt-3">
+															    <label class="fw-bold">Trạng thái</label>
+															    <div>
+															        <label class="radio-inline">
+															            <input type="radio" name="status" value="true"> Kích hoạt
+															        </label>
+															        <label class="radio-inline">
+															            <input type="radio" name="status" value="false"> Hủy kích hoạt
+															        </label>
+															    </div>
+															</div>
+										                </div>
+										            </div>
+										        </div>
+										        <div class="col-md-12 text-right mt-5">
+										            <div class="btn-group ib-btn-gp active-hook nk-email-inbox">
+										
+										                <button class="btn btn-primary notika-btn-primary waves-effect">
+										                    <i class="fa fa-save"></i> Lưu
+										                </button>
+										                <button class="btn btn-info notika-btn-info waves-effect">
+										                    <i class="fa fa-rotate-right"></i> Làm mới
+										                </button>
+										                <button class="btn btn-danger notika-btn-danger waves-effect">
+										                    <i class="fa fa-trash"></i> Xóa
+										                </button>
+										            </div>
+										        </div>
+										    </div>
+										</form>
+									</td>
+								</tr>
+								<!-- Thêm các dòng sản phẩm khác tương tự ở đây -->
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
         </div>
+        <script>
+			function displayImageUser(event, idImg) {
+				var image = document.getElementById(idImg);
+				image.src = URL.createObjectURL(event.target.files[0]);
+				image.style.display = "block";
+			}
+		</script>
         <!-- Compose user area End-->
     </th:block>
 </body>

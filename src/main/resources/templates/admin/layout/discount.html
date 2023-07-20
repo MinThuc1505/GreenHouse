@@ -5,120 +5,107 @@
     <th:block th:fragment="content">
         <div class="wizard-area">
             <div class="container">
-                <div class="row">
-                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        <div class="normal-table-list mg-t-30">
-                            <div class="basic-tb-hd">
-                                <h2>Giảm giá</h2>
-                            </div>
-                            <form>
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                        <div class="form-group">
-                                            <label for="maGiam">Mã Giảm:</label>
-                                            <div class="nk-int-st">
-                                                <input type="text" id="maGiam" class="form-control"
-                                                    placeholder="Mã Giảm">
+				<div class="row header-filter-product header-action-product">
+					<div class="filter-search col-md-6">
+						<div class="input-group">
+							<input type="text" class="form-control"
+								placeholder="Tìm kiếm nhiều loại sản phẩm..."> <span
+								class="input-group-btn">
+								<button class="btn btn-default" type="button">
+									<span class="glyphicon glyphicon-search"></span>
+								</button>
+							</span>
+						</div>
+					</div>
+					<div class="action-product col-md-6">
+						<button class="btn btn-success">Thêm mới</button>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+						<table class="table table-striped">
+							<thead>
+								<tr class="table-bordered custom-border tr-thead">
+                                    <th class="text-center">#</th>
+                                    <th>ID</th>
+                                    <th>Mã giảm giá</th>
+                                    <th>Giảm giá (%)</th>
+                                    <th>Số lượng</th>
+                                    <th>Ngày bắt đầu</th>
+                                    <th>Ngày kết thúc</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr data-toggle="collapse" data-target="#product1"
+									class="tr-title-product">
+									<td class="text-center">1</td>
+                                    <td>ID001</td>
+                                    <td>GHJIJBQWEQJWE1</td>
+                                    <td>10%</td>
+                                    <td>5</td>
+                                    <td>2023-07-14</td>
+                                    <td>2023-07-21</td>
+								</tr>
+								<tr id="product1" class="collapse">
+									<td colspan="12" class="product-info border-1">
+										<h4>Thông tin mã giảm giá</h4>
+										<form>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group mt-3">
+                                                        <label for="discountCode" class="fw-bold">Mã Giảm</label>
+                                                        <input type="text" class="form-control border-bottom" id="discountCode">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group mt-3">
+                                                        <label for="startDate" class="fw-bold">Ngày bắt đầu hiệu lực</label>
+                                                        <input type="date" class="form-control border-bottom" id="startDate">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group mt-3">
+                                                        <label for="quantity" class="fw-bold">Số Lượng</label>
+                                                        <input type="number" min="1" value="1" class="form-control text-center border-bottom" id="quantity">
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="col-md-6">
+                                                    <div class="form-group mt-3">
+                                                        <label for="endDate" class="fw-bold">Ngày kết thúc hiệu lực</label>
+                                                        <input type="date" class="form-control border-bottom" id="endDate">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group mt-3">
+                                                        <label for="discountPercent" class="fw-bold">Giảm giá (%)</label>
+                                                        <input type="text" class="form-control border-bottom" id="discountPercent">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12 text-right mt-5">
+                                                    <div class="btn-group ib-btn-gp active-hook nk-email-inbox">
+                                                        <button class="btn btn-primary notika-btn-primary waves-effect">
+                                                            <i class="fa fa-save"></i> Lưu
+                                                        </button>
+                                                        <button class="btn btn-info notika-btn-info waves-effect">
+                                                            <i class="fa fa-rotate-right"></i> Làm mới
+                                                        </button>
+                                                        <button class="btn btn-danger notika-btn-danger waves-effect">
+                                                            <i class="fa fa-trash"></i> Xóa
+                                                        </button>
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="phanTramGiam">Giảm giá (%):</label>
-                                            <div class="nk-int-st">
-                                                <input type="number" min="1" max="50" value="1" id="phanTramGiam"
-                                                    class="form-control" placeholder="Phần trăm giảm">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="soLuong">Số Lượng:</label>
-                                            <div class="nk-int-st">
-                                                <input type="text" id="soLuong" class="form-control"
-                                                    placeholder="Số Lượng">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="ngayBatDau">Ngày bắt đầu hiệu lực:</label>
-                                            <input type="date" style="width: 200px;" id="ngayBatDau"
-                                                class="form-control" placeholder="Ngày bắt đầu hiệu lực">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="ngayKetThuc">Ngày kết thúc hiệu lực:</label>
-                                            <input type="date" style="width: 200px;" id="ngayKetThuc"
-                                                class="form-control" placeholder="Ngày kết thúc hiệu lực">
-                                        </div>
-
-                                    </div>
-                                    <div class="vw-ml-action-ls text-right">
-                                        <div class="btn-group ib-btn-gp active-hook nk-email-inbox">
-                                            <button class="btn btn-default btn-sm waves-effect"><i
-                                                    class="fas fa-save"></i>Lưu</button>
-                                            <button class="btn btn-default btn-sm waves-effect"><i
-                                                    class="fas fa-rotate-right"></i> Làm mới</button>
-                                            <button class="btn btn-default btn-sm waves-effect"><i
-                                                    class="fas fa-trash"></i> Xóa</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
-
-                        </div>
-
-
-                    </div>
-
-                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        <div class="normal-table-list mg-t-30">
-                            <div class="basic-tb-hd">
-                                <h2>Danh sách giảm giá</h2>
-                            </div>
-                            <div class="bsc-tbl-hvr">
-                                <table class="table table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>ID</th>
-                                            <th>Mã giảm giá</th>
-                                            <th>Giảm giá (%)</th>
-                                            <th>Số lượng</th>
-                                            <th>Ngày bắt đầu</th>
-                                            <th>Ngày kết thúc</th>
-                                            <th></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>ID001</td>
-                                            <td>GHJIJBQWEQJWE1</td>
-                                            <td>10%</td>
-                                            <td>5</td>
-                                            <td>2023-07-14</td>
-                                            <td>2023-07-21</td>
-                                            <td>
-                                                <button class="btn btn-info">Sửa</button>
-                                                <button class="btn btn-danger">Xóa</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>ID002</td>
-                                            <td>GHJIJBQWEQJWE2</td>
-                                            <td>20%</td>
-                                            <td>8</td>
-                                            <td>2023-07-15</td>
-                                            <td>2023-07-23</td>
-                                            <td>
-                                                <button class="btn btn-info">Sửa</button>
-                                                <button class="btn btn-danger">Xóa</button>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
+                                        </form>
+                                        
+									</td>
+								</tr>
+								<!-- Thêm các dòng sản phẩm khác tương tự ở đây -->
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
         </div>
     </th:block>
 </body>
