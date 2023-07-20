@@ -17,7 +17,9 @@
 						</div>
 					</div>
 					<div class="action-product col-md-6">
-						<button class="btn btn-success">Thêm mới</button>
+						<button type="button" class="btn btn-success" data-toggle="modal" data-target="#userModal">
+							Thêm mới
+						</button>
 					</div>
 				</div>
 				<div class="row">
@@ -128,9 +130,6 @@
 										                <button class="btn btn-primary notika-btn-primary waves-effect">
 										                    <i class="fa fa-save"></i> Lưu
 										                </button>
-										                <button class="btn btn-info notika-btn-info waves-effect">
-										                    <i class="fa fa-rotate-right"></i> Làm mới
-										                </button>
 										                <button class="btn btn-danger notika-btn-danger waves-effect">
 										                    <i class="fa fa-trash"></i> Xóa
 										                </button>
@@ -231,9 +230,6 @@
 										                <button class="btn btn-primary notika-btn-primary waves-effect">
 										                    <i class="fa fa-save"></i> Lưu
 										                </button>
-										                <button class="btn btn-info notika-btn-info waves-effect">
-										                    <i class="fa fa-rotate-right"></i> Làm mới
-										                </button>
 										                <button class="btn btn-danger notika-btn-danger waves-effect">
 										                    <i class="fa fa-trash"></i> Xóa
 										                </button>
@@ -257,7 +253,100 @@
 				image.style.display = "block";
 			}
 		</script>
-        <!-- Compose user area End-->
+
+
+		<!-- The Modal -->
+		<div class="modal fade" id="userModal">
+			<div class="modal-dialog modal-dialog-centered modal-lg">
+				<div class="modal-content">
+					<!-- Modal Header -->
+					<div class="modal-header">
+						<h4 class="modal-title">Thêm tài khoản</h4>
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+					</div>
+	
+					<!-- Modal body -->
+					<div class="modal-body">
+						<form>
+							<div class="row">
+								<div class="col-md-4">
+									<div class="form-group" style="border: 1px solid rgb(221, 218, 218); height: 250px;">
+										<div class="nk-int-st image-container">
+											<img class="object-fit" id="imgUser" src="#" alt="Uploaded Image"
+												style="display: none; max-height: 250px; width: 100%;">
+										</div>
+									</div>
+									<div class="form-group mt-3">
+										<label for="fileInput" class="fw-bold">Chọn Hình</label>
+										<div class="input-group">
+											<input style="object-fit: contain;" type="file" class="form-control"
+												id="fileInput" onchange="displayImageUser(event, 'imgUser')">
+										</div>
+									</div>
+								</div>
+								<div class="col-md-8">
+									<div class="row">
+										<div class="col-md-6">
+											<div class="form-group mt-3">
+												<label for="username" class="fw-bold">Tên tài khoản</label>
+												<input type="text" class="form-control border-bottom" id="username">
+											</div>
+											<div class="form-group mt-3">
+												<label for="fullname" class="fw-bold">Họ và tên</label>
+												<input type="text" class="form-control border-bottom" id="fullname">
+											</div>
+											<div class="form-group mt-3">
+												<label for="phone" class="fw-bold">Số điện thoại</label>
+												<input type="tel" class="form-control border-bottom" id="phone">
+											</div>
+											<div class="form-group mt-3">
+												<label for="role" class="fw-bold">Vai trò</label>
+												<select class="form-control border-bottom" id="role">
+													<option value="admin">Quản lý</option>
+													<option value="user">Người dùng</option>
+												</select>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<label for="password" class="fw-bold">Mật khẩu</label>
+												<input type="password" class="form-control border-bottom" id="password">
+											</div>
+											<div class="form-group mt-3">
+												<label for="email" class="fw-bold">Email</label>
+												<input type="email" class="form-control border-bottom" id="email">
+											</div>
+											<div class="form-group mt-3">
+												<label for="address" class="fw-bold">Địa chỉ</label>
+												<input type="text" class="form-control border-bottom" id="address">
+											</div>
+											<div class="form-group mt-3">
+												<label class="fw-bold">Trạng thái</label>
+												<div>
+													<label class="radio-inline">
+														<input type="radio" name="status" value="true"> Kích hoạt
+													</label>
+													<label class="radio-inline">
+														<input type="radio" name="status" value="false"> Hủy kích hoạt
+													</label>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+	
+					<!-- Modal footer -->
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary"><i class="fa fa-save"></i> Lưu</button>
+						<button type="button" class="btn btn-info"><i class="fa fa-rotate-right"></i> Làm mới</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
     </th:block>
 </body>
 

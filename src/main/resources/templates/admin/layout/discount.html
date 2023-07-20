@@ -9,7 +9,7 @@
 					<div class="filter-search col-md-6">
 						<div class="input-group">
 							<input type="text" class="form-control"
-								placeholder="Tìm kiếm nhiều loại sản phẩm..."> <span
+								placeholder="Tìm kiếm nhiều mã giảm giá..."> <span
 								class="input-group-btn">
 								<button class="btn btn-default" type="button">
 									<span class="glyphicon glyphicon-search"></span>
@@ -18,7 +18,10 @@
 						</div>
 					</div>
 					<div class="action-product col-md-6">
-						<button class="btn btn-success">Thêm mới</button>
+                         <!-- Button to open the modal -->
+                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#discountCodeModal">
+                            Thêm mới
+                        </button>
 					</div>
 				</div>
 				<div class="row">
@@ -87,9 +90,6 @@
                                                         <button class="btn btn-primary notika-btn-primary waves-effect">
                                                             <i class="fa fa-save"></i> Lưu
                                                         </button>
-                                                        <button class="btn btn-info notika-btn-info waves-effect">
-                                                            <i class="fa fa-rotate-right"></i> Làm mới
-                                                        </button>
                                                         <button class="btn btn-danger notika-btn-danger waves-effect">
                                                             <i class="fa fa-trash"></i> Xóa
                                                         </button>
@@ -107,6 +107,65 @@
 				</div>
 			</div>
         </div>
+
+        <!-- The Modal -->
+    <div class="modal fade" id="discountCodeModal">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Thêm mã giảm giá</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <form>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group mt-3">
+                                    <label for="discountCode" class="fw-bold">Mã Giảm</label>
+                                    <input type="text" class="form-control border-bottom" id="discountCode">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mt-3">
+                                    <label for="startDate" class="fw-bold">Ngày bắt đầu hiệu lực</label>
+                                    <input type="date" class="form-control border-bottom" id="startDate">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mt-3">
+                                    <label for="quantity" class="fw-bold">Số Lượng</label>
+                                    <input type="number" min="1" value="1" class="form-control text-center border-bottom" id="quantity">
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group mt-3">
+                                    <label for="endDate" class="fw-bold">Ngày kết thúc hiệu lực</label>
+                                    <input type="date" class="form-control border-bottom" id="endDate">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mt-3">
+                                    <label for="discountPercent" class="fw-bold">Giảm giá (%)</label>
+                                    <input type="number" min="5" max="45" value="5" class="form-control border-bottom" id="discountPercent">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary "><i class="fa fa-save"></i> Thêm</button>
+                    <button type="button" class="btn btn-info"><i class="fa fa-rotate-right"></i> Làm mới</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     </th:block>
 </body>
 

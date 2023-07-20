@@ -16,7 +16,8 @@
 						</div>
 					</div>
 					<div class="action-product col-md-6">
-						<button class="btn btn-success">Thêm mới</button>
+						<!-- Button to open the modal -->
+						<button type="button" class="btn btn-success" data-toggle="modal" data-target="#productModal">Thêm mới</button>
 						<button class="btn btn-success">Nhập kho</button>
 						<button class="btn btn-success">Xuất file</button>
 					</div>
@@ -109,8 +110,6 @@
 														<button
 															class="btn btn-primary notika-btn-primary waves-effect"><i
 																class="fa fa-save"></i> Lưu</button>
-														<button class="btn btn-info notika-btn-info waves-effect"><i
-																class="fa fa-rotate-right"></i> Làm mới</button>
 														<button class="btn btn-danger notika-btn-danger waves-effect">
 															<i class="fa fa-trash"></i> Xóa</button>
 													</div>
@@ -189,12 +188,8 @@
 												</div>
 												<div class="col-md-12 text-right mt-5">
 													<div class="btn-group ib-btn-gp active-hook nk-email-inbox">
-
-														<button
-															class="btn btn-primary notika-btn-primary waves-effect"><i
-																class="fa fa-save"></i> Lưu</button>
-														<button class="btn btn-info notika-btn-info waves-effect"><i
-																class="fa fa-rotate-right"></i> Làm mới</button>
+														<button class="btn btn-primary notika-btn-primary waves-effect">
+															<i class="fa fa-save"></i> Lưu</button>
 														<button class="btn btn-danger notika-btn-danger waves-effect">
 															<i class="fa fa-trash"></i> Xóa</button>
 													</div>
@@ -217,6 +212,88 @@
 				image.style.display = "block";
 			}
 		</script>
+
+		
+
+		<!-- The Modal -->
+		<div class="modal fade" id="productModal">
+			<div class="modal-dialog modal-dialog-centered modal-lg">
+				<div class="modal-content">
+					<!-- Modal Header -->
+					<div class="modal-header">
+						<h4 class="modal-title">Thêm sản phẩm</h4>
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+					</div>
+
+					<!-- Modal body -->
+					<div class="modal-body">
+						<form>
+							<div class="row">
+								<div class="col-md-4">
+									<div class="form-group"
+										style="border: 1px solid rgb(221, 218, 218); height: 250px;">
+										<div class="nk-int-st image-container">
+											<img class="object-fit" id="imgProduct" src="#" alt="Uploaded Image"
+												style="display: none; max-height: 250px; width: 100%;">
+										</div>
+									</div>
+								</div>
+								<div class="col-md-8">
+									<div class="row">
+										<div class="col-md-6">
+											<div class="form-group">
+												<label for="productCode" class="fw-bold">Mã Sản
+													Phẩm (*)</label> <input type="text"
+													class="form-control border-bottom" id="productCode">
+											</div>
+											<div class="form-group mt-3">
+												<label for="productName" class="fw-bold">Tên Sản
+													Phẩm</label> <input type="text" class="form-control border-bottom"
+													id="productName">
+											</div>
+											<div class="form-group mt-3">
+												<label for="productPrice" class="fw-bold">Giá
+													Sản Phẩm</label> <input type="text"
+													class="form-control border-bottom" id="productPrice">
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<label for="productQuantity" class="fw-bold">Số
+													Lượng</label> <input type="number" min="1" value="1"
+													class="form-control text-center border-bottom" id="productQuantity"
+													placeholder="Số Lượng (Trong Kho)">
+											</div>
+											<div class="form-group mt-3">
+												<label for="productDescription" class="fw-bold">Mô
+													Tả</label>
+												<textarea class="form-control border-bottom" rows="3.5"
+													id="productDescription"></textarea>
+											</div>
+										</div>
+									</div>
+									<div class="form-group mt-3">
+										<label for="fileInput" class="fw-bold">Chọn Hình</label>
+										<div class="input-group">
+											<input style="object-fit: contain;" type="file" class="form-control"
+												id="fileInput" onchange="displayImageProduct(event, 'imgProduct')">
+										</div>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+
+					<!-- Modal footer -->
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary "><i class="fa fa-save"></i> Thêm</button>
+						<button type="button" class="btn btn-info"><i class="fa fa-rotate-right"></i> Làm mới</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
 	</th:block>
 </body>
 
