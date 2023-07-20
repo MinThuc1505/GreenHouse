@@ -4632,19 +4632,63 @@ body.box-layout {
 .mCS-light-1.mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar{ background-color: #00c292; }
 .mCS-light-1.mCSB_scrollTools .mCSB_draggerRail{ background-color: #ccc; }
 
+/*----------------------------------------*/
+/*  60. Notika custom GreenHouse team CSS
+/*----------------------------------------*/
+body{
+    min-height: 100vh;
+    
+}
+
+.tr-thead{
+    background-color: #00c292;
+}
+
+.tr-thead th{
+    border: none !important;
+    color: white !important;
+}
+
 .product-info {
 	background-color: #f5f5f5;
 	padding: 10px;
+    border: 1px solid #ccc;
 }
 
 .product-info form {
 	margin-top: 20px;
 }
 
+.product-info form button{
+    margin-top: 20px;
+    margin-right: 10px;
+    width: 120px;
+    height: 40px;
+    border-radius: 10px;
+    font-size: larger;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
 .product-image {
 	display: none;
 	max-width: 200px;
 	margin-top: 10px;
+}
+
+.image-container img{
+    object-fit: contain;
+}
+
+.tr-title-product{
+    margin-top: 1px;
+    cursor: pointer;
+    border: solid 1px rgba(0, 0, 0, 0.2);
+}
+
+.tr-title-product:hover{
+    background-color: #00c2921a !important;
 }
 
 .border-bottom {
@@ -4662,4 +4706,19 @@ body.box-layout {
 }
 .space{
 	margin: 0px, 20px 0px, 20px;
+}
+
+.header-filter-product{
+    margin-bottom: 20px;
+}
+
+.header-filter-product .action-product{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.header-filter-product .action-product button{
+    margin-left: 25px;
+    width: 120px;
 }

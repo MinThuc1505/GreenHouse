@@ -5,11 +5,27 @@
 	<th:block th:fragment="content">
 		<div class="wizard-area">
 			<div class="container">
+				<div class="row header-filter-product header-action-product">
+					<div class="filter-search col-md-6">
+						<div class="input-group">
+							<input type="text" class="form-control" placeholder="Tìm kiếm nhiều sản phẩm...">
+							<span class="input-group-btn">
+								<button class="btn btn-default" type="button"><span
+										class="glyphicon glyphicon-search"></span></button>
+							</span>
+						</div>
+					</div>
+					<div class="action-product col-md-6">
+						<button class="btn btn-success">Thêm mới</button>
+						<button class="btn btn-success">Nhập kho</button>
+						<button class="btn btn-success">Xuất file</button>
+					</div>
+				</div>
 				<div class="row">
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 						<table class="table table-striped">
 							<thead>
-								<tr class="table-bordered custom-border">
+								<tr class="table-bordered custom-border tr-thead">
 									<th></th>
 									<th>Mã Sản Phẩm</th>
 									<th>Tên Sản Phẩm</th>
@@ -19,13 +35,13 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr data-toggle="collapse" data-target="#product1">
+								<tr data-toggle="collapse" data-target="#product1" class="tr-title-product">
 									<td><img src="" alt="Chưa có hình"></td>
 									<td>SP001</td>
 									<td>Sản phẩm 1</td>
 									<td>100.000 đồng</td>
 									<td>50</td>
-									<td >Mô tả sản phẩm 122222</td>
+									<td>Mô tả sản phẩm 122222</td>
 								</tr>
 								<tr id="product1" class="collapse">
 									<td colspan="6" class="product-info border-1">
@@ -58,7 +74,8 @@
 															<div class="form-group mt-3">
 																<label for="productPrice" class="fw-bold">Giá
 																	Sản Phẩm</label> <input type="text"
-																	class="form-control border-bottom" id="productPrice">
+																	class="form-control border-bottom"
+																	id="productPrice">
 															</div>
 														</div>
 														<div class="col-md-6">
@@ -66,7 +83,8 @@
 																<label for="productQuantity" class="fw-bold">Số
 																	Lượng</label> <input type="number" min="1" value="1"
 																	class="form-control text-center border-bottom"
-																	id="productQuantity" placeholder="Số Lượng (Trong Kho)">
+																	id="productQuantity"
+																	placeholder="Số Lượng (Trong Kho)">
 															</div>
 															<div class="form-group mt-3">
 																<label for="productDescription" class="fw-bold">Mô
@@ -87,17 +105,21 @@
 												</div>
 												<div class="col-md-12 text-right mt-5">
 													<div class="btn-group ib-btn-gp active-hook nk-email-inbox">
-														
-														<button class="btn btn-primary notika-btn-primary waves-effect"><i class="fa fa-save"></i> Lưu</button>
-														<button class="btn btn-info notika-btn-info waves-effect"><i class="fa fa-rotate-right"></i> Làm mới</button>
-														<button class="btn btn-danger notika-btn-danger waves-effect">	<i class="fa fa-trash"></i> Xóa</button>
+
+														<button
+															class="btn btn-primary notika-btn-primary waves-effect"><i
+																class="fa fa-save"></i> Lưu</button>
+														<button class="btn btn-info notika-btn-info waves-effect"><i
+																class="fa fa-rotate-right"></i> Làm mới</button>
+														<button class="btn btn-danger notika-btn-danger waves-effect">
+															<i class="fa fa-trash"></i> Xóa</button>
 													</div>
 												</div>
 											</div>
 										</form>
 									</td>
 								</tr>
-								<tr data-toggle="collapse" data-target="#product2">
+								<tr data-toggle="collapse" data-target="#product2" class="tr-title-product">
 									<td><img src="" alt="Chưa có hình"></td>
 									<td>SP001</td>
 									<td>Sản phẩm 1</td>
@@ -136,7 +158,8 @@
 															<div class="form-group mt-3">
 																<label for="productPrice" class="fw-bold">Giá
 																	Sản Phẩm</label> <input type="text"
-																	class="form-control border-bottom" id="productPrice">
+																	class="form-control border-bottom"
+																	id="productPrice">
 															</div>
 														</div>
 														<div class="col-md-6">
@@ -144,7 +167,8 @@
 																<label for="productQuantity" class="fw-bold">Số
 																	Lượng</label> <input type="number" min="1" value="1"
 																	class="form-control text-center border-bottom"
-																	id="productQuantity" placeholder="Số Lượng (Trong Kho)">
+																	id="productQuantity"
+																	placeholder="Số Lượng (Trong Kho)">
 															</div>
 															<div class="form-group mt-3">
 																<label for="productDescription" class="fw-bold">Mô
@@ -165,27 +189,29 @@
 												</div>
 												<div class="col-md-12 text-right mt-5">
 													<div class="btn-group ib-btn-gp active-hook nk-email-inbox">
-														
-														<button class="btn btn-primary notika-btn-primary waves-effect"><i class="fa fa-save"></i> Lưu</button>
-														<button class="btn btn-info notika-btn-info waves-effect"><i class="fa fa-rotate-right"></i> Làm mới</button>
-														<button class="btn btn-danger notika-btn-danger waves-effect">	<i class="fa fa-trash"></i> Xóa</button>
+
+														<button
+															class="btn btn-primary notika-btn-primary waves-effect"><i
+																class="fa fa-save"></i> Lưu</button>
+														<button class="btn btn-info notika-btn-info waves-effect"><i
+																class="fa fa-rotate-right"></i> Làm mới</button>
+														<button class="btn btn-danger notika-btn-danger waves-effect">
+															<i class="fa fa-trash"></i> Xóa</button>
 													</div>
 												</div>
 											</div>
 										</form>
 									</td>
 								</tr>
-
 								<!-- Thêm các dòng sản phẩm khác tương tự ở đây -->
 							</tbody>
 						</table>
-
 					</div>
 				</div>
 			</div>
 		</div>
 		<script>
-			function displayImageProduct(event,idImg) {
+			function displayImageProduct(event, idImg) {
 				var image = document.getElementById(idImg);
 				image.src = URL.createObjectURL(event.target.files[0]);
 				image.style.display = "block";
