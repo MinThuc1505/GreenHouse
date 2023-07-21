@@ -49,9 +49,7 @@ public class ChangePasswordController {
         model.addAttribute("typeMessage", Message.type);
         Message.message = "";
         // User Session - end
-        model.addAttribute("template", "change-password.html");
-        model.addAttribute("fragment", "content");
-        return "client/main-layout";
+        return "client/layouts/change-password";
     }
 
     @PostMapping("")

@@ -1,11 +1,16 @@
 <!DOCTYPE html>
 
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html class="no-js" lang="" xmlns:th="http://www.thymeleaf.org"
+th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
+<head>
+	<title>Thanh toán thành công</title>
+</head>
+
 
 
 
 <!-- CONTENT PAGE START-->
-<th:block th:fragment="content">
+<th:block id="layout">
 
     <div class="container done-pay">
         <div class="panel panel-success">

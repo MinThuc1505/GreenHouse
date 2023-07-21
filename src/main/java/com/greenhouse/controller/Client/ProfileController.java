@@ -56,9 +56,7 @@ public class ProfileController {
 			 model.addAttribute("sessionUsername", acc.getUsername());
 		 }
 		 // User Session - end
-		model.addAttribute("template", "profile.html");
-		model.addAttribute("fragment", "content");
-		return "client/main-layout";
+		return "client/layouts/profile";
 
 	}
 

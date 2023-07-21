@@ -1,11 +1,9 @@
 package com.greenhouse.controller.Admin;
 
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,10 +47,8 @@ public class ProductController {
         setProductPageInfo(model, productPage, page);
 
         model.addAttribute("product", new Product());
-        model.addAttribute("template", "product.html");
-        model.addAttribute("fragment", "content");
 
-        return "admin/main-layout";
+        return "admin/layouts/product";
     }
 
     private Page<Product> getPageableProducts(int page, int pageSize) {

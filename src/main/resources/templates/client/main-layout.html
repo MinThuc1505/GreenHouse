@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html class="no-js" lang="" xmlns:th="http://www.thymeleaf.org"
+th:fragment="layout(title, layout)">
 <!-- HEAD START -->
-<th:block th:replace="~{client/layouts/template.html :: head}"></th:block>
+<th:block th:replace="~{client/layouts/template.html :: head (${title})}"></th:block>
 <!-- HEAD END -->
 
 <body>
@@ -19,8 +20,7 @@
   <!-- MAIN MENU END -->
 
   <!-- CONTENT PAGE Start -->
-  <th:block th:replace="~{${'client/layouts/' + template} :: ${fragment}}">
-  </th:block>
+  <section th:replace="${layout}"></section>
   <!-- CONTENT PAGE End -->
 
   <!-- FOOTER START -->

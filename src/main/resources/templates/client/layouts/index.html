@@ -1,8 +1,12 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html class="no-js" lang="" xmlns:th="http://www.thymeleaf.org"
+th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
+<head>
+	<title>Trang chủ</title>
+</head>
 
 <!-- CONTENT PAGE START-->
-<th:block th:fragment="content">
+<th:block id="layout">
 	<!-- Slider -->
 	<div class="hero-slider">
 		<div class="slider-item th-fullpage hero-area" style="background-image: url(images/slider/slider-1.png);">

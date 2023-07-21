@@ -62,14 +62,12 @@ public class UserController {
 		model.addAttribute("account", account);
 		model.addAttribute("account", new Account());
 		model.addAttribute("accounts", accounts);
-		model.addAttribute("template", "user.html");
-		model.addAttribute("fragment", "content");
 		model.addAttribute("totalPages", totalPages);
 		model.addAttribute("currentPage", currentPage);
 		model.addAttribute("startPage", startAndEndPages[0]);
 		model.addAttribute("endPage", startAndEndPages[1]);
 
-		return "admin/main-layout";
+		return "admin/layouts/user";
 	}
 
 	private Page<Account> getPageableAccounts(int page, int pageSize) {

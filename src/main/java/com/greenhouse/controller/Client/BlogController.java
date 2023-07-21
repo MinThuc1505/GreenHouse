@@ -33,8 +33,6 @@ public class BlogController {
             model.addAttribute("sessionUsername", account.getUsername());
         }
         // User Session - end
-        model.addAttribute("template", "blog.html");
-        model.addAttribute("fragment", "content");
-        return "client/main-layout";
+        return "client/layouts/blog";
     }
 }

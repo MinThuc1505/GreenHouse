@@ -45,9 +45,7 @@ public class ForgotPasswordController {
         }
         // User Session - end
         model.addAttribute("account", account);
-        model.addAttribute("template", "forgot-password.html");
-        model.addAttribute("fragment", "content");
-        return "client/main-layout";
+        return "client/layouts/forgot-password";
     }
 
     @PostMapping("/sendmail")

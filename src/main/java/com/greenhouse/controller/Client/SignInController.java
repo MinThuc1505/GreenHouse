@@ -8,10 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
-import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -74,9 +71,7 @@ public class SignInController {
 		model.addAttribute("typeMessage", Message.type);
 		Message.message = "";
 		model.addAttribute("account", account);
-		model.addAttribute("template", "signin.html");
-		model.addAttribute("fragment", "content");
-		return "client/main-layout";
+		return "client/layouts/signin";
 	}
 
 	@PostMapping("")
@@ -84,9 +79,7 @@ public class SignInController {
 			@RequestParam("remember") Optional<Boolean> remember, HttpSession session, HttpServletRequest request) {
 
 		if (result.hasFieldErrors("username") || result.hasFieldErrors("password")) {
-			model.addAttribute("template", "signin.html");
-			model.addAttribute("fragment", "content");
-			return "client/main-layout";
+			return "client/layouts/signin";
 		}
 
 		// model.addAttribute("account", account);

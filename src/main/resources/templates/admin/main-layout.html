@@ -1,13 +1,16 @@
 <!doctype html>
-<html class="no-js" lang="" xmlns:th="http://www.thymeleaf.org">
+<html class="no-js" lang="" xmlns:th="http://www.thymeleaf.org"
+th:fragment="layout(title, layout)">
 
-<head th:replace="~{admin/layout/template.html :: head}"></head>
+<head th:replace="~{admin/layouts/template.html :: head (${title})}"></head>
 
 <body>
-    <th:block th:replace="~{admin/layout/template.html :: header}"></th:block>
-    <th:block th:replace="~{${'admin/layout/' + template} :: ${fragment}}"></th:block>
-    <th:block th:replace="~{admin/layout/template.html :: footer}"></th:block>
-    <th:block th:replace="~{admin/layout/template.html :: libary}"></th:block>
+    <th:block th:replace="~{admin/layouts/template.html :: header}"></th:block>
+
+    <section th:replace="${layout}"></section>
+    
+    <th:block th:replace="~{admin/layouts/template.html :: footer}"></th:block>
+    <th:block th:replace="~{admin/layouts/template.html :: libary}"></th:block>
 </body>
 
 </html>

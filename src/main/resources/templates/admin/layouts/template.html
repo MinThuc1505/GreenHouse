@@ -1,10 +1,10 @@
 <!doctype html>
 <html class="no-js" lang="" xmlns:th="http://www.thymeleaf.org">
 
-<head th:fragment="head">
+<head th:fragment="head (title)">
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>GreenHouse | Thương Hiệu Làm Nên Chất Lượng</title>
+    <title th:replace="${title}">GreenHouse | Thương Hiệu Làm Nên Chất Lượng</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- favicon
@@ -262,24 +262,14 @@
                                         <ul id="democrou" class="collapse dropdown-header-top">
                                             <li><a href="compose-category.html">Loại sản phẩm</a></li>
                                             <li><a href="compose-product.html">Sản phẩm</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a data-toggle="collapse" data-target="#demolibra" href="#">Dịch vụ</a>
-                                        <ul id="demolibra" class="collapse dropdown-header-top">
-                                            <li><a href="compose-discountProducts.html">Danh sách sản phẩm đang giảm
-                                                    giá</a>
-                                            </li>
-                                            <li><a href="compose-bookDiscount.html">Đặt giảm giá</a>
-                                            </li>
-                                            <li><a href="compose-discount.html">Giảm giá</a>
-                                            </li>
+                                            <li><a href="compose-discount.html">Giảm giá</a></li>
                                         </ul>
                                     </li>
                                     <li><a data-toggle="collapse" data-target="#demodepart" href="#">Thống kê</a>
                                         <ul id="demodepart" class="collapse dropdown-header-top">
                                             <li><a href="compose-billReport.html">Thống kê hóa đơn</a>
                                             </li>
-                                            <li><a href="compose-MonthlyStatistic.html">TK doanh thu theo thời gian</a>
+                                            <li><a href="compose-MonthlyStatistic.html">Thống kê doanh thu theo thời gian</a>
                                             </li>
                                             <li><a href="compose-categoryStatistics.html">Thống kê doanh thu theo
                                                     lọai</a>

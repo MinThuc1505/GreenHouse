@@ -47,16 +47,12 @@ public class IndexClientController {
         model.addAttribute("message", Message.message);
         model.addAttribute("typeMessage", Message.type);
         Message.message = "";
-        model.addAttribute("template", "index.html");
-        model.addAttribute("fragment", "content");
-        return "client/main-layout";
+        return "client/layouts/index";
     }
 
     @RequestMapping("/contact")
     public String contact(Model model) {
-        model.addAttribute("template", "contact.html");
-        model.addAttribute("fragment", "content");
-        return "client/main-layout";
+        return "client/layouts/contact";
     }
 
    

@@ -19,7 +19,7 @@ import com.greenhouse.service.EmailService;
 import com.greenhouse.service.EncodeService;
 import com.greenhouse.service.TokenService;
 
-import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest; 
 import jakarta.validation.Valid;
 
 @Controller
@@ -36,12 +36,10 @@ public class SignUpController {
     @GetMapping("")
     public String signup(Model model) {
         model.addAttribute("account", new Account());
-        model.addAttribute("template", "signup.html");
-        model.addAttribute("fragment", "content");
         model.addAttribute("message", Message.message);
         model.addAttribute("typeMessage", Message.type);
         Message.message = "";
-        return "client/main-layout";
+        return "client/layouts/signup";
     }
 
     @PostMapping("")

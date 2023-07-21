@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -82,9 +81,7 @@ public class OderController {
         model.addAttribute("carts", carts);
         model.addAttribute("total", total);
 
-        model.addAttribute("template", "checkout.html");
-        model.addAttribute("fragment", "content");
-        return "client/main-layout";
+        return "client/layouts/checkout";
     }
 
 }

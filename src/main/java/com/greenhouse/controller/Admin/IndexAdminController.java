@@ -19,8 +19,6 @@ public class IndexAdminController {
 	public String index(Model model) {
 		Account account = sessionService.get("account");
 		model.addAttribute("account", account);
-		model.addAttribute("template", "index.html");
-		model.addAttribute("fragment", "content");
-		return "admin/main-layout";
+		return "admin/layouts/index";
 	}
 }

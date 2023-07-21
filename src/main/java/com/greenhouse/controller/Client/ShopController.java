@@ -66,9 +66,7 @@ public class ShopController {
             model.addAttribute("sessionUsername", account.getUsername());
         }
         // User Session - end
-        model.addAttribute("template", "shop.html");
-        model.addAttribute("fragment", "content");
-        return "client/main-layout";
+        return "client/layouts/shop";
     }
 
     @PostMapping("/filter")
@@ -99,9 +97,7 @@ public class ShopController {
         var categories = categoryDAO.findCategoryNotLike("Phòng");
         model.addAttribute("categories", categories);
 
-        model.addAttribute("template", "shop.html");
-        model.addAttribute("fragment", "content");
-        return "client/main-layout";
+        return "client/layouts/shop";
     }
 
     @GetMapping("/filter")

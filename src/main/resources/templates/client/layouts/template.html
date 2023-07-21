@@ -1,47 +1,45 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <!-- Start Head Start -->
-<th:block th:fragment="head">
 
-	<head>
+<head th:fragment="head (title)">
 
-		<!-- Basic Page Needs
+	<!-- Basic Page Needs 
   ================================================== -->
-		<meta charset="utf-8">
-		<title>GreenHouse | Thương Hiệu Làm Nên Chất Lượng</title>
+	<meta charset="utf-8">
+	<title th:replace="${title}">GreenHouse | Thương Hiệu Làm Nên Chất Lượng</title>
 
-		<!-- Mobile Specific Metas
+	<!-- Mobile Specific Metas
   ================================================== -->
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="description" content="Construction Html5 Template">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-		<meta name="author" content="Themefisher">
-		<meta name="generator" content=" quyết định thương hiệu của bạn">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="description" content="Construction Html5 Template">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+	<meta name="author" content="Themefisher">
+	<meta name="generator" content=" quyết định thương hiệu của bạn">
 
-		<!-- theme meta -->
-		<meta name="theme-name" content="GreenHouse" />
-		<!-- Favicon -->
-		<link rel="shortcut icon" type="image/x-icon" href="/client/images/la.png" />
+	<!-- theme meta -->
+	<meta name="theme-name" content="GreenHouse" />
+	<!-- Favicon -->
+	<link rel="shortcut icon" type="image/x-icon" href="/client/images/la.png" />
 
-		<!-- Themefisher Icon font -->
-		<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-		<link rel="stylesheet" href="/client/plugins/themefisher-font/style.css">
-		<!-- bootstrap.min css -->
-		<link rel="stylesheet" href="/client/plugins/bootstrap/css/bootstrap.min.css">
+	<!-- Themefisher Icon font -->
+	<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+	<link rel="stylesheet" href="/client/plugins/themefisher-font/style.css">
+	<!-- bootstrap.min css -->
+	<link rel="stylesheet" href="/client/plugins/bootstrap/css/bootstrap.min.css">
 
-		<!-- Animate css -->
-		<link rel="stylesheet" href="/client/plugins/animate/animate.css">
-		<!-- Slick Carousel -->
-		<link rel="stylesheet" href="/client/plugins/slick/slick.css">
-		<link rel="stylesheet" href="/client/plugins/slick/slick-theme.css">
-		<!-- Recapcha -->
-		<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+	<!-- Animate css -->
+	<link rel="stylesheet" href="/client/plugins/animate/animate.css">
+	<!-- Slick Carousel -->
+	<link rel="stylesheet" href="/client/plugins/slick/slick.css">
+	<link rel="stylesheet" href="/client/plugins/slick/slick-theme.css">
+	<!-- Recapcha -->
+	<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
-		<!-- Main Stylesheet -->
-		<link rel="stylesheet" href="/client/css/style.css">
+	<!-- Main Stylesheet -->
+	<link rel="stylesheet" href="/client/css/style.css">
 
-	</head>
-</th:block>
+</head>
 <!-- Start Head End -->
 
 <!-- Start Top Header Bar Start -->
@@ -54,7 +52,7 @@
 						<img src="images/vi.png" alt=""> <a style="color: black;" th:href="@{'?lang=vi'}">VN</a> <a
 							th:href="@{'?lang=en'}">EN</a>
 					</div>
-					
+
 				</div>
 				<div class="col-lg-4 col-xs-12 col-sm-4">
 					<!-- Site Logo -->
@@ -67,7 +65,8 @@
 					<!-- Cart -->
 					<ul class="top-menu text-right list-inline">
 						<li class="cart-box">
-							<a href="/client/cart" >	<i class="tf-ion-android-cart"></i><span th:text="#{lo.mn.cart}"></span></a>
+							<a href="/client/cart"> <i class="tf-ion-android-cart"></i><span
+									th:text="#{lo.mn.cart}"></span></a>
 							<th:block th:if="${qtyCart >= 0}">
 								<div class="cart-quantity" th:text="${qtyCart > 50 ? '50+' : qtyCart}"></div>
 							</th:block>
@@ -149,7 +148,8 @@
 							<!-- Sản Phẩm -->
 							<li class=" dropdown full-width dropdown-slide"><a href="#!" class="dropdown-toggle"
 									data-toggle="dropdown" data-hover="dropdown" data-delay="350" role="button"
-									aria-haspopup="true" aria-expanded="false" ><span th:text="#{lo.mn.product}"></span><span
+									aria-haspopup="true" aria-expanded="false"><span
+										th:text="#{lo.mn.product}"></span><span
 										class="tf-ion-ios-arrow-down"></span></a>
 								<div class="dropdown-menu">
 									<div class="row">
@@ -220,8 +220,8 @@
 							<!-- Pages -->
 							<li class="dropdown dropdown-slide"><a href="#!" class="dropdown-toggle"
 									data-toggle="dropdown" data-hover="dropdown" data-delay="350" role="button"
-									aria-haspopup="true" aria-expanded="false" > <span th:text="#{lo.mn.room}"></span><span
-										class="tf-ion-ios-arrow-down"></span></a>
+									aria-haspopup="true" aria-expanded="false"> <span
+										th:text="#{lo.mn.room}"></span><span class="tf-ion-ios-arrow-down"></span></a>
 								<div class="dropdown-menu">
 									<div class="row">
 										<!-- Basic -->

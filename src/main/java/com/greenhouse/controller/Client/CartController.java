@@ -55,7 +55,7 @@ public class CartController {
         Message.message = "";
         model.addAttribute("template", "cart.html");
         model.addAttribute("fragment", "content");
-        return "client/main-layout";
+        return "client/layouts/cart";
     }
 
     @PostMapping("/update")

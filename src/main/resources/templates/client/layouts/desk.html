@@ -1,7 +1,12 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html class="no-js" lang="" xmlns:th="http://www.thymeleaf.org"
+th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
+<head>
+	<title>Danh mục - Bàn</title>
+</head>
 
-<th:block th:fragment="content">
+
+<th:block id="layout">
   <section class="room">
     <header class="desk">
       <div class="container">

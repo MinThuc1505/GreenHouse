@@ -33,9 +33,7 @@ public class RoomController {
 			 model.addAttribute("sessionUsername", account.getUsername());
 		 }
 		 // User Session - end
-        model.addAttribute("template", "living-room.html");
-        model.addAttribute("fragment", "content");
-        return "client/main-layout";
+        return "client/layouts/living-room";
     }
 
     @GetMapping("/bed-room")
@@ -52,9 +50,7 @@ public class RoomController {
 			 model.addAttribute("sessionUsername", account.getUsername());
 		 }
 		 // User Session - end
-        model.addAttribute("template", "bed-room.html");
-        model.addAttribute("fragment", "content");
-        return "client/main-layout";
+        return "client/layouts/bed-room";
     }
 
     @GetMapping("/dining-room")
@@ -71,9 +67,7 @@ public class RoomController {
 			 model.addAttribute("sessionUsername", account.getUsername());
 		 }
 		 // User Session - end
-        model.addAttribute("template", "dining-room.html");
-        model.addAttribute("fragment", "content");
-        return "client/main-layout";
+        return "client/layouts/dining-room";
     }
 
     @GetMapping("/work-room")
@@ -90,8 +84,6 @@ public class RoomController {
 			 model.addAttribute("sessionUsername", account.getUsername());
 		 }
 		 // User Session - end
-        model.addAttribute("template", "work-room.html");
-        model.addAttribute("fragment", "content");
-        return "client/main-layout";
+        return "client/layouts/work-room";
     }
 }

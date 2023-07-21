@@ -11,8 +11,6 @@ public class ErrorController {
     
     @GetMapping("")
     public String error(Model model){
-        
-     
         return "client/layouts/404";
     }
 }

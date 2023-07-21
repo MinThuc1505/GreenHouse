@@ -1,8 +1,11 @@
 <!doctype html>
-<html class="no-js" lang="" xmlns:th="http://www.thymeleaf.org">
-
+<html class="no-js" lang="" xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{admin/main-layout.html :: layout (~{::title}, ~{::#layout})}">
+<head>
+	<title>Thống kê</title>
+</head>
 <body>
-    <th:block th:fragment="content">
+    <section id="layout">
         <div class="wizard-area">
             <div class="container">
                 <div class="row">
@@ -43,7 +46,7 @@
                 </div>
             </div>
         </div>
-    </th:block>
+    </section>
 </body>
 
 </html>

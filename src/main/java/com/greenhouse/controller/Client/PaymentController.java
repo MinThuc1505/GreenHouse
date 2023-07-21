@@ -17,9 +17,7 @@ import com.greenhouse.DAO.ProductDAO;
 import com.greenhouse.config.VNPayConfig;
 import com.greenhouse.model.Account;
 import com.greenhouse.model.Bill;
-import com.greenhouse.model.Cart;
 import com.greenhouse.model.DetailBill;
-import com.greenhouse.model.Message;
 import com.greenhouse.model.Product;
 import com.greenhouse.service.SessionService;
 
@@ -190,8 +188,6 @@ public class PaymentController {
             model.addAttribute("sessionUsername", acc.getUsername());
         }
         // User Session - end
-        model.addAttribute("template", "donePay.html");
-        model.addAttribute("fragment", "content");
-        return "client/main-layout";
+        return "client/donePay";
     }
 }

@@ -1,13 +1,7 @@
 package com.greenhouse.controller.Admin;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.io.StringWriter;
 import java.math.BigDecimal;
-import java.nio.charset.StandardCharsets;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
@@ -20,12 +14,10 @@ import java.util.Locale;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,7 +29,6 @@ import com.greenhouse.DAO.BillDAO;
 import com.greenhouse.DAO.DetailBillDAO;
 import com.greenhouse.DAO.ProductDAO;
 import com.greenhouse.model.Account;
-import com.greenhouse.model.Product;
 import com.greenhouse.service.SessionService;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Chunk;
@@ -78,9 +69,7 @@ public class StatisticController {
 		Page<Object[]> page = productDAO.calculateCategoryRevenue(pageable);
 
 		model.addAttribute("page", page);
-		model.addAttribute("template", "categoryStatistics.html");
-		model.addAttribute("fragment", "content");
-		return "admin/main-layout";
+		return "admin/layouts/categoryStatistics";
 	}
 
 	@RequestMapping("/monthlyStatistic")
@@ -111,9 +100,7 @@ public class StatisticController {
 		String formattedTotalRevenue = currencyFormatter.format(totalRevenue);
 		model.addAttribute("formattedTotalRevenue", formattedTotalRevenue);
 
-		model.addAttribute("template", "MonthlyStatistic.html");
-		model.addAttribute("fragment", "content");
-		return "admin/main-layout";
+		return "admin/layouts/MonthlyStatistic";
 	}
 
 	@RequestMapping("/reportBill")
@@ -132,9 +119,7 @@ public class StatisticController {
 		model.addAttribute("page", billPage);
 		Account account = session.get("account");
 		model.addAttribute("account", account);
-		model.addAttribute("template", "billReport.html");
-		model.addAttribute("fragment", "content");
-		return "admin/main-layout";
+		return "admin/layouts/billReport";
 	}
 
 	@GetMapping("/print-bill/{billId}")
