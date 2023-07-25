@@ -40,7 +40,7 @@ public class Account implements Serializable {
     @Column(name = "Password", nullable = false)
     @NotBlank(message = "{NotBlank.Account.password}")
     @Length(max = 200, message = "{Length.Account.password}") 
-    String password;
+    private String password;
 
     @Column(name = "Email", nullable = false)
     @NotBlank(message = "{NotBlank.Account.email}")
