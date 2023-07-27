@@ -4637,7 +4637,10 @@ body.box-layout {
 /*----------------------------------------*/
 body{
     min-height: 100vh;
-    
+}
+
+#layout{
+    min-height: 100vh;
 }
 
 .tr-thead{

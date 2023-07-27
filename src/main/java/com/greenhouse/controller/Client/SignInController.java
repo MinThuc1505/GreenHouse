@@ -139,7 +139,7 @@ public class SignInController {
 		}
 		model.addAttribute("template", "signin.html");
 		model.addAttribute("fragment", "content");
-		return "client/main-layout";
+		return "client/layouts/signin";
 	}
 
 	@GetMapping("/compareEmail")
