@@ -1,0 +1,152 @@
+<!doctype html>
+<html class="no-js" lang="" xmlns:th="http://www.thymeleaf.org"
+th:replace="~{admin/main-layout.html :: layout (~{::title}, ~{::#layout})}">
+<head>
+	<title>Nhà cung cấp</title>
+</head>
+<body>
+	<section id="layout">
+		<div class="wizard-area">
+			<div class="container">
+				<div class="row header-filter-product header-action-product">
+					<div class="filter-search col-md-6">
+						<div class="input-group">
+							<input type="text" class="form-control" placeholder="Tìm kiếm nhà cung cấp...">
+							<span class="input-group-btn">
+								<button class="btn btn-default" type="button"><span
+										class="glyphicon glyphicon-search"></span></button>
+							</span>
+						</div>
+					</div>
+					<div class="action-product col-md-6">
+						<!-- Button to open the modal -->
+						<!-- <button type="button" class="btn btn-success" data-toggle="modal" data-target="#productModal">Thêm mới</button> -->
+						<button type="button" class="btn btn-success" data-toggle="modal" data-target="#supplierModal">Thêm mới</button>
+						
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+						<table class="table table-striped">
+						    <thead>
+						        <tr class="table-bordered custom-border tr-thead">
+						            <th>ID</th>
+						            <th>Tên Nhà Cung Cấp</th>
+						            <th>Địa Chỉ</th>
+						            <th>Email</th>
+						            <th>Số Điện Thoại</th>
+						            <th>Mô Tả</th>
+						        </tr>
+						    </thead>
+						    <tbody>
+						        <tr data-toggle="collapse" data-target="#supplier1" class="tr-title-product">
+						            <td>SP001</td>
+						            <td>Nhà Cung Cấp 1</td>
+						            <td>Địa chỉ nhà cung cấp 1</td>
+						            <td>email.nhacungcap1@example.com</td>
+						            <td>0123456789</td>
+						            <td>Mô tả nhà cung cấp 1</td>
+						        </tr>
+						        <tr id="supplier1" class="collapse">
+						            <td colspan="7" class="product-info border-1">
+						                <h4>Thông tin nhà cung cấp</h4>
+						                <form>
+						                    <div class="row">
+						                        <div class="col-md-12">
+						                            <div class="row">
+						                                <div class="col-md-6">
+						                                    <div class="form-group mt-3">
+						                                        <label for="supplierName" class="fw-bold">Tên Nhà Cung Cấp</label>
+						                                        <input type="text" class="form-control border-bottom" id="supplierName">
+						                                    </div>
+						                                    <div class="form-group mt-3">
+						                                        <label for="supplierAddress" class="fw-bold">Địa Chỉ</label>
+						                                        <input type="text" class="form-control border-bottom" id="supplierAddress">
+						                                    </div>
+						                                </div>
+						                                <div class="col-md-6">
+						                                    <div class="form-group">
+						                                        <label for="supplierEmail" class="fw-bold">Email</label>
+						                                        <input type="email" class="form-control border-bottom" id="supplierEmail">
+						                                    </div>
+						                                    <div class="form-group mt-3">
+						                                        <label for="supplierPhone" class="fw-bold">Số Điện Thoại</label>
+						                                        <input type="tel" class="form-control border-bottom" id="supplierPhone">
+						                                    </div>
+						                                </div>
+						                               <div class="col-md-12">
+							                                <div class="form-group">
+										                        <label for="supplierDescription" class="fw-bold">Mô Tả</label>
+										                        <textarea class="form-control border-bottom" rows="3.5" id="supplierDescription" placeholder="Nhập mô tả"></textarea>
+										                    </div>
+									                    </div>
+						                            </div>
+						                        </div>
+						                        <div class="col-md-12 text-right mt-5">
+						                            <div class="btn-group ib-btn-gp active-hook nk-email-inbox">
+						                                <button class="btn btn-primary notika-btn-primary waves-effect"><i class="fa fa-save"></i> Lưu</button>
+						                                <button class="btn btn-danger notika-btn-danger waves-effect"><i class="fa fa-trash"></i> Xóa</button>
+						                            </div>
+						                        </div>
+						                    </div>
+						                </form>
+						            </td>
+						        </tr>
+						    </tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="modal fade" id="supplierModal">
+		    <div class="modal-dialog modal-dialog-centered">
+		        <div class="modal-content">
+		            <!-- Modal Header -->
+		            <div class="modal-header">
+		                <h4 class="modal-title">Thêm nhà cung cấp</h4>
+		                <button type="button" class="close" data-dismiss="modal">&times;</button>
+		            </div>
+		
+		            <!-- Modal body -->
+		            <div class="modal-body">
+		                <form>
+		                    <div class="form-group">
+		                        <label for="supplierName" class="fw-bold">Tên Nhà Cung Cấp</label>
+		                        <input type="text" class="form-control border-bottom" id="supplierName" placeholder="Nhập tên nhà cung cấp">
+		                    </div>
+		                    <div class="form-group">
+		                        <label for="supplierAddress" class="fw-bold">Địa Chỉ</label>
+		                        <input type="text" class="form-control border-bottom" id="supplierAddress" placeholder="Nhập địa chỉ">
+		                    </div>
+		                    <div class="form-group">
+		                        <label for="supplierEmail" class="fw-bold">Email</label>
+		                        <input type="email" class="form-control border-bottom" id="supplierEmail" placeholder="Nhập email">
+		                    </div>
+		                    <div class="form-group">
+		                        <label for="supplierPhone" class="fw-bold">Số Điện Thoại</label>
+		                        <input type="tel" class="form-control border-bottom" id="supplierPhone" placeholder="Nhập số điện thoại">
+		                    </div>
+		                    <div class="form-group">
+		                        <label for="supplierDescription" class="fw-bold">Mô Tả</label>
+		                        <textarea class="form-control border-bottom" rows="3.5" id="supplierDescription" placeholder="Nhập mô tả"></textarea>
+		                    </div>
+		                </form>
+		            </div>
+		
+		            <!-- Modal footer -->
+		            <div class="modal-footer">
+		                <button type="button" class="btn btn-primary"><i class="fa fa-save"></i> Lưu</button>
+		                <button type="button" class="btn btn-info" data-dismiss="modal"><i class="fa fa-times"></i> Hủy</button>
+		            </div>
+		        </div>
+		    </div>
+		</div>
+		
+		
+		
+	</section>
+</body>
+
+
+</html>

@@ -4732,3 +4732,7 @@ body{
         overflow: hidden;
         text-overflow: ellipsis;
 }
+/* Submenu */
+.submenu li {
+  margin-bottom: 5px; /* Đặt khoảng cách dưới cho các nút trong submenu */
+}
