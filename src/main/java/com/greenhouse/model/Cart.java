@@ -1,37 +1,40 @@
 package com.greenhouse.model;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
+
 import jakarta.persistence.*;
-import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "Carts")
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class Cart implements Serializable{
-    @Id
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    @Column(name = "Id")
+    private Long id;
 
-    @Column(name = "account_id")
-    private int accountId;
+    @ManyToOne
+    @JoinColumn(name = "ProductId")
+    private Product product;
 
-    @Column(name = "product_id")
-    private String productId;
+    @Column(name = "Username")
+    private String username;
 
-    @Column(name = "quantity")
-    private int quantity;
+    @Column(name = "Quantity")
+    private Integer quantity;
 
-    @Column(name = "price")
-    private BigDecimal price;
+    @Column(name = "Price")
+    private Double price;
 
-    @Column(name = "status")
-    private boolean status;
+    @Column(name = "Amount")
+    private Double amount;
 
-    
+    @Column(name = "Status")
+    private Boolean status;
 }

@@ -1,15 +1,14 @@
-package com.greenhouse.model_v1;
+package com.greenhouse.model;
 
 import java.io.Serializable;
-import java.util.Date;
 
 import jakarta.persistence.*;
 import lombok.Data;
 
-//@Entity
-@Table(name = "PriceHistory")
+@Entity
+@Table(name = "BillDetail")
 @Data
-public class PriceHistory implements Serializable{
+public class BillDetail implements Serializable{
 	/**
 	 * 
 	 */
@@ -21,13 +20,19 @@ public class PriceHistory implements Serializable{
     private Long id;
 
     @ManyToOne
+    @JoinColumn(name = "BillId")
+    private Bill bill;
+
+    @ManyToOne
     @JoinColumn(name = "ProductId")
     private Product product;
+
+    @Column(name = "Quantity")
+    private Integer quantity;
 
     @Column(name = "Price")
     private Double price;
 
-    @Column(name = "ChangeDate")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date changeDate;
+    @Column(name = "Amount")
+    private Double amount;
 }

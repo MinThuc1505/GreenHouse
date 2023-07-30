@@ -14,25 +14,4 @@ import com.greenhouse.service.SessionService;
 @RequestMapping("/client/blog")
 public class BlogController {
 
-    @Autowired
-    private SessionService sessionService;
-    @Autowired
-    private AccountDAO accountDAO;
-
-    @GetMapping("")
-    public String blog(Model model) {
-        // User Session - start
-        Account account = sessionService.get("account");
-        if (account != null) {
-            try {
-                int qty = accountDAO.findQuanityCartById(account.getId());
-                model.addAttribute("qtyCart", qty);
-            } catch (Exception e) {
-                model.addAttribute("qtyCart", 0);
-            }
-            model.addAttribute("sessionUsername", account.getUsername());
-        }
-        // User Session - end
-        return "client/layouts/blog";
-    }
 }

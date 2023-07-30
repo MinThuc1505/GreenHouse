@@ -21,17 +21,17 @@ public class AuthInterceptor implements HandlerInterceptor {
         String uri = request.getRequestURI();
         Account user = (Account) session.get("account");
         String error = "";
-        if (user == null) {
-            System.out.println("=================" + user);
-            error = "Please login!";
-            response.sendRedirect("/client/error?error=" + error);
-            return false;
-        } else if (!user.isRole() && uri.startsWith("/admin")) {
-            System.out.println("=================" + user);
-            error = "You do not have access!";
-            response.sendRedirect("/client/error?error=" + error);
-            return false;
-        }
+//        if (user == null) {
+//            System.out.println("=================" + user);
+//            error = "Please login!";
+//            response.sendRedirect("/client/error?error=" + error);
+//            return false;
+//        } else if (!user.getRole().equals("admin") && uri.startsWith("/admin")) {
+//            System.out.println("=================" + user);
+//            error = "You do not have access!";
+//            response.sendRedirect("/client/error?error=" + error);
+//            return false;
+//        }
 
         return true;
     }

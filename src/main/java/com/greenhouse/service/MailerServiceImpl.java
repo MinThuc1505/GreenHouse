@@ -71,7 +71,7 @@ public class MailerServiceImpl implements MailerService {
 
 	@Scheduled(cron = "0 0 9 * * *")
 	public void startSending() {
-		List<String> emailList = accountDAO.getEmailAccountActive();
+		List<String> emailList = null; // gmail đang hoạt động active = true
 		for (String email : emailList) {
 			MailInfo mail = new MailInfo(email, "GREENHOUSE TRI ÂN KHÁCH HÀNG",
 					"<!DOCTYPE html><html lang=\'en\'><head><meta charset=\'UTF-8\'><meta http-equiv=\'X-UA-Compatible\' content=\'IE=edge\'><meta name=\'viewport\' content=\'width=device-width, initial-scale=1.0\'><title>Email Confirmation</title><style>body {background-color: #f2f2f2;margin: 0;padding: 0;}.container {margin: 0 auto;padding: 20px;background-color: #fff;border-radius: 5px;box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);}p {color: rgb(9, 49, 9);font-family:sans-serif;}</style></head><body><div class=\'container\'><p>G\u1EEDi qu\u00FD kh\u00E1ch h\u00E0ng,</p><p>C\u1EA3m \u01A1n kh\u00E1ch h\u00E0ng \u0111\u00E3 tin t\u01B0\u1EDFng v\u00E0 l\u1EF1a ch\u1ECDn n\u1ED9i th\u1EA5t GreenHouse l\u00E0m n\u01A1i mua s\u1EAFm \u0111\u1EC3 ho\u00E0n thi\u1EC7n cho ng\u00F4i nh\u00E0 c\u1EE7a m\u00ECnh.</p><p>Ch\u00FAng t\u00F4i hy v\u1ECDng b\u1EA1n s\u1EBD h\u00E0i l\u00F2ng khi l\u1EF1a ch\u1ECDn s\u1EA3n ph\u1EA9m c\u1EE7a c\u1EEDa h\u00E0ng.</p><p>Mong r\u1EB1ng sau n\u00E0y v\u1EABn s\u1EBD \u0111\u1ED3ng h\u00E0nh c\u00F9ng b\u1EA1n, ch\u00FAng t\u00F4i xin h\u1EE9a s\u1EBD mang l\u1EA1i nh\u1EEFng s\u1EA3n ph\u1EA9m t\u1ED1t nh\u1EA5t.</p><p>Ch\u00E2n th\u00E0nh c\u1EA3m \u01A1n!</p><p>Tr\u00E2n tr\u1ECDng!</p></div></body></html>\r\n"

@@ -1,4 +1,5 @@
-package com.greenhouse.model_v1;
+package com.greenhouse.model;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -6,10 +7,10 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.ToString;
 
-//@Entity
-@Table(name = "Bills")
+@Entity
+@Table(name = "BillImportProduct")
 @Data
-public class Bill implements Serializable{
+public class BillImportProduct implements Serializable{
 	/**
 	 * 
 	 */
@@ -25,21 +26,16 @@ public class Bill implements Serializable{
     @ToString.Exclude
     private Account account;
 
+    @ManyToOne
+    @JoinColumn(name = "ProviderId")
+    private Provider provider;
+
     @Column(name = "Createdate")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createDate;
 
     @Column(name = "Amount")
     private Double amount;
-
-    @Column(name = "DiscountCode")
-    private String discountCode;
-
-    @Column(name = "DiscountPercent")
-    private Double discountPercent;
-
-    @Column(name = "NewAmount")
-    private Double newAmount;
 
     @Column(name = "PaymentMethod")
     private String paymentMethod;

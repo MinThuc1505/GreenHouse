@@ -1,11 +1,11 @@
-package com.greenhouse.model_v1;
+package com.greenhouse.model;
 
 import java.io.Serializable;
 
 import jakarta.persistence.*;
 import lombok.Data;
 
-//@Entity
+@Entity
 @Table(name = "Role")
 @Data
 public class Role implements Serializable{

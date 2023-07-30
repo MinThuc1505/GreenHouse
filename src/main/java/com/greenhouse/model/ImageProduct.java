@@ -1,14 +1,14 @@
-package com.greenhouse.model_v1;
+package com.greenhouse.model;
 
 import java.io.Serializable;
 
 import jakarta.persistence.*;
 import lombok.Data;
 
-//@Entity
-@Table(name = "SetCategory")
+@Entity
+@Table(name = "ImageProduct")
 @Data
-public class SetCategory implements Serializable{
+public class ImageProduct implements Serializable{
 	/**
 	 * 
 	 */
@@ -23,7 +23,6 @@ public class SetCategory implements Serializable{
     @JoinColumn(name = "ProductId")
     private Product product;
 
-    @ManyToOne
-    @JoinColumn(name = "CategoryId")
-    private Category category;
+    @Column(name = "Name")
+    private String name;
 }

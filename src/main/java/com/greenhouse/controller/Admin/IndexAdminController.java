@@ -12,13 +12,5 @@ import com.greenhouse.service.SessionService;
 @Controller
 @RequestMapping("/admin/index")
 public class IndexAdminController {
-	@Autowired
-	private SessionService sessionService;
-
-	@GetMapping("")
-	public String index(Model model) {
-		Account account = sessionService.get("account");
-		model.addAttribute("account", account);
-		return "admin/layouts/index";
-	}
+	
 }

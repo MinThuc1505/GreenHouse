@@ -3,22 +3,27 @@ package com.greenhouse.model;
 import java.io.Serializable;
 
 import jakarta.persistence.*;
-import jakarta.persistence.Table;
 import lombok.Data;
 
 @Entity
-@Table(name = "Set_Categories")
+@Table(name = "SetCategory")
 @Data
-public class SetCategory implements Serializable {
-    @Id
+public class SetCategory implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    @Column(name = "Id")
+    private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "Product_id")
-    Product productId;
+    @JoinColumn(name = "ProductId")
+    private Product product;
 
     @ManyToOne
-    @JoinColumn(name = "Category_id")
-    Category categoryId;
+    @JoinColumn(name = "CategoryId")
+    private Category category;
 }

@@ -4,7 +4,7 @@ th:fragment="layout(title, layout)">
 
 <head th:replace="~{admin/layouts/template.html :: head (${title})}"></head>
 
-<body>
+<body ng-app="app">
     <th:block th:replace="~{admin/layouts/template.html :: header}"></th:block>
 
     <section th:replace="${layout}"></section>

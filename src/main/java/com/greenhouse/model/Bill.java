@@ -1,36 +1,49 @@
 package com.greenhouse.model;
-
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.Date;
 
 import jakarta.persistence.*;
-import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Entity
 @Table(name = "Bills")
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class Bill implements Serializable{
-    @Id
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    @Column(name = "Id")
+    private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "account_id")
+    @JoinColumn(name = "Username")
     @ToString.Exclude
-    private Account accountId;
+    private Account account;
 
-    @Column(name = "bill_date")
+    @Column(name = "Createdate")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date billDate;
+    private Date createDate;
 
-    @Column(name = "total")
-    private BigDecimal total;
+    @Column(name = "Amount")
+    private Double amount;
 
+    @Column(name = "DiscountCode")
+    private String discountCode;
+
+    @Column(name = "DiscountPercent")
+    private Double discountPercent;
+
+    @Column(name = "NewAmount")
+    private Double newAmount;
+
+    @Column(name = "PaymentMethod")
+    private String paymentMethod;
+
+    @Column(name = "Status")
+    private Boolean status;
 }
