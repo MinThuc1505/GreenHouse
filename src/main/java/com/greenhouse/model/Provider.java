@@ -18,7 +18,7 @@ public class Provider implements Serializable{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id")
     private Long id;
-
+       
     @Column(name = "Name")
     private String name;
 
