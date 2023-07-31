@@ -8,7 +8,7 @@ import lombok.Data;
 @Entity
 @Table(name = "Role")
 @Data
-public class Role implements Serializable{
+public class Role implements Serializable {
 	/**
 	 * 
 	 */
