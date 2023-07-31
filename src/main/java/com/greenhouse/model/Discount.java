@@ -16,16 +16,16 @@ public class Discount implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	@Id
-    @Column(name = "DiscountCode")
-    private String discount_code;
+    @Column(name = "Discount_Code")
+    private String discountCode;
 
-    @Column(name = "DiscountPercent")
+    @Column(name = "Discount_Percent")
     private Double discountPercent;
 
     @Column(name = "Quantity")
     private Integer quantity;
 
-    @Column(name = "UsedQuantity")
+    @Column(name = "Used_Quantity")
     private Integer usedQuantity;
 
 

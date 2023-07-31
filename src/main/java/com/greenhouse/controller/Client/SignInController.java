@@ -38,5 +38,26 @@ import jakarta.validation.Valid;
 @RequestMapping("/client/signin")
 public class SignInController {
 	
-
+	
+	@Autowired
+	private CookieService cookieService;
+	@Autowired
+	private SessionService sessionService;
+	@Autowired
+	private AccountDAO accountDAO;
+	@Value("${recaptcha.secret}")
+	private String recapchaSecret;
+	@Value("${recaptcha.url}")
+	private String recapchaUrl;
+	
+	@GetMapping
+	public String signin(Account account, Model model) {
+		String username = cookieService.getValue("username");
+		account.setUsername(username);
+		model.addAttribute("message", Message.message);
+		model.addAttribute("typeMessage", Message.type);
+		Message.message = "";
+		model.addAttribute("account", account);
+		return "client/layouts/signin";
+	}
 }
