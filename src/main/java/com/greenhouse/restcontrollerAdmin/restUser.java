@@ -40,15 +40,18 @@ public class restUser {
     @PostMapping
     private ResponseEntity<Account> create(@RequestBody Account account){
         System.out.println(account);
+        
         if(accountDAO.existsById(account.getUsername())){
             return ResponseEntity.badRequest().build();
-
         }
         return ResponseEntity.ok(accountDAO.save(account));
     }
 
     @PutMapping(value = "/{username}")
     private ResponseEntity<Account> update (@PathVariable("username") String username, @RequestBody Account account){
+    	
+    	System.out.println( account);
+    	
         if (!accountDAO.existsById(username)) {
             return ResponseEntity.notFound().build();
             

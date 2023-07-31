@@ -29,12 +29,12 @@ public class restDiscount {
         return ResponseEntity.ok(discountDAO.findAll());
     }
 	
-	@GetMapping(value = "/{discount_code}")
-    private ResponseEntity<Discount> getOne(@PathVariable("discount_code") String discount_code){
-        if(!discountDAO.existsById(discount_code)){
+	@GetMapping(value = "/{discountCode}")
+    private ResponseEntity<Discount> getOne(@PathVariable("discountCode") String discountCode){
+        if(!discountDAO.existsById(discountCode)){
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(discountDAO.findById(discount_code).get());
+        return ResponseEntity.ok(discountDAO.findById(discountCode).get());
     }
 
     @PostMapping
@@ -42,26 +42,26 @@ public class restDiscount {
     	
     	System.out.println(discount);
     	
-        if(discountDAO.existsById(discount.getDiscount_code())){
+        if(discountDAO.existsById(discount.getDiscountCode())){
             return ResponseEntity.badRequest().build();
         }
         return ResponseEntity.ok(discountDAO.save(discount));
     }
 
-    @PutMapping(value = "/{discount_code}")
-    private ResponseEntity<Discount> update(@PathVariable("discount_code") String discount_code,@RequestBody Discount discount){
-        if(!discountDAO.existsById(discount_code)){
+    @PutMapping(value = "/{discountCode}")
+    private ResponseEntity<Discount> update(@PathVariable("discountCode") String discountCode,@RequestBody Discount discount){
+        if(!discountDAO.existsById(discountCode)){
             return ResponseEntity.notFound().build();
         }
          return ResponseEntity.ok(discountDAO.save(discount)); 
     }
 
-    @DeleteMapping(value = "/{discount_code}")
-    private ResponseEntity<Void> delete(@PathVariable("discount_code") String discount_code){
-         if(!discountDAO.existsById(discount_code)){
+    @DeleteMapping(value = "/{discountCode}")
+    private ResponseEntity<Void> delete(@PathVariable("discountCode") String discountCode){
+         if(!discountDAO.existsById(discountCode)){
             return ResponseEntity.notFound().build();
         }
-         discountDAO.deleteById(discount_code);
+         discountDAO.deleteById(discountCode);
         return ResponseEntity.ok().build(); 
     }
 }

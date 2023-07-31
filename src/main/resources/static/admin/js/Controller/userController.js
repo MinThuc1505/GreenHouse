@@ -15,57 +15,65 @@ app.controller('userController', function($scope, $http, urlAccount){
         $http.get(url).then(resp => {
             $scope.form = resp.data;
             $scope.key = key;
-     
            $scope.form.createDate = formatDateToISOString($scope.form.createDate);
-   
-          /*   console.log("Success", resp);*/
         }).catch(Error =>{
             console.log("Error", Error);
         })
     }
-    $scope.Update = function(key){
-        
-        var item = {
-	        username: $scope.form.username,
-	        fullname: $scope.form.fullName,
-	        email: $scope.form.email,
-	        phone: $scope.form.phone,
-	        gender: $scope.form.gender,
-	        address: $scope.form.address,
-            image: $scope.form.image,
-            createDate: $scope.form.createDate
-            
+    $scope.Update = function(key){var item = {
+        username: $scope.form.username,
+        password: $scope.form.password,
+        fullName: $scope.form.fullName,
+        email: $scope.form.email,
+        phone: $scope.form.phone,
+        gender: $scope.form.gender,
+        address: $scope.form.address,
+        image: $scope.form.image,
+        role_id: { id: $scope.form.role_id === 'admin' ? 'admin' : 'user', name: $scope.form.role_id === 'admin' ? 'Admin' : 'User' },
+        createDate: $scope.form.createDate
+    };
 
-	    };
-        var url = `${host}/${key}`;
-        $http.put(url, item).then(resp => {
-           $scope.items[$scope.key] = resp.data;
-           $scope.load_all();
-           Swal.fire({
-			    icon: 'success',
-			    title: 'Thành công',
-			    text: `Cập nhật ${key}`,
-			});
-        }).catch(Error =>{
-			Swal.fire({
-			    icon: 'error',
-			    title: 'Thất bại',
-			    text: `Cập nhật  ${key} thất bại`,
-			});
-        })
+    var url = `${host}/${key}`;
+    $http.put(url, item).then(resp => {
+        $scope.items[$scope.key] = resp.data;
+        $scope.load_all();
+        Swal.fire({
+            icon: 'success',
+            title: 'Thành công',
+            text: `Cập nhật ${key}`,
+        });
+    }).catch(Error => {
+        Swal.fire({
+            icon: 'error',
+            title: 'Thất bại',
+            text: `Cập nhật ${key} thất bại`,
+        });
+    });
     }
+    
+   
+    
     $scope.Create = function(){
+		
+		var files = document.getElementById('fileInputCreateUser').files;
+		console.log(files[0].name);
         var item = {
-            username: $scope.form.username,
-	        fullname: $scope.form.fullName,
-	        email: $scope.form.email,
-	        phone: $scope.form.phone,
-	        gender: $scope.form.gender,
-	        address: $scope.form.address,
-            image: $scope.form.image,
-            createDate: $scope.form.createDate
+            username: $scope.username,
+            password: $scope.password,
+	        fullName: $scope.fullName,
+	        email: $scope.email,
+	        phone: $scope.phone,
+	        gender: $scope.gender,
+	        address: $scope.address,
+            image: files[0].name,
+            role_id: { id: $scope.form.role_id === 'admin' ? 'admin' : 'user', name: $scope.form.role_id === 'admin' ? 'Admin' : 'User' },
+            createDate: new Date()
 	    };
         
+        
+        
+        
+         console.log(item);
         
         var url = `${host}`;
         $http.post(url, item).then(resp => {
@@ -103,6 +111,7 @@ app.controller('userController', function($scope, $http, urlAccount){
     }
     $scope.load_all();
 })
+
 
 function formatDateToISOString(dateString) {
   var date = new Date(dateString);
