@@ -39,7 +39,7 @@ th:replace="~{admin/main-layout.html :: layout (~{::title}, ~{::#layout})}">
 						        </tr>
 						    </thead>
 						    <tbody ng-repeat="item in items">
-						        <tr data-toggle="collapse" data-target="#supplier1" class="tr-title-product" ng-click="Edit(item.id)">
+						        <tr data-toggle="collapse" data-target="#{{$index + 1}}" class="tr-title-product" ng-click="Edit(item.id)">
 						            <td>{{item.id}}</td>
 									<td>{{item.name}}</td>
 									<td>{{item.address}}</td>
@@ -48,7 +48,7 @@ th:replace="~{admin/main-layout.html :: layout (~{::title}, ~{::#layout})}">
 									<td>{{item.description}}</td>
 									
 						        </tr>
-						        <tr id="supplier1" class="collapse">
+						        <tr id="{{$index + 1}}" class="collapse">
 						            <td colspan="7" class="product-info border-1">
 						                <h4>Thông tin nhà cung cấp</h4>
 						                <form>
@@ -118,23 +118,23 @@ th:replace="~{admin/main-layout.html :: layout (~{::title}, ~{::#layout})}">
 		                <form>
 		                    <div class="form-group">
 		                        <label for="name" class="fw-bold">Tên Nhà Cung Cấp</label>
-		                        <input type="text" class="form-control border-bottom" id="name" ng-model="name" name="name" placeholder="Nhập tên nhà cung cấp" required>
+		                        <input type="text" class="form-control border-bottom" id="name" ng-model="form.name" name="name" placeholder="Nhập tên nhà cung cấp" required>
 		                    </div>
 		                    <div class="form-group">
 		                        <label for="address" class="fw-bold">Địa Chỉ</label>
-		                        <input type="text" class="form-control border-bottom" id="address" placeholder="Nhập địa chỉ" ng-model="address" name="address" required>
+		                        <input type="text" class="form-control border-bottom" id="address" placeholder="Nhập địa chỉ" ng-model="form.address" name="address" required>
 		                    </div>
 		                    <div class="form-group">
 		                        <label for="email" class="fw-bold">Email</label>
-		                        <input type="email" class="form-control border-bottom" id="email"  placeholder="Nhập email" ng-model="email" name="email" required>
+		                        <input type="email" class="form-control border-bottom" id="email"  placeholder="Nhập email" ng-model="form.email" name="email" required>
 		                    </div>
 		                    <div class="form-group">
 		                        <label for="phone" class="fw-bold">Số Điện Thoại</label>
-		                        <input type="tel" class="form-control border-bottom" id="phone" placeholder="Nhập số điện thoại" ng-model="phone" name="phone" required>
+		                        <input type="tel" class="form-control border-bottom" id="phone" placeholder="Nhập số điện thoại" ng-model="form.phone" name="phone" required>
 		                    </div>
 		                    <div class="form-group">
 		                        <label for="description" class="fw-bold">Mô Tả</label>
-		                        <textarea class="form-control border-bottom" rows="3.5" id="description" placeholder="Nhập mô tả" ng-model="description" name="description" required></textarea>
+		                        <textarea class="form-control border-bottom" rows="3.5" id="description" placeholder="Nhập mô tả" ng-model="form.description" name="description" required></textarea>
 		                    </div>
 		                </form>
 		            </div>

@@ -40,6 +40,7 @@
 									<th>Giới tính</th>
 									<th>Địa chỉ</th>
 									<th>Hình ảnh</th>
+									<th>Vai trò</th>
 									<th>Ngày tạo tài khoản</th>
 								</tr>
 							</thead>
@@ -54,6 +55,7 @@
 									<td>{{item.gender ? 'Nam' : 'Nữ'}}</td>
 									<td>{{item.address}}</td>
 									<td>{{item.image}}</td>
+									<td>{{item.role ? 'Quản lý' : 'Người dùng'}}</td>
 									<td>{{item.createDate | date:'HH:mm dd-MM-yyyy'}}</td>
 
 								</tr>
@@ -105,6 +107,19 @@
 																<input type="tel" class="form-control border-bottom"
 																	id="phone" ng-model="form.phone" required>
 															</div>
+															<div class="form-group mt-3">
+																<label class="fw-bold">Vai trò</label>
+																	<div class="radio">
+																		<label>
+																			<input type="radio" name="role" value="user" ng-model="form.role" ng-checked="form.role" ng-value="false">
+																			Người dùng
+																		</label>
+																		 <label>
+																			<input type="radio" name="role" value="admin" ng-model="form.role" ng-checked="form.role" ng-value="true">
+																			Quản lý
+																  </label>
+															</div>
+														</div>
 														</div>
 														<div class="col-md-6">
 															<div class="form-group mt-3">
@@ -142,19 +157,7 @@
 																		ng-value="form.createDate" required>
 															</div>
 																
-															<div class="form-group mt-3">
-																	<label class="fw-bold">Vai trò</label>
-																	    <div class="radio">
-																	        <label>
-																	            <input type="radio" name="role" value="user" ng-model="form.role_id" ng-checked="form.role_id.name === 'User'">
-																	            Người dùng
-																	        </label>
-																	         <label>
-																	            <input type="radio" name="role" value="admin" ng-model="form.role_id" ng-checked="form.role_id.name === 'Admin'">
-																	            Quản lý
-																	  </label>
-																</div>
-															</div>
+															
 														</div>
 													</div>
 												</div>
@@ -244,7 +247,6 @@
 												<input type="tel" class="form-control border-bottom" id="phone"
 													ng-model="phone" name="phone" required>
 											</div>
-
 										</div>
 										<div class="col-md-6">
 										
@@ -272,11 +274,11 @@
 												<label class="fw-bold">Vai trò</label>
 												    <div class="radio">
 												        <label>
-												            <input type="radio" name="role" value="user" ng-model="form.role_id">
+												            <input type="radio" name="role" value="false" ng-model="form.role">
 												            Người dùng
 												        </label>
 												         <label>
-												            <input type="radio" name="role" value="admin" ng-model="form.role_id">
+												            <input type="radio" name="role" value="true" ng-model="form.role">
 												            Quản lý
 												        </label>
 												    </div>

@@ -58,7 +58,7 @@ app.controller('providerController', function($scope, $http, urlProvider){
 	        phone: $scope.form.phone,
 	        description: $scope.form.description
 	    };
-        
+        console.log(item);
         
         var url = `${host}`;
         $http.post(url, item).then(resp => {
@@ -67,13 +67,13 @@ app.controller('providerController', function($scope, $http, urlProvider){
             Swal.fire({
 			    icon: 'success',
 			    title: 'Thành công',
-			    text: `Đã thêm tài khoản ` + item.username,
+			    text: `Đã thêm tài khoản ` + item.id,
 			});
         }).catch(Error =>{
            Swal.fire({
 			    icon: 'error',
 			    title: 'Thất bại',
-			    text: `Thêm tài khoản ` + item.username + ` thất bại `,
+			    text: `Thêm tài khoản ` + item.id + ` thất bại `,
 			});
         })
     }

@@ -29,7 +29,7 @@ app.controller('userController', function($scope, $http, urlAccount){
         gender: $scope.form.gender,
         address: $scope.form.address,
         image: $scope.form.image,
-        role_id: { id: $scope.form.role_id === 'admin' ? 'admin' : 'user', name: $scope.form.role_id === 'admin' ? 'Admin' : 'User' },
+        role:  $scope.form.role,
         createDate: $scope.form.createDate
     };
 
@@ -66,7 +66,7 @@ app.controller('userController', function($scope, $http, urlAccount){
 	        gender: $scope.gender,
 	        address: $scope.address,
             image: files[0].name,
-            role_id: { id: $scope.form.role_id === 'admin' ? 'admin' : 'user', name: $scope.form.role_id === 'admin' ? 'Admin' : 'User' },
+            role:  $scope.form.role,
             createDate: new Date()
 	    };
         
