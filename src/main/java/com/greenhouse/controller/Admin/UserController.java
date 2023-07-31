@@ -34,7 +34,10 @@ import com.greenhouse.service.SessionService;
 import jakarta.validation.Valid;
 
 @Controller
-@RequestMapping("admin")
+@RequestMapping("admin/user")
 public class UserController {
-	
+	@GetMapping
+	public String index() {
+		return "admin/layouts/user";
+	}
 }

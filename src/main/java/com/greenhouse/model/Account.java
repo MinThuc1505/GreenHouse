@@ -55,10 +55,6 @@ public class Account implements Serializable{
     @Column(name = "Image")
     private String image;
 
-    @ManyToOne
-    @JoinColumn(name = "RoleId")
-    private Role role;
-
     @Column(name = "Createdate")
     private Date createDate;
 }

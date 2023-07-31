@@ -1,12 +1,13 @@
 <!doctype html>
 <html class="no-js" lang="" xmlns:th="http://www.thymeleaf.org"
 	th:replace="~{admin/main-layout.html :: layout (~{::title}, ~{::#layout})}">
+
 <head>
 	<title>Quản lý người dùng</title>
 </head>
 
 <body>
-	<section id="layout">
+	<section id="layout" ng-controller="userController">
 		<!-- Compose user area Start-->
 		<div class="inbox-area">
 			<div class="container">
@@ -32,30 +33,31 @@
 							<thead>
 								<tr class="table-bordered custom-border tr-thead">
 									<th class="text-center">#</th>
-									<th></th>
 									<th>Tên tài khoản</th>
 									<th>Họ và tên</th>
 									<th>Email</th>
 									<th>Số điện thoại</th>
+									<th>Giới tính</th>
 									<th>Địa chỉ</th>
-									<th>Vai trò</th>
-									<th>Trạng thái</th>
+									<th>Hình ảnh</th>
+									<th>Ngày tạo tài khoản</th>
 								</tr>
 							</thead>
-							<tbody>
-								<tr data-toggle="collapse" data-target="#product1" class="tr-title-product">
-									<td class="text-center">1</td>
-									<td><img src="" alt="#"></td>
-									<td>john_doe</td>
-									<td>John Doe</td>
-									<td>john@example.com</td>
-									<td>123456789</td>
-									<td class="text-break" title="123 Main St, Cityyyyyyyyyyyyyyyyyyyyyyyyy">123 Main
-										St, Cityyyyyyyyyyyyyyyyyyyyyyyyy</td>
-									<td>User</td>
-									<td>Active</td>
+							<tbody ng-repeat="item in items">
+								<tr data-toggle="collapse" data-target="#{{$index + 1}}" class="tr-title-product"
+									ng-click="Edit(item.username)">
+									<td class="text-center">{{$index + 1}}</td>
+									<td>{{item.username}}</td>
+									<td>{{item.fullName}}</td>
+									<td>{{item.email}}</td>
+									<td>{{item.phone}}</td>
+									<td>{{item.gender}}</td>
+									<td>{{item.address}}</td>
+									<td>{{item.image}}</td>
+									<td>{{item.createDate | date:'HH:mm dd-MM-yyyy'}}</td>
+
 								</tr>
-								<tr id="product1" class="collapse">
+								<tr id="{{$index + 1}}" class="collapse">
 									<td colspan="12" class="product-info border-1">
 										<h4>Thông tin tài khoản</h4>
 										<form>
@@ -86,65 +88,66 @@
 																<label for="username" class="fw-bold">Tên tài
 																	khoản</label>
 																<input type="text" class="form-control border-bottom"
-																	id="username">
+																	id="username" ng-model="form.username" required>
 															</div>
 															<div class="form-group mt-3">
 																<label for="fullname" class="fw-bold">Họ và tên</label>
 																<input type="text" class="form-control border-bottom"
-																	id="fullname">
-															</div>
-															<div class="form-group mt-3">
-																<label for="phone" class="fw-bold">Số điện thoại</label>
-																<input type="tel" class="form-control border-bottom"
-																	id="phone">
-															</div>
-															<div class="form-group mt-3">
-																<label for="role" class="fw-bold">Vai trò</label>
-																<select class="form-control border-bottom" id="role">
-																	<option value="admin">Quản lý</option>
-																	<option value="user">Người dùng</option>
-																</select>
-															</div>
-														</div>
-														<div class="col-md-6">
-															<div class="form-group">
-																<label for="password" class="fw-bold">Mật khẩu</label>
-																<input type="password"
-																	class="form-control border-bottom" id="password">
+																	id="fullname" ng-model="form.fullName" required>
 															</div>
 															<div class="form-group mt-3">
 																<label for="email" class="fw-bold">Email</label>
-																<input type="email" class="form-control border-bottom"
-																	id="email">
+																<input type="text" class="form-control border-bottom"
+																	id="email" ng-model="form.email" required>
 															</div>
+															<div class="form-group mt-3">
+																<label for="phone" class="fw-bold">Số điện thoại</label>
+																<input type="text" class="form-control border-bottom"
+																	id="phone" ng-model="form.phone" required>
+															</div>
+														</div>
+														<div class="col-md-6">
+															<div class="form-group mt-3">
+																<label class="fw-bold">Giới tính</label>
+																<div class="form-check">
+																	<input type="radio" class="form-check-input"
+																		name="gender" id="gender" ng-model="form.gender"
+																		ng-value="true" required>
+																	<label class="form-check-label"
+																		for="gender">Nam</label>
+																	<input type="radio" class="form-check-input"
+																		name="gender" id="gender" ng-model="form.gender"
+																		ng-value="false" required>
+																	<label class="form-check-label"
+																		for="gender">Nữ</label>
+																</div>
+															</div>
+
 															<div class="form-group mt-3">
 																<label for="address" class="fw-bold">Địa chỉ</label>
 																<input type="text" class="form-control border-bottom"
-																	id="address">
+																	id="address" ng-model="form.address" required>
 															</div>
-															<div class="form-group mt-3">
-																<label class="fw-bold">Trạng thái</label>
-																<div>
-																	<label class="radio-inline">
-																		<input type="radio" name="status" value="true">
-																		Kích hoạt
-																	</label>
-																	<label class="radio-inline">
-																		<input type="radio" name="status" value="false">
-																		Hủy kích hoạt
-																	</label>
+															
+																<div class="form-group mt-3">
+																	<label for="createDate" class="fw-bold">Ngày tạo tài
+																		khoản</label>
+																	<input type="datetime-local"
+																		class="form-control border-bottom"
+																		id="createDate" ng-model="form.createDate"
+																		ng-value="form.createDate" required>
 																</div>
-															</div>
+															
 														</div>
 													</div>
 												</div>
 												<div class="col-md-12 text-right mt-5">
 													<div class="btn-group ib-btn-gp active-hook nk-email-inbox">
 
-														<button class="btn btn-primary notika-btn-primary waves-effect">
+														<button class="btn btn-primary notika-btn-primary waves-effect" ng-click="Update(item.username)">
 															<i class="fa fa-save"></i> Lưu
 														</button>
-														<button class="btn btn-danger notika-btn-danger waves-effect">
+														<button class="btn btn-danger notika-btn-danger waves-effect" ng-click="Delete(item.username)">
 															<i class="fa fa-trash"></i> Xóa
 														</button>
 													</div>
@@ -153,116 +156,8 @@
 										</form>
 									</td>
 								</tr>
-								<tr data-toggle="collapse" data-target="#product2" class="tr-title-product">
-									<td class="text-center">1</td>
-									<td><img src="" alt="#"></td>
-									<td>john_doe</td>
-									<td>John Doe</td>
-									<td>john@example.com</td>
-									<td>123456789</td>
-									<td class="text-break" title="123 Main St, Cityyyyyyyyyyyyyyyyyyyyyyyyy">123 Main
-										St, Cityyyyyyyyyyyyyyyyyyyyyyyyy</td>
-									<td>User</td>
-									<td>Active</td>
-								</tr>
-								<tr id="product2" class="collapse">
-									<td colspan="12" class="product-info border-1">
-										<h4>Thông tin tài khoản</h4>
-										<form>
-											<div class="row">
-												<div class="col-md-4">
-													<div class="form-group"
-														style="border: 1px solid rgb(221, 218, 218); height: 250px;">
-														<div class="nk-int-st image-container">
-															<img class="object-fit" id="product5" src="#"
-																alt="Uploaded Image"
-																style="display: none; max-height: 250px; width: 100%;">
-														</div>
 
-													</div>
-													<div class="form-group mt-3">
-														<label for="fileInput" class="fw-bold">Chọn Hình</label>
-														<div class="input-group">
-															<input style="object-fit: contain;" type="file"
-																class="form-control" id="fileInput"
-																onchange="displayImageUser(event, 'product5')">
-														</div>
-													</div>
-												</div>
-												<div class="col-md-8">
-													<div class="row">
-														<div class="col-md-6">
-															<div class="form-group mt-3">
-																<label for="username" class="fw-bold">Tên tài
-																	khoản</label>
-																<input type="text" class="form-control border-bottom"
-																	id="username">
-															</div>
-															<div class="form-group mt-3">
-																<label for="fullname" class="fw-bold">Họ và tên</label>
-																<input type="text" class="form-control border-bottom"
-																	id="fullname">
-															</div>
-															<div class="form-group mt-3">
-																<label for="phone" class="fw-bold">Số điện thoại</label>
-																<input type="tel" class="form-control border-bottom"
-																	id="phone">
-															</div>
-															<div class="form-group mt-3">
-																<label for="role" class="fw-bold">Vai trò</label>
-																<select class="form-control border-bottom" id="role">
-																	<option value="admin">Quản lý</option>
-																	<option value="user">Người dùng</option>
-																</select>
-															</div>
-														</div>
-														<div class="col-md-6">
-															<div class="form-group">
-																<label for="password" class="fw-bold">Mật khẩu</label>
-																<input type="password"
-																	class="form-control border-bottom" id="password">
-															</div>
-															<div class="form-group mt-3">
-																<label for="email" class="fw-bold">Email</label>
-																<input type="email" class="form-control border-bottom"
-																	id="email">
-															</div>
-															<div class="form-group mt-3">
-																<label for="address" class="fw-bold">Địa chỉ</label>
-																<input type="text" class="form-control border-bottom"
-																	id="address">
-															</div>
-															<div class="form-group mt-3">
-																<label class="fw-bold">Trạng thái</label>
-																<div>
-																	<label class="radio-inline">
-																		<input type="radio" name="status" value="true">
-																		Kích hoạt
-																	</label>
-																	<label class="radio-inline">
-																		<input type="radio" name="status" value="false">
-																		Hủy kích hoạt
-																	</label>
-																</div>
-															</div>
-														</div>
-													</div>
-												</div>
-												<div class="col-md-12 text-right mt-5">
-													<div class="btn-group ib-btn-gp active-hook nk-email-inbox">
 
-														<button class="btn btn-primary notika-btn-primary waves-effect">
-															<i class="fa fa-save"></i> Lưu
-														</button>
-														<button class="btn btn-danger notika-btn-danger waves-effect">
-															<i class="fa fa-trash"></i> Xóa
-														</button>
-													</div>
-												</div>
-											</div>
-										</form>
-									</td>
-								</tr>
 								<!-- Thêm các dòng sản phẩm khác tương tự ở đây -->
 							</tbody>
 						</table>
@@ -314,48 +209,46 @@
 										<div class="col-md-6">
 											<div class="form-group mt-3">
 												<label for="username" class="fw-bold">Tên tài khoản</label>
-												<input type="text" class="form-control border-bottom" id="username">
+												<input type="text" class="form-control border-bottom" id="username"
+													ng-model="username" name="username" required>
 											</div>
 											<div class="form-group mt-3">
 												<label for="fullname" class="fw-bold">Họ và tên</label>
-												<input type="text" class="form-control border-bottom" id="fullname">
-											</div>
-											<div class="form-group mt-3">
-												<label for="phone" class="fw-bold">Số điện thoại</label>
-												<input type="tel" class="form-control border-bottom" id="phone">
-											</div>
-											<div class="form-group mt-3">
-												<label for="role" class="fw-bold">Vai trò</label>
-												<select class="form-control border-bottom" id="role">
-													<option value="admin">Quản lý</option>
-													<option value="user">Người dùng</option>
-												</select>
-											</div>
-										</div>
-										<div class="col-md-6">
-											<div class="form-group">
-												<label for="password" class="fw-bold">Mật khẩu</label>
-												<input type="password" class="form-control border-bottom" id="password">
+												<input type="text" class="form-control border-bottom" id="fullname"
+													ng-model="fullname" name="fullname" required>
 											</div>
 											<div class="form-group mt-3">
 												<label for="email" class="fw-bold">Email</label>
-												<input type="email" class="form-control border-bottom" id="email">
+												<input type="text" class="form-control border-bottom" id="email"
+													ng-model="email" name="email" required>
+											</div>
+											<div class="form-group mt-3">
+												<label for="phone" class="fw-bold">Số điện thoại</label>
+												<input type="number" class="form-control border-bottom" id="phone"
+													ng-model="phone" name="phone" required>
+											</div>
+
+										</div>
+										<div class="col-md-6">
+											<div class="form-group mt-3">
+												<label for="gender" class="fw-bold">Giới tính</label>
+												<select class="form-control border-bottom" id="gender">
+													<option value="true">Nam</option>
+													<option value="false">Nữ</option>
+												</select>
 											</div>
 											<div class="form-group mt-3">
 												<label for="address" class="fw-bold">Địa chỉ</label>
 												<input type="text" class="form-control border-bottom" id="address">
 											</div>
-											<div class="form-group mt-3">
-												<label class="fw-bold">Trạng thái</label>
-												<div>
-													<label class="radio-inline">
-														<input type="radio" name="status" value="true"> Kích hoạt
-													</label>
-													<label class="radio-inline">
-														<input type="radio" name="status" value="false"> Hủy kích hoạt
-													</label>
+											
+												<div class="form-group mt-3">
+													<label for="createDate" class="fw-bold">Ngày tạo tài khoản</label>
+													<input type="datetime-local" class="form-control border-bottom"
+														id="createDate" ng-model="createDate" name="createDate"
+														required>
 												</div>
-											</div>
+											
 										</div>
 									</div>
 								</div>
@@ -365,7 +258,7 @@
 
 					<!-- Modal footer -->
 					<div class="modal-footer">
-						<button type="button" class="btn btn-primary"><i class="fa fa-save"></i> Lưu</button>
+						<button type="button" class="btn btn-primary" ng-click="Create()" ng-disabled="myForm.$invalid"><i class="fa fa-save"></i> Lưu</button>
 						<button type="button" class="btn btn-info"><i class="fa fa-rotate-right"></i> Làm mới</button>
 					</div>
 				</div>
