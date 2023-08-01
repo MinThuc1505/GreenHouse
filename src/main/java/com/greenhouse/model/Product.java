@@ -17,7 +17,7 @@ public class Product implements Serializable{
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id")
-    private Long id;
+    private Integer id;
 
     @Column(name = "Name")
     private String name;
@@ -32,7 +32,7 @@ public class Product implements Serializable{
     private String description;
 
     @Column(name = "Status")
-    private String status;
+    private Boolean status;
 
     @ManyToOne
     @JoinColumn(name = "SizeId")

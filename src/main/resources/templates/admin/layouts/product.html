@@ -5,7 +5,7 @@ th:replace="~{admin/main-layout.html :: layout (~{::title}, ~{::#layout})}">
 	<title>Quản lý sản phẩm</title>
 </head>
 <body>
-	<section id="layout">
+	<section id="layout" ng-controller="productCtrl">
 		<div class="wizard-area">
 			<div class="container">
 				<div class="row header-filter-product header-action-product">
@@ -42,43 +42,43 @@ th:replace="~{admin/main-layout.html :: layout (~{::title}, ~{::#layout})}">
 						<table class="table table-striped">
 							<thead>
 								<tr class="table-bordered custom-border tr-thead">
-									<th></th>
-									<th>Mã Sản Phẩm</th>
+									<th>#</th>
 									<th>Tên Sản Phẩm</th>
 									<th>Giá Sản Phẩm</th>
-									<th>Số Lượng (Trong Kho)</th>
+									<th>Số Lượng</th>
+									<th>Trạng Thái</th>
+									<th>Hình Ảnh</th>
+									<th>Kích Thước</th>
 									<th>Mô Tả</th>
 								</tr>
 							</thead>
-							<tbody>
-								<tr data-toggle="collapse" data-target="#product2" class="tr-title-product">
-									<td><img src="" alt="Chưa có hình"></td>
-									<td>SP001</td>
-									<td>Sản phẩm 1</td>
-									<td>100.000 đồng</td>
-									<td>50</td>
-									<td>Mô tả sản phẩm 122222</td>
+							<tbody ng-repeat="item in items">
+								<tr data-toggle="collapse" data-target="#{{$index + 1}}" class="tr-title-product" ng-click="Edit(item.id)">
+									<td>{{item.id}}</td>
+									<td>{{item.name}}</td>
+									<td>{{item.price}}</td>
+									<td>{{item.quantity}}</td>
+									<td>{{item.status ? 'còn hàng' : 'hết hàng'}}</td>
+									<td>{{item.image}}</td>
+									<td>{{item.size.size}}</td>
+									<td>{{item.description}}</td>
+								
 								</tr>
-								<tr id="product2" class="collapse">
-									<td colspan="6" class="product-info border-1">
+								<tr id="{{$index +1}}" class="collapse">
+									<td colspan="8" class="product-info border-1">
 										<h4>Thông tin sản phẩm</h4>
 										<form>
 											<div class="row">
 												<div class="col-md-4">
-													<div class="form-group"
-														style="border: 1px solid rgb(221, 218, 218); height: 250px;">
+													<div class="form-group" style="border: 1px solid rgb(221, 218, 218); height: 250px;">
 														<div class="nk-int-st image-container">
-															<img class="object-fit" id="product3" src=""
-																alt="Uploaded Image"
-																style="display: none; max-height: 250px; width: 100%;">
+															<img class="object-fit" id="product3" src="" alt="Uploaded Image" style="display: none; max-height: 250px; width: 100%;">
 														</div>
 													</div>
 													<div class="form-group">
 														<label for="fileInput" class="fw-bold">Chọn Hình</label>
 														<div class="input-group">
-															<input style="object-fit: contain;" type="file"
-																class="form-control" id="fileInput"
-																onchange="displayImageProduct(event,'product3')">
+															<input style="object-fit: contain;" type="file" class="form-control" id="fileInput" onchange="displayImageProduct(event,'product3')">
 														</div>
 													</div>
 												</div>
@@ -86,78 +86,72 @@ th:replace="~{admin/main-layout.html :: layout (~{::title}, ~{::#layout})}">
 													<div class="row">
 														<div class="col-md-6">
 															<div class="form-group">
-																<label for="productCode" class="fw-bold">Mã Sản
-																	Phẩm (*)</label> <input type="text"
-																	class="form-control border-bottom" id="productCode">
+																<label for="id" class="fw-bold">Mã Sản Phẩm</label>
+																<input type="text" class="form-control border-bottom" id="id" ng-model="form.id">
 															</div>
 															<div class="form-group mt-3">
-																<label for="productName" class="fw-bold">Tên Sản
-																	Phẩm</label> <input type="text"
-																	class="form-control border-bottom" id="productName">
+																<label for="name" class="fw-bold">Tên Sản Phẩm</label>
+																<input type="text" class="form-control border-bottom" id="name" ng-model="form.name">
 															</div>
 															<div class="form-group mt-3">
-																<label for="productPrice" class="fw-bold">Giá
-																	Sản Phẩm</label> <input type="text"
-																	class="form-control border-bottom"
-																	id="productPrice">
+																<label for="price" class="fw-bold">Giá Sản Phẩm</label>
+																<input type="text" class="form-control border-bottom" id="price" ng-model="form.price">
 															</div>
-															<div class="form-group mt-3">
-															    <label for="productSupplier" class="fw-bold">Nhà Cung Cấp</label>
-															    <select class="form-control border-bottom" id="productSupplier">
-															        <option value="supplier1">Nhà cung cấp 1</option>
-															        <option value="supplier2">Nhà cung cấp 2</option>
-															        <option value="supplier3">Nhà cung cấp 3</option>
-															        <!-- Thêm các option cho các nhà cung cấp khác -->
-															    </select>
+															<div class="form-group">
+																<label for="quantity" class="fw-bold">Số Lượng</label>
+																<input type="number" min="1" value="1" class="form-control text-center border-bottom" id="quantity" placeholder="Số Lượng" ng-model="form.quantity">
 															</div>
+														
+														
 														</div>
 														<div class="col-md-6">
-															<div class="form-group">
-																<label for="productQuantity" class="fw-bold">Số
-																	Lượng</label> <input type="number" min="1" value="1"
-																	class="form-control text-center border-bottom"
-																	id="productQuantity"
-																	placeholder="Số Lượng (Trong Kho)">
-															</div>
 															<div class="form-group mt-3">
-						                                        <label for="productSize" class="fw-bold">Chọn Kích Thước</label>
-						                                        <select class="form-control border-bottom" id="productSize">
-						                                            <option value="size1">Size 1</option>
-						                                            <option value="size2">Size 2</option>
-						                                            <option value="size3">Size 3</option>
-						                                            <!-- Thêm các option cho kích thước khác -->
-						                                        </select>
-						                                    </div>
-						                                    <div class="form-group mt-3">
-						                                        <label for="productMaterial" class="fw-bold">Chất Liệu</label>
-						                                        <select class="form-control border-bottom" id="productMaterial">
-						                                            <option value="ceramic">Ceramic (51)</option>
-						                                            <option value="stone1">Đá (14)</option>
-						                                            <option value="stone2">Đá (263)</option>
-						                                            <option value="leather">Da và vải (9)</option>
-						                                            <option value="wood">Gỗ (564)</option>
-						                                            <!-- Thêm các option cho chất liệu khác -->
-						                                        </select>
-						                                    </div>
-						                                    <div class="form-group mt-3">
-																<label for="productDescription" class="fw-bold">Mô
-																	Tả</label>
-																<textarea class="form-control border-bottom" rows="1"
-																	id="productDescription"></textarea>
+																<label class="fw-bold">Trạng thái</label>
+																	<div class="radio">
+																		<label>
+																			<input type="radio" name="status" value="true" ng-model="form.status" ng-checked="form.status" ng-value="true">
+																			còn hàng
+																		</label>
+																		 <label>
+																			<input type="radio" name="status" value="false" ng-model="form.status" ng-checked="form.status" ng-value="false">
+																			hết hàng
+																  </label>
+															</div>
+														</div>
+														<div class="form-group mt-3">
+															<label for="size" class="fw-bold">Chọn Kích Thước</label>
+															<select class="form-control border-bottom" id="size" ng-model="form.size" ng-options="size as size.name for size in sizes track by size.id">
+																<option value="">Chọn Kích Thước</option>
+															</select>
+														</div>
+														
+														<div class="form-group mt-3">
+															<label for="material" class="fw-bold">Chất Liệu</label>
+															<select class="form-control border-bottom" id="material" ng-model="form.material" ng-options="material as material.name for material in materials track by material.id">
+																<option value="">Chọn Chất Liệu</option>
+															</select>
+														</div>
+														
+															<div class="form-group mt-3">
+																<label for="description" class="fw-bold">Mô Tả</label>
+																<textarea class="form-control border-bottom" rows="1" id="description" ng-model="form.description"></textarea>
 															</div>
 														</div>
 													</div>
 												</div>
 												<div class="col-md-12 text-right mt-5">
 													<div class="btn-group ib-btn-gp active-hook nk-email-inbox">
-														<button class="btn btn-primary notika-btn-primary waves-effect">
-															<i class="fa fa-save"></i> Lưu</button>
-														<button class="btn btn-danger notika-btn-danger waves-effect">
-															<i class="fa fa-trash"></i> Xóa</button>
+														<button class="btn btn-primary notika-btn-primary waves-effect" ng-click="Update(form.id)">
+															<i class="fa fa-save"></i> Lưu
+														</button>
+														<button class="btn btn-danger notika-btn-danger waves-effect" ng-click="Delete(form.id)">
+															<i class="fa fa-trash"></i> Xóa
+														</button>
 													</div>
 												</div>
 											</div>
 										</form>
+										
 									</td>
 								</tr>
 								<!-- Thêm các dòng sản phẩm khác tương tự ở đây -->
@@ -198,63 +192,70 @@ th:replace="~{admin/main-layout.html :: layout (~{::title}, ~{::#layout})}">
                             <div class="form-group">
 	                                <label for="fileInput" class="fw-bold">Chọn Hình</label>
 	                                <div class="input-group">
-	                                    <input style="object-fit: contain;" type="file" class="form-control" id="fileInput" onchange="displayImageProduct(event, 'imgProduct')">
-	                                </div>
+										<input style="object-fit: contain;" type="file" class="form-control"
+										accept=".png, .jpg, .jpeg, .gif" id="fileInputCreateProduct" onchange="displayImageUser(event, 'imgProduct')" ng-model="image">
+									 </div>
 	                            </div>
                         </div>
                         <div class="col-md-8">
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="productCode" class="fw-bold">Mã Sản Phẩm (*)</label>
-                                        <input type="text" class="form-control border-bottom" id="productCode">
+                                       <input type="hidden" class="form-control border-bottom" id="productCode">
                                     </div>
                                     <div class="form-group mt-3">
-                                        <label for="productName" class="fw-bold">Tên Sản Phẩm</label>
-                                        <input type="text" class="form-control border-bottom" id="productName">
+                                        <label for="Name" class="fw-bold">Tên Sản Phẩm(*)</label>
+                                        <input type="text" class="form-control border-bottom" id="name" 
+										ng-model="naem" name="name" required >
                                     </div>
                                     <div class="form-group mt-3">
-                                        <label for="productPrice" class="fw-bold">Giá Sản Phẩm</label>
-                                        <input type="text" class="form-control border-bottom" id="productPrice">
+                                        <label for="price" class="fw-bold">Giá Sản Phẩm(*)</label>
+                                        <input type="text" class="form-control border-bottom" id="price"
+										ng-model="price" name="price" required >
                                     </div>
-                                   <div class="form-group mt-3">
-									    <label for="productSupplier" class="fw-bold">Nhà Cung Cấp</label>
-									    <select class="form-control border-bottom" id="productSupplier">
-									        <option value="supplier1">Nhà cung cấp 1</option>
-									        <option value="supplier2">Nhà cung cấp 2</option>
-									        <option value="supplier3">Nhà cung cấp 3</option>
-									        <!-- Thêm các option cho các nhà cung cấp khác -->
-									    </select>
+									<div class="form-group mt-3">
+										<label class="fw-bold">Trạng Thái(*)</label>
+											<div class="radio">
+												<label>
+													<input type="radio" name="status" value="false" ng-model="form.status" ng-checked="form.status" ng-value="false">
+													Hết hàng
+												</label>
+												 <label>
+													<input type="radio" name="status" value="true" ng-model="form.status" ng-checked="form.status" ng-value="true">
+													Còn hàng
+												</label>
+											</div>
 									</div>
+									
                                 </div>
                                 <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="productQuantity" class="fw-bold">Số Lượng</label>
-                                        <input type="number" min="1" value="1" class="form-control text-center border-bottom" id="productQuantity" placeholder="Số Lượng (Trong Kho)">
+									<div class="form-group">
+                                        <label for="quantity" class="fw-bold">Số Lượng(*)</label>
+                                        <input type="number" min="1" value="1" class="form-control text-center border-bottom" id="quantity" placeholder="Số Lượng"
+										ng-model="quantity" name="quantity" required >
                                     </div>
+                                   
+									<div class="form-group mt-3">
+										<label for="size" class="fw-bold">Chọn Kích Thước</label>
+										<select class="form-control border-bottom" id="size" ng-model="form.size.size">
+											<option value="">Chọn Kích Thước</option>
+											<option ng-repeat="size in sizes" ng-value="size.size">{{$size}}</option>
+										</select>
+									</div>
+									
+									
+									<div class="form-group mt-3">
+										<label for="material" class="fw-bold">Chất Liệu</label>
+										<select class="form-control border-bottom" id="material" ng-model="form.material.material">
+											<option value="">Chọn Chất Liệu</option>
+											<option ng-repeat="material in materials" ng-value="material.material">{{$material}}</option>
+										</select>
+									</div>
+									
                                     <div class="form-group mt-3">
-                                        <label for="productSize" class="fw-bold">Chọn Kích Thước</label>
-                                        <select class="form-control border-bottom" id="productSize">
-                                            <option value="size1">Size 1</option>
-                                            <option value="size2">Size 2</option>
-                                            <option value="size3">Size 3</option>
-                                            <!-- Thêm các option cho kích thước khác -->
-                                        </select>
-                                    </div>
-                                    <div class="form-group mt-3">
-                                        <label for="productMaterial" class="fw-bold">Chất Liệu</label>
-                                        <select class="form-control border-bottom" id="productMaterial">
-                                            <option value="ceramic">Ceramic (51)</option>
-                                            <option value="stone1">Đá (14)</option>
-                                            <option value="stone2">Đá (263)</option>
-                                            <option value="leather">Da và vải (9)</option>
-                                            <option value="wood">Gỗ (564)</option>
-                                            <!-- Thêm các option cho chất liệu khác -->
-                                        </select>
-                                    </div>
-                                    <div class="form-group mt-3">
-                                        <label for="productDescription" class="fw-bold">Mô Tả</label>
-                                        <textarea class="form-control border-bottom" rows="1" id="productDescription"></textarea>
+                                        <label for="description" class="fw-bold">Mô Tả</label>
+                                        <textarea class="form-control border-bottom" rows="1" id="description"
+										ng-model="description" name="description" required></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -266,7 +267,7 @@ th:replace="~{admin/main-layout.html :: layout (~{::title}, ~{::#layout})}">
 
             <!-- Modal footer -->
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary"><i class="fa fa-save"></i> Thêm</button>
+                <button type="button" class="btn btn-primary" ng-click="Create()" ng-disabled="myForm.$invalid"><i class="fa fa-save"></i> Thêm</button>
                 <button type="button" class="btn btn-info"><i class="fa fa-rotate-right"></i> Làm mới</button>
             </div>
         </div>
@@ -336,22 +337,7 @@ th:replace="~{admin/main-layout.html :: layout (~{::title}, ~{::#layout})}">
 		                        <label for="materialName" class="fw-bold">Chất liệu</label>
 		                        <select class="form-control" id="materialName">
 		                            <option value="Ceramic (51)">Ceramic (51)</option>
-		                            <option value="Đá (14)">Đá (14)</option>
-		                            <option value="Đá (263)">Đá (263)</option>
-		                            <option value="Da và vải (9)">Da và vải (9)</option>
-		                            <option value="Gỗ (564)">Gỗ (564)</option>
-		                            <option value="Gỗ sồi (0)">Gỗ sồi (0)</option>
-		                            <option value="Gốm (143)">Gốm (143)</option>
-		                            <option value="Inox (0)">Inox (0)</option>
-		                            <option value="Khung sắt tĩnh điện (0)">Khung sắt tĩnh điện (0)</option>
-		                            <option value="Kim loại (483)">Kim loại (483)</option>
-		                            <option value="Kính (168)">Kính (168)</option>
-		                            <option value="MDF (12)">MDF (12)</option>
-		                            <option value="MDF sơn (47)">MDF sơn (47)</option>
-		                            <option value="MDF veneer (118)">MDF veneer (118)</option>
-		                            <option value="Mở rộng nhiều chỗ (21)">Mở rộng nhiều chỗ (21)</option>
-		                            <option value="Thủy tinh (213)">Thủy tinh (213)</option>
-		                            <option value="Vải (466)">Vải (466)</option>
+		                          
 		                        </select>
 		                    </div>
 		                </form>
