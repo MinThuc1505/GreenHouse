@@ -1,4 +1,4 @@
-package com.greenhouse.restcontrollerAdmin;
+package com.greenhouse.restcontroller.Admin;
 
 import java.util.List;
 
@@ -27,7 +27,7 @@ public class restProduct {
         return ResponseEntity.ok(productDAO.findAll());
     }
      @GetMapping(value = "/{id}")
-    private ResponseEntity<Product> getOne(@PathVariable("id") Integer id){
+    private ResponseEntity<Product> getOne(@PathVariable("id") Long id){
         if(!productDAO.existsById(id)){
             return ResponseEntity.notFound().build();
         }
@@ -44,7 +44,7 @@ public class restProduct {
     }
 
     @PutMapping(value = "/{id}")
-    private ResponseEntity<Product> update (@PathVariable("id") Integer id, @RequestBody Product product){
+    private ResponseEntity<Product> update (@PathVariable("id") Long id, @RequestBody Product product){
         if (!productDAO.existsById(id)) {
             return ResponseEntity.notFound().build();
             
@@ -53,7 +53,7 @@ public class restProduct {
     }
 
     @DeleteMapping(value = "/{id}")
-    private ResponseEntity <Void> delete(@PathVariable("id") Integer id){
+    private ResponseEntity <Void> delete(@PathVariable("id") Long id){
         if(!productDAO.existsById(id)){
             return ResponseEntity.notFound().build();
         }

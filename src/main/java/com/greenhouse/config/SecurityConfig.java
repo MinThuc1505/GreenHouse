@@ -16,7 +16,7 @@ public class SecurityConfig {
 				.anyRequest()
 				.authenticated())
 				.csrf().disable()
-				.oauth2Login(oauth -> oauth.defaultSuccessUrl("/client/signin/compareEmail"));
+				.oauth2Login(oauth -> oauth.defaultSuccessUrl("/client/signin/compareEmail",true));
 		return http.build();
 	}
 }

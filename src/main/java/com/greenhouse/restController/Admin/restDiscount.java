@@ -1,4 +1,4 @@
-package com.greenhouse.restcontrollerAdmin;
+package com.greenhouse.restcontroller.Admin;
 
 import java.util.List;
 
