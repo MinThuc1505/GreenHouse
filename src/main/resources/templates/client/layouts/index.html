@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html class="no-js" lang="" xmlns:th="http://www.thymeleaf.org"
-th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
+	th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
+
 <head>
 	<title>Trang chủ</title>
 </head>
 
 <!-- CONTENT PAGE START-->
-<th:block id="layout">
+<section id="layout" ng-controller="indexController">
 	<!-- Slider -->
 	<div class="hero-slider">
 		<div class="slider-item th-fullpage hero-area" style="background-image: url(images/slider/slider-1.png);">
@@ -56,84 +57,89 @@ th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
 	<!-- End Slider -->
 
 	<!-- Product New Section -->
-	<section class="products section ">
+	<section class="products section">
 		<div class="container-fluid">
 			<div class="row">
 				<div class="title text-center">
-					<h2>Sản Phẩm Giảm Giá
+					<h2>Sản Phẩm Bán Chạy
 						<hr>
 					</h2>
-
 				</div>
 			</div>
 			<div class="row">
-				<!-- Sử dụng thymeleaf để lặp qua mảng và hiển thị dữ liệu -->
-				<div class="col-md-3" th:each="product: ${products}">
+				<!-- Sử dụng ng-repeat để lặp qua mảng sản phẩm và hiển thị thông tin sản phẩm -->
+				<div class="col-md-3" ng-repeat="product in products">
 					<div class="product-item product-shop">
 						<div class="product-thumb">
-							<span class="bage" th:text="${'-'+ product[4]+'%'}"></span>
-							 <img class="img-responsive"
-							th:src="${'/images/'+product[5]}" alt="Product Image" />
+							<img class="img-responsive" ng-src="{{ '/images/' + product.image }}" alt="Product Image" />
 							<div class="preview-meta">
 								<ul>
 									<li>
-										<span
-										th:onclick="showProductDetails([[${product[0]}]], [[${product[1]}]], [[${product[3]}]], [[${product[5]}]], [[${product[6]}]])">
-										<i class="tf-ion-ios-search-strong"></i>
-									</span>
+										<!-- Gọi hàm showProductDetails() khi người dùng nhấn vào sản phẩm -->
+										<span ng-click="showProductDetails(product)">
+											<i class="tf-ion-ios-search-strong"></i>
+										</span>
 									</li>
 									<li>
-										<a href="#" th:onclick="addToCart([[${product[0]}]])"><i
-											class="tf-ion-android-cart"></i></a>
+										<!-- Gọi hàm addToCart() khi người dùng nhấn vào nút thêm vào giỏ hàng -->
+										<a href="#" ng-click="addToCart(product.id)">
+											<i class="tf-ion-android-cart"></i>
+										</a>
 									</li>
 								</ul>
 							</div>
 						</div>
 						<div class="product-content">
 							<h4>
-								<a href="#"  th:text="${product[1]}"> </a>
+								<a href="#">{{ product.name }}</a>
 							</h4>
-							<div class="price-wrapper" style="display: flex;justify-content: space-between;align-items: center;">
-								<del  th:text="${#numbers.formatDecimal(product[2], 0, 'COMMA', 0, 'POINT')+'đ'}"></del>
-								<p class="price" th:text="${#numbers.formatDecimal(product[3], 0, 'COMMA', 0, 'POINT') +'đ'}"></p>
-							  </div>
+							<div class="price-wrapper"
+								style="display: flex; justify-content: space-between; align-items: center;">
+								<del>{{ product.oldPrice | number:0 }}</del>
+								<p class="price">{{ product.price | number:0 }}</p>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-			
-			<!-- Modal -->
-			<div class="modal product-modal fade" id="product-modal">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<i class="tf-ion-close"></i>
-				</button>
-				<div class="modal-dialog " role="document">
-					<div class="modal-content">
-						<div class="modal-body">
-							<div class="row">
-								<div class="col-md-8 col-sm-6 col-xs-12">
-									<div class="modal-image">
-										<img class="img-responsive" id="product-img" src="" alt="product-img" />
-										<p id="text-image"></p>
-									</div>
+		</div>
+
+		<!-- Modal -->
+		<div class="modal product-modal fade" id="product-modal">
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				<i class="tf-ion-close"></i>
+			</button>
+			<div class="modal-dialog " role="document">
+				<div class="modal-content">
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-md-8 col-sm-6 col-xs-12">
+								<div class="modal-image">
+									<img class="img-responsive" id="product-img"
+										ng-src="{{ '/images/' + modalProduct.image }}" alt="product-img" />
+									<p id="text-image">{{ modalProduct.description }}</p>
 								</div>
-								<div class="col-md-4 col-sm-6 col-xs-12">
-									<div class="product-short-details">
-										<h2 class="product-title" id="product-title"></h2>
-										<p class="product-price" id="product-price"></p>
-										<p class="product-short-description" id="product-description"></p>
-										<p id="modal-idProduct" style="display: none"></p>
-										<a href="#" class="btn btn-main" id="modal-addToCart" th:onclick="modalAddToCart()">Thêm vào giỏ hàng</a>
-									</div>
+							</div>
+							<div class="col-md-4 col-sm-6 col-xs-12">
+								<div class="product-short-details">
+									<h2 class="product-title" id="product-title">{{ modalProduct.name }}</h2>
+									<p class="product-price" id="product-price">{{ modalProduct.price | number:0 }}</p>
+									<p class="product-short-description" id="product-description">{{
+										modalProduct.description }}</p>
+									<p id="modal-idProduct" style="display: none">{{ modalProduct.id }}</p>
+									<a href="#" class="btn btn-main" id="modal-addToCart"
+										ng-click="modalAddToCart()">Thêm
+										vào giỏ hàng</a>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-			<!-- /.modal -->
 		</div>
+		<!-- /.modal -->
 	</section>
+
 	<!-- End Product New Section -->
 	<div class="banner">
 		<img src="https://nhaxinh.com/wp-content/uploads/2023/02/cua-hang-360-do-nha-xinh.jpg" alt=""
@@ -227,7 +233,7 @@ th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
 			</div>
 		</div>
 	</div>
-</th:block>
+</section>
 <!-- CONTENT PAGE END-->
 
 </html>

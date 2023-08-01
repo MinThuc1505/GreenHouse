@@ -5,12 +5,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/client")
-public class IndexClientController {
-   
-    @GetMapping("/index")
+@RequestMapping("/client/contact")
+public class ContactController {
+    @GetMapping
 	public String index() {
-		return "client/layouts/index";
+		return "client/layouts/contact";
 	}
-   
+
 }
