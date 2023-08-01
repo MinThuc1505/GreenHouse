@@ -33,15 +33,15 @@ public class restProduct {
         }
         return ResponseEntity.ok(productDAO.findById(id).get());
     }
-     @PostMapping
+    @PostMapping
     private ResponseEntity<Product> create(@RequestBody Product product) {
         System.out.println(product);
-        if (productDAO.existsById(product.getId())) {
+        if (product.getId() != null && productDAO.existsById(product.getId())) {
             return ResponseEntity.badRequest().build();
-
         }
         return ResponseEntity.ok(productDAO.save(product));
     }
+    
 
     @PutMapping(value = "/{id}")
     private ResponseEntity<Product> update (@PathVariable("id") Integer id, @RequestBody Product product){
