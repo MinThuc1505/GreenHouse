@@ -8,58 +8,59 @@ th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
 
 
 <!-- CONTENT PAGE START-->
-<th:block id="layout">
+<section id="layout" ng-controller="singInController">
   <section class="signin-page account">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-6 col-md-offset-3">
-          <div class="block text-center">
-            <a class="logo" href="/client/index">
-              <img src="images/logo.png" alt="">
-            </a>
-            
-            <h2 class="text-center"  >Đăng Nhập Tại Đây</h2>
-             <div th:if="${loginMessage}" class="alert alert-danger">
-         		   <p style="color: rgb(55, 55, 55);" th:text="${loginMessage}"></p>
+      <div class="container">
+          <div class="row">
+              <div class="col-md-6 col-md-offset-3">
+                  <div class="block text-center">
+                      <a class="logo" href="/client/index">
+                          <img src="images/logo.png" alt="">
+                      </a>
+
+                      <h2 class="text-center">Đăng Nhập Tại Đây</h2>
+                      <div class="alert alert-danger" ng-if="loginMessage">
+                          <p style="color: rgb(55, 55, 55);">{{ loginMessage }}</p>
+                      </div>
+                      <form class="text-left clearfix" ng-submit="submitLogin()">
+                          <div class="form-group">
+                              <input type="text" class="form-control" ng-model="account.username" placeholder="Tài khoản" />
+                              <small class="text-danger" ng-if="errors.username">{{ errors.username }}</small>
+                          </div>
+                          <div class="form-group">
+                              <input type="password" class="form-control" ng-model="account.password" placeholder="Mật khẩu" />
+                              <small class="text-danger" ng-if="errors.password">{{ errors.password }}</small>
+                          </div>
+                          <div class="form-checkbox">
+                              <input type="checkbox" id="remember-password" ng-model="remember" />
+                              <label for="remember-password" class="form-check-label">Nhớ tài khoản ?</label>
+                              <a href="/client/forgot-password" class="forgot-password">Quên mật khẩu</a>
+                          </div>
+                          <!-- <div class="form-group">
+                              <div class="g-recaptcha" data-sitekey="{{ recaptchaKey }}"></div>
+                          </div> -->
+                          <div class="text-center">
+                              <button type="submit" class="btn btn-main text-center">Đăng Nhập</button>
+                          </div>
+                      </form>
+                      <div class="social-login">
+                          <p>Or</p>
+                          <div class="social-login-buttons">
+
+                              <!-- Nút đăng nhập bằng Gmail -->
+
+                              <a href="/oauth2/authorization/google" class="btn btn-google">
+                                  <i class='bx bxl-google'></i> <p> Đăng nhập với Google</p>
+                              </a>
+                          </div>
+                      </div>
+                      <p class="mt-20">Bạn chưa có tài khoản?<a href="/client/signup"> Tạo tài khoản</a></p>
+                  </div>
+              </div>
           </div>
-            <form class="text-left clearfix"  th:object="${account}" th:action="@{/client/signin}" method="post" >
-              <div class="form-group">
-                <input type="text" class="form-control" path="username" name="username" th:field="*{username}"  th:placeholder="Username"  />
-                <small class="text-danger" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></small>
-              </div>
-              <div class="form-group">
-                <input type="password" class="form-control"  path="password" th:value="*{password}" name="password"   th:placeholder="Password"  />
-                <small class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></small>
-              </div>
-              <div class="form-checkbox">
-                <input type="checkbox" id="remember-password" name="remember" value="true" >
-                <label for="remember-password" class="form-check-label">Nhớ tài khoản ?</label>
-                <a href="/client/forgot-password" class="forgot-password">Quên mật khẩu</a>
-              </div>
-              <div class="form-group">
-                <div class="g-recaptcha" th:data-sitekey="${@environment.getProperty('recaptcha.key')}"></div>
-            </div>
-              <div class="text-center">
-                <button type="submit" class="btn btn-main text-center" >Đăng Nhập</button>
-              </div>
-            </form>
-            <div class="social-login">
-              <p>Or</p>
-              <div class="social-login-buttons">
-                
-                <!-- Nút đăng nhập bằng Gmail -->
-  
-                <a href="/oauth2/authorization/google" class="btn btn-google"
-                  ><i class='bx bxl-google'></i></i> <p> Đăng nhập với Google</p></a
-                >
-              </div>
-            </div>
-            <p class="mt-20">Bạn chưa có tài khoản?<a href="/client/signup"> Tạo tài khoản</a></p>
-          </div>
-        </div>
       </div>
-    </div>
   </section>
-</th:block>
+</section>
+
 
 </html>

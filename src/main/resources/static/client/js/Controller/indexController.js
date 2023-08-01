@@ -1,4 +1,4 @@
-appClient.controller('indexController', function ($scope, $http, urlIndexClient) {
+appClient.controller('indexController', function ($scope, $http, urlIndexClient, $cookies) {
     let host = urlIndexClient;
 
     $scope.load_products = function () {
@@ -9,20 +9,18 @@ appClient.controller('indexController', function ($scope, $http, urlIndexClient)
         }).catch(Error => {
             console.log("Error: ", Error);
         })
-    }
+    };
+
+    $scope.init = function () {
+        $scope.load_products();
+        $scope.sessionUsername = $cookies.get('username');
+    };
 
 
 
 
 
 
-
-
-
-
-
-
-
-
-    $scope.load_products();
+    $scope.init();
+    
 })
