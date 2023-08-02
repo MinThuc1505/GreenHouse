@@ -1,4 +1,4 @@
-package com.greenhouse.restcontroller.Client;
+package com.greenhouse.restController.Client;
 
 import java.util.HashMap;
 import java.util.Map;

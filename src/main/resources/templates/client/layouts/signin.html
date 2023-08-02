@@ -22,13 +22,21 @@ th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
              <div th:if="${loginMessage}" class="alert alert-danger">
          		   <p style="color: rgb(55, 55, 55);" th:text="${loginMessage}"></p>
           </div>
-            <form class="text-left clearfix"  th:object="${account}" th:action="@{/client/signin}" method="post" >
-              <div class="form-group">
-                <input type="text" class="form-control" path="username" name="username" th:field="*{username}"  th:placeholder="Username"  />
+             <form class="text-left clearfix"  th:object="${account}" th:action="@{/client/login}" method="POST" >
+             <!--  <div class="form-group">
+                <input type="text" value="admin" class="form-control" path="username" name="username" th:field="*{username}"  th:placeholder="Username"  />
                 <small class="text-danger" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></small>
               </div>
               <div class="form-group">
-                <input type="password" class="form-control"  path="password" th:value="*{password}" name="password"   th:placeholder="Password"  />
+                <input type="password" value="1" class="form-control"  path="password" th:value="*{password}" name="password"   th:placeholder="Password"  />
+                <small class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></small>
+              </div> -->
+               <div class="form-group">
+                <input type="text" value="admin" class="form-control" path="username" name="username" th:placeholder="Username"  />
+                <small class="text-danger" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></small>
+              </div>
+              <div class="form-group">
+                <input type="password" value="1" class="form-control"  path="password" name="password"   th:placeholder="Password"  />
                 <small class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></small>
               </div>
               <div class="form-checkbox">
@@ -40,9 +48,9 @@ th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
                 <div class="g-recaptcha" th:data-sitekey="${@environment.getProperty('recaptcha.key')}"></div>
             </div>
               <div class="text-center">
-                <button type="submit" class="btn btn-main text-center" >Đăng Nhập</button>
+                <button type="submit" class="btn btn-main text-center">Đăng Nhập</button>
               </div>
-            </form>
+            </form> 
             <div class="social-login">
               <p>Or</p>
               <div class="social-login-buttons">

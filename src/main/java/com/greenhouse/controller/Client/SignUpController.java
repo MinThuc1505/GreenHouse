@@ -19,13 +19,20 @@ import com.greenhouse.service.EmailService;
 import com.greenhouse.service.EncodeService;
 import com.greenhouse.service.TokenService;
 
-import jakarta.servlet.http.HttpServletRequest; 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 
 @Controller
 @RequestMapping("client/signup")
 public class SignUpController {
 
-   
+	@GetMapping
+	private String signup(Model model) {
+		model.addAttribute("account", new Account());
+		model.addAttribute("message", Message.message);
+		model.addAttribute("typeMessage", Message.type);
+		Message.message = "";
+		return "/client/layouts/signup";
+	}
 
 }
