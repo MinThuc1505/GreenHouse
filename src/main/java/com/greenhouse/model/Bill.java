@@ -32,16 +32,16 @@ public class Bill implements Serializable{
     @Column(name = "Amount")
     private Double amount;
 
-    @Column(name = "DiscountCode")
+    @Column(name = "Discount_Code")
     private String discountCode;
 
-    @Column(name = "DiscountPercent")
+    @Column(name = "Discount_Percent")
     private Double discountPercent;
 
-    @Column(name = "NewAmount")
+    @Column(name = "New_Amount")
     private Double newAmount;
 
-    @Column(name = "PaymentMethod")
+    @Column(name = "Payment_Method")
     private String paymentMethod;
 
     @Column(name = "Status")
