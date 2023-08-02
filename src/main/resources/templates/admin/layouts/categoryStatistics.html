@@ -1,11 +1,13 @@
 <!doctype html>
 <html class="no-js" lang="" xmlns:th="http://www.thymeleaf.org"
-	th:replace="~{admin/main-layout.html :: layout (~{::title}, ~{::#layout})}">
+    th:replace="~{admin/main-layout.html :: layout (~{::title}, ~{::#layout})}">
+
 <head>
-	<title>Thống kê</title>
+    <title>Thống kê</title>
 </head>
+
 <body>
-    <section id="layout">
+    <section id="layout" ng-controller="reportCategoryController">
         <div class="wizard-area">
             <div class="container">
                 <div class="row">
@@ -15,27 +17,25 @@
                                 <h2>Thống kê theo loại sản phẩm</h2>
                             </div>
                             <div class="bsc-tbl-hvr">
-                                <table class="table table-hover">
+                                <table class="table table-striped">
                                     <thead>
-                                        <tr>
-                                            <th>#</th>
+                                        <tr class="table-bordered custom-border tr-thead">
+                                            <th class="text-center">#</th>
+                                            <th>Mã loại sản phẩm</th>
                                             <th>Tên loại sản phẩm</th>
-                                            <th>Số lượng</th>
-                                            <th>Tổng tiền</th>
+                                            <th>Số lượng đã bán</th>
+                                            <th>Tổng tiền đã bán</th>
+                                            <th>Số lượng tồn</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Loại sản phẩm A</td>
-                                            <td>10</td>
-                                            <td>500</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>Loại sản phẩm B</td>
-                                            <td>5</td>
-                                            <td>250</td>
+                                        <tr ng-repeat="item in items">
+                                            <td class="text-center">{{$index + 1}}</td>
+                                            <td>{{item[0]}}</td> <!-- Mã loại sản phẩm -->
+                                            <td>{{item[1]}}</td><!-- Tên loại sản phẩm -->
+                                            <td>{{item[2] || 0}}</td> <!-- Số lượng đã bán -->
+                                            <td>{{item[3] || 0}}</td> <!-- Tổng tiền đã bán -->
+                                            <td>{{item[4]}}</td> <!-- Số lượng tồn -->
                                         </tr>
                                     </tbody>
                                 </table>
