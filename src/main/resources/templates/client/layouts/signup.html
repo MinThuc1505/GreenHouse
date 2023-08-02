@@ -26,8 +26,8 @@ th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
             <form id="myForm" class="text-left clearfix" th:object="${account}" th:action="@{/client/signup}"
               method="post">
               <div class="form-group">
-                <input type="text" class="form-control" th:field="*{fullname}" placeholder="Fullname" />
-                <small class="text-danger" th:if="${#fields.hasErrors('fullname')}" th:errors="*{fullname}"></small>
+                <input type="text" class="form-control" th:field="*{fullName}" placeholder="Fullname" />
+                <small class="text-danger" th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}"></small>
               </div>
               <div class="form-group">
                 <input type="text" class="form-control" th:field="*{username}" placeholder="Username" />

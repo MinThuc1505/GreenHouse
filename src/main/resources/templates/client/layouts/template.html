@@ -88,29 +88,25 @@
 								<div class="row">
 									<div class="col-lg-12 col-md-6 mb-sm-3">
 										<ul>
-											<li ng-if="sessionUsername">
-												<a href="/client/profile" th:text="#{lo.mn.account}"></a>
-											</li>
-											<li ng-if="sessionUsername">
-												<a href="#" ng-click="logoutUser()" th:text="#{lo.mn.logout}"></a>
-											</li>
-											<li ng-if="sessionUsername">
-												<a href="/client/change-password" th:text="#{lo.mn.changepasswod}"></a>
-											</li>
-											<li ng-if="!sessionUsername">
-												<a href="/client/signin" th:text="#{lo.mn.signin}"></a>
-											</li>
-											<li ng-if="!sessionUsername">
-												<a href="/client/signup" th:text="#{lo.mn.signup}"></a>
-											</li>
-											<li ng-if="!sessionUsername">
-												<a href="/client/forgot-password" th:text="#{lo.mn.forgot}"></a>
-											</li>
+											<th:block th:if="${sessionUsername != null && sessionUsername != ''}">
+												<li><a href="/client/profile" th:text="#{lo.mn.account}"></a></li>
+												<li><a href="/client/logout" th:text="#{lo.mn.logout}"></a></li>
+												<li><a href="/client/change-password"
+														th:text="#{lo.mn.changepasswod}"></a></li>
+											</th:block>
+											<th:block th:unless="${sessionUsername != null && sessionUsername != ''}">
+												<li><a href="/client/signin" th:text="#{lo.mn.signin}"></a></li>
+												<li><a href="/client/signup" th:text="#{lo.mn.signup}"></a></li>
+												<li><a href="/client/forgot-password" th:text="#{lo.mn.forgot}"></a>
+												<li><a href="/client/logout">logout</a></li>
+												<li><a href="/admin/discount">admin</a></li>
+											</th:block>
 										</ul>
 									</div>
 								</div>
 							</div>
 						</li>
+
 						<!-- End đăng nhập đăng ký -->
 					</ul>
 					<!-- / .nav .navbar-nav .navbar-right -->
