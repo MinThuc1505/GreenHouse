@@ -13,53 +13,54 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.greenhouse.DAO.ProviderDAO;
-import com.greenhouse.model.Provider;
+import com.greenhouse.DAO.CategoryDAO;
+import com.greenhouse.model.Category;
 
 @RestController
-@RequestMapping(value = "/rest/provider")
-public class restProvider {
+@RequestMapping(value = "/rest/category")
+public class restCategory {
     @Autowired
-    ProviderDAO providerDAO;
+    CategoryDAO categoryDAO;
 
     @GetMapping
-    private ResponseEntity<List<Provider>> getAllProvider() {
-        return ResponseEntity.ok(providerDAO.findAll());
+    private ResponseEntity<List<Category>> getAllCategory() {
+        return ResponseEntity.ok(categoryDAO.findAll());
     }
 
     @GetMapping(value = "/{id}")
-    private ResponseEntity<Provider> getOne(@PathVariable("id") String id) {
-        if (!providerDAO.existsById(id)) {
+    private ResponseEntity<Category> getOne(@PathVariable("id") String id) {
+        if (!categoryDAO.existsById(id)) {
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(providerDAO.findById(id).get());
+        return ResponseEntity.ok(categoryDAO.findById(id).get());
     }
 
     @PostMapping
-    private ResponseEntity<Provider> create(@RequestBody Provider provider) {
-        System.out.println(provider);
-        if (providerDAO.existsById(provider.getId())) {
+    private ResponseEntity<Category> create(@RequestBody Category category) {
+        System.out.println(category);
+        if (categoryDAO.existsById(category.getId())) {
             return ResponseEntity.badRequest().build();
 
         }
-        return ResponseEntity.ok(providerDAO.save(provider));
+        return ResponseEntity.ok(categoryDAO.save(category));
     }
 
     @PutMapping(value = "/{id}")
-    private ResponseEntity<Provider> update (@PathVariable("id") String id, @RequestBody Provider provider){
-        if (!providerDAO.existsById(id)) {
+    private ResponseEntity<Category> update (@PathVariable("id") String id, @RequestBody Category category){
+        if (!categoryDAO.existsById(id)) {
             return ResponseEntity.notFound().build();
             
         }
-        return ResponseEntity.ok(providerDAO.save(provider));
+        return ResponseEntity.ok(categoryDAO.save(category));
     }
 
     @DeleteMapping(value = "/{id}")
     private ResponseEntity <Void> delete(@PathVariable("id") String id){
-        if(!providerDAO.existsById(id)){
+        if(!categoryDAO.existsById(id)){
             return ResponseEntity.notFound().build();
         }
-        providerDAO.deleteById(id);
+        categoryDAO.deleteById(id);
         return ResponseEntity.ok().build();
     } 
+
 }
