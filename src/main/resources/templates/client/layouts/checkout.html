@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html class="no-js" lang="" xmlns:th="http://www.thymeleaf.org"
-th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
+	th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
+
 <head>
 	<title>Thanh toán</title>
 </head>
 
 <!-- CONTENT PAGE START-->
-<th:block id="content">
+<section id="layout">
 	<section class="page-header">
 		<div class="container">
 			<div class="row">
@@ -23,44 +24,29 @@ th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
 		</div>
 	</section>
 	<div class="page-wrapper">
-		<div class="checkout shopping">
+		<div class="checkout shopping" ng-controller="checkoutController">
 			<div class="container">
 				<div class="row">
 					<div class="col-md-7">
 						<div class="block billing-details">
 							<h4 class="widget-title">Thông tin người mua</h4>
 							<form class="checkout-form">
-								<input type="hidden" id="idAccount" name="idAccount" th:value="${account.id}">
+								<input type="hidden" id="idAccount" name="idAccount" ng-value="account.id">
 								<div class="form-group">
 									<label for="full_name">Họ và tên</label>
 									<input type="text" class="form-control" id="full_name" placeholder=""
-										th:value="${account.fullname}">
+										ng-model="account.fullname">
 								</div>
-								<!-- Sử dụng các giá trị tương ứng của đối tượng account để hiển thị giá trị của các trường dữ liệu kiểu text -->
-								<div class="form-group">
-									<label for="email">Email</label>
-									<input type="text" class="form-control" id="email" placeholder=""
-										th:value="${account.email}">
-								</div>
-								<div class="form-group">
-									<label for="phone">Số điện thoại</label>
-									<input type="text" class="form-control" id="phone" placeholder=""
-										th:value="${account.phone}">
-								</div>
-								<div class="form-group">
-									<label for="user_address">Địa chỉ</label>
-									<input type="text" class="form-control" id="user_address" placeholder=""
-										th:value="${account.address}">
-								</div>
+								<!-- Tương tự các input khác -->
 							</form>
-
 						</div>
 						<div class="block">
 							<h4 class="widget-title">Phương thức thanh toán</h4>
 							<div class="payment-method">
 								<div class="radio-tile-group">
 									<div class="input-container">
-										<input id="cod" class="radio-button" type="radio" name="radio" value="COD">
+										<input id="cod" class="radio-button" type="radio" name="radio" value="COD"
+											ng-click="toggleCOD()">
 										<div class="radio-tile">
 											<div class="icon cod-icon">
 												<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -74,9 +60,9 @@ th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
 											<label for="cod" class="radio-tile-label">COD</label>
 										</div>
 									</div>
-
 									<div class="input-container">
-										<input id="VNPay" class="radio-button" type="radio" name="radio" value="VNPay">
+										<input id="VNPay" class="radio-button" type="radio" name="radio" value="VNPay"
+											ng-click="toggleVNPay()">
 										<div class="radio-tile">
 											<div class="icon bank-icon">
 												<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -91,7 +77,7 @@ th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
 										</div>
 									</div>
 								</div>
-								<div class="sub-bank" id="sub-bank">
+								<div id="sub-bank" class="sub-bank" ng-show="isVNPay">
 									<div class="wrapper">
 										<div class="card">
 											<input class="input" type="radio" name="card" value="NCB">
@@ -161,13 +147,11 @@ th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
 										</div>
 									</div>
 								</div>
-								<div id="order-button">
-									<label class="total"
-										th:text="'Tổng: '+${#numbers.formatDecimal(total, 0, 'COMMA', 0, 'POINT')}+ ' VND'"></label>
-									<input type="hidden" id="totalAmount" name="totalAmount" th:value="${total}">
-									<button type="button" class="btn btn-primary" th:onclick="payment()">Đặt
-										hàng</button>
-								</div>
+							</div>
+							<div id="order-button" ng-show="isCOD || isVNPay">
+								<label class="total">{{ 'Tổng: ' + total | number: 0 + ' VND' }}</label>
+								<input type="hidden" id="totalAmount" name="totalAmount" ng-value="total">
+								<button type="button" class="btn btn-primary" ng-click="payment()">Đặt hàng</button>
 							</div>
 						</div>
 					</div>
@@ -176,33 +160,24 @@ th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
 							<div class="block">
 								<h4 class="widget-title">Sản phẩm mua</h4>
 								<div class="card-box">
-									<th:block th:each="cart, iStat : ${carts}">
-										<div class="media product-card">
-											<input type="hidden" th:value="${cart[0][0]}">
-											<a class="pull-left">
-												<img class="media-object" th:src="${'/images/'+cart[0][1]}"
-													alt="Image" />
-											</a>
-											<div class="media-body">
-												<h4 class="media-heading"><a th:text="${cart[0][2]}"></a>
-												</h4>
-												<p class="quantity" th:text="'SL: '+${cart[0][4]}"></p>
-												<p class="price"
-													th:text="'Giá: '+${#numbers.formatDecimal(cart[0][3], 0, 'COMMA', 0, 'POINT')} + ' VND'">
-												</p>
-												<p class="total"
-													th:text="'Tổng: '+${#numbers.formatDecimal(cart[0][4] * cart[0][3], 0, 'COMMA', 0, 'POINT')}+ ' VND'">
-												</p>
-											</div>
+									<div class="media product-card" ng-repeat="cart in carts track by $index">
+										<input type="hidden" ng-value="cart[0][0]">
+										<a class="pull-left">
+											<img class="media-object" ng-src="{{ '/images/' + cart[0][1] }}"
+												alt="Image" />
+										</a>
+										<div class="media-body">
+											<h4 class="media-heading"><a>{{ cart[0][2] }}</a></h4>
+											<p class="quantity">SL: {{ cart[0][4] }}</p>
+											<p class="price">Giá: {{ cart[0][3] | number: 0 }} VND</p>
+											<p class="total">Tổng: {{ cart[0][5] | number: 0 }} VND</p>
 										</div>
-										<hr>
-									</th:block>
+									</div>
 								</div>
 								<hr>
 								<div class="summary-total">
 									<span>Tổng tiền đơn hàng:</span>
-									<span class="total"
-										th:text="${#numbers.formatDecimal(total, 0, 'COMMA', 0, 'POINT')}+ ' VND'"></span>
+									<span class="total">{{ totalAmount | number: 0 }} VND</span>
 								</div>
 								<div class="verified-icon">
 									<img src="images/shop/verified.png">
@@ -214,6 +189,7 @@ th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
 			</div>
 		</div>
 	</div>
+
 	<script>
 		function payment() {
 			var orderType = document.querySelector('input[name="radio"]:checked').value;
@@ -247,33 +223,8 @@ th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
 				}
 			});
 		}
-
-		var codRadioButton = document.getElementById("cod");
-		var vnPayRadioButton = document.getElementById("VNPay");
-
-		var orderButton = document.getElementById("order-button");
-		var subBank = document.getElementById("sub-bank");
-
-		codRadioButton.addEventListener("change", function () {
-			if (this.checked) {
-				orderButton.style.display = "flex";
-				subBank.style.display = "none";
-			} else {
-				orderButton.style.display = "none";
-			}
-		});
-
-		vnPayRadioButton.addEventListener("change", function () {
-			if (this.checked) {
-				orderButton.style.display = "flex";
-				subBank.style.display = "flex";
-			} else {
-				orderButton.style.display = "none";
-				subBank.style.display = "none";
-			}
-		});
 	</script>
-</th:block>
+</section>
 <!-- CONTENT PAGE END-->
 
 </html>

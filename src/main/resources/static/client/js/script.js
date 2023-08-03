@@ -135,35 +135,6 @@ $('.back-to-top').click(function () {
   return false;
 });
 // thong bao
-function notification() {
-  var message = $('.notification').text().split(';');
-  var type = $('.notification').data("type");
-  if (message.length > 0) {
-    for (var i = 0; i < message.length; i++) {
-      if (message[i] != '') {
-        var html = '<div class="notification notification-' + type + '">' +
-          '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>' +
-          message[i] +  // Lấy phần tử thứ i trong mảng message để hiển thị nội dung
-          '</div>';
-        var delay = 3000; // Thời gian 3 giây mặc định
-        var $notification = $(html).appendTo('#notification-container');
-        // Hiển thị thông báo và đặt timeout để tự động đóng sau 3s
-        $notification.fadeIn('fast', function () {
-          var timeout = setTimeout(function () {
-            $notification.fadeOut('slow', function () {
-              $('.notification').remove();
-            });
-          }, delay);
-          // Xóa timeout khi người dùng đóng thông báo
-          $(".close").click(function () {
-            clearTimeout(timeout);
-          });
-        });
-      }
-    }
-  }
-};
-
 function notificationDATA(message, type) {
   if (message != "") {
     var html = '<div class="notification notification-' + type + '">' +
@@ -186,7 +157,6 @@ function notificationDATA(message, type) {
     });
   }
 };
-document.addEventListener('DOMContentLoaded', notification)
 
 // lazy load
 function load(img) {
@@ -214,26 +184,6 @@ function lazyLoad() {
 
 document.addEventListener('DOMContentLoaded', lazyLoad)
 
-function addToCart(productId) {
-  $.ajax({
-    url: '/client/shop/add-cart',
-    method: 'POST',
-    data: { id: productId },
-    success: function (data) {
-      $(".cart-quantity").text(data.totalItems);
-      if (data.qty > 50) {
-        $(".cart-quantity").text(50 + '+');
-      } else {
-        $(".cart-quantity").text(data.qty);
-      }
-      notificationDATA(data.message, data.typeMessage);
-    },
-    error: function () {
-      notificationDATA("Thêm thất bại", "error");
-    }
-  });
-}
-
 function showProductDetails(id, name, price, image, description) {
   $('#product-img').attr('src', '/images/' + image);
   $('#product-title').text(name);
@@ -244,49 +194,6 @@ function showProductDetails(id, name, price, image, description) {
   // Hiển thị modal chi tiết sản phẩm
   $('#product-modal').modal('show');
 }
-
-function modalAddToCart() {
-  var productId = $('#modal-idProduct').text();
-  addToCart(productId)
-}
-
-// Cart HTML - START 
-// Lắng nghe sự kiện khi click vào ô checkbox trên cùng
-function checkAll() {
-  var checkboxes = document.querySelectorAll('#cart-tableBody input[type="checkbox"]');
-  checkboxes.forEach(function (checkbox) {
-    checkbox.checked = $('#checkAllId').is(':checked');
-  }, $('#checkAllId'));
-}
-
-// Lắng nghe sự kiện khi click vào các ô checkbox trong tbody
-function check() {
-  var checkboxes = document.querySelectorAll('#cart-tableBody input[type="checkbox"]');
-  var allChecked = true;
-  checkboxes.forEach(function (checkbox) {
-    if (!checkbox.checked) {
-      allChecked = false;
-    }
-  });
-  $('#checkAllId').prop('checked', allChecked);
-}
-// Cart HTML - END
-
-function updateQuantity(item, iStat) {
-  item.quantity = $(".qty")[iStat.index].value;
-  $.ajax({
-    url: '/client/cart/update',
-    method: 'POST',
-    data: { id: item[0], quantity: item.quantity },
-    success: function (response) {
-      $(".cart-totalPrice")[iStat.index].textContent = (response.price * response.quantity).toLocaleString() + ' VND';
-    },
-    error: function (jqXHR, textStatus, errorThrown) {
-      console.log(textStatus, errorThrown);
-    }
-  });
-}
-
 
 function previewImage(input) {
   if (input.files && input.files[0]) {

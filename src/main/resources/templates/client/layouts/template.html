@@ -27,7 +27,6 @@
 	<link rel="stylesheet" href="/client/plugins/themefisher-font/style.css">
 	<!-- bootstrap.min css -->
 	<link rel="stylesheet" href="/client/plugins/bootstrap/css/bootstrap.min.css">
-
 	<!-- Animate css -->
 	<link rel="stylesheet" href="/client/plugins/animate/animate.css">
 	<!-- Slick Carousel -->
@@ -70,9 +69,9 @@
 					<!-- Cart -->
 					<ul class="top-menu text-right list-inline">
 						<li class="cart-box">
-							<a href="/client/cart"> <i class="tf-ion-android-cart"></i><span th:text="#{lo.mn.cart}"></span></a>
+							<a href="#" ng-click="checkLogin()"> <i class="tf-ion-android-cart"></i><span th:text="#{lo.mn.cart}"></span></a>
 							<div ng-if="qtyCart >= 0">
-								<div class="cart-quantity" ng-bind="qtyCart > 50 ? '50+' : qtyCart"></div>
+								<div class="cart-quantity" ng-bind="qtyCart > 99 ? '99+' : qtyCart"></div>
 							</div>
 						</li>
 						<!-- end Cart -->
@@ -281,6 +280,9 @@
 	<script src="/client/js/Controller/menuController.js"></script>
 	<script src="/client/js/Controller/signinController.js"></script>
 	<script src="/client/js/Controller/headerController.js"></script>
+	<script src="/client/js/Controller/bodyController.js"></script>
+	<script src="/client/js/Controller/cartController.js"></script>
+	<script src="/client/js/Controller/checkoutController.js"></script>
 </th:block>
 <!-- Script End -->
 

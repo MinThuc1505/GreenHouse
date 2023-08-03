@@ -15,13 +15,13 @@ import lombok.Data;
 @Entity
 @Table(name = "Accounts")
 @Data
-public class Account implements Serializable{
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+public class Account implements Serializable {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
 
-	@Id
+    @Id
     private String username;
 
     @Column(name = "Password")
@@ -34,7 +34,7 @@ public class Account implements Serializable{
     private String email;
 
     @Column(name = "Phone")
- private String phone;
+    private String phone;
 
     @Column(name = "Gender")
     private Boolean gender;
@@ -47,7 +47,7 @@ public class Account implements Serializable{
 
     @Column(name = "Role")
     private Boolean role;
-    
+
     @Column(name = "Createdate")
     private Date createDate;
 }
