@@ -27,7 +27,6 @@
 	<link rel="stylesheet" href="/client/plugins/themefisher-font/style.css">
 	<!-- bootstrap.min css -->
 	<link rel="stylesheet" href="/client/plugins/bootstrap/css/bootstrap.min.css">
-
 	<!-- Animate css -->
 	<link rel="stylesheet" href="/client/plugins/animate/animate.css">
 	<!-- Slick Carousel -->
@@ -35,9 +34,12 @@
 	<link rel="stylesheet" href="/client/plugins/slick/slick-theme.css">
 	<!-- Recapcha -->
 	<script src="https://www.google.com/recaptcha/api.js" async defer></script>
-	<!-- Thư viện AngularJS  + Route -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.2/angular.min.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-route.min.js"></script>
+	<!-- Tải script của AngularJS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <!-- Tải script của ngRoute -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-route.min.js"></script>
+    <!-- Tải script của ngCookies -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-cookies.min.js"></script>
 	<!-- Main Stylesheet -->
 	<link rel="stylesheet" href="/client/css/style.css">
 
@@ -46,7 +48,7 @@
 
 <!-- Start Top Header Bar Start -->
 <th:block th:fragment="top-header-bar">
-	<section class="top-header">
+	<section class="top-header" ng-controller="headerController">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-4 col-xs-12 col-sm-4">
@@ -67,31 +69,25 @@
 					<!-- Cart -->
 					<ul class="top-menu text-right list-inline">
 						<li class="cart-box">
-							<a href="/client/cart"> <i class="tf-ion-android-cart"></i><span
-									th:text="#{lo.mn.cart}"></span></a>
-							<th:block th:if="${qtyCart >= 0}">
-								<div class="cart-quantity" th:text="${qtyCart > 50 ? '50+' : qtyCart}"></div>
-							</th:block>
+							<a href="#" ng-click="checkLogin()"> <i class="tf-ion-android-cart"></i><span th:text="#{lo.mn.cart}"></span></a>
+							<div ng-if="qtyCart >= 0">
+								<div class="cart-quantity" ng-bind="qtyCart > 99 ? '99+' : qtyCart"></div>
+							</div>
 						</li>
 						<!-- end Cart -->
 						<li class="dropdown menu-login cart-nav dropdown-slide">
 							<a href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"
 								data-delay="350" role="button" aria-haspopup="true" aria-expanded="false"><i
 									class='bx bxs-user-circle'></i>
-								<span th:if="${sessionUsername != null && sessionUsername != ''}"
-									th:text="${sessionUsername}">
-									<!-- Hiển thị nội dung khi có giá trị session -->
-								</span>
-								<th:block th:unless="${sessionUsername != null && sessionUsername != ''}">
-									<span th:text="#{lo.mn.account}"></span>
-
-								</th:block><span class="tf-ion-ios-arrow-down"></span>
+								<span ng-if="sessionUsername">{{ sessionUsername }}</span>
+								<span ng-if="!sessionUsername" th:text="#{lo.mn.account}"></span>
+								<span class="tf-ion-ios-arrow-down"></span>
 							</a>
 							<div class="dropdown-menu">
 								<div class="row">
 									<div class="col-lg-12 col-md-6 mb-sm-3">
 										<ul>
-											<th:block th:if="${sessionUsername != null && sessionUsername != ''}">
+										<!-- 	<th:block th:if="${sessionUsername != null && sessionUsername != ''}">
 												<li><a href="/client/profile" th:text="#{lo.mn.account}"></a></li>
 												<li><a href="/client/logout" th:text="#{lo.mn.logout}"></a></li>
 												<li><a href="/client/change-password"
@@ -103,7 +99,26 @@
 												<li><a href="/client/forgot-password" th:text="#{lo.mn.forgot}"></a>
 												<li><a href="/client/logout">logout</a></li>
 												<li><a href="/admin/discount">admin</a></li>
-											</th:block>
+											</th:block> -->
+											
+											<li ng-if="sessionUsername">
+												<a href="/client/profile" th:text="#{lo.mn.account}"></a>
+											</li>
+											<li ng-if="sessionUsername">
+												<a href="#" ng-click="logoutUser()" th:text="#{lo.mn.logout}"></a>
+											</li>
+											<li ng-if="sessionUsername">
+												<a href="/client/change-password" th:text="#{lo.mn.changepasswod}"></a>
+											</li>
+											<li ng-if="!sessionUsername">
+												<a href="/client/signin" th:text="#{lo.mn.signin}"></a>
+											</li>
+											<li ng-if="!sessionUsername">
+												<a href="/client/signup" th:text="#{lo.mn.signup}"></a>
+											</li>
+											<li ng-if="!sessionUsername">
+												<a href="/client/forgot-password" th:text="#{lo.mn.forgot}"></a>
+											</li>
 										</ul>
 									</div>
 								</div>
@@ -279,9 +294,14 @@
 	<script src="/client/js/script.js" th:src="@{/client/js/script.js}"></script>
 	<!-- Controller JS-->
 	<script src="/client/js/Controller/app.js"></script>
-	<script src="js/Controller/indexController.js"></script>
-	<script src="js/Controller/shopController.js"></script>
-	<script src="js/Controller/menuController.js"></script>
+	<script src="/client/js/Controller/indexController.js"></script>
+	<script src="/client/js/Controller/shopController.js"></script>
+	<script src="/client/js/Controller/menuController.js"></script>
+	<script src="/client/js/Controller/signinController.js"></script>
+	<script src="/client/js/Controller/headerController.js"></script>
+	<script src="/client/js/Controller/bodyController.js"></script>
+	<script src="/client/js/Controller/cartController.js"></script>
+	<script src="/client/js/Controller/checkoutController.js"></script>
 </th:block>
 <!-- Script End -->
 

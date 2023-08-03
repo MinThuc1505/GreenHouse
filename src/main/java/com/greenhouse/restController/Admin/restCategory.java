@@ -13,51 +13,53 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.greenhouse.DAO.ProductDAO;
-import com.greenhouse.model.Product;
+import com.greenhouse.DAO.CategoryDAO;
+import com.greenhouse.model.Category;
 
 @RestController
-@RequestMapping(value = "/rest/products")
-public class restProduct {
-    
+@RequestMapping(value = "/rest/category")
+public class restCategory {
     @Autowired
-    ProductDAO productDAO;
-     @GetMapping
-    private ResponseEntity<List<Product>> getAllAccounts(){
-        return ResponseEntity.ok(productDAO.findAll());
+    CategoryDAO categoryDAO;
+
+    @GetMapping
+    private ResponseEntity<List<Category>> getAllCategory() {
+        return ResponseEntity.ok(categoryDAO.findAll());
     }
-     @GetMapping(value = "/{id}")
-    private ResponseEntity<Product> getOne(@PathVariable("id") Long id){
-        if(!productDAO.existsById(id)){
+
+    @GetMapping(value = "/{id}")
+    private ResponseEntity<Category> getOne(@PathVariable("id") String id) {
+        if (!categoryDAO.existsById(id)) {
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(productDAO.findById(id).get());
+        return ResponseEntity.ok(categoryDAO.findById(id).get());
     }
+
     @PostMapping
-    private ResponseEntity<Product> create(@RequestBody Product product) {
-        System.out.println(product);
-        if (product.getId() != null && productDAO.existsById(product.getId())) {
+    private ResponseEntity<Category> create(@RequestBody Category category) {
+        System.out.println(category);
+        if (categoryDAO.existsById(category.getId())) {
             return ResponseEntity.badRequest().build();
+
         }
-        return ResponseEntity.ok(productDAO.save(product));
+        return ResponseEntity.ok(categoryDAO.save(category));
     }
-    
 
     @PutMapping(value = "/{id}")
-    private ResponseEntity<Product> update (@PathVariable("id") Long id, @RequestBody Product product){
-        if (!productDAO.existsById(id)) {
+    private ResponseEntity<Category> update (@PathVariable("id") String id, @RequestBody Category category){
+        if (!categoryDAO.existsById(id)) {
             return ResponseEntity.notFound().build();
             
         }
-        return ResponseEntity.ok(productDAO.save(product));
+        return ResponseEntity.ok(categoryDAO.save(category));
     }
 
     @DeleteMapping(value = "/{id}")
-    private ResponseEntity <Void> delete(@PathVariable("id") Long id){
-        if(!productDAO.existsById(id)){
+    private ResponseEntity <Void> delete(@PathVariable("id") String id){
+        if(!categoryDAO.existsById(id)){
             return ResponseEntity.notFound().build();
         }
-        productDAO.deleteById(id);
+        categoryDAO.deleteById(id);
         return ResponseEntity.ok().build();
     } 
 

@@ -2,6 +2,9 @@ app.controller('productCtrl', function($scope, $http, urlProduct) {
     let host = urlProduct;
     $scope.form = {};
     $scope.items = {};
+    $scope.sizes = [];
+    $scope.materials = [];
+
     
     $scope.load_all = function() {
         var url = `${host}`;
@@ -11,6 +14,19 @@ app.controller('productCtrl', function($scope, $http, urlProduct) {
             console.log("Error", Error);
         });
     };
+       // Lấy dữ liệu kích thước
+       $http.get('/rest/sizes').then(resp => {
+        $scope.sizes = resp.data;
+    }).catch(Error => {
+        console.log("Error", Error);
+    });
+
+    // Lấy dữ liệu vật liệu
+    $http.get('/rest/materials').then(resp => {
+        $scope.materials = resp.data;
+    }).catch(Error => {
+        console.log("Error", Error);
+    });
     
     $scope.Edit = function(key) {
         var url = `${host}/${key}`;
@@ -57,7 +73,6 @@ app.controller('productCtrl', function($scope, $http, urlProduct) {
         var files = document.getElementById('fileInputCreateProduct').files;
         console.log(files[0].name);
         var item = {
-            id: $scope.id,
             name: $scope.name,
             price: $scope.price,
             quantity: $scope.quantity,
@@ -109,3 +124,8 @@ app.controller('productCtrl', function($scope, $http, urlProduct) {
     $scope.load_all();
 });
 
+function displayImageProduct(event, idImg) {
+    var image = document.getElementById(idImg);
+    image.src = URL.createObjectURL(event.target.files[0]);
+    image.style.display = "block";
+}

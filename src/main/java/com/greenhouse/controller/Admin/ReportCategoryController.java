@@ -1,16 +1,14 @@
 package com.greenhouse.controller.Admin;
 
-
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping(value = "/admin/categories")
-public class CategoryController {
-	@GetMapping
+@RequestMapping(value = "/admin/categoryStatistics")
+public class ReportCategoryController {
+    @GetMapping
 	public String index() {
-		return "admin/layouts/category";
+		return "admin/layouts/categoryStatistics";
 	}
 }
-

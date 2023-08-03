@@ -1,16 +1,14 @@
-package com.greenhouse.controller.Client;
+package com.greenhouse.controller.Admin;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/client/cart")
-public class CartController {
-
+@RequestMapping(value = "/admin/billReport")
+public class ReportBillController {
     @GetMapping
-    public String getCart() {
-        return "client/layouts/cart";
-    }
-    
+	public String index() {
+		return "admin/layouts/billReport";
+	}
 }
