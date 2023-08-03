@@ -311,53 +311,53 @@
 
 
 		<!-- The Modal Tạo kích thước  -->
-		<div class="modal fade" id="sizeModal">
-			<div class="modal-dialog modal-dialog-centered modal-md">
-				<div class="modal-content">
-					<!-- Modal Header -->
-					<div class="modal-header">
-						<h4 class="modal-title">Tạo kích thước</h4>
-						<button type="button" class="close" data-dismiss="modal">&times;</button>
-					</div>
+<div class="modal fade" id="sizeModal" ng-controller="sizeCtrl">
+    <div class="modal-dialog modal-dialog-centered modal-md">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Tạo kích thước</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
 
-					<!-- Modal body -->
-					<div class="modal-body">
-						<form>
-							<div class="row">
-								<div class="col-md-4">
-									<div class="form-group">
-										<label for="width" class="fw-bold">Chiều rộng</label>
-										<input type="number" min="0" class="form-control border-bottom" id="width"
-											placeholder="Nhập chiều rộng">
-									</div>
-								</div>
-								<div class="col-md-4">
-									<div class="form-group">
-										<label for="length" class="fw-bold">Chiều dài</label>
-										<input type="number" min="0" class="form-control border-bottom" id="length"
-											placeholder="Nhập chiều dài">
-									</div>
-								</div>
-								<div class="col-md-4">
-									<div class="form-group">
-										<label for="height" class="fw-bold">Chiều cao</label>
-										<input type="number" min="0" class="form-control border-bottom" id="height"
-											placeholder="Nhập chiều cao">
-									</div>
-								</div>
-							</div>
-						</form>
-					</div>
+            <!-- Modal body -->
+            <div class="modal-body">
+                <form>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="width" class="fw-bold">Chiều rộng</label>
+                                <input type="number" min="1" class="form-control border-bottom" id="width" name="width"
+                                    placeholder="Nhập chiều rộng" ng-model="width">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="length" class="fw-bold">Chiều dài</label>
+                                <input type="number" min="1" class="form-control border-bottom" id="length" name="length"
+                                    placeholder="Nhập chiều dài" ng-model="length">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="height" class="fw-bold">Chiều cao</label>
+                                <input type="number" min="1" class="form-control border-bottom" id="height" name="height"
+                                    placeholder="Nhập chiều cao" ng-model="height">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
 
-					<!-- Modal footer -->
-					<div class="modal-footer">
-						<button type="button" class="btn btn-primary"><i class="fa fa-save"></i> Lưu</button>
-						<button type="button" class="btn btn-info" data-dismiss="modal"><i class="fa fa-times"></i>
-							Hủy</button>
-					</div>
-				</div>
-			</div>
-		</div>
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" ng-click="createSize()"><i class="fa fa-save"></i> Lưu</button>
+                <button type="button" class="btn btn-info" data-dismiss="modal"><i class="fa fa-times"></i> Hủy</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 		<!-- The Modal Thêm chất liệu -->
 		<div class="modal fade" id="materialModal">
