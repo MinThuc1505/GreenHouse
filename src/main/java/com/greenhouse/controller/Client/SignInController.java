@@ -49,12 +49,4 @@ public class SignInController {
 		return "client/layouts/signin";
 	}
 
-	@PostMapping(value = "/client/login")
-	public String login(@RequestParam("username") String username, @RequestParam("password") String password,
-			Model model) {
-
-		return "redirect:/client/index";
-
-	}
-
 }

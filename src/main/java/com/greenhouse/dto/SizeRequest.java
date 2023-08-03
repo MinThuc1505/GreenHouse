@@ -1,4 +1,4 @@
-package com.greenhouse.dto;
+package com.greenhouse.DTO;
 
 public class SizeRequest {
         private String height;

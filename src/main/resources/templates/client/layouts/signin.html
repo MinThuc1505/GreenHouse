@@ -22,7 +22,7 @@ th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
                       <div class="alert alert-danger" ng-if="loginMessage">
                           <p style="color: rgb(55, 55, 55);">{{ loginMessage }}</p>
                       </div>
-                      <form class="text-left clearfix" ng-submit="submitLogin()">
+                      <form class="text-left clearfix" ng-submit="submitLogin()" th:action="@{/client/login}" method="POST">
                           <div class="form-group">
                               <input type="text" class="form-control" ng-model="account.username" placeholder="Tài khoản" />
                               <small class="text-danger" ng-if="errors.username">{{ errors.username }}</small>
