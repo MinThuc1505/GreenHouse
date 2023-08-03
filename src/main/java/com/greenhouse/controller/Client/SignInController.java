@@ -37,7 +37,7 @@ public class SignInController {
 	private String recapchaSecret;
 	@Value("${recaptcha.url}")
 	private String recapchaUrl;
-	
+
 	@GetMapping("/client/signin")
 	public String signin(Account account, Model model) {
 		String username = cookieService.getValue("username");
@@ -52,7 +52,6 @@ public class SignInController {
 	@PostMapping(value = "/client/login")
 	public String login(@RequestParam("username") String username, @RequestParam("password") String password,
 			Model model) {
-
 		return "redirect:/client/index";
 
 	}

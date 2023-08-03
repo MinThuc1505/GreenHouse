@@ -32,7 +32,7 @@ app.controller('discountController', function($scope, $http, urlDiscount){
     $scope.Update = function(key){
         
         var item = {
-	        discount_code: $scope.form.discount_code,
+	        discountCode: $scope.form.discountCode,
 	        startDate: $scope.form.startDate,
 	        quantity: $scope.form.quantity,
 	        endDate: $scope.form.endDate,
@@ -40,6 +40,7 @@ app.controller('discountController', function($scope, $http, urlDiscount){
 	        status: $scope.form.status 
 	    };
         var url = `${host}/${key}`;
+         console.log(url);
         $http.put(url, item).then(resp => {
            $scope.items[$scope.key] = resp.data;
            $scope.load_all();
@@ -58,7 +59,7 @@ app.controller('discountController', function($scope, $http, urlDiscount){
     }
     $scope.Create = function(){
         var item = {
-	        discount_code: $scope.discountCode,
+	        discountCode: $scope.discountCode,
 	        startDate: $scope.startDate,
 	        quantity: $scope.quantity,
 	        endDate: $scope.endDate,
@@ -74,13 +75,13 @@ app.controller('discountController', function($scope, $http, urlDiscount){
             Swal.fire({
 			    icon: 'success',
 			    title: 'Thành công',
-			    text: `Đã thêm mã ` + item.discount_code,
+			    text: `Đã thêm mã ` + item.discountCode,
 			});
         }).catch(Error =>{
            Swal.fire({
 			    icon: 'error',
 			    title: 'Thất bại',
-			    text: `Thêm mã ` + item.discount_code + ` thất bại `,
+			    text: `Thêm mã ` + item.discountCode + ` thất bại `,
 			});
         })
     }
