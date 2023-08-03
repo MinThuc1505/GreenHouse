@@ -5,10 +5,10 @@ th:fragment="layout(title, layout)">
 <th:block th:replace="~{client/layouts/template.html :: head (${title})}"></th:block>
 <!-- HEAD END -->
 
-<body ng-app="appClient">
+<body ng-app="appClient" ng-controller="bodyController">
   <div id="notification-container"></div>
 
-  <div class="notification" th:data-type="${typeMessage}" th:text="${message}"></div>
+  <div class="notification" ng-data-type="{{ typeMessage }}" ng-bind="message"></div>
 
 
   <!-- TOP HEADER BAR START -->

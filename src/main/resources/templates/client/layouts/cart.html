@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 
 <html class="no-js" lang="" xmlns:th="http://www.thymeleaf.org"
-th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
+	th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
+
 <head>
 	<title>Giỏ hàng</title>
 </head>
@@ -9,9 +10,8 @@ th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
 
 
 <!-- CONTENT PAGE START-->
-<th:block id="layout">
+<section id="layout" ng-controller="cartController">
 	<!-- Page Header Start -->
-
 	<section class="page-header">
 		<div class="container">
 			<div class="row">
@@ -31,7 +31,7 @@ th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
 
 	<!-- Cart Start -->
 	<div class="page-wrapper">
-		<div class="cart shopping">
+		<div class="cart shopping" ng-controller="cartController">
 			<div class="container">
 				<div class="row">
 					<div class="block">
@@ -40,112 +40,59 @@ th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
 								<thead>
 									<tr>
 										<th>
-											<input type="checkbox" id="checkAllId" th:onclick="checkAll()"
-												th:onchange="toggleDeleteButton()">
+											<input type="checkbox" id="checkAllId" ng-click="checkAll()">
 										</th>
 										<th class="">Sản phẩm</th>
 										<th class="">Giá sản phẩm</th>
 										<th class="">Số lượng</th>
 										<th class="">Tổng cộng</th>
-										<th class="" id="delete-btn">
-											<button class="noselect" th:onclick="deleteCarts()">
-												<span class="text">Delete</span><span class="icon"><svg
-														xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-														viewBox="0 0 24 24">
-														<path
-															d="M24 20.188l-8.315-8.209 8.2-8.282-3.697-3.697-8.212 8.318-8.31-8.203-3.666 3.666 8.321 8.24-8.206 8.313 3.666 3.666 8.237-8.318 8.285 8.203z">
-														</path>
-													</svg>
-												</span>
-											</button>
-										</th>
+										<th class="">
+											<a href="#" ng-click="editCarts()">{{ editMode ? 'Lưu' : 'Sửa' }}</a>
+										  </th>
+										  
 									</tr>
 								</thead>
 								<tbody id="cart-tableBody">
-									<tr class="" th:each="cart, iStat : ${carts}">
+									<tr ng-repeat="cart in carts track by $index" ng-hide="isCartItemDeleted(cart[0])">
 										<td>
-											<input type="checkbox" th:value="${cart[0]}" th:onclick="check()"
-												th:onchange="toggleDeleteButton()">
+											<input type="checkbox" ng-value="cart[0]" ng-model="cart[0]"
+												ng-click="check()">
 										</td>
 										<td class="">
 											<div class="product-info">
-												<img width="80" th:src="${'/images/'+cart[1]}" alt="" />
-												<p th:text="${cart[2]}"></p>
+												<img width="80" ng-src="{{'/images/' + cart[1]}}" alt="" />
+												<p>{{cart[2]}}</p>
 											</div>
 										</td>
-										<td class=""
-											th:text="${#numbers.formatDecimal(cart[3], 0, 'COMMA', 0, 'POINT')} + ' VND'">
-										</td>
+										<td class="">{{cart[3] | number: 0}} VND</td>
 										<td class=""><input type="number" class="qty" name="quantity" min="1"
-												th:value="${cart[4]}"
-												th:onchange="updateQuantity([[${cart}]],[[${iStat}]])"></td>
-										<td class="cart-totalPrice"
-											th:text="${#numbers.formatDecimal(cart[3] * cart[4], 0, 'COMMA', 0, 'POINT')}+ ' VND'">
+												ng-model="cart[4]" ng-change="updateCartItemQuantity(cart, $index)"
+												ng-blur="checkQuantityChanged(cart, $index)">
 										</td>
-										<td class="" >
-
+										<td class="cart-totalPrice">{{cart[5] | number: 0}} VND
+										</td>
+										<td>
+											<button class="BtnDelete" ng-click="removeFromCart(cart[0])"
+												ng-show="editCart">Xóa
+												<svg class="svg" viewBox="0 0 32 32">
+													<path
+														d="M24.2,12.193,23.8,24.3a3.988,3.988,0,0,1-4,3.857H12.2a3.988,3.988,0,0,1-4-3.853L7.8,12.193a1,1,0,0,1,2-.066l.4,12.11a2,2,0,0,0,2,1.923h7.6a2,2,0,0,0,2-1.927l.4-12.106a1,1,0,0,1,2,.066Zm1.323-4.029a1,1,0,0,1-1,1H7.478a1,1,0,0,1,0-2h3.1a1.276,1.276,0,0,0,1.273-1.148,2.991,2.991,0,0,1,2.984-2.694h2.33a2.991,2.991,0,0,1,2.984,2.694,1.276,1.276,0,0,0,1.273,1.148h3.1A1,1,0,0,1,25.522,8.164Zm-11.936-1h4.828a3.3,3.3,0,0,1-.255-.944,1,1,0,0,0-.994-.9h-2.33a1,1,0,0,0-.994.9A3.3,3.3,0,0,1,13.586,7.164Zm1.007,15.151V13.8a1,1,0,0,0-2,0v8.519a1,1,0,0,0,2,0Zm4.814,0V13.8a1,1,0,0,0-2,0v8.519a1,1,0,0,0,2,0Z">
+													</path>
+												</svg>
+											</button>
 										</td>
 									</tr>
 								</tbody>
 							</table>
-							<a class="Btn" id="payButton" th:onclick="pay()">
-								Pay
-								<svg class="svgIcon" viewBox="0 0 576 512">
-									<path
-										d="M512 80c8.8 0 16 7.2 16 16v32H48V96c0-8.8 7.2-16 16-16H512zm16 144V416c0 8.8-7.2 16-16 16H64c-8.8 0-16-7.2-16-16V224H528zM64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H512c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64zm56 304c-13.3 0-24 10.7-24 24s10.7 24 24 24h48c13.3 0 24-10.7 24-24s-10.7-24-24-24H120zm128 0c-13.3 0-24 10.7-24 24s10.7 24 24 24H360c13.3 0 24-10.7 24-24s-10.7-24-24-24H248z">
-									</path>
-								</svg>
-							</a>
+							<a class="Btn" id="payButton" ng-click="pay()">Thanh toán</a>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	<script>
-		// Lắng nghe sự kiện khi click vào nút Pay
-		function pay() {
-			var checkedIDs = [];
-			var checkboxes = document.querySelectorAll('#cart-tableBody input[type="checkbox"]:checked');
-
-			checkboxes.forEach(function (checkbox) {
-				checkedIDs.push(checkbox.value);
-			});
-			var checkedIDsStr = checkedIDs.join(',');
-
-			// Tạo URL mới với query parameter
-			var url = '/client/order?checkedIDs=' + encodeURIComponent(checkedIDsStr);
-
-			// Chuyển hướng trình duyệt đến trang mới với URL có chứa query parameter
-			if (checkedIDsStr.length > 0) {
-				window.location.href = url;
-			}
-		}
-		function toggleDeleteButton() {
-			var checkboxes = document.querySelectorAll('#cart-tableBody input[type="checkbox"]:checked');
-			var deleteButton = document.getElementById('delete-btn');
-			deleteButton.style.display = checkboxes.length > 0 ? 'block' : 'none';
-		}
-		function deleteCarts() {
-			var checkedIDs = [];
-			var checkboxes = document.querySelectorAll('#cart-tableBody input[type="checkbox"]:checked');
-
-			checkboxes.forEach(function (checkbox) {
-				checkedIDs.push(checkbox.value);
-			});
-			var checkedIDsStr = checkedIDs.join(',');
-
-			// Tạo URL mới với query parameter
-			var url = '/client/cart/delete?checkedIDs=' + encodeURIComponent(checkedIDsStr);
-
-			// Chuyển hướng trình duyệt đến trang mới với URL có chứa query parameter
-			if (checkedIDsStr.length > 0) {
-				window.location.href = url;
-			}
-		}
-	</script>
 	<!-- Cart End -->
-</th:block>
+</section>
 
 
 </html>
