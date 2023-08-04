@@ -1,43 +1,29 @@
 package com.greenhouse.controller.Client;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.greenhouse.DAO.AccountDAO;
-import com.greenhouse.config.SecurityConfig;
 import com.greenhouse.model.Account;
 import com.greenhouse.model.Message;
 import com.greenhouse.service.CookieService;
-import com.greenhouse.service.SessionService;
-import io.jsonwebtoken.io.IOException;
-import jakarta.servlet.ServletException;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 @Controller
 public class SignInController {
 	@Autowired
 	private CookieService cookieService;
 	@Autowired
-	private SessionService sessionService;
-	@Autowired
 	private AccountDAO accountDAO;
-	@Value("${recaptcha.secret}")
-	private String recapchaSecret;
-	@Value("${recaptcha.url}")
-	private String recapchaUrl;
-
+		
 	@GetMapping("/client/signin")
 	public String signin(Account account, Model model) {
 		String username = cookieService.getValue("username");
@@ -48,12 +34,51 @@ public class SignInController {
 		model.addAttribute("account", account);
 		return "client/layouts/signin";
 	}
+	
+	@GetMapping("/client/signin/success")
+	public String success(Model model, HttpServletResponse response) {
 
-	@PostMapping(value = "/client/login")
-	public String login(@RequestParam("username") String username, @RequestParam("password") String password,
-			Model model) {
-		return "redirect:/client/index";
+		// Lấy thông tin người dùng đã đăng nhập từ SecurityContextHolder
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		
+		System.out.println(authentication);
+		
+		if (authentication != null && authentication.getPrincipal() instanceof UserDetails) {
+			UserDetails userDetails = (UserDetails) authentication.getPrincipal();
 
+			// Bây giờ bạn có thể sử dụng thông tin userDetails
+			String username = userDetails.getUsername();
+			
+			Account account = accountDAO.findById(username).get();
+			
+			cookieService.setCookie(response, "username", account.getUsername(), 3600);
+
+			System.out.println("Đăng nhập thành công");
+			return "redirect:/client/index";
+		} else {
+			return "redirect:/client/signin";
+		}
+
+	}
+	
+	@GetMapping("/client/signin/error")
+	public String error(RedirectAttributes redirectAttributes,HttpServletRequest request) {	
+		System.out.println("Đăng nhập thất bại");
+		redirectAttributes.addFlashAttribute("loginMessage", "Sai tài khoản hoặc mật khẩu");
+		return "redirect:/client/signin";
+	}
+	
+	@GetMapping("/client/logout/success")
+	public String logout(Model model,HttpServletResponse response) {
+		cookieService.remove("username",response);
+		System.out.println("Đăng xuất thành công");
+		return "redirect:/client/signin";
+	}
+	
+	@GetMapping("/client/denied")
+	public String denied(Model model) {
+		System.out.println("Chú không có tuổi");
+		return "redirect:/client/error";
 	}
 
 }

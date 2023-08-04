@@ -63,7 +63,7 @@ public class SecurityConfig{
 				"/client/login", "/client/index", "/client/error")
 				.authorizeHttpRequests(authorize -> authorize
 						.requestMatchers(new AntPathRequestMatcher("/admin/**")).hasRole("ADMIN")
-						.requestMatchers(new AntPathRequestMatcher("/client/order/**")).hasRole("USER")
+						.requestMatchers(new AntPathRequestMatcher("/client/order/**")).hasAnyRole("USER","ADMIN")
 						.requestMatchers(
 								new AntPathRequestMatcher("/client/**"),
 								new AntPathRequestMatcher("/rest/**")
@@ -72,10 +72,10 @@ public class SecurityConfig{
 							try {
 								login.loginPage("/client/signin")
 								.loginProcessingUrl("/client/login")
-								.defaultSuccessUrl("/client/index", false)
-								.failureUrl("/client/signin")
+								.defaultSuccessUrl("/client/signin/success", true)
+								.failureUrl("/client/signin/error")
 								.and()
-								.exceptionHandling(exception -> exception.accessDeniedPage("/client/error"));
+								.exceptionHandling(exception -> exception.accessDeniedPage("/client/denied"));
 							} catch (Exception e) {
 								// TODO Auto-generated catch block
 								e.printStackTrace();
@@ -83,7 +83,7 @@ public class SecurityConfig{
 						})
 				.logout(logout -> logout
 						.logoutUrl("/client/logout")
-						.logoutSuccessUrl("/client/signin"));
+						.logoutSuccessUrl("/client/logout/success"));
 		return http.build();
 	}
 }
