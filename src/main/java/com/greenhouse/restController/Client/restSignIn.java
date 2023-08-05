@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.greenhouse.DAO.AccountDAO;
-import com.greenhouse.DTO.AccountDto;
+import com.greenhouse.dto.AccountDto;
 import com.greenhouse.model.Account;
 
 @RestController

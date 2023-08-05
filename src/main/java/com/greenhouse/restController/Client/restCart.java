@@ -66,7 +66,7 @@ public class restCart {
         String message = "";
         Map<String, Object> responseData = new HashMap<>();
         Cart cart = cartDAO.getCart(username, productId);
-        Product product = productDAO.findById(Long.parseLong(productId)).get();
+        Product product = productDAO.findById(Integer.parseInt(productId)).get();
         if (cart != null) {
             // update quantity
             int quantity = cart.getQuantity() + 1;

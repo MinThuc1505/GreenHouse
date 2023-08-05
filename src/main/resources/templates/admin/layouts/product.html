@@ -66,7 +66,7 @@
 									<td>{{item.name}}</td>
 									<td>{{item.price}}</td>
 									<td>{{item.quantity}}</td>
-									<td>{{item.status ? 'còn hàng' : 'hết hàng'}}</td>
+									<td>{{item.status ? 'Kinh Doanh' : 'Ngừng Kinh doanh'}}</td>
 									<td>{{item.image}}</td>
 									<td>{{item.material.material}}</td>
 									<td>{{item.size.size}}</td>
@@ -133,28 +133,30 @@
 																		<input type="radio" name="status" value="true"
 																			ng-model="form.status"
 																			ng-checked="form.status" ng-value="true">
-																		còn hàng
+																		Kinh doanh
 																	</label>
 																	<label>
 																		<input type="radio" name="status" value="false"
 																			ng-model="form.status"
 																			ng-checked="form.status" ng-value="false">
-																		hết hàng
+																		Ngừng Kinh doanh
 																	</label>
 																</div>
 															</div>
 															<div class="form-group mt-3">
 																<label for="size" class="fw-bold">Chọn Kích Thước</label>
-																<select class="form-control border-bottom" id="size" ng-model="form.size" ng-options="size as size.size for size in sizes">
+																<select class="form-control border-bottom" id="size" ng-model="form.size" ng-options="size as size.size for size in sizes track by size.id">
+																	<option value="">Chọn Kích Thước</option>
 																</select>
 															</div>
 															
 															<div class="form-group mt-3">
 																<label for="material" class="fw-bold">Chất Liệu</label>
-																<select class="form-control border-bottom" id="material" ng-model="form.material" ng-options="material.material for material in materials">
+																<select class="form-control border-bottom" id="material" ng-model="form.material" ng-options="material as material.material for material in materials track by material.id">
 																	<option value="">Chọn Chất Liệu</option>
 																</select>
 															</div>
+															
 																														
 															<div class="form-group mt-3">
 																<label for="description" class="fw-bold">Mô Tả</label>
@@ -252,13 +254,13 @@
 														<input type="radio" name="status" value="false"
 															ng-model="status" ng-checked="status"
 															ng-value="false">
-														Hết hàng
+														Ngừng kinh doanh
 													</label>
 													<label>
 														<input type="radio" name="status" value="true"
 															ng-model="status" ng-checked="status"
 															ng-value="true">
-														Còn hàng
+														Kinh doanh
 													</label>
 												</div>
 											</div>
@@ -274,13 +276,14 @@
 
 											<div class="form-group mt-3">
 												<label for="size" class="fw-bold">Chọn Kích Thước</label>
-												<select class="form-control border-bottom" id="size" ng-model="size" ng-options="size as size.size for size in sizes">
+												<select class="form-control border-bottom" id="size" ng-model="size" ng-options="size as size.size for size in sizes track by size.id">
+													<option value="">Chọn Kích Thước</option>
 												</select>
 											</div>
 											
 											<div class="form-group mt-3">
 												<label for="material" class="fw-bold">Chất Liệu</label>
-												<select class="form-control border-bottom" id="material" ng-model="material" ng-options="material.material for material in materials">
+												<select class="form-control border-bottom" id="material" ng-model="material" ng-options="material as material.material for material in materials track by material.id">
 													<option value="">Chọn Chất Liệu</option>
 												</select>
 											</div>

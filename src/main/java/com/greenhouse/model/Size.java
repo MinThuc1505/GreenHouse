@@ -20,5 +20,6 @@ public class Size implements Serializable {
     @Column(name = "Size")
     private String size;
     
+    
 
 }

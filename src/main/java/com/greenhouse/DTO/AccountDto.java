@@ -1,4 +1,4 @@
-package com.greenhouse.DTO;
+package com.greenhouse.dto;
 
 import lombok.Data;
 
