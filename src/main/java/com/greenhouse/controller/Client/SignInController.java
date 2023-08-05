@@ -1,10 +1,16 @@
 package com.greenhouse.controller.Client;
 
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,7 +29,8 @@ public class SignInController {
 	private CookieService cookieService;
 	@Autowired
 	private AccountDAO accountDAO;
-		
+
+	
 	@GetMapping("/client/signin")
 	public String signin(Account account, Model model) {
 		String username = cookieService.getValue("username");
@@ -37,12 +44,8 @@ public class SignInController {
 	
 	@GetMapping("/client/signin/success")
 	public String success(Model model, HttpServletResponse response) {
-
-		// Lấy thông tin người dùng đã đăng nhập từ SecurityContextHolder
+	
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		
-		System.out.println(authentication);
-		
 		if (authentication != null && authentication.getPrincipal() instanceof UserDetails) {
 			UserDetails userDetails = (UserDetails) authentication.getPrincipal();
 
@@ -51,14 +54,50 @@ public class SignInController {
 			
 			Account account = accountDAO.findById(username).get();
 			
-			cookieService.setCookie(response, "username", account.getUsername(), 3600);
-
-			System.out.println("Đăng nhập thành công");
+			cookieService.setCookie(response, "username", account.getUsername().replaceAll("\\s", ""), 3600);
+			System.out.println("Đăng nhập local thành công");
 			return "redirect:/client/index";
 		} else {
 			return "redirect:/client/signin";
 		}
+	}
+	
+	@GetMapping("/client/signin/successGoogle")
+	public String successGoogle(Model model, HttpServletResponse response,OAuth2AuthenticationToken auth2AuthenticationToken) {
+		
+		Account account = new Account();
+		if (auth2AuthenticationToken != null && auth2AuthenticationToken.isAuthenticated()) {
+	        OAuth2User oauth2User = auth2AuthenticationToken.getPrincipal();
 
+	        // Lấy thông tin từ OAuth2User
+	        String username =  oauth2User.getName();
+	        String password = Long.toHexString(System.currentTimeMillis());
+			String fulname = (String) oauth2User.getAttributes().get("name");
+			String email = (String) oauth2User.getAttributes().get("email");														
+			String pictureUrl = (String) oauth2User.getAttributes().get("picture"); 
+						
+			
+			UserDetails user = User.withUsername(username).password(password).roles("USER").build();
+
+	        // Tạo lại Authentication với vai trò mới
+	        Authentication newAuthentication = new UsernamePasswordAuthenticationToken(user,null,user.getAuthorities());
+	        // Cập nhật Authentication
+	        SecurityContextHolder.getContext().setAuthentication(newAuthentication);
+	        
+	        account.setUsername(email);
+	        account.setFullName(fulname);
+	        account.setEmail(email);
+	        account.setImage(pictureUrl);
+	        account.setRole(newAuthentication.toString().contains("USER") ? false : true);
+	        account.setCreateDate(new Date());
+	        accountDAO.save(account);
+	        
+			System.out.println("Đăng nhập Google thành công");
+			cookieService.setCookie(response, "username", email.replaceAll("\\s", ""), 3600);
+	        return "redirect:/client/index";
+	    }else {
+			return "redirect:/client/signin";
+		}
 	}
 	
 	@GetMapping("/client/signin/error")
@@ -80,5 +119,4 @@ public class SignInController {
 		System.out.println("Chú không có tuổi");
 		return "redirect:/client/error";
 	}
-
 }

@@ -79,7 +79,8 @@
 							<a href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"
 								data-delay="350" role="button" aria-haspopup="true" aria-expanded="false"><i
 									class='bx bxs-user-circle'></i>
-								<span ng-if="sessionUsername">{{ sessionUsername }}</span>
+								<span ng-if="sessionUsername.length <= 10">{{ sessionUsername }}</span>
+								<span ng-if="sessionUsername.length > 10">{{ sessionUsername.substring(0, 10) }}...</span>
 								<span ng-if="!sessionUsername" th:text="#{lo.mn.account}"></span>
 								<span class="tf-ion-ios-arrow-down"></span>
 							</a>
