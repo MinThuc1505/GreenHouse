@@ -1,0 +1,266 @@
+<!doctype html>
+<html class="no-js" lang="" xmlns:th="http://www.thymeleaf.org"
+    th:replace="~{admin/main-layout.html :: layout (~{::title}, ~{::#layout})}">
+
+<head>
+    <title>Quản lí kho sản phẩm</title>
+</head>
+
+<body>
+    <section id="layout" ng-controller="importProductCtrl">
+        <div class="wizard-area">
+            <div class="container">
+                <div class="row header-filter-product header-action-product">
+                    <div class="filter-search col-md-6">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Tìm kiếm ..."> <span
+                                class="input-group-btn">
+                                <button class="btn btn-default" type="button">
+                                    <span class="glyphicon glyphicon-search"></span>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="action-product col-md-6">
+                        <!-- Button to open the modal -->
+                        <button type="button" class="btn btn-success" data-toggle="modal"
+                            data-target="#importProductModal">
+                            Thêm mới
+                        </button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr class="table-bordered custom-border tr-thead">
+                                    <th class="text-center">#</th>
+                                    <th>Tên Sản Phẩm</th>
+                                    <th>Hóa Đơn Nhập </th>
+                                    <th>Giá Nhập </th>
+                                    <th>Số Lượng Nhập</th>
+                                    <th>Tổng Giá Trị</th>
+                                    <th>Ngày Nhập</th>
+                                    <th>Mô tả</th>
+                                </tr>
+                            </thead>
+                            <tbody ng-repeat="item in items">
+                                <tr data-toggle="collapse" data-target="#{{$index + 1}}" class="tr-title-product"
+                                    ng-click="">
+                                    <td class="text-center">{{item.id}}</td>
+                                    <td>{{item.product.name}}</td>
+                                    <td>{{item.billImportProduct.id}}</td>
+                                    <td>{{item.priceImport}}</td>
+                                    <td>{{item.quantityImport}}</td>
+                                    <td>{{item.amountImport}}</td>
+                                    <td>{{item.createDate | date:'HH:mm dd-MM-yyyy'}}</td>
+                                    <td>{{item.description}}</td>
+
+                                </tr>
+                                <tr id="{{$index + 1}}" class="collapse">
+                                    <td colspan="12" class="product-info border-1">
+                                        <h4>Thông tin mã giảm giá</h4>
+                                        <form>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group mt-3">
+                                                        <label for="id" class="fw-bold">Mã nhập</label>
+                                                        <input type="text"
+                                                            class="form-control text-center border-bottom"
+                                                            id="id" ng-model="form.id" disabled>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group mt-3">
+                                                        <label for="name" class="fw-bold">Tên sản phẩm</label>
+                                                        <input type="text"
+                                                            class="form-control text-center border-bottom"
+                                                            id="product.name" ng-model="form.product.name"
+                                                            required>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group mt-3">
+                                                        <label for="billImportProduct" class="fw-bold">Hóa đơn nhập</label>
+                                                        <input type="text"
+                                                            class="form-control text-center border-bottom"
+                                                            id="billImportProduct.id" ng-model="form.billImportProduct.id"
+                                                            required>
+                                                    </div>
+                                                </div>
+                                               
+                                                <div class="col-md-6">
+                                                    <div class="form-group mt-3">
+                                                        <label for="priceImport" class="fw-bold">Giá nhập</label>
+                                                        <input type="number" min="1" value="1"
+                                                            class="form-control text-center border-bottom" id="priceImport"
+                                                            ng-model="form.priceImport" required>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group mt-3">
+                                                        <label for="quantityImport" class="fw-bold">Số lượng nhập</label>
+                                                        <input type="number" min="1" value="1"
+                                                            class="form-control text-center border-bottom" id="quantityImport"
+                                                            ng-model="form.quantityImport" required>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group mt-3">
+                                                        <label for="amountImport" class="fw-bold">Tổng giá trị</label>
+                                                        <input type="number" min="1" value="1"
+                                                            class="form-control text-center border-bottom" id="amountImport"
+                                                            ng-model="form.amountImport" required>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <div class="form-group mt-3">
+                                                        <label for="createDate" class="fw-bold">Ngày nhập</label>
+                                                        <input type="datetime-local" class="form-control border-bottom"
+                                                            id="createDate" ng-model="form.createDate" ng-value="form.createDate"
+                                                            required>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group mt-3">
+                                                        <label for="description" class="fw-bold">Mô tả</label>
+                                                        <input type="text"
+                                                            class="form-control text-center border-bottom"
+                                                            id="description" ng-model="form.description"
+                                                            >
+                                                    </div>
+                                                </div>
+                                               
+
+                                                <div class="col-md-12 text-right mt-5">
+                                                    <div class="btn-group ib-btn-gp active-hook nk-email-inbox">
+                                                        <button class="btn btn-primary notika-btn-primary waves-effect"
+                                                            ng-click="">
+                                                            <i class="fa fa-save"></i> Lưu
+                                                        </button>
+                                                        <button class="btn btn-danger notika-btn-danger waves-effect"
+                                                            ng-click="">
+                                                            <i class="fa fa-trash"></i> Xóa
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </td>
+                                </tr>
+                                <!-- Thêm các dòng sản phẩm khác tương tự ở đây -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- The Modal -->
+        <div class="modal fade" id="importProductModal">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content">
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">Nhập kho</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <form name="myForm">
+                            <div class="row">   
+                                        <input type="hidden"
+                                            class="form-control text-center border-bottom"
+                                            id="id" ng-model="id" >
+                                
+                                <div class="col-md-6">
+                                    <div class="form-group mt-3">
+                                        <label for="name" class="fw-bold">Tên sản phẩm</label>
+                                        <input type="text"
+                                            class="form-control text-center border-bottom"
+                                            id="product.name" ng-model="product.name"
+                                            required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group mt-3">
+                                        <label for="billImportProduct" class="fw-bold">Hóa đơn nhập</label>
+                                        <input type="text"
+                                            class="form-control text-center border-bottom"
+                                            id="billImportProduct.id" ng-model="billImportProduct.id"
+                                            required>
+                                    </div>
+                                </div>
+                               
+                                <div class="col-md-6">
+                                    <div class="form-group mt-3">
+                                        <label for="priceImport" class="fw-bold">Giá nhập</label>
+                                        <input type="number" min="1" 
+                                            class="form-control text-center border-bottom" id="priceImport"
+                                            ng-model="priceImport" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group mt-3">
+                                        <label for="quantityImport" class="fw-bold">Số lượng nhập</label>
+                                        <input type="number" min="1" 
+                                            class="form-control text-center border-bottom" id="quantityImport"
+                                            ng-model="quantityImport" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group mt-3">
+                                        <label for="amountImport" class="fw-bold">Tổng giá trị</label>
+                                        <input type="number" min="1"
+                                            class="form-control text-center border-bottom" id="amountImport"
+                                            ng-model="amountImport" required>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group mt-3">
+                                        <label for="createDate" class="fw-bold">Ngày nhập</label>
+                                        <input type="datetime-local" class="form-control border-bottom"
+                                            id="createDate" ng-model="createDate" ng-value="createDate"
+                                            required>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group mt-3">
+                                        <label for="description" class="fw-bold">Mô tả</label>
+                                        <textarea class="form-control border-bottom" rows="1"
+                                        id="description"
+                                        ng-model="form.description"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="alert alert-danger" ng-show="myForm.$invalid"
+                                    ng-class="{ 'd-none': !myForm.$invalid, 'd-block': myForm.$invalid }">
+                                    Vui lòng kiểm tra và điền đầy đủ thông tin vào các trường bắt buộc.
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" ng-click=""
+                            ng-disabled="myForm.$invalid"><i class="fa fa-save"></i> Thêm</button>
+                        <button type="button" class="btn btn-info"><i class="fa fa-rotate-right"></i> Làm mới</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+</body>
+
+</html>

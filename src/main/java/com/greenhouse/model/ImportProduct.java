@@ -18,7 +18,7 @@ public class ImportProduct implements Serializable{
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id")
-    private Long id;
+    private Integer id;
 
     @ManyToOne
     @JoinColumn(name = "BillImportProductId")
