@@ -150,9 +150,12 @@ public class restCart {
         String status = "";
         String message = "";
         Map<String, Object> responseData = new HashMap<>();
-        int qtyCart = 0;
+        Integer qtyCart = 0;
         if (accountDAO.existsById(username)) {
             qtyCart = accountDAO.getQtyCartByUsername(username);
+            if (qtyCart == null) {
+                qtyCart = 0;
+            }
             status = "success";
             message = "Lấy số lượng sản phẩm thành công: " + qtyCart;
         }
@@ -175,7 +178,7 @@ public class restCart {
             var temp = cartDAO.findById(Integer.parseInt(string));
             Product product = productDAO.findById(temp.get().getProduct().getId()).orElse(null);
             int newInStock = product.getQuantity() - temp.get().getQuantity();
-            if (newInStock <= 0) {
+            if (newInStock < 0) {
                 checkInStock = true;
                 String nameProduct = product.getName();
                 int quantityStock = product.getQuantity();

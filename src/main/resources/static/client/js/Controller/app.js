@@ -20,7 +20,7 @@ appClient.service('UserService', ['$cookies', function ($cookies) {
         window.location.href = "/client/index";
     };
 
-    this.getSessionUsername = function () {
+    this.getCookiesUsername = function () {
         return $cookies.get('username');
     }
 }]);

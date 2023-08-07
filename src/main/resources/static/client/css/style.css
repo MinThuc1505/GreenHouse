@@ -2651,17 +2651,17 @@ input[type="tel"]:focus {
   right: auto;
   bottom: auto;
   color: #888;
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 400;
   text-transform: uppercase;
   opacity: 1 !important;
-  width: 85px;
+  width: 125px;
 }
 
 .checkout-form .form-group input {
   border-radius: 0;
   display: block;
-  padding: 6px 10px 5px 100px;
+  padding: 6px 10px 5px 145px;
   -moz-appearance: none;
   -webkit-appearance: none;
   height: 50px;
@@ -2714,27 +2714,11 @@ input[type="tel"]:focus {
   margin: 20px 0;
 }
 
-.product-checkout-details .product-card>a {
-  padding-right: 20px;
-}
-
-.product-checkout-details .product-card .price {
-  margin-top: 15px;
-}
-
-.product-checkout-details .product-card .media-object {
-  width: 80px;
-}
-
-.product-checkout-details .product-card h4 {
-  font-weight: 400;
-  font-size: 14px;
-  color: #555;
-}
-
-.product-checkout-details .product-card .remove {
-  font-size: 12px;
-  cursor: pointer;
+.product-checkout-details .table tbody .product-name {
+  max-width: 60%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .product-checkout-details .discount-code {
@@ -2742,15 +2726,6 @@ input[type="tel"]:focus {
   border-bottom: 1px solid #dedede;
   margin: 20px 0 10px;
   padding: 10px 0;
-}
-
-.product-checkout-details .discount-code p {
-  margin: 0;
-}
-
-.product-checkout-details .discount-code p a {
-  font-weight: 400;
-  color: #555;
 }
 
 .product-checkout-details .summary-prices {
@@ -2770,23 +2745,74 @@ input[type="tel"]:focus {
 
 .product-checkout-details .summary-total {
   margin-top: 5px;
+  border-bottom: lightgray solid 1px;
+  padding-bottom: 10px;
 }
 
-.product-checkout-details .summary-total>span {
+.product-checkout-details .summary-total {
   font-weight: 500;
-  font-size: 18px;
+  font-size: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.product-checkout-details .summary-total span+span {
-  float: right;
+.product-checkout-details .summary-total .total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.product-checkout-details .summary-total .total .total-amount{
+  margin-right: 30px;
+}
+
+.product-checkout-details .summary-total .total .old-price{
+  text-decoration: line-through;
+  color: rgb(150, 150, 150);
+}
+
+
+.product-checkout-details .discount-code .input-group {
+  display: flex;
+  align-items: center;
+}
+
+.product-checkout-details .discount-code .input {
+  min-height: 50px;
+  max-width: 500px;
+  padding: 0 1rem;
+  color: #000000;
+  font-size: 15px;
+  border: 1px solid #0ca733;
+  border-radius: 6px 0 0 6px;
+  background-color: transparent;
+}
+
+.product-checkout-details .discount-code .button--submit {
+  min-height: 50px;
+  padding: .5em 1em;
+  border: none;
+  border-radius: 0 6px 6px 0;
+  background-color: #06ac22;
+  color: #fff;
+  font-weight: bold;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background-color .3s ease-in-out;
+}
+
+.product-checkout-details .discount-code .button--submit:hover {
+  background-color: #15ce2d;
+}
+
+.product-checkout-details .discount-code .input:focus, .input:focus-visible {
+  border-color: #5bff4c;
+  outline: none;
 }
 
 .product-checkout-details .verified-icon {
   margin-top: 25px;
-}
-
-.product-checkout-details .verified-icon img {
-  width: 100%;
 }
 
 .purchase-confirmation .purchase-confirmation-details {
@@ -3334,7 +3360,49 @@ input[type="tel"]:focus {
   vertical-align: middle;
 }
 
+/* CSS BUTTON DELETE + UNDO */
+
 .cart.shopping .product-list .table td:last-child .BtnDelete {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100px;
+  height: 40px;
+  border: none;
+  padding: 0px 20px;
+  background-color: rgb(255, 40, 40);
+  color: white;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 10px;
+  box-shadow: 5px 5px 0px rgb(197, 15, 15);
+  transition-duration: .3s;
+}
+
+.cart.shopping .product-list .table td:last-child .svg {
+  width: 26px;
+  position: absolute;
+  right: 0;
+  margin-right: 20px;
+  fill: white;
+  transition-duration: .3s;
+}
+
+.cart.shopping .product-list .table td:last-child .BtnDelete:hover {
+  color: transparent;
+}
+
+.cart.shopping .product-list .table td:last-child .BtnDelete:hover svg {
+  right: 35%;
+  margin: 0;
+  padding: 0;
+  border: none;
+  transition-duration: .3s;
+}
+
+
+.cart.shopping .product-list .table td:last-child .BtnUndo {
   position: relative;
   display: flex;
   align-items: center;
@@ -3352,26 +3420,19 @@ input[type="tel"]:focus {
   transition-duration: .3s;
 }
 
-.cart.shopping .product-list .table td:last-child .svg {
-  width: 24px;
-  position: absolute;
-  right: 0;
-  margin-right: 20px;
-  fill: white;
-  transition-duration: .3s;
-}
-
-.cart.shopping .product-list .table td:last-child .BtnDelete:hover {
+.cart.shopping .product-list .table td:last-child .BtnUndo:hover {
   color: transparent;
 }
 
-.cart.shopping .product-list .table td:last-child .BtnDelete:hover svg {
-  right: 40%;
+.cart.shopping .product-list .table td:last-child .BtnUndo:hover svg {
+  right: 35%;
   margin: 0;
   padding: 0;
   border: none;
   transition-duration: .3s;
 }
+
+/* CSS BUTTON DELETE + UNDO */
 
 .cart.shopping .product-list .table td:last-child .Btn:active {
   transform: translate(3px, 3px);

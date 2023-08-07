@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.greenhouse.DAO.AccountDAO;
-import com.greenhouse.DTO.AccountDto;
+import com.greenhouse.DTO.AccountDTO;
 import com.greenhouse.model.Account;
 
 @RestController
@@ -22,7 +22,7 @@ public class restSignIn {
     private AccountDAO accountDAO;
 
     @PostMapping
-    public ResponseEntity<Map<String, Object>> login(@RequestBody AccountDto accountDto) {
+    public ResponseEntity<Map<String, Object>> login(@RequestBody AccountDTO accountDto) { 
 
         Account acc = new Account();
         acc = accountDAO.findByUsernameAndPassword(accountDto.getUsername(), accountDto.getPassword());

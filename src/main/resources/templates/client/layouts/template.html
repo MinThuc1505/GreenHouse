@@ -35,11 +35,17 @@
 	<!-- Recapcha -->
 	<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 	<!-- Tải script của AngularJS -->
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
-    <!-- Tải script của ngRoute -->
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-route.min.js"></script>
-    <!-- Tải script của ngCookies -->
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-cookies.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+	<!-- Tải script của ngRoute -->
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-route.min.js"></script>
+	<!-- Tải script của ngCookies -->
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-cookies.min.js"></script>
+	<!-- Tải script của URLSearchParams -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.2/angular-resource.min.js"></script>
+	<!-- Thêm CSS của Spin.js -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/spinkit/1.2.5/spinkit.min.css">
+	<!-- Thêm JS của Spin.js -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/spin.js/2.3.2/spin.min.js"></script>
 	<!-- Main Stylesheet -->
 	<link rel="stylesheet" href="/client/css/style.css">
 
@@ -69,7 +75,8 @@
 					<!-- Cart -->
 					<ul class="top-menu text-right list-inline">
 						<li class="cart-box">
-							<a href="#" ng-click="checkLogin()"> <i class="tf-ion-android-cart"></i><span th:text="#{lo.mn.cart}"></span></a>
+							<a href="#" ng-click="checkLogin()"> <i class="tf-ion-android-cart"></i><span
+									th:text="#{lo.mn.cart}"></span></a>
 							<div ng-if="qtyCart >= 0">
 								<div class="cart-quantity" ng-bind="qtyCart > 99 ? '99+' : qtyCart"></div>
 							</div>
@@ -79,44 +86,30 @@
 							<a href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"
 								data-delay="350" role="button" aria-haspopup="true" aria-expanded="false"><i
 									class='bx bxs-user-circle'></i>
-								<span ng-if="sessionUsername">{{ sessionUsername }}</span>
-								<span ng-if="!sessionUsername" th:text="#{lo.mn.account}"></span>
+								<span ng-if="cookiesUsername">{{ cookiesUsername }}</span>
+								<span ng-if="!cookiesUsername" th:text="#{lo.mn.account}"></span>
 								<span class="tf-ion-ios-arrow-down"></span>
 							</a>
 							<div class="dropdown-menu">
 								<div class="row">
 									<div class="col-lg-12 col-md-6 mb-sm-3">
 										<ul>
-										<!-- 	<th:block th:if="${sessionUsername != null && sessionUsername != ''}">
-												<li><a href="/client/profile" th:text="#{lo.mn.account}"></a></li>
-												<li><a href="/client/logout" th:text="#{lo.mn.logout}"></a></li>
-												<li><a href="/client/change-password"
-														th:text="#{lo.mn.changepasswod}"></a></li>
-											</th:block>
-											<th:block th:unless="${sessionUsername != null && sessionUsername != ''}">
-												<li><a href="/client/signin" th:text="#{lo.mn.signin}"></a></li>
-												<li><a href="/client/signup" th:text="#{lo.mn.signup}"></a></li>
-												<li><a href="/client/forgot-password" th:text="#{lo.mn.forgot}"></a>
-												<li><a href="/client/logout">logout</a></li>
-												<li><a href="/admin/discount">admin</a></li>
-											</th:block> -->
-											
-											<li ng-if="sessionUsername">
+											<li ng-if="cookiesUsername">
 												<a href="/client/profile" th:text="#{lo.mn.account}"></a>
 											</li>
-											<li ng-if="sessionUsername">
+											<li ng-if="cookiesUsername">
 												<a href="/client/logout" th:text="#{lo.mn.logout}"></a>
 											</li>
-											<li ng-if="sessionUsername">
+											<li ng-if="cookiesUsername">
 												<a href="/client/change-password" th:text="#{lo.mn.changepasswod}"></a>
 											</li>
-											<li ng-if="!sessionUsername">
+											<li ng-if="!cookiesUsername">
 												<a href="/client/signin" th:text="#{lo.mn.signin}"></a>
 											</li>
-											<li ng-if="!sessionUsername">
+											<li ng-if="!cookiesUsername">
 												<a href="/client/signup" th:text="#{lo.mn.signup}"></a>
 											</li>
-											<li ng-if="!sessionUsername">
+											<li ng-if="!cookiesUsername">
 												<a href="/client/forgot-password" th:text="#{lo.mn.forgot}"></a>
 											</li>
 										</ul>
@@ -302,6 +295,7 @@
 	<script src="/client/js/Controller/bodyController.js"></script>
 	<script src="/client/js/Controller/cartController.js"></script>
 	<script src="/client/js/Controller/checkoutController.js"></script>
+	<script src="/client/js/Controller/donePayController.js"></script>
 </th:block>
 <!-- Script End -->
 

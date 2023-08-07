@@ -1,4 +1,4 @@
-appClient.controller('menuController', function ($scope, $http, urlMenuClient, $cookies) {
+appClient.controller('menuController', function ($scope, $http, urlMenuClient) {
     let host = urlMenuClient;
 
     $scope.setCategory = function (category) {
