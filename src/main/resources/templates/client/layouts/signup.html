@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html class="no-js" lang="" xmlns:th="http://www.thymeleaf.org"
 th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
 <head>
@@ -9,7 +8,7 @@ th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
 
 <!-- CONTENT PAGE START-->
 <th:block id="layout">
-  <section class="signin-page account">
+  <section class="signin-page account" ng-controller="singUpController">
     <div class="container">
       <div class="row">
         <div class="col-md-6 col-md-offset-3">
@@ -23,30 +22,29 @@ th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
               <p style="color: rgb(55, 55, 55);" th:utext="${signupMessage}"></p>
             </div>
 
-            <form id="myForm" class="text-left clearfix" th:object="${account}" th:action="@{/client/signup}"
-              method="post">
+            <form id="myForm" class="text-left clearfix">
               <div class="form-group">
-                <input type="text" class="form-control" th:field="*{fullName}" placeholder="Fullname" />
-                <small class="text-danger" th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}"></small>
+                <input type="text" class="form-control" placeholder="Họ và tên" ng-model="fullName" />
+                <small class="text-danger">{{ errorMessages.fullName }}</small>
               </div>
               <div class="form-group">
-                <input type="text" class="form-control" th:field="*{username}" placeholder="Username" />
-                <small class="text-danger" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></small>
+                <input type="text" class="form-control" placeholder="Tên tài khoản" ng-model="username" />
+                <small class="text-danger">{{ errorMessages.username }}</small>
               </div>
               <div class="form-group">
-                <input type="email" class="form-control" th:field="*{email}" placeholder="Email" />
-                <small class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></small>
+                <input type="text" class="form-control" placeholder="Email" ng-model="email" />
+                <small class="text-danger">{{ errorMessages.email }}</small>
               </div>
               <div class="form-group">
-                <input type="text" class="form-control" th:field="*{phone}" placeholder="Nhập số điện thoại" />
-                <small class="text-danger" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></small>
+                <input type="text" class="form-control" placeholder="Số điện thoại" ng-model="phone" />
+                <small class="text-danger">{{ errorMessages.phone }}</small>
               </div>
               <div class="form-group">
-                <input type="password" class="form-control" th:field="*{password}" placeholder="Password" />
-                <small class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></small>
+                <input type="password" class="form-control" placeholder="Mật khẩu" ng-model="password" />
+                <small class="text-danger">{{ errorMessages.password }}</small>
               </div>
               <div class="text-center">
-                <button type="submit" class="btn btn-main text-center"> Đăng Ký </button>
+                <button type="submit" class="btn btn-main text-center" ng-click="createAccount()"> Đăng Ký </button>
               </div>
             </form>
             <p class="mt-20">
