@@ -9,6 +9,8 @@ appClient.constant('urlHeaderClient', 'http://localhost:8081/client/rest/header'
 appClient.constant('urlCartClient', 'http://localhost:8081/client/rest/cart');
 appClient.constant('urlCheckoutClient', 'http://localhost:8081/client/rest/checkout');
 appClient.constant('urlSignUpClient', 'http://localhost:8081/client/rest/signup');
+appClient.constant('urlProfileClient', 'http://localhost:8081/client/rest/profile');
+appClient.constant('urlChangePasswordClient', 'http://localhost:8081/client/rest/change-password');
 // Constant - end
 
 //Service - start
@@ -92,8 +94,8 @@ appClient.service('CartService', ['$http', 'urlCartClient', '$rootScope', functi
     this.getTotalQuantity = async function (username) {
         var url = `${host}/getTotalQuantity?username=${username}`;
         $http.get(url).then(resp => {
-            console.log(resp.data.status);
-            console.log(resp.data.message);
+            // console.log(resp.data.status);
+            // console.log(resp.data.message);
             $rootScope.qtyCart = resp.data.qtyCart;
         }).catch(Error => {
             console.log("Lỗi lấy tổng số lượng sản phẩm giỏ hàng");

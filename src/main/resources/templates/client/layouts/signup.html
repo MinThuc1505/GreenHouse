@@ -17,11 +17,6 @@ th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
               <img src="images/logo.png" alt="" />
             </a>
             <h2 class="text-center">TẠO TÀI KHOẢN TẠI ĐÂY</h2>
-            <!-- Thêm đoạn mã sau vào form đăng ký -->
-            <div th:if="${signupMessage}" class="alert alert-danger">
-              <p style="color: rgb(55, 55, 55);" th:utext="${signupMessage}"></p>
-            </div>
-
             <form id="myForm" class="text-left clearfix">
               <div class="form-group">
                 <input type="text" class="form-control" placeholder="Họ và tên" ng-model="fullName" />

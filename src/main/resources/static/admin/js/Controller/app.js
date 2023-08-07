@@ -1,4 +1,4 @@
-const app = angular.module('app', []);
+const app = angular.module('app', ['ngResource']);
 app.constant('urlDiscount', 'http://localhost:8081/rest/discounts');
 
 app.constant('urlAccount', 'http://localhost:8081/rest/user');
