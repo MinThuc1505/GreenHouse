@@ -2,14 +2,7 @@ package com.greenhouse.model;
 
 import java.io.Serializable;
 import java.util.Date;
-
-import org.hibernate.validator.constraints.Length;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 @Entity

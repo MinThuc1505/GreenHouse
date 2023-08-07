@@ -1,5 +1,5 @@
 app.controller('categoryController', function($scope, $http, urlCategory){
-	let host = urlCategory;
+	let host = urlCategory; http://localhost:8081/rest/discounts
     $scope.form = {};
     $scope.items = {};
     $scope.load_all = function(){

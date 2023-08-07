@@ -13,4 +13,10 @@ public interface AccountDAO extends JpaRepository<Account, String> {
     +"JOIN dbo.Carts c ON c.Username = acc.Username "
     +"WHERE acc.Username = ?1 AND c.Status = 'true'", nativeQuery = true)
     int getQtyCartByUsername(String username); 
+    
+    Account findByEmail(String email);
+
+    boolean existsByEmail(String email);
+
+    boolean existsByPhone(String phone);
 }

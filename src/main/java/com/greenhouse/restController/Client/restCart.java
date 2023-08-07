@@ -20,8 +20,6 @@ import com.greenhouse.DAO.ProductDAO;
 import com.greenhouse.model.Cart;
 import com.greenhouse.model.Product;
 
-import jakarta.persistence.criteria.CriteriaBuilder.In;
-
 @RestController
 @RequestMapping(value = "/client/rest/cart")
 public class restCart {

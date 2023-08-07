@@ -8,7 +8,7 @@ appClient.constant('urlSignInClient', 'http://localhost:8081/client/rest/signIn'
 appClient.constant('urlHeaderClient', 'http://localhost:8081/client/rest/header');
 appClient.constant('urlCartClient', 'http://localhost:8081/client/rest/cart');
 appClient.constant('urlCheckoutClient', 'http://localhost:8081/client/rest/checkout');
-
+appClient.constant('urlSignUpClient', 'http://localhost:8081/client/rest/signup');
 // Constant - end
 
 //Service - start

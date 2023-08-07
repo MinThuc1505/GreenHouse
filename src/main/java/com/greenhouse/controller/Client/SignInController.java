@@ -1,7 +1,9 @@
 package com.greenhouse.controller.Client;
 
 
+import java.text.Normalizer;
 import java.util.Date;
+import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -35,9 +37,6 @@ public class SignInController {
 	public String signin(Account account, Model model) {
 		String username = cookieService.getValue("username");
 		account.setUsername(username);
-		model.addAttribute("message", Message.message);
-		model.addAttribute("typeMessage", Message.type);
-		Message.message = "";
 		model.addAttribute("account", account);
 		return "client/layouts/signin";
 	}
@@ -55,36 +54,46 @@ public class SignInController {
 			Account account = accountDAO.findById(username).get();
 			
 			cookieService.setCookie(response, "username", account.getUsername().replaceAll("\\s", ""), 3600);
-			System.out.println("Đăng nhập local thành công");
+			System.out.println("Đăng nhập LOCAL thành công");
 			return "redirect:/client/index";
 		} else {
 			return "redirect:/client/signin";
 		}
 	}
 	
-	@GetMapping("/client/signin/successGoogle")
-	public String successGoogle(Model model, HttpServletResponse response,OAuth2AuthenticationToken auth2AuthenticationToken) {
+	@GetMapping("/client/social/success")
+	public String socialSuccess(Model model, HttpServletResponse response,OAuth2AuthenticationToken auth2AuthenticationToken) {
+		String username = null;
+		String fulname = null;
+		String email = null;
+		String pictureUrl = null;
 		
 		Account account = new Account();
 		if (auth2AuthenticationToken != null && auth2AuthenticationToken.isAuthenticated()) {
 	        OAuth2User oauth2User = auth2AuthenticationToken.getPrincipal();
+	        String registrationId = auth2AuthenticationToken.getAuthorizedClientRegistrationId();
+	        
+	      
+	        if(registrationId.equals("google")) {
+	        	 username = (String) oauth2User.getAttribute("email");
+				 fulname = (String) oauth2User.getAttributes().get("name");
+				 email = (String) oauth2User.getAttributes().get("email");														
+				 pictureUrl = (String) oauth2User.getAttributes().get("picture"); 
+				System.out.println("Đăng nhập Google thành công");
+	        }else if (registrationId.equals("facebook")) {
+		         username =  processString((String) oauth2User.getAttribute("name"));
+				 fulname = (String) oauth2User.getAttributes().get("name");
+				System.out.println("Đăng nhập Facebook thành công");
+	        }
+		
+			UserDetails user = User.withUsername(username).password("123").roles("USER").build();
 
-	        // Lấy thông tin từ OAuth2User
-	        String username =  oauth2User.getName();
-	        String password = Long.toHexString(System.currentTimeMillis());
-			String fulname = (String) oauth2User.getAttributes().get("name");
-			String email = (String) oauth2User.getAttributes().get("email");														
-			String pictureUrl = (String) oauth2User.getAttributes().get("picture"); 
-						
-			
-			UserDetails user = User.withUsername(username).password(password).roles("USER").build();
-
-	        // Tạo lại Authentication với vai trò mới
 	        Authentication newAuthentication = new UsernamePasswordAuthenticationToken(user,null,user.getAuthorities());
-	        // Cập nhật Authentication
+
 	        SecurityContextHolder.getContext().setAuthentication(newAuthentication);
 	        
-	        account.setUsername(email);
+	        
+	        account.setUsername(email != null ? email : username);
 	        account.setFullName(fulname);
 	        account.setEmail(email);
 	        account.setImage(pictureUrl);
@@ -92,8 +101,7 @@ public class SignInController {
 	        account.setCreateDate(new Date());
 	        accountDAO.save(account);
 	        
-			System.out.println("Đăng nhập Google thành công");
-			cookieService.setCookie(response, "username", email.replaceAll("\\s", ""), 3600);
+			cookieService.setCookie(response, "username", username.replaceAll("\\s", ""), 3600);
 	        return "redirect:/client/index";
 	    }else {
 			return "redirect:/client/signin";
@@ -119,4 +127,17 @@ public class SignInController {
 		System.out.println("Chú không có tuổi");
 		return "redirect:/client/error";
 	}
+	
+	
+	public static String processString(String input) {
+        // Loại bỏ các kí tự không mong muốn và chuyển sang Unicode normalization (không dấu)
+        String normalized = Normalizer.normalize(input, Normalizer.Form.NFD);
+        Pattern pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
+        String noDiacritics = pattern.matcher(normalized).replaceAll("");
+
+        // Loại bỏ khoảng trắng và chuyển chuỗi thành dạng in hoa
+        String result = noDiacritics.replaceAll("\\s+", "").toUpperCase();
+
+        return result;
+    }
 }
