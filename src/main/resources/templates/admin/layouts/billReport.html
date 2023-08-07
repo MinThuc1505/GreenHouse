@@ -1,77 +1,59 @@
 <!doctype html>
 <html class="no-js" lang="" xmlns:th="http://www.thymeleaf.org"
-th:replace="~{admin/main-layout.html :: layout (~{::title}, ~{::#layout})}">
+    th:replace="~{admin/main-layout.html :: layout (~{::title}, ~{::#layout})}">
+
 <head>
-	<title>Thống kê</title>
+    <title>Thống kê</title>
 </head>
+
 <body>
-   <section id="layout">
-    <div class="wizard-area">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="normal-table-list mg-t-30">
-                        <div class="basic-tb-hd">
-                            <h2>Thống kê hóa đơn</h2>
-                        </div>
-                        <div class="bsc-tbl-hvr">
-                            <table class="table table-hover">
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Tên tài khoản</th>
-                                        <th>Tổng tiền</th>
-                                        <th>Ngày thanh toán</th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Tài khoản A</td>
-                                        <td>1000</td>
-                                        <td>2023-07-14</td>
-                                        <td>
-                                            <button class="btn btn-info">In hóa đơn</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td>Tài khoản B</td>
-                                        <td>2000</td>
-                                        <td>2023-07-15</td>
-                                        <td>
-                                            <button class="btn btn-info">In hóa đơn</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td>Tài khoản B</td>
-                                        <td>2000</td>
-                                        <td>2023-07-15</td>
-                                        <td>
-                                            <button class="btn btn-info">In hóa đơn</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td>Tài khoản B</td>
-                                        <td>2000</td>
-                                        <td>2023-07-15</td>
-                                        <td>
-                                            <button class="btn btn-info">In hóa đơn</button>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+    <section id="layout" ng-controller="reportBillController">
+        <div class="wizard-area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="normal-table-list mg-t-30">
+                            <div class="basic-tb-hd">
+                                <h2>Thống kê hóa đơn</h2>
+                            </div>
+                            <div class="bsc-tbl-hvr">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr class="table-bordered custom-border tr-thead">
+                                            <th class="text-center">#</th>
+                                            <th>Tên tài khoản</th>
+                                            <th>Tiền sản phẩm</th>
+                                            <th>Giảm giá</th>
+                                            <th>Tổng tiền</th>
+                                            <th>Ngày thanh toán</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <!-- ... -->
+                                    <tbody ng-repeat="item in items">
+                                        <tr data-toggle="collapse" data-target="#{{$index + 1}}"
+                                            class="tr-title-product">
+                                            <td class="text-center">{{$index + 1}}</td>
+                                            <td>{{item.account.fullName}}</td>
+                                            <td>{{item.amount}}</td>
+                                            <td>{{item.discountPercent|| 0}}</td>
+                                            <td>{{item.newAmount}}</td>
+                                            <td>{{item.createDate}}</td>
+                                            <td>
+                                                <button class="btn btn-info">In hóa đơn</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    <!-- ... -->
+                                </table>
+                            </div>
                         </div>
                     </div>
-                </div>
 
+                </div>
             </div>
         </div>
-    </div>
-   </th:bloc>
+        </th:bloc>
 
 </body>
 

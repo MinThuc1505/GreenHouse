@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import com.greenhouse.model.Product;
 
-public interface ProductDAO extends JpaRepository<Product, Long> {
+public interface ProductDAO extends JpaRepository<Product, Integer> {
 
     @Query(value = "SELECT * FROM Products WHERE Products.Id IN ("
             + "SELECT TOP 10 p.Id "

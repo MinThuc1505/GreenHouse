@@ -8,17 +8,18 @@ import lombok.Data;
 @Entity
 @Table(name = "Size")
 @Data
-public class Size implements Serializable{
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+public class Size implements Serializable {
+    private static final long serialVersionUID = 1L;
 
-	@Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id")
-    private Long id;
+    private Integer id;
 
+    
     @Column(name = "Size")
     private String size;
+    
+    
+
 }

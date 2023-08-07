@@ -3334,70 +3334,49 @@ input[type="tel"]:focus {
   vertical-align: middle;
 }
 
-.cart.shopping .product-list .table .transition {
-  transition: 300ms ease;
-}
-
-.cart.shopping .product-list .table button {
-  width: 150px;
-  height: 50px;
-  cursor: pointer;
+.cart.shopping .product-list .table td:last-child .BtnDelete {
+  position: relative;
   display: flex;
   align-items: center;
-  background: red;
-  border: none;
-  border-radius: 5px;
-  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.15);
-  background: #e62222;
-}
-
-.cart.shopping .product-list .table button,
-button span {
-  transition: 200ms;
-}
-
-.cart.shopping .product-list .table button .text {
-  transform: translateX(35px);
-  color: white;
-  font-weight: bold;
-}
-
-.cart.shopping .product-list .table button .icon {
-  position: absolute;
-  border-left: 1px solid #c41b1b;
-  transform: translateX(110px);
+  justify-content: flex-start;
+  width: 100px;
   height: 40px;
-  width: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  border: none;
+  padding: 0px 20px;
+  background-color: rgb(32, 196, 67);
+  color: white;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 10px;
+  box-shadow: 5px 5px 0px rgb(14, 160, 26);
+  transition-duration: .3s;
 }
 
-.cart.shopping .product-list .table button svg {
-  width: 15px;
-  fill: #eee;
+.cart.shopping .product-list .table td:last-child .svg {
+  width: 24px;
+  position: absolute;
+  right: 0;
+  margin-right: 20px;
+  fill: white;
+  transition-duration: .3s;
 }
 
-.cart.shopping .product-list .table button:hover {
-  background: #ff3636;
-}
-
-.cart.shopping .product-list .table button:hover .text {
+.cart.shopping .product-list .table td:last-child .BtnDelete:hover {
   color: transparent;
 }
 
-.cart.shopping .product-list .table button:hover .icon {
-  width: 150px;
-  border-left: none;
-  transform: translateX(-5%);
+.cart.shopping .product-list .table td:last-child .BtnDelete:hover svg {
+  right: 40%;
+  margin: 0;
+  padding: 0;
+  border: none;
+  transition-duration: .3s;
 }
 
-.cart.shopping .product-list .table button:focus {
-  outline: none;
-}
-
-.cart.shopping .product-list .table button:active .icon svg {
-  transform: scale(0.8);
+.cart.shopping .product-list .table td:last-child .Btn:active {
+  transform: translate(3px, 3px);
+  transition-duration: .3s;
+  box-shadow: 2px 2px 0px rgb(140, 32, 212);
 }
 
 .cart.shopping .product-list .Btn {
@@ -3452,7 +3431,7 @@ button span {
 }
 
 #order-button {
-  display: none;
+  display: flex;
   justify-content: center;
   align-items: center;
   gap: 20px;
@@ -3473,7 +3452,7 @@ button span {
 }
 
 .sub-bank {
-  display: none;
+  display: flex;
   justify-content: center;
   align-items: center;
   margin-top: 40px;
@@ -3762,7 +3741,7 @@ button span {
   border-color: #009cff;
 }
 
-#notification-container{
+#notification-container {
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -3844,13 +3823,9 @@ button span {
   font-size: medium;
 }
 
-.cart .product-list .table th{
+.cart .product-list .table th {
   vertical-align: middle;
   height: 69px;
-}
-
-.cart .product-list .table th:last-child{
-  display: none;
 }
 
 /* Payment */

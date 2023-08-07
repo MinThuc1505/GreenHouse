@@ -39,9 +39,6 @@ public class restDiscount {
 
     @PostMapping
     private ResponseEntity<Discount> create(@RequestBody Discount discount){
-    	
-    	System.out.println(discount);
-    	
         if(discountDAO.existsById(discount.getDiscountCode())){
             return ResponseEntity.badRequest().build();
         }
@@ -50,6 +47,9 @@ public class restDiscount {
 
     @PutMapping(value = "/{discountCode}")
     private ResponseEntity<Discount> update(@PathVariable("discountCode") String discountCode,@RequestBody Discount discount){
+    	
+    	System.out.println(discountCode);
+    	
         if(!discountDAO.existsById(discountCode)){
             return ResponseEntity.notFound().build();
         }
