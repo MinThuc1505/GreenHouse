@@ -42,13 +42,13 @@ th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
 							</div>
 						</form>
 						<div class="social-login">
-                          <p>Or</p>
+                          <p>Hoặc</p>
                           <div class="social-login-buttons">
-
-                              <!-- Nút đăng nhập bằng Gmail -->
-
                               <a th:href="@{/oauth2/authorization/google}" class="btn btn-google">
                                   <i class='bx bxl-google'></i> <p> Đăng nhập với Google</p>
+                              </a>
+                               <a th:href="@{/oauth2/authorization/facebook}" class="btn btn-facebook">
+                              	  <p> Đăng nhập với facebook</p>
                               </a>
                           </div>
                       </div>
