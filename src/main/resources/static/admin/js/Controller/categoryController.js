@@ -87,6 +87,22 @@ app.controller('categoryController', function($scope, $http, urlCategory){
 				});
         })
     }
+
+    $scope.searchData = function() {
+        if ($scope.searchTerm.trim() !== "") { 
+            var url = `${host}/search?name=${encodeURIComponent($scope.searchTerm)}`; // Sử dụng encodeURIComponent để mã hóa ký tự đặc biệt trong URL
+            $http.get(url).then(resp => {
+                $scope.items = [resp.data]; // Đảm bảo dữ liệu trả về từ server được đưa vào mảng
+                console.log("Success", $scope.items);
+            }).catch(error => {
+                console.log("Error", error);
+            });
+        } else {
+            // Nếu người dùng không nhập gì hoặc chỉ nhập khoảng trắng, reset kết quả tìm kiếm
+            $scope.items = [];
+        }
+    };
+    
     $scope.load_all();
 })
 

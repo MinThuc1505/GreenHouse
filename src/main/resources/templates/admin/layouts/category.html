@@ -12,9 +12,9 @@ th:replace="~{admin/main-layout.html :: layout (~{::title}, ~{::#layout})}">
 					<div class="filter-search col-md-6">
 						<div class="input-group">
 							<input type="text" class="form-control"
-								placeholder="Tìm kiếm nhiều loại sản phẩm..."> <span
+								placeholder="Tìm kiếm tên loại sản phẩm..." ng-model="searchTerm"> <span
 								class="input-group-btn">
-								<button class="btn btn-default" type="button">
+								<button class="btn btn-default" type="button" ng-click="searchData()">
 									<span class="glyphicon glyphicon-search"></span>
 								</button>
 							</span>
