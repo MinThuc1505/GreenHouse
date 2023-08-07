@@ -30,7 +30,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.greenhouse.DAO.ProductDAO;
-import com.greenhouse.dto.ProductDTO;
+import com.greenhouse.DTO.ProductDTO;
 import com.greenhouse.model.Product;
 
 @RestController
