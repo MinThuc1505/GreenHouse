@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.greenhouse.DAO.SizeDAO;
-import com.greenhouse.dto.SizeRequest;
+import com.greenhouse.DTO.SizeRequest;
 import com.greenhouse.model.Size;
 
 @RestController
