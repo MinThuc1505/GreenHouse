@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.greenhouse.DAO.AccountDAO;
@@ -23,6 +24,11 @@ public class restUser {
     
     @Autowired
     AccountDAO accountDAO;
+
+    @Autowired
+    public restUser(AccountDAO accountDAO) {
+        this.accountDAO = accountDAO;
+    }
 
     @GetMapping
     private ResponseEntity<List<Account>> getAllAccounts(){
@@ -67,4 +73,16 @@ public class restUser {
         accountDAO.deleteById(username);
         return ResponseEntity.ok().build();
     } 
+
+    @GetMapping(value = "/search")
+    public ResponseEntity<Account> searchData(@RequestParam("username") String username) {
+        Account searchResult = accountDAO.findById(username).orElse(null);
+
+        if (searchResult == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok(searchResult);
+    }
+
 }

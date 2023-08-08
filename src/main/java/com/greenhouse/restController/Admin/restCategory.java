@@ -11,16 +11,24 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.greenhouse.DAO.CategoryDAO;
+import com.greenhouse.DAO.ProviderDAO;
 import com.greenhouse.model.Category;
+import com.greenhouse.model.Provider;
 
 @RestController
 @RequestMapping(value = "/rest/category")
 public class restCategory {
     @Autowired
     CategoryDAO categoryDAO;
+
+    @Autowired
+    public restCategory(CategoryDAO categoryDAO) {
+        this.categoryDAO = categoryDAO;
+    }
 
     @GetMapping
     private ResponseEntity<List<Category>> getAllCategory() {
@@ -63,4 +71,14 @@ public class restCategory {
         return ResponseEntity.ok().build();
     } 
 
+    @GetMapping(value = "/search")
+    public ResponseEntity<Category> searchData(@RequestParam("name") String name) {
+        Category searchResult = categoryDAO.findByName(name);
+
+        if (searchResult == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok(searchResult);
+    }
 }

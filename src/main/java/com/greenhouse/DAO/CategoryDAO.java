@@ -10,5 +10,7 @@ import org.springframework.data.jpa.repository.Query;
 import com.greenhouse.model.Category;
 
 public interface CategoryDAO extends JpaRepository<Category, String> {
+
+    Category findByName(String name);
     
 }
