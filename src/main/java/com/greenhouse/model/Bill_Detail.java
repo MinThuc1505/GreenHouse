@@ -6,9 +6,9 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
-@Table(name = "BillDetail")
+@Table(name = "Bill_Detail")
 @Data
-public class BillDetail implements Serializable{
+public class Bill_Detail implements Serializable{
 	/**
 	 * 
 	 */

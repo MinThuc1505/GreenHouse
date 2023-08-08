@@ -1,5 +1,5 @@
 appClient.controller('bodyController', ['$scope', 'UserService', 'CartService', function ($scope, UserService, CartService) {
-    var username = UserService.getSessionUsername();
+    var username = UserService.getCookiesUsername();
 
     $scope.checkLogin = function () {
         if (username) {

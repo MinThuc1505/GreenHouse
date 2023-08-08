@@ -1,19 +1,31 @@
 <!DOCTYPE html>
 
 <html class="no-js" lang="" xmlns:th="http://www.thymeleaf.org"
-th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
+    th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
+
 <head>
-	<title>Thanh toán thành công</title>
+    <title>Thanh toán thành công</title>
 </head>
 
 
 
 
 <!-- CONTENT PAGE START-->
-<th:block id="layout">
-
+<section id="layout" ng-controller="donePayController">
     <div class="container done-pay">
-        <div class="panel panel-success">
+        <div ng-if="!cod" class="panel" ng-class="{'panel-success': !isError, 'panel-error': isError}">
+            <div class="panel-heading" ng-class="{'panel-heading-error': isError}">
+                <h3 class="panel-title">{{ title }} hóa đơn [{{ invoiceId }}]</h3>
+            </div>
+            <div class="panel-body">
+                <p>{{messageError}}.</p>
+                <p>Cảm ơn bạn đã lựa chọn <span>GREEN HOUSE</span> để mua hàng.</p>
+                <button>
+                    <a href="/client/index"><span class="button_top">Tiếp tục mua sắm</span></a>
+                </button>
+            </div>
+        </div>
+        <div ng-if="cod" class="panel panel-success">  
             <div class="panel-heading">
                 <h3 class="panel-title">Thanh toán thành công</h3>
             </div>
@@ -21,20 +33,31 @@ th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
                 <p>Hóa đơn của bạn đã được thanh toán.</p>
                 <p>Cảm ơn bạn đã lựa chọn <span>GREEN HOUSE</span> để mua hàng.</p>
                 <button>
-                    <a href="/client/index"><span class="button_top"> Tiếp tục mua sắm
-                        </span></a>
+                    <a href="/client/index"><span class="button_top"> Tiếp tục mua sắm</span></a>
                 </button>
             </div>
         </div>
+
     </div>
     <style>
         .done-pay .panel-success {
-            border-color: #5cb85c;
+            border-color: #56db56;
+            color: #fff;
+        }
+
+        .done-pay .panel-error {
+            border-color: #ff1f1f;
+            color: #fff;
         }
 
         .done-pay .panel-heading {
             background-color: #5cb85c;
-            color: white;
+            color: #fff;
+        }
+
+        .done-pay .panel-heading-error {
+            background-color: #ff1f1f;
+            color: #fff;
         }
 
         .done-pay .panel-title {
@@ -89,7 +112,7 @@ th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
             transform: translateY(0);
         }
     </style>
-</th:block>
+</section>
 
 
 </html>

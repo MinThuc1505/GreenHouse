@@ -1,9 +1,9 @@
-appClient.controller('headerController', ['$scope', 'UserService', 'CartService', '$rootScope', function ($scope, UserService, CartService, $rootScope) {
+appClient.controller('headerController', ['$scope', 'UserService', 'CartService', function ($scope, UserService, CartService) {
 
     $scope.init = function () {
-        $scope.sessionUsername = UserService.getSessionUsername();
-        if ($scope.sessionUsername) {
-            CartService.getTotalQuantity($scope.sessionUsername);
+        $scope.cookiesUsername = UserService.getCookiesUsername();
+        if ($scope.cookiesUsername) {
+            CartService.getTotalQuantity($scope.cookiesUsername);
         }
     };
 
@@ -13,4 +13,4 @@ appClient.controller('headerController', ['$scope', 'UserService', 'CartService'
     }
 
     $scope.init();
-}])
+}]) 

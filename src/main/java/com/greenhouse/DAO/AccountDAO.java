@@ -12,7 +12,7 @@ public interface AccountDAO extends JpaRepository<Account, String> {
     @Query(value = "SELECT SUM(c.Quantity) FROM dbo.Accounts acc "
     +"JOIN dbo.Carts c ON c.Username = acc.Username "
     +"WHERE acc.Username = ?1 AND c.Status = 'true'", nativeQuery = true)
-    int getQtyCartByUsername(String username); 
+    Integer getQtyCartByUsername(String username);
     
     Account findByEmail(String email);
 
