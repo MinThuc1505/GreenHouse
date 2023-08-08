@@ -43,6 +43,8 @@ public class Bill implements Serializable{
 
     @Column(name = "Payment_Method")
     private String paymentMethod;
+      @Column(name = "Receiver_Address")
+    private String receiverAddress;
 
     @Column(name = "Status")
     private Boolean status;
