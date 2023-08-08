@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
-@Table(name = "ImportProducts")
+@Table(name = "ImportProduct")
 @Data
 public class ImportProduct implements Serializable{
 	/**
