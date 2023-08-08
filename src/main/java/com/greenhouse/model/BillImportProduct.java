@@ -8,7 +8,7 @@ import lombok.Data;
 import lombok.ToString;
 
 @Entity
-@Table(name = "BillImportProduct")
+@Table(name = "bill_import_product")
 @Data
 public class BillImportProduct implements Serializable{
 	/**
@@ -19,11 +19,10 @@ public class BillImportProduct implements Serializable{
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id")
-    private Long id;
+    private Integer id;
 
     @ManyToOne
     @JoinColumn(name = "Username")
-    @ToString.Exclude
     private Account account;
 
     @ManyToOne
@@ -37,7 +36,7 @@ public class BillImportProduct implements Serializable{
     @Column(name = "Amount")
     private Double amount;
 
-    @Column(name = "PaymentMethod")
+    @Column(name = "payment_method")
     private String paymentMethod;
 
     @Column(name = "Status")

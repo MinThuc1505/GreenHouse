@@ -21,20 +21,20 @@ public class ImportProduct implements Serializable{
     private Integer id;
 
     @ManyToOne
-    @JoinColumn(name = "BillImportProductId")
+    @JoinColumn(name = "bill_import_product_id")
     private BillImportProduct billImportProduct;
 
     @ManyToOne
-    @JoinColumn(name = "ProductId")
+    @JoinColumn(name = "Product_Id")
     private Product product;
 
-    @Column(name = "PriceImport")
+    @Column(name = "price_import")
     private Double priceImport;
 
-    @Column(name = "QuantityImport")
+    @Column(name = "quantity_import")
     private Integer quantityImport;
 
-    @Column(name = "AmountImport")
+    @Column(name = "amount_import")
     private Double amountImport;
 
     @Column(name = "Description")
