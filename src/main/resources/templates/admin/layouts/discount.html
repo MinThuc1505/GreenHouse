@@ -1,18 +1,19 @@
 <!doctype html>
 <html class="no-js" lang="" xmlns:th="http://www.thymeleaf.org"
 	th:replace="~{admin/main-layout.html :: layout (~{::title}, ~{::#layout})}">
+
 <head>
 	<title>Quản lí mã giảm giá</title>
 </head>
+
 <body>
-    <section id="layout" ng-controller="discountController">
-        <div class="wizard-area">
-            <div class="container">
+	<section id="layout" ng-controller="discountController">
+		<div class="wizard-area">
+			<div class="container">
 				<div class="row header-filter-product header-action-product">
 					<div class="filter-search col-md-6">
 						<div class="input-group">
-							<input type="text" class="form-control"
-								placeholder="Tìm kiếm nhiều mã giảm giá..."> <span
+							<input type="text" class="form-control" placeholder="Tìm kiếm nhiều mã giảm giá..."> <span
 								class="input-group-btn">
 								<button class="btn btn-default" type="button">
 									<span class="glyphicon glyphicon-search"></span>
@@ -21,187 +22,244 @@
 						</div>
 					</div>
 					<div class="action-product col-md-6">
-                         <!-- Button to open the modal -->
-                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#discountCodeModal">
-                            Thêm mới
-                        </button>
+						<!-- Button to open the modal -->
+						<button type="button" class="btn btn-success" data-toggle="modal"
+							data-target="#discountCodeModal">
+							Thêm mới
+						</button>
 					</div>
 				</div>
-				<div class="row"> 
+				<div class="row">
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 						<table class="table table-striped">
 							<thead>
 								<tr class="table-bordered custom-border tr-thead">
-                                    <th class="text-center">#</th>
-                                    <th>Mã giảm giá</th>
-                                    <th>Giảm giá (%)</th>
-                                    <th>Số lượng</th>
-                                    <th>Thời gian bắt đầu</th>
-                                    <th>Thời gian thúc</th>
-                                    <th>Trạng thái</th>
+									<th class="text-center">#</th>
+									<th>Mã giảm giá</th>
+									<th>Giảm giá (%)</th>
+									<th>Số lượng</th>
+									<th>Thời gian bắt đầu</th>
+									<th>Thời gian thúc</th>
+									<th>Trạng thái</th>
 								</tr>
 							</thead>
 							<tbody ng-repeat="item in items">
-								<tr data-toggle="collapse" data-target="#{{$index + 1}}"
-									class="tr-title-product" ng-click="Edit(item.discountCode)">
+								<tr data-toggle="collapse" data-target="#{{$index + 1}}" class="tr-title-product"
+									ng-click="Edit(item.discountCode)">
 									<td class="text-center">{{$index + 1}}</td>
-							          <td>{{item.discountCode}}</td>
-							          <td>{{item.discountPercent}}%</td>
-							          <td>{{item.quantity}}</td>
-							       		 <td>{{item.startDate | date:'HH:mm dd-MM-yyyy'}}</td>
-										<td>{{item.endDate | date:'HH:mm dd-MM-yyyy'}}</td>
-										<td>{{item.status == 1 ? 'Kích hoạt' : 'Hủy'}}</td>
+									<td>{{item.discountCode}}</td>
+									<td>{{item.discountPercent}}%</td>
+									<td>{{item.quantity}}</td>
+									<td>{{item.startDate | date:'HH:mm dd-MM-yyyy'}}</td>
+									<td>{{item.endDate | date:'HH:mm dd-MM-yyyy'}}</td>
+									<td>{{item.status == 1 ? 'Kích hoạt' : 'Hủy'}}</td>
 								</tr>
-								<tr id="{{$index + 1}}" class="collapse" >
+								<tr id="{{$index + 1}}" class="collapse">
 									<td colspan="12" class="product-info border-1">
 										<h4>Thông tin mã giảm giá</h4>
 										<form>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="form-group mt-3">
-                                                        <label for="discountCode" class="fw-bold">Mã Giảm</label>
-                                                        <input type="text" class="form-control text-center border-bottom" id="discountCode" ng-model="form.discountCode" required>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-group mt-3">
-                                                        <label for="startDate" class="fw-bold">Ngày bắt đầu hiệu lực</label>
-                                                        <input type="datetime-local" class="form-control border-bottom" id="startDate" ng-model="form.startDate" ng-value="form.startDate" required>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-group mt-3">
-                                                        <label for="quantity" class="fw-bold">Số Lượng</label>
-                                                        <input type="number" min="1" value="1" class="form-control text-center border-bottom" id="quantity" ng-model="form.quantity" required>
-                                                    </div>
-                                                </div>
-                                                
-                                                <div class="col-md-6">
-                                                    <div class="form-group mt-3">
-                                                        <label for="endDate" class="fw-bold">Ngày kết thúc hiệu lực</label>
-                                                        <input type="datetime-local" class="form-control border-bottom" id="endDate" ng-model="form.endDate" ng-value="form.endDate" required>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-group mt-3">
-                                                        <label for="discountPercent" class="fw-bold">Giảm giá (%)</label>
-                                                        <input type="text" class="form-control text-center border-bottom" id="discountPercent" ng-model="form.discountPercent" required>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-												    <div class="form-group mt-3">
-												        <label class="fw-bold">Trạng thái</label>
-												        <div class="form-check">
-												            <input type="radio" class="form-check-input" name="status" id="activeStatus" ng-model="form.status" ng-value="true" required>
-												            <label class="form-check-label" for="activeStatus">Kích hoạt</label>
-												            <input type="radio" class="form-check-input" name="status" id="inactiveStatus" ng-model="form.status" ng-value="false" required>
-												            <label class="form-check-label" for="inactiveStatus">Không kích hoạt</label>
-												        </div>
-												    </div>
+											<div class="row">
+												<div class="col-md-6">
+													<div class="form-group mt-3">
+														<label for="discountCode" class="fw-bold">Mã Giảm</label>
+														<input type="text"
+															class="form-control text-center border-bottom"
+															id="discountCode" ng-model="form.discountCode" required>
+													</div>
 												</div>
-												
-                                                <div class="col-md-12 text-right mt-5">
-                                                    <div class="btn-group ib-btn-gp active-hook nk-email-inbox">
-                                                        <button class="btn btn-primary notika-btn-primary waves-effect" ng-click="Update(item.discountCode)">
-                                                            <i class="fa fa-save"></i> Lưu
-                                                        </button>
-                                                        <button class="btn btn-danger notika-btn-danger waves-effect" ng-click="Delete(item.discountCode)">
-                                                            <i class="fa fa-trash" ></i> Xóa
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </form>
+												<div class="col-md-6">
+													<div class="form-group mt-3">
+														<label for="startDate" class="fw-bold">Ngày bắt đầu hiệu
+															lực</label>
+														<input type="datetime-local" class="form-control border-bottom"
+															id="startDate" ng-model="form.startDate"
+															ng-value="form.startDate" required>
+													</div>
+												</div>
+												<div class="col-md-6">
+													<div class="form-group mt-3">
+														<label for="quantity" class="fw-bold">Số Lượng</label>
+														<input type="number" min="1" value="1"
+															class="form-control text-center border-bottom" id="quantity"
+															ng-model="form.quantity" required>
+													</div>
+												</div>
+
+												<div class="col-md-6">
+													<div class="form-group mt-3">
+														<label for="endDate" class="fw-bold">Ngày kết thúc hiệu
+															lực</label>
+														<input type="datetime-local" class="form-control border-bottom"
+															id="endDate" ng-model="form.endDate" ng-value="form.endDate"
+															required>
+													</div>
+												</div>
+												<div class="col-md-6">
+													<div class="form-group mt-3">
+														<label for="discountPercent" class="fw-bold">Giảm giá
+															(%)</label>
+														<input type="text"
+															class="form-control text-center border-bottom"
+															id="discountPercent" ng-model="form.discountPercent"
+															required>
+													</div>
+												</div>
+												<div class="col-md-6">
+													<div class="form-group mt-3">
+														<label class="fw-bold">Trạng thái</label>
+														<div class="form-check">
+															<input type="radio" class="form-check-input" name="status"
+																id="activeStatus" ng-model="form.status" ng-value="true"
+																required>
+															<label class="form-check-label" for="activeStatus">Kích
+																hoạt</label>
+															<input type="radio" class="form-check-input" name="status"
+																id="inactiveStatus" ng-model="form.status"
+																ng-value="false" required>
+															<label class="form-check-label" for="inactiveStatus">Không
+																kích hoạt</label>
+														</div>
+													</div>
+												</div>
+
+												<div class="col-md-12 text-right mt-5">
+													<div class="btn-group ib-btn-gp active-hook nk-email-inbox">
+														<button class="btn btn-primary notika-btn-primary waves-effect"
+															ng-click="Update(item.discountCode)">
+															<i class="fa fa-save"></i> Lưu
+														</button>
+														<button class="btn btn-danger notika-btn-danger waves-effect"
+															ng-click="Delete(item.discountCode)">
+															<i class="fa fa-trash"></i> Xóa
+														</button>
+													</div>
+												</div>
+											</div>
+										</form>
 									</td>
 								</tr>
 								<!-- Thêm các dòng sản phẩm khác tương tự ở đây -->
 							</tbody>
 						</table>
+						
+					</div>
+					<div class="text-center">
+						<nav aria-label="Page navigation">
+							<ul class="pagination justify-content-center">
+								<li ng-class="{disabled: currentPage === 1}" class="page-item">
+									<button ng-click="goToPage(1)" class="page-link btn btn-info">Trang đầu</button>
+								</li>
+								<li ng-class="{disabled: currentPage === 1}" class="page-item">
+									<button ng-click="prevPage()" class="page-link btn btn-info">Trước</button>
+								</li>
+							
+								<li ng-repeat="pageNumber in pageNumbers" class="page-item">
+									<button ng-click="goToPage(pageNumber)" class="page-link btn btn-info">{{pageNumber}}</button>
+								</li>
+							
+								<li ng-class="{disabled: currentPage === totalPages}" class="page-item">
+									<button ng-click="nextPage()" class="page-link btn btn-info">Tiếp</button>
+								</li>
+								<li ng-class="{disabled: currentPage === totalPages}" class="page-item">
+									<button ng-click="goToPage(totalPages)" class="page-link btn btn-info">Trang cuối</button>
+								</li>
+							</ul>
+						</nav>
 					</div>
 				</div>
 			</div>
-        </div>
+		</div>
 
-        <!-- The Modal -->
-    <div class="modal fade" id="discountCodeModal">
-        <div class="modal-dialog modal-dialog-centered modal-lg">
-            <div class="modal-content">
-                <!-- Modal Header -->
-                <div class="modal-header">
-                    <h4 class="modal-title">Thêm mã giảm giá</h4>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
+		<!-- The Modal -->
+		<div class="modal fade" id="discountCodeModal">
+			<div class="modal-dialog modal-dialog-centered modal-lg">
+				<div class="modal-content">
+					<!-- Modal Header -->
+					<div class="modal-header">
+						<h4 class="modal-title">Thêm mã giảm giá</h4>
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+					</div>
 
-                <!-- Modal body -->
-                <div class="modal-body">
-                    <form name="myForm">
-					    <div class="row">
-					        <div class="col-md-6">
-					            <div class="form-group mt-3">
-					                <label for="discountCode" class="fw-bold">Mã Giảm</label>
-					                <input type="text" class="form-control text-center border-bottom" id="discountCode" ng-model="discountCode" name="discountCode" required>
-					            </div>
-					        </div>
-					        <div class="col-md-6">
-					            <div class="form-group mt-3">
-					                <label for="startDate" class="fw-bold">Ngày bắt đầu hiệu lực</label>
-					                <input type="datetime-local" class="form-control border-bottom" id="startDate" ng-model="startDate" name="startDate" required>
-					            </div>
-					        </div>
-					        <div class="col-md-6">
-					            <div class="form-group mt-3">
-					                <label for="quantity" class="fw-bold">Số Lượng</label>
-					                <input type="number" min="1" value="1" class="form-control text-center border-bottom" id="quantity" ng-model="quantity" name="quantity" required>
-					            </div>
-					        </div>
-					       <div class="col-md-6">
-					            <div class="form-group mt-3">
-					                <label for="endDate" class="fw-bold">Ngày kết thúc hiệu lực</label>
-					                <input type="datetime-local" class="form-control border-bottom" id="endDate" ng-model="endDate" name="endDate" required>
-					            </div>
-					        </div>
-					        <div class="col-md-6">
-					            <div class="form-group mt-3">
-					                <label for="discountPercent" class="fw-bold">Giảm giá (%)</label>
-					                <input type="number" min="5" max="45" value="5" class="form-control text-center border-bottom" id="discountPercent" ng-model="discountPercent" name="discountPercent" required>
-					            </div>
-					        </div>
-					        <div class="col-md-6">
-					            <div class="form-group mt-3">
-					                <label class="fw-bold">Trạng thái</label>
-					                <div class="form-check">
-					                    <input type="radio" class="form-check-input" name="status" id="activeStatus" value="true" ng-model="status" required>
-					                    <label class="form-check-label" for="activeStatus">Kích hoạt</label>
-					                    <input type="radio" class="form-check-input" name="status" id="inactiveStatus" value="false" ng-model="status" required>
-					                    <label class="form-check-label" for="inactiveStatus">Không kích hoạt</label>
-					                </div>
-					            </div>
-					        </div>
-					    </div>
-					</form>
-	
-	
-					<div class="row">
-			            <div class="col-md-12">
-			                <div class="alert alert-danger" ng-show="myForm.$invalid"
-			                    ng-class="{ 'd-none': !myForm.$invalid, 'd-block': myForm.$invalid }">
-			                    Vui lòng kiểm tra và điền đầy đủ thông tin vào các trường bắt buộc.
-			                </div>
-			            </div>
-			        </div>
+					<!-- Modal body -->
+					<div class="modal-body">
+						<form name="myForm">
+							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group mt-3">
+										<label for="discountCode" class="fw-bold">Mã Giảm</label>
+										<input type="text" class="form-control text-center border-bottom"
+											id="discountCode" ng-model="discountCode" name="discountCode" required>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group mt-3">
+										<label for="startDate" class="fw-bold">Ngày bắt đầu hiệu lực</label>
+										<input type="datetime-local" class="form-control border-bottom" id="startDate"
+											ng-model="startDate" name="startDate" required>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group mt-3">
+										<label for="quantity" class="fw-bold">Số Lượng</label>
+										<input type="number" min="1" value="1"
+											class="form-control text-center border-bottom" id="quantity"
+											ng-model="quantity" name="quantity" required>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group mt-3">
+										<label for="endDate" class="fw-bold">Ngày kết thúc hiệu lực</label>
+										<input type="datetime-local" class="form-control border-bottom" id="endDate"
+											ng-model="endDate" name="endDate" required>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group mt-3">
+										<label for="discountPercent" class="fw-bold">Giảm giá (%)</label>
+										<input type="number" min="5" max="45" value="5"
+											class="form-control text-center border-bottom" id="discountPercent"
+											ng-model="discountPercent" name="discountPercent" required>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group mt-3">
+										<label class="fw-bold">Trạng thái</label>
+										<div class="form-check">
+											<input type="radio" class="form-check-input" name="status" id="activeStatus"
+												value="true" ng-model="status" required>
+											<label class="form-check-label" for="activeStatus">Kích hoạt</label>
+											<input type="radio" class="form-check-input" name="status"
+												id="inactiveStatus" value="false" ng-model="status" required>
+											<label class="form-check-label" for="inactiveStatus">Không kích hoạt</label>
+										</div>
+									</div>
+								</div>
+							</div>
+						</form>
 
-                </div>
 
-                <!-- Modal footer -->
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" ng-click="Create()" ng-disabled="myForm.$invalid"><i class="fa fa-save"></i> Thêm</button>
-                    <button type="button" class="btn btn-info"><i class="fa fa-rotate-right"></i> Làm mới</button>
-                </div>
-            </div>
-        </div>
-    </div>
+						<div class="row">
+							<div class="col-md-12">
+								<div class="alert alert-danger" ng-show="myForm.$invalid"
+									ng-class="{ 'd-none': !myForm.$invalid, 'd-block': myForm.$invalid }">
+									Vui lòng kiểm tra và điền đầy đủ thông tin vào các trường bắt buộc.
+								</div>
+							</div>
+						</div>
 
-    </section>
+					</div>
+
+					<!-- Modal footer -->
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" ng-click="Create()"
+							ng-disabled="myForm.$invalid"><i class="fa fa-save"></i> Thêm</button>
+						<button type="button" class="btn btn-info"><i class="fa fa-rotate-right"></i> Làm mới</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</section>
 </body>
 
 </html>
