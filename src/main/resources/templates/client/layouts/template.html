@@ -35,7 +35,9 @@
 	<link rel="stylesheet" href="/client/plugins/slick/slick-theme.css">
 	<!-- Recapcha -->
 	<script src="https://www.google.com/recaptcha/api.js" async defer></script>
-
+	<!-- Thư viện AngularJS  + Route -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.2/angular.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-route.min.js"></script>
 	<!-- Main Stylesheet -->
 	<link rel="stylesheet" href="/client/css/style.css">
 
@@ -120,7 +122,7 @@
 <!-- Main Menu Section Start -->
 <th:block th:fragment="main-menu">
 	<!-- Main Menu Section -->
-	<section class="menu sticky">
+	<section class="menu sticky" ng-controller="menuController">
 		<nav class="navbar navigation">
 			<div class="container">
 				<div class="navbar-header">
@@ -130,7 +132,6 @@
 						<span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span
 							class="icon-bar"></span> <span class="icon-bar"></span>
 					</button>
-
 				</div>
 				<!-- / .navbar-header -->
 
@@ -154,53 +155,13 @@
 								<div class="dropdown-menu">
 									<div class="row">
 										<!-- Sản Phẩm  -->
-										<div class="col-sm-4 col-xs-12">
+										<div class="col-sm-4 col-xs-12" ng-repeat="menuColumn in menuItems">
 											<ul>
-												<li class="dropdown-header" th:text="#{lo.mn.furniture}"></li>
 												<li role="separator" class="divider"></li>
-												<li><a href="/client/shop?category=BR002" th:text="#{lo.mn.bdg}"></a>
-												</li>
-												<li><a href="/client/shop?category=DR001" th:text="#{lo.mn.ba}"></a>
-												</li>
-												<li><a href="/client/shop?category=WR006" th:text="#{lo.mn.blv}"></a>
-												</li>
-												<li><a href="/client/shop?category=LR004" th:text="#{lo.mn.bn}">c</a>
-												</li>
-												<li><a href="/client/shop?category=LR005" th:text="#{lo.mn.bb}"></a>
-												</li>
-												<li><a href="/client/shop?category=BR006" th:text="#{lo.mn.btd}"></a>
-												</li>
-												<li><a href="/client/shop?category=DR002" th:text="#{lo.mn.ga}"></a>
-												</li>
-												<li><a href="/client/shop?category=DR003" th:text="#{lo.mn.gb}"></a>
-												</li>
-												<li><a href="/client/shop?category=LR003" th:text="#{lo.mn.gtg}"></a>
-												</li>
-												<li><a href="/client/shop?category=WR002" th:text="#{lo.mn.glv}"></a>
-												</li>
-												<li><a href="/client/shop?category=WR003" th:text="#{lo.mn.gx}"></a>
-												</li>
-											</ul>
-										</div>
-										<div class="col-sm-4 col-xs-12">
-											<ul>
-												<li class="dropdown-header" th:text="#{lo.mn.cabinets}"></li>
-												<li role="separator" class="divider"></li>
-												<li><a href="/client/shop?category=WR004" th:text="#{lo.mn.ks}"></a>
-												</li>
-												<li><a href="/client/shop?category=WR005" th:text="#{lo.mn.kt}"></a>
-												</li>
-												<li><a href="/client/shop?category=LR001" th:text="#{lo.mn.sofa}"></a>
-												</li>
-												<li><a href="/client/shop?category=LR002" th:text="#{lo.mn.sfg}"></a>
-												</li>
-												<li><a href="/client/shop?category=DR004" th:text="#{lo.mn.tl}"></a>
-												</li>
-												<li><a href="/client/shop?category=BR003" th:text="#{lo.mn.ta}"></a>
-												</li>
-												<li><a href="/client/shop?category=BR004" th:text="#{lo.mn.tat}"></a>
-												</li>
-												<li><a href="/client/shop?category=BR005" th:text="#{lo.mn.thk}"></a>
+												<li ng-repeat="item in menuColumn">
+													<a href="/client/shop" ng-click="setCategory(item.id)">
+														{{ item.name }}
+													</a>
 												</li>
 											</ul>
 										</div>
@@ -212,37 +173,11 @@
 										</div>
 									</div>
 									<!-- / .row -->
-								</div> <!-- / .dropdown-menu -->
+								</div>
 							</li>
 							<!-- / Elements -->
 
 
-							<!-- Pages -->
-							<li class="dropdown dropdown-slide"><a href="#!" class="dropdown-toggle"
-									data-toggle="dropdown" data-hover="dropdown" data-delay="350" role="button"
-									aria-haspopup="true" aria-expanded="false"> <span
-										th:text="#{lo.mn.room}"></span><span class="tf-ion-ios-arrow-down"></span></a>
-								<div class="dropdown-menu">
-									<div class="row">
-										<!-- Basic -->
-										<div class="col-lg-12 col-md-6 mb-sm-3">
-											<ul>
-												<li class="dropdown-header" th:text="#{lo.mn.caterogy}"></li>
-												<li role="separator" class="divider"></li>
-												<li><a href="/client/room/dining-room" th:text="#{lo.mn.dining}"></a>
-												</li>
-												<li><a href="/client/room/bed-room" th:text="#{lo.mn.bed}"></a></li>
-												<li><a href="/client/room/living-room" th:text="#{lo.mn.living}"></a>
-												</li>
-												<li><a href="/client/room/work-room" th:text="#{lo.mn.blv}"></a>
-												</li>
-											</ul>
-										</div>
-									</div>
-									<!-- / .row -->
-								</div> <!-- / .dropdown-menu -->
-							</li>
-							<!-- / Pages -->
 							<!-- Blog -->
 							<li class="dropdown dropdown-slide"><a href="/client/blog" th:text="#{lo.mn.blog}">
 								</a></li>
@@ -341,6 +276,11 @@
 	<script type="text/javascript" src="plugins/google-map/gmap.js"></script>
 	<!-- Main Js File -->
 	<script src="/client/js/script.js" th:src="@{/client/js/script.js}"></script>
+	<!-- Controller JS-->
+	<script src="/client/js/Controller/app.js"></script>
+	<script src="js/Controller/indexController.js"></script>
+	<script src="js/Controller/shopController.js"></script>
+	<script src="js/Controller/menuController.js"></script>
 </th:block>
 <!-- Script End -->
 

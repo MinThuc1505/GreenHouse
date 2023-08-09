@@ -59,13 +59,11 @@
     <script src="js/vendor/modernizr-2.8.3.min.js"></script>
     <!-- Nhúng Font Awesome từ CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-	<!-- Thư viện AngularJS -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.2/angular.min.js"></script>
-	
-	 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"></script>
+    <!-- Thư viện AngularJS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.2/angular.min.js"></script>
 
-</head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"></script>
 
 <body>
     <th:block th:fragment="header">
@@ -264,7 +262,7 @@
                                     </li>
                                     <li><a data-toggle="collapse" data-target="#democrou" href="#">Danh mục</a>
                                         <ul id="democrou" class="collapse dropdown-header-top">
-                                       		<li><a href="compose-category.html">Nhà cung cấp</a></li>
+                                            <li><a href="compose-category.html">Nhà cung cấp</a></li>
                                             <li><a href="compose-category.html">Loại sản phẩm</a></li>
                                             <li><a href="compose-product.html">Sản phẩm</a></li>
                                             <li><a href="compose-discount.html">Giảm giá</a></li>
@@ -309,7 +307,7 @@
                         <div class="tab-content custom-menu-content">
                             <div id="Interface" class="tab-pane notika-tab-menu-bg animated flipInX">
                                 <ul class="notika-main-menu-dropdown">
-                               		<li><a href="/admin/provider">Nhà cung cấp</a></li>
+                                    <li><a href="/admin/provider">Nhà cung cấp</a></li>
                                     <li><a href="/admin/categories">Loại sản phẩm</a>
                                     </li>
                                     <li><a href="/admin/products">Sản phẩm</a>
@@ -447,13 +445,19 @@
 		============================================ -->
         <script src="js/charts/Chart.js"></script>
         <script src="js/charts/bar-chart.js"></script>
-        
+
         <script src="js/Controller/app.js"></script>
         <script src="js/Controller/discountController.js"></script>
         <script src="js/Controller/userController.js"></script>
         <script src="js/Controller/providerController.js"></script>
         <script src="js/Controller/reportBillController.js"></script>
         <script src="js/Controller/reportCategoryController.js"></script>
+        <script src="js/Controller/reportStaticController.js"></script>
+        <script src="js/Controller/productCtrl.js"></script>
+        <script src="js/Controller/reportChart.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+        </head>
     </th:block>
 </body>
 

@@ -9,4 +9,7 @@ app.constant('urlReportBill', 'http://localhost:8081/rest/reportBill')
 
 app.constant('urlReportCategory', 'http://localhost:8081/rest/reportCategory')
 
-// app.constant('urlReportStatic', 'http://localhost:8081/rest/MonthlyStatistic')
+app.constant('urlReportStatic', 'http://localhost:8081/rest/MonthlyStatistic')
+
+app.constant('urlProduct', 'http://localhost:8081/rest/products');
+

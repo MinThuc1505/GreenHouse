@@ -2,19 +2,21 @@ package com.greenhouse.model;
 
 import java.io.Serializable;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
 @Table(name = "Products")
 @Data
-public class Product implements Serializable{
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+public class Product implements Serializable {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
 
-	@Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id")
     private Long id;
@@ -32,14 +34,16 @@ public class Product implements Serializable{
     private String description;
 
     @Column(name = "Status")
-    private String status;
+    private Boolean status;
 
     @ManyToOne
-    @JoinColumn(name = "SizeId")
+    @JsonIgnore
+    @JoinColumn(name = "Size_Id")
     private Size size;
 
     @ManyToOne
-    @JoinColumn(name = "MeterialId")
+    @JsonIgnore
+    @JoinColumn(name = "Meterial_Id")
     private Material material;
 
     @Column(name = "Image")
