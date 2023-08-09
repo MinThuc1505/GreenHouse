@@ -20,10 +20,10 @@ public class Set_Category implements Serializable{
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "ProductId")
+    @JoinColumn(name = "Product_Id")
     private Product product;
 
     @ManyToOne
-    @JoinColumn(name = "CategoryId")
+    @JoinColumn(name = "Category_Id")
     private Category category;
 }

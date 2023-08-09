@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
-@Table(name = "PriceHistory")
+@Table(name = "Price_History")
 @Data
 public class PriceHistory implements Serializable{
 	/**
@@ -18,16 +18,16 @@ public class PriceHistory implements Serializable{
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id")
-    private Long id;
+    private Integer id;
 
     @ManyToOne
-    @JoinColumn(name = "ProductId")
+    @JoinColumn(name = "Product_Id")
     private Product product;
 
     @Column(name = "Price")
     private Double price;
 
-    @Column(name = "ChangeDate")
+    @Column(name = "change_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date changeDate;
 }

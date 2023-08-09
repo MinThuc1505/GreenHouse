@@ -49,7 +49,7 @@
                                 class="tr-title-product">
                                 <td class="text-center">{{$index + 1}}</td>
                                 <td>{{item.product.name}}</td>
-                                <td>{{item.billImportProduct.account.fullName}}</td>
+                                <td>{{item.billImportProduct.account.username}}</td>
                                 <td>{{item.priceImport}}</td>
                                 <td>{{item.quantityImport}}</td>
                                 <td>{{item.amountImport}}</td>
@@ -86,7 +86,7 @@
                                                         <select class="form-control border-bottom" id="billImportProduct"
                                                         ng-model="form.billImportProduct"
                                                         ng-options="billImportProduct as billImportProduct.id for billImportProduct in billImportProducts track by billImportProduct.id">
-                                                        <option value="">Chọn Kích Thước</option> 
+                                                        <option value="">Chọn Mã hóa đơn</option> 
                                                     </select>          
                                                     </div>
                                                 </div>
@@ -105,17 +105,9 @@
                                                         <label for="quantityImport" class="fw-bold">Số lượng </label>
                                                         <input type="number" min="1" value="1"
                                                             class="form-control text-center border-bottom"
-                                                            ng-model="form.quantityImport" required>
+                                                            ng-model="form.quantityImport"  required>
                                                     </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-group mt-3">
-                                                        <label for="amountImport" class="fw-bold">Tổng giá trị</label>
-                                                        <input type="number" min="1"
-                                                            class="form-control text-center border-bottom"
-                                                            ng-model="form.amountImport" required>
-                                                    </div>
-                                                </div>
+                                                </div>                     
     
                                                 <div class="col-md-6">
                                                     <div class="form-group mt-3">
@@ -125,11 +117,11 @@
                                                         ng-value="form.createDate" required>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-6">
+                                                <div class="col-md-12">
                                                     <div class="form-group mt-3">
                                                         <label for="description" class="fw-bold">Mô tả</label>
-                                                        <input type="text" class="form-control text-center border-bottom"
-                                                            ng-model="form.description">
+                                                        <textarea type="text" class="form-control text-center border-bottom"
+                                                            ng-model="form.description"> </textarea>
                                                     </div>
                                                 </div>
     
@@ -208,14 +200,7 @@
                                             required>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="form-group mt-3">
-                                        <label for="amountImport" class="fw-bold">Tổng giá trị</label>
-                                        <input type="number" min="1" class="form-control text-center border-bottom"   id="amountImport"
-                                        name="amountImport"
-                                            ng-model="amountImport" required>
-                                    </div>
-                                </div>
+                              
     
                                 <div class="col-md-6">
                                     <div class="form-group mt-3">
@@ -227,8 +212,8 @@
                                 <div class="col-md-6">
                                     <div class="form-group mt-3">
                                         <label for="description" class="fw-bold">Mô tả</label>
-                                        <input type="text" class="form-control text-center border-bottom" id="description" name="description"
-                                            ng-model="description">
+                                        <textarea type="text" class="form-control text-center border-bottom" id="description" name="description"
+                                            ng-model="description"> </textarea>
                                     </div>
                                 </div>
                             </div>

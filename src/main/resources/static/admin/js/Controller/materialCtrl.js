@@ -5,7 +5,7 @@ app.controller('materialCtrl', function($scope, $http, urlMaterial) {
     $scope.materials = [];
  
 
-    $scope.loadAll = function () {
+    $scope.load_all = function () {
         var url = `${host}`;
         $http.get(url).then(resp => {
             $scope.materials = resp.data;

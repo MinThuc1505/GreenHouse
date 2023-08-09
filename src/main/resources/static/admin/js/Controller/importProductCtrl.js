@@ -84,6 +84,7 @@ app.controller('importProductCtrl', function ($scope, $http, urlImportProduct) {
     $scope.Update = function() {
         
         var url = `${host}/${$scope.form.id}`;
+
         $http.put(url, $scope.form).then(resp => {
             $scope.items[$scope.selectedItemIndex] = resp.data;
             Swal.fire({
@@ -131,5 +132,3 @@ function formatDateToISOString(dateString) {
     var minutes = date.getMinutes().toString().padStart(2, '0');
     return `${year}-${month}-${day}T${hours}:${minutes}`;
 }
-
-  
