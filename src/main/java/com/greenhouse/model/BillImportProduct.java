@@ -26,7 +26,7 @@ public class BillImportProduct implements Serializable{
     private Account account;
 
     @ManyToOne
-    @JoinColumn(name = "ProviderId")
+    @JoinColumn(name = "Provider_Id")
     private Provider provider;
 
     @Column(name = "Createdate")

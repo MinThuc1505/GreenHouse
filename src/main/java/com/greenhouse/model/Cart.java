@@ -20,7 +20,7 @@ public class Cart implements Serializable{
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "ProductId")
+    @JoinColumn(name = "Product_Id")
     private Product product;
 
     @Column(name = "Username")

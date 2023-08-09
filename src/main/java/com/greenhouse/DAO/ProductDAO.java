@@ -12,15 +12,15 @@ public interface ProductDAO extends JpaRepository<Product, Integer> {
     @Query(value = "SELECT * FROM Products WHERE Products.Id IN ("
             + "SELECT TOP 10 p.Id "
             + "FROM Products p "
-            + "JOIN BillDetail bd ON p.Id = bd.Product_Id "
+            + "JOIN Bill_Detail bd ON p.Id = bd.Product_Id "
             + "GROUP BY p.Id, p.Name "
             + "ORDER BY SUM(bd.Quantity) DESC)", nativeQuery = true)
     List<Product> findTop10ProductsBestSale();
 
-    @Query(value = "select * from Products where Id in ( select Product_Id from SetCategory sc  where sc.Category_Id = ?1) and Quantity > 0", nativeQuery = true)
+    @Query(value = "select * from Products where Id in ( select Product_Id from Set_Category sc  where sc.Category_Id = ?1) and Quantity > 0", nativeQuery = true)
     List<Product> findByCategory(String category);
 
-    @Query(value = "select * from Products where Id in ( select Product_Id from SetCategory sc  where sc.Category_Id = ?1) and Quantity > 0 AND Price <= ?2", nativeQuery = true)
+    @Query(value = "select * from Products where Id in ( select Product_Id from Set_Category sc  where sc.Category_Id = ?1) and Quantity > 0 AND Price <= ?2", nativeQuery = true)
     List<Product> findByCategoryAndPrice(String category, String price);
 
     @Query(value = "select * from Products where Quantity > 0 AND Price <= ?1", nativeQuery = true)

@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
-@Table(name = "BillDetail")
+@Table(name = "Bill_Detail")
 @Data
 public class BillDetail implements Serializable{
 	/**
@@ -20,11 +20,11 @@ public class BillDetail implements Serializable{
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "BillId")
+    @JoinColumn(name = "Bill_Id")
     private Bill bill;
 
     @ManyToOne
-    @JoinColumn(name = "ProductId")
+    @JoinColumn(name = "Product_Id")
     private Product product;
 
     @Column(name = "Quantity")

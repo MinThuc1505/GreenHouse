@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
-@Table(name = "ImportProduct")
+@Table(name = "Import_Product")
 @Data
 public class ImportProduct implements Serializable{
 	/**
@@ -43,4 +43,5 @@ public class ImportProduct implements Serializable{
     @Column(name = "Createdate")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createDate;
+    
 }

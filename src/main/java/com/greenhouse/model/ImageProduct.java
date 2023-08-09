@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
-@Table(name = "ImageProduct")
+@Table(name = "Image_Product")
 @Data
 public class ImageProduct implements Serializable{
 	/**
@@ -17,10 +17,10 @@ public class ImageProduct implements Serializable{
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id")
-    private Long id;
+    private Integer id;
 
     @ManyToOne
-    @JoinColumn(name = "ProductId")
+    @JoinColumn(name = "Product_Id")
     private Product product;
 
     @Column(name = "Name")
