@@ -58,7 +58,7 @@ appClient.controller('shopController', function ($scope, $http, urlShopClient, $
     };
 
     // Function show detail product selected
-    $scope.showProductDetails = function(product) {
+    $scope.showProductDetails = function(product) { 
         $scope.selectedProduct = product; // Set selected product data
         $('#product-modal').modal('show'); // Show the modal
     };

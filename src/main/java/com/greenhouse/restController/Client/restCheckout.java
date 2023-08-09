@@ -154,7 +154,7 @@ public class restCheckout {
             }
             status = "VNPAY";
             message = "Set value for url vnpay";
-        } 
+        }
         responseData.put("data", paymentUrl);
         responseData.put("status", status);
         responseData.put("message", message);
@@ -260,13 +260,51 @@ public class restCheckout {
                 if (checkAmount) {
                     if (checkOrderStatus) {
                         if ("00".equals(vnpayData.get("vnp_ResponseCode"))) {
-                            // Here code to update PaymnentStatus = 1 in your Database (successful payment)
                             bill.setStatus(1);
                             billDAO.save(bill);
                         } else {
-                            // Here code to update PaymnentStatus = 2 in your Database (failed payment)
                             bill.setStatus(2);
                             billDAO.save(bill);
+                            String errorMessage = "";
+                            switch (vnpayData.get("vnp_ResponseCode")) {
+                                case "07":
+                                    errorMessage = "Giao dịch bị nghi ngờ, giao dịch bất thường.";
+                                    break;
+                                case "09":
+                                    errorMessage = "Tài khoản của khách hàng chưa đăng ký dịch vụ InternetBanking.";
+                                    break;
+                                case "10":
+                                    errorMessage = "Khách hàng xác thực thông tin tài khoản không đúng quá 3 lần.";
+                                    break;
+                                case "11":
+                                    errorMessage = "Đã hết hạn chờ thanh toán. Vui lòng thực hiện lại giao dịch.";
+                                    break;
+                                case "12":
+                                    errorMessage = "Tài khoản của khách hàng bị khóa.";
+                                    break;
+                                case "13":
+                                    errorMessage = "Quý khách nhập sai mật khẩu xác thực giao dịch (OTP). Vui lòng thực hiện lại giao dịch.";
+                                    break;
+                                case "24":
+                                    errorMessage = "Khách hàng hủy giao dịch.";
+                                    break;
+                                case "51":
+                                    errorMessage = "Tài khoản của quý khách không đủ số dư để thực hiện giao dịch.";
+                                    break;
+                                case "65":
+                                    errorMessage = "Tài khoản của Quý khách đã vượt quá hạn mức giao dịch trong ngày.";
+                                    break;
+                                case "75":
+                                    errorMessage = "Ngân hàng thanh toán đang bảo trì.";
+                                    break;
+                                case "79":
+                                    errorMessage = "KH nhập sai mật khẩu thanh toán quá số lần quy định. Vui lòng thực hiện lại giao dịch.";
+                                    break;
+                                default:
+                                    errorMessage = "Có lỗi xảy ra trong quá trình xử lý giao dịch.";
+                            }
+                            responseData.put("RspCode", vnpayData.get("vnp_ResponseCode"));
+                            responseData.put("Message", errorMessage);
                         }
                         responseData.put("RspCode", "00");
                         responseData.put("Message", "Xác nhận thành công");
