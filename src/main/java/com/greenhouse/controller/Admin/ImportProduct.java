@@ -1,15 +1,15 @@
-package com.greenhouse.controller.Client;
-
+package com.greenhouse.controller.Admin;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/client/profile")
-public class ProfileController {
-    @GetMapping("")
+@RequestMapping("admin/importProduct")
+public class ImportProduct {
+    @GetMapping
 	public String index() {
-		return "client/layouts/profile";
+		return "admin/layouts/importProduct";
 	}
+
 }

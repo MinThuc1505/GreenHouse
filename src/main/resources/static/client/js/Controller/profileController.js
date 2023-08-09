@@ -1,30 +1,19 @@
-appClient.controller('singUpController', function ($scope, $http, urlSignUpClient, $cookies) {
-    let host = urlSignUpClient;
-    $scope.createAccount = function () {
+appClient.controller('profileController', function ($scope, $http, urlProfileClient, $cookies) {
+    let host = urlProfileClient;
+
+    var cookieUsername = $cookies.get('username');
+
+    $scope.updateAccount = function () {
         $scope.errorMessages = {};
-        var fullName = $scope.fullName || "";
-        var username = $scope.username || "";
-        var email = $scope.email || "";
-        var phone = $scope.phone || "";
-        var password = $scope.password || "";
-
-        var item = {
-            fullName: fullName,
-            username: username,
-            email: email,
-            phone: phone,
-            password: password
-          };
-
-        var url = `${host}`;
-        $http.post(url, item).then(resp => {
+        var url = `${host}/${cookieUsername}`;
+        $http.patch(url, $scope.accountData).then(resp => {
             Swal.fire({
                 icon: 'success',
                 title: 'Thành công',
-                text: `Đăng ký thành công.`,
+                text: `Cập nhật ` + cookieUsername +  ` thành công.` ,
             });
-            window.location.href = 'client/signin';
         }).catch(Error => {
+            console.log(Error.data);
             if (Error.data) {
                 $scope.errorMessages = Error.data; 
                 if (Error.data.AccountExists){
@@ -49,4 +38,17 @@ appClient.controller('singUpController', function ($scope, $http, urlSignUpClien
             } 
         })
     }
+
+    $scope.getDetail = function (key) {
+        var url = `${host}/${key}`;
+        $http.get(url).then(resp => {
+           console.log(resp.data);
+           $scope.accountData = resp.data;
+        }).catch(Error => {
+            console.log("Error", Error);
+        })
+    }
+
+    $scope.getDetail(cookieUsername);
+
 })

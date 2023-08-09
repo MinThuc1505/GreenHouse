@@ -362,38 +362,36 @@
 		</div>
 
 
-		<!-- The Modal Thêm chất liệu -->
-		<div class="modal fade" id="materialModal">
-			<div class="modal-dialog modal-dialog-centered">
-				<div class="modal-content">
-					<!-- Modal Header -->
-					<div class="modal-header">
-						<h4 class="modal-title">Thêm chất liệu</h4>
-						<button type="button" class="close" data-dismiss="modal">&times;</button>
-					</div>
-
-					<!-- Modal body -->
-					<div class="modal-body">
-						<form>
-							<div class="form-group">
-								<label for="materialName" class="fw-bold">Chất liệu</label>
-								<select class="form-control" id="materialName">
-									<option value="Ceramic (51)">Ceramic (51)</option>
-
-								</select>
-							</div>
-						</form>
-					</div>
-
-					<!-- Modal footer -->
-					<div class="modal-footer">
-						<button type="button" class="btn btn-primary"><i class="fa fa-save"></i> Lưu</button>
-						<button type="button" class="btn btn-info" data-dismiss="modal"><i class="fa fa-times"></i>
-							Hủy</button>
-					</div>
-				</div>
-			</div>
+	<!-- The Modal Thêm chất liệu -->
+<div class="modal fade" id="materialModal" ng-controller="materialCtrl">
+	<div class="modal-dialog modal-dialog-centered">
+	  <div class="modal-content">
+		<!-- Modal Header -->
+		<div class="modal-header">
+		  <h4 class="modal-title">Thêm chất liệu</h4>
+		  <button type="button" class="close" data-dismiss="modal">&times;</button>
 		</div>
+  
+		<!-- Modal body -->
+		<div class="modal-body">
+		  <form>
+			<div class="form-group">
+			  <input type="hidden" class="form-control border-bottom" id="id" ng-model="id" name="id" required>
+			  <label for="material" class="fw-bold">Chất Liệu</label>
+			  <input type="text" class="form-control border-bottom" id="material" ng-model="form.material" name="material" required>
+			</div>
+		  </form>
+		</div>
+  
+		<!-- Modal footer -->
+		<div class="modal-footer">
+		  <button type="button" class="btn btn-primary" ng-click="createMaterial()">Lưu</button>
+		  <button type="button" class="btn btn-info" data-dismiss="modal">Hủy</button>
+		</div>
+	  </div>
+	</div>
+  </div>
+  
 
 	</section>
 </body>

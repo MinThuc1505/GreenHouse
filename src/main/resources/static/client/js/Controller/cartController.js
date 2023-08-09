@@ -1,5 +1,5 @@
 appClient.controller('cartController', ['$scope', '$http', 'urlCartClient', 'UserService', 'CartService', 'urlCheckoutClient', function ($scope, $http, urlCartClient, UserService, CartService, urlCheckoutClient) {
-    var username = UserService.getSessionUsername();
+    var username = UserService.getCookiesUsername();
     var host = urlCartClient;
     var hostCheckout = urlCheckoutClient;
 
@@ -7,42 +7,63 @@ appClient.controller('cartController', ['$scope', '$http', 'urlCartClient', 'Use
         CartService.getProductInCart(username);
     }
 
-    $scope.initCart();
-
     // Remove cart
     var idCartsDeleted = [];
 
-    
     $scope.isCartItemDeleted = function (cartId) {
-        if(idCartsDeleted.includes(cartId)){
+        if (idCartsDeleted.includes(cartId)) {
             return true;
-        }else{
+        } else {
             return false;
+        }
+    };
+
+    // Hàm xóa những sản phẩm đã chọn thực sự
+    $scope.deleteSelectedCarts = function () {
+        for (var i = 0; i < idCartsDeleted.length; i++) {
+            var cartId = idCartsDeleted[i];
+            CartService.removeFromCart(cartId, username);
         }
     };
 
     $scope.editCart = false;
     $scope.editMode = false;
+
     $scope.editCarts = function () {
         $scope.editCart = !$scope.editCart;
         $scope.editMode = !$scope.editMode;
         if (!$scope.editMode) {
             console.log("Lưu nè!!!!!!!!!");
-            idCartsDeleted = [];
-            $scope.initCart();
+            if (idCartsDeleted) {
+                console.log("==== 1");
+                $scope.deleteSelectedCarts();
+            }
+            window.location.reload();
         } else {
             // Hàm xóa sản phẩm khỏi giỏ hàng
-            $scope.removeFromCart = function (cartId) {
+            $scope.addCartIdToArrays = function (cartId) {
                 if (username) {
-                    CartService.removeFromCart(cartId, username);
                     idCartsDeleted.push(cartId);
                     notificationDATA('Xóa sản phẩm khỏi giỏ hàng thành công', 'success');
                 } else {
                     notificationDATA('Hãy đăng nhập để thêm sản phẩm', 'error');
                 }
             };
+            $scope.removeCartIdInArrays = function (cartId) {
+                if (username) {
+                    var index = idCartsDeleted.indexOf(cartId);
+                    if (index !== -1) {
+                        idCartsDeleted.splice(index, 1);
+                    }
+                    notificationDATA('Hoàn tác thành công', 'success');
+                } else {
+                    notificationDATA('Hãy đăng nhập để thêm sản phẩm', 'error');
+                }
+            };
         }
     }
+
+
 
     // Hàm cập nhật số lượng sản phẩm trong giỏ hàng
     $scope.updateCartItemQuantity = function (cart, index) {
@@ -66,8 +87,6 @@ appClient.controller('cartController', ['$scope', '$http', 'urlCartClient', 'Use
             });
         }
     }
-
-
 
     // CHECK ITEM CARTS
     $scope.check = function () {
@@ -129,6 +148,7 @@ appClient.controller('cartController', ['$scope', '$http', 'urlCartClient', 'Use
         } else {
             notificationDATA('Vui lòng chọn sản phẩm cần thanh toán', 'error');
         }
-
     }
+
+    $scope.initCart();
 }]);

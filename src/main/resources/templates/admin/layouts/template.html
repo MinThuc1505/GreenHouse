@@ -61,7 +61,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 	<!-- Thư viện AngularJS -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.2/angular.min.js"></script>
-	
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-resource.min.js"></script>
 	 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"></script>
 
@@ -268,6 +268,7 @@
                                             <li><a href="compose-category.html">Loại sản phẩm</a></li>
                                             <li><a href="compose-product.html">Sản phẩm</a></li>
                                             <li><a href="compose-discount.html">Giảm giá</a></li>
+                                            <li><a href="compose-importProduct.html">Giảm giá</a></li>
                                         </ul>
                                     </li>
                                     <li><a data-toggle="collapse" data-target="#demodepart" href="#">Thống kê</a>
@@ -315,6 +316,8 @@
                                     <li><a href="/admin/products">Sản phẩm</a>
                                     </li>
                                     <li><a href="/admin/discount">Giảm giá</a>
+                                    </li>
+                                    <li><a href="/admin/importProduct">Kho sản phẩm</a>
                                     </li>
                                 </ul>
                             </div>
@@ -457,6 +460,8 @@
         <script src="js/Controller/reportCategoryController.js"></script>
         <script src="js/Controller/categoryController.js"></script>
         <script src="js/Controller/sizeCtrl.js"></script>
+        <script src="js/Controller/materialCtrl.js"></script>
+        <script src="js/Controller/importProductCtrl.js"></script>
     </th:block>
 </body>
 
