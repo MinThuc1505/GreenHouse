@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 
 <html class="no-js" lang="" xmlns:th="http://www.thymeleaf.org"
-th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
+	th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
+
 <head>
 	<title>Đăng nhập</title>
 </head>
@@ -9,55 +10,80 @@ th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
 
 <!-- CONTENT PAGE START-->
 <section id="layout" ng-controller="singInController">
-  <section class="signin-page account">
-      <div class="container">
-          <div class="row">
-              <div class="col-md-6 col-md-offset-3">
-                  <div class="block text-center">
-                      <a class="logo" href="/client/index">
-                          <img src="images/logo.png" alt="">
-                      </a>
-                      <h2 class="text-center">Đăng Nhập Tại Đây</h2>
+	<section class="signin-page account">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6 col-md-offset-3">
+					<div class="block text-center">
+						<a class="logo" href="/client/index">
+							<img src="images/logo.png" alt="">
+						</a>
+						<h2 class="text-center">Đăng Nhập Tại Đây</h2>
 						<div th:if="${loginMessage}" class="alert alert-danger">
 							<p style="color: rgb(55, 55, 55);" th:text="${loginMessage}"></p>
 						</div>
-						<form class="text-left clearfix" th:object="${account}"
-							th:action="@{/client/login}" method="post">
+						<form class="text-left clearfix" th:object="${account}" th:action="@{/client/login}"
+							method="post">
 							<div class="form-group">
-								<input type="text" class="form-control" path="username" name="username" placeholder="Tài khoản" />
+								<input type="text" class="form-control" path="username" name="username"
+									placeholder="Tài khoản" />
 							</div>
 							<div class="form-group">
-								<input type="password" class="form-control" path="password" name="password" placeholder="Mật khẩu" />
+								<input type="password" class="form-control" path="password" name="password"
+									placeholder="Mật khẩu" />
 							</div>
 							<div class="form-checkbox">
-								<input type="checkbox" id="remember-password" name="remember" value="true"> 
-								<label for="remember-password" class="form-check-label">Nhớ tài khoản ?</label> 
+								<input type="checkbox" id="remember-password" name="remember" value="true">
+								<label for="remember-password" class="form-check-label">Nhớ tài khoản ?</label>
 								<a href="/client/forgot-password" class="forgot-password">Quên mật khẩu</a>
 							</div>
 							<div class="form-group">
-								<div class="g-recaptcha" th:data-sitekey="${@environment.getProperty('recaptcha.key')}"></div>
+								<div class="g-recaptcha" th:data-sitekey="${@environment.getProperty('recaptcha.key')}">
+								</div>
 							</div>
 							<div class="text-center">
 								<button type="submit" class="btn btn-main text-center">Đăng Nhập</button>
 							</div>
 						</form>
 						<div class="social-login">
-                          <p>Hoặc</p>
-                          <div class="social-login-buttons">
+							<p>Hoặc</p>
+							<ul class="social">
+								<li class="social-item">
+									<a class="social-link" th:href="@{/oauth2/authorization/google}">
+										<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+											xmlns="http://www.w3.org/2000/svg">
+											<path
+												d="M6 12C6 15.3137 8.68629 18 12 18C14.6124 18 16.8349 16.3304 17.6586 14H12V10H21.8047V14H21.8C20.8734 18.5645 16.8379 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C15.445 2 18.4831 3.742 20.2815 6.39318L17.0039 8.68815C15.9296 7.06812 14.0895 6 12 6C8.68629 6 6 8.68629 6 12Z"
+												fill="currentColor"></path>
+										</svg>
+									</a>
+								</li>
+								<li class="social-item">
+									<a class="social-link" th:href="@{/oauth2/authorization/facebook}">
+										<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+											xmlns="http://www.w3.org/2000/svg">
+											<path
+												d="M9.19795 21.5H13.198V13.4901H16.8021L17.198 9.50977H13.198V7.5C13.198 6.94772 13.6457 6.5 14.198 6.5H17.198V2.5H14.198C11.4365 2.5 9.19795 4.73858 9.19795 7.5V9.50977H7.19795L6.80206 13.4901H9.19795V21.5Z"
+												fill="currentColor"></path>
+										</svg>
+									</a>
+								</li>
+							</ul>
+							<!-- <div class="social-login-buttons">
                               <a th:href="@{/oauth2/authorization/google}" class="btn btn-google">
                                   <i class='bx bxl-google'></i> <p> Đăng nhập với Google</p>
                               </a>
                                <a th:href="@{/oauth2/authorization/facebook}" class="btn btn-facebook">
                               	  <p> Đăng nhập với facebook</p>
                               </a>
-                          </div>
-                      </div>
-                      <p class="mt-20">Bạn chưa có tài khoản?<a href="/client/signup"> Tạo tài khoản</a></p>
-                  </div>
-              </div>
-          </div>
-      </div>
-  </section>
+                          </div> -->
+						</div>
+						<p class="mt-20">Bạn chưa có tài khoản?<a href="/client/signup"> Tạo tài khoản</a></p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
 </section>
 
 

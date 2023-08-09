@@ -14,7 +14,7 @@ appClient.controller('singUpController', function ($scope, $http, urlSignUpClien
             email: email,
             phone: phone,
             password: password
-          };
+        };
 
         var url = `${host}`;
         $http.post(url, item).then(resp => {
@@ -26,27 +26,27 @@ appClient.controller('singUpController', function ($scope, $http, urlSignUpClien
             window.location.href = 'client/signin';
         }).catch(Error => {
             if (Error.data) {
-                $scope.errorMessages = Error.data; 
-                if (Error.data.AccountExists){
+                $scope.errorMessages = Error.data;
+                if (Error.data.AccountExists) {
                     Swal.fire({
                         icon: 'info',
                         title: 'Thông tin',
                         text: $scope.errorMessages.AccountExists,
                     });
-                }else if (Error.data.emailExists){
+                } else if (Error.data.emailExists) {
                     Swal.fire({
                         icon: 'info',
                         title: 'Thông tin',
                         text: $scope.errorMessages.emailExists,
                     });
-                }else if (Error.data.phoneExists){
+                } else if (Error.data.phoneExists) {
                     Swal.fire({
                         icon: 'info',
                         title: 'Thông tin',
                         text: $scope.errorMessages.phoneExists,
                     });
                 }
-            } 
+            }
         })
     }
 })
