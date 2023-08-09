@@ -32,16 +32,12 @@
 	<!-- Slick Carousel -->
 	<link rel="stylesheet" href="/client/plugins/slick/slick.css">
 	<link rel="stylesheet" href="/client/plugins/slick/slick-theme.css">
-	<!-- Recapcha -->
-	<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 	<!-- Tải script của AngularJS -->
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
 	<!-- Tải script của ngRoute -->
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-route.min.js"></script>
 	<!-- Tải script của ngCookies -->
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-cookies.min.js"></script>
-	<!-- Tải script của URLSearchParams -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.2/angular-resource.min.js"></script>
     <!-- Tải script của ngRoute -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-route.min.js"></script>
     <!-- Tải script của ngCookies -->
@@ -88,7 +84,7 @@
 							<a href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"
 								data-delay="350" role="button" aria-haspopup="true" aria-expanded="false"><i
 									class='bx bxs-user-circle'></i>
-								<span ng-if="cookiesUsername">{{ cookiesUsername }}</span>
+									<span *ngIf="cookiesUsername">{{ cookiesUsername.length > 10 ? cookiesUsername.substr(0, 10) + '...' : cookiesUsername }}</span>
 								<span ng-if="!cookiesUsername" th:text="#{lo.mn.account}"></span>
 								<span class="tf-ion-ios-arrow-down"></span>
 							</a>

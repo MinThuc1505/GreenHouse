@@ -23,7 +23,6 @@ appClient.controller('singUpController', function ($scope, $http, urlSignUpClien
                 title: 'Thành công',
                 text: `Đăng ký thành công.`,
             });
-            window.location.href = 'client/signin';
         }).catch(Error => {
             if (Error.data) {
                 $scope.errorMessages = Error.data;

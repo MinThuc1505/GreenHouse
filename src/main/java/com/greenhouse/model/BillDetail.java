@@ -8,7 +8,7 @@ import lombok.Data;
 @Entity
 @Table(name = "Bill_Detail")
 @Data
-public class Bill_Detail implements Serializable{
+public class BillDetail implements Serializable{
 	/**
 	 * 
 	 */

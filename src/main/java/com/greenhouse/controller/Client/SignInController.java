@@ -20,8 +20,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.greenhouse.DAO.AccountDAO;
 import com.greenhouse.model.Account;
-import com.greenhouse.model.Message;
 import com.greenhouse.service.CookieService;
+import com.greenhouse.service.SessionService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -29,6 +29,9 @@ import jakarta.servlet.http.HttpServletResponse;
 public class SignInController {
 	@Autowired
 	private CookieService cookieService;
+	@Autowired 
+	private SessionService sessionService;
+
 	@Autowired
 	private AccountDAO accountDAO;
 
@@ -52,7 +55,7 @@ public class SignInController {
 			String username = userDetails.getUsername();
 			
 			Account account = accountDAO.findById(username).get();
-			
+
 			cookieService.setCookie(response, "username", account.getUsername().replaceAll("\\s", ""), 3600);
 			System.out.println("Đăng nhập LOCAL thành công");
 			return "redirect:/client/index";

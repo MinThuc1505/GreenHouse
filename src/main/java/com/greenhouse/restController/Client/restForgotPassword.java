@@ -41,6 +41,7 @@ public class restForgotPassword {
             if (email != null) {
                 // Gửi mail kích hoạt tài khoản
                 Account acc = accountDAO.findByEmail(email);
+                System.out.println(acc);
                 if (acc != null) {
                     String activationToken = tokenService.generateTokenByUsername(acc.getUsername());
                     String activationLink = generateActivationLink(request, activationToken);
@@ -56,6 +57,7 @@ public class restForgotPassword {
                 message = "Hãy nhập email cần đặt lại mật khẩu!";
             }
         } catch (Exception e) {
+            e.printStackTrace();
         }
         responseData.put("status", status);
         responseData.put("message", message);

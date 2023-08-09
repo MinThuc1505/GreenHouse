@@ -33,15 +33,9 @@
 						<div class="row">
 							<div class="col position-relative">
 								<label for="profile-image-input" class="profile-image-label">
-									<img id="profile-image-preview" src="{{ profileImageURL }}" alt="Profile image">
+									<img id="profile-image-preview" src="" alt="Profile image">
 								</label>
-								<input type="file" id="profile-image-input" name="image" class="form-control"
-       							accept="image/*" multiple style="width: 70%;">
-							</div>
-							<div class="row mt-3">
-								<div class="col">
-									<p>{{ accountData.fullName }}</p>
-								</div>
+								<input type="file" id="profile-image-input" name="image" class="form-control" accept="image/*" multiple style="width: 70%;">
 							</div>
 						</div>
 					</div>
@@ -75,7 +69,7 @@
 						</div>
 					</div>
 				</form>
-				<h3>Bảng Điều Khiển</h3>
+				<!-- <h3>Bảng Điều Khiển</h3>
 				<div class="dashboard-wrapper user-dashboard">
 					<div class="table-responsive">
 						<table class="table">
@@ -89,19 +83,36 @@
 								</tr>
 							</thead>
 							<tbody>
-								<!-- <tr th:each="item: ${listBill}">
+								<tr th:each="item: ${listBill}">
 								<td th:text="${item[0]}"></td>
 								<td th:text="${item[1]}"></td>
 								<td th:text="${item[2]}"></td>
 								<td th:text="${#numbers.formatDecimal(item[3], 0, 'COMMA', 0, 'POINT')}"></td>
 								<td><a href="#" class="btn btn-default">View</a></td>
-							</tr> -->
+							</tr>
 							</tbody>
 						</table>
 					</div>
-				</div>
+				</div> -->
 			</div>
 		</div>
+		<script>
+			const imageInput = document.getElementById('profile-image-input');
+			const imagePreview = document.getElementById('profile-image-preview');
+	
+			imageInput.addEventListener('change', function() {
+				const file = imageInput.files[0]; // Assuming you're selecting only one image
+				if (file) {
+					const reader = new FileReader();
+					reader.onload = function(event) {
+						imagePreview.src = event.target.result;
+					};
+					reader.readAsDataURL(file);
+				} else {
+					imagePreview.src = ''; // Clear the preview if no image is selected
+				}
+			});
+		</script>
 	</section>
 </th:block>
 

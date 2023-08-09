@@ -2,8 +2,8 @@ package com.greenhouse.DAO;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.greenhouse.model.Bill_Detail;
+import com.greenhouse.model.BillDetail;
 
-public interface BillDetailDAO extends JpaRepository<Bill_Detail, Integer> {
+public interface BillDetailDAO extends JpaRepository<BillDetail, Integer> {
     
 }
