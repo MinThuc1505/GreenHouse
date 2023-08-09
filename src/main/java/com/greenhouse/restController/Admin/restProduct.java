@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.BeanUtils;
@@ -29,8 +30,10 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
+import com.greenhouse.DAO.PriceHistoryDAO;
 import com.greenhouse.DAO.ProductDAO;
 import com.greenhouse.DTO.ProductDTO;
+import com.greenhouse.model.PriceHistory;
 import com.greenhouse.model.Product;
 
 @RestController
@@ -42,6 +45,8 @@ public class restProduct {
 
     @Autowired
     ProductDAO productDAO;
+    @Autowired
+    PriceHistoryDAO priceHistoryDAO;
 
     @GetMapping
     private ResponseEntity<List<ProductDTO>> getAllProducts() {
@@ -116,6 +121,14 @@ public class restProduct {
         if (productDTO.getId() == null) {
             return ResponseEntity.badRequest().build();
         }
+    // Tìm sản phẩm cần cập nhật
+    Product existingProduct = productDAO.findById(id).orElse(null);
+    if (existingProduct == null) {
+        return ResponseEntity.notFound().build();
+    }
+
+    // Lưu giá cũ của sản phẩm trước khi cập nhật
+    Double oldProductPrice = existingProduct.getPrice();
 
         // Chuyển đổi từ DTO sang Entity để cập nhật vào cơ sở dữ liệu
         Product product = new Product();
@@ -135,6 +148,15 @@ public class restProduct {
 
         product.setId(id); // Đảm bảo cập nhật cho sản phẩm với id đã cho
         Product updatedProduct = productDAO.save(product);
+        // Kiểm tra nếu giá đã thay đổi thì lưu lịch sử giá
+    if (!oldProductPrice.equals(updatedProduct.getPrice())) {
+        // Tạo và lưu lịch sử giá với giá trị cũ của sản phẩm trước khi cập nhật
+    PriceHistory priceHistory = new PriceHistory();
+    priceHistory.setProduct(updatedProduct);
+    priceHistory.setPrice(oldProductPrice);  // Sử dụng giá cũ của sản phẩm
+    priceHistory.setChangeDate(new Date());
+    priceHistoryDAO.save(priceHistory);  // Gọi phương thức lưu của PriceHistoryDAO
+    }
 
         // Chuyển đổi từ Entity sang DTO để trả về kết quả
         ProductDTO updatedProductDTO = new ProductDTO();
@@ -144,11 +166,20 @@ public class restProduct {
     }
 
     @DeleteMapping(value = "/{id}")
-    private ResponseEntity<Void> delete(@PathVariable("id") Integer id) {
-        if (!productDAO.existsById(id)) {
-            return ResponseEntity.notFound().build();
-        }
-        productDAO.deleteById(id);
-        return ResponseEntity.ok().build();
+private ResponseEntity<Void> delete(@PathVariable("id") Integer id) {
+    if (!productDAO.existsById(id)) {
+        return ResponseEntity.notFound().build();
     }
+
+    // Xóa lịch sử giá liên quan đến sản phẩm
+    Product productToDelete = productDAO.findById(id).orElse(null);
+    if (productToDelete != null) {
+        priceHistoryDAO.deleteByProduct(productToDelete);
+    }
+
+    // Xóa sản phẩm chính
+    productDAO.deleteById(id);
+    return ResponseEntity.ok().build();
+}
+
 }
