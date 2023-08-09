@@ -14,7 +14,7 @@ public class GreenHouseApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(GreenHouseApplication.class, args);
 	}
-	  @Bean
+	@Bean
     public RestTemplate restTemplate(RestTemplateBuilder builder) {
         return builder.build();
     }

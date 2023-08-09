@@ -5,16 +5,16 @@ th:replace="~{admin/main-layout.html :: layout (~{::title}, ~{::#layout})}">
 	<title>Quản lý loại sản phẩm</title>
 </head>
 <body>
-	<section id="layout">
+	<section id="layout" ng-controller="categoryController">
 		<div class="wizard-area">
 			<div class="container">
 				<div class="row header-filter-product header-action-product">
 					<div class="filter-search col-md-6">
 						<div class="input-group">
 							<input type="text" class="form-control"
-								placeholder="Tìm kiếm nhiều loại sản phẩm..."> <span
+								placeholder="Tìm kiếm tên loại sản phẩm..." ng-model="searchTerm"> <span
 								class="input-group-btn">
-								<button class="btn btn-default" type="button">
+								<button class="btn btn-default" type="button" ng-click="searchData()">
 									<span class="glyphicon glyphicon-search"></span>
 								</button>
 							</span>
@@ -36,42 +36,36 @@ th:replace="~{admin/main-layout.html :: layout (~{::title}, ~{::#layout})}">
 									<th>Tên thể loại</th>
 								</tr>
 							</thead>
-							<tbody>
-								<tr data-toggle="collapse" data-target="#product1"
-									class="tr-title-product">
-									<td class="text-center">1</td>
-									<td>john_doe</td>
-									<td>John Doe</td>
+							<tbody ng-repeat="item in items">
+								 <tr data-toggle="collapse" data-target="#{{$index + 1}}" class="tr-title-product" ng-click="Edit(item.id)">
+									<td class="text-center">{{$index + 1}}</td>
+									<td>{{item.id}}</td>
+									<td>{{item.name}}</td>
 								</tr>
-								<tr id="product1" class="collapse">
+								<tr id="{{$index + 1}}" class="collapse">
 									<td colspan="12" class="product-info border-1">
 										<h4>Thông tin loại sản phẩm</h4>
 										<form>
 											<div class="row">
 												<div class="col-md-6">
 													<div class="form-group mt-3">
-														<label for="username" class="fw-bold">Mã loại</label> <input type="text"
-															class="form-control border-bottom" id="username">
+														<label for="id" class="fw-bold">Mã loại</label> 
+														<input type="text" class="form-control border-bottom"
+																id="id" ng-model="form.id" required>
 													</div>
 												</div>
 												<div class="col-md-6">
 													<div class="form-group mt-3">
-														<label for="fullname" class="fw-bold">Tên thể loại</label> <input
-															type="text" class="form-control border-bottom"
-															id="fullname">
+														<label for="fullname" class="fw-bold">Tên thể loại</label> 
+														<input type="text" class="form-control border-bottom"
+																id="name" ng-model="form.name" required>
 													</div>
 												</div>
 												<div class="col-md-12 text-right mt-5">
 													<div class="btn-group ib-btn-gp active-hook nk-email-inbox">
 
-														<button
-															class="btn btn-primary notika-btn-primary waves-effect">
-															<i class="fa fa-save"></i> Lưu
-														</button>
-														<button
-															class="btn btn-danger notika-btn-danger waves-effect">
-															<i class="fa fa-trash"></i> Xóa
-														</button>
+														<button class="btn btn-primary notika-btn-primary waves-effect" ng-click="Update(item.id)"><i class="fa fa-save"></i> Lưu</button>
+						                                <button class="btn btn-danger notika-btn-danger waves-effect" ng-click="Delete(item.id)"><i class="fa fa-trash"></i> Xóa</button>
 													</div>
 												</div>
 											</div>
@@ -103,13 +97,13 @@ th:replace="~{admin/main-layout.html :: layout (~{::title}, ~{::#layout})}">
 								<div class="col-md-6">
 									<div class="form-group mt-3">
 										<label for="categoryCode" class="fw-bold">Mã loại</label>
-										<input type="text" class="form-control border-bottom" id="categoryCode">
+										<input type="text" class="form-control border-bottom" id="id" ng-model="form.id" name="id" placeholder="Nhập mã loại sản phẩm" required>
 									</div>
 								</div>
 								<div class="col-md-6">
 									<div class="form-group mt-3">
 										<label for="categoryName" class="fw-bold">Tên thể loại</label>
-										<input type="text" class="form-control border-bottom" id="categoryName">
+										<input type="text" class="form-control border-bottom" id="name" ng-model="form.name" name="name" placeholder="Nhập tên loại sản phẩm" required>
 									</div>
 								</div>
 							</div>
@@ -118,8 +112,8 @@ th:replace="~{admin/main-layout.html :: layout (~{::title}, ~{::#layout})}">
 	
 					<!-- Modal footer -->
 					<div class="modal-footer">
-						<button type="button" class="btn btn-primary "><i class="fa fa-save"></i> Thêm</button>
-						<button type="button" class="btn btn-info"><i class="fa fa-rotate-right"></i> Làm mới</button>
+						<button type="button" class="btn btn-primary" ng-click="Create()" ng-disabled="myForm.$invalid"><i class="fa fa-save"></i> Lưu</button>
+		                <button type="button" class="btn btn-info" data-dismiss="modal"><i class="fa fa-times"></i> Hủy</button>
 					</div>
 				</div>
 			</div>

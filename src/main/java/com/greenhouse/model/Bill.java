@@ -1,4 +1,5 @@
 package com.greenhouse.model;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -9,13 +10,13 @@ import lombok.ToString;
 @Entity
 @Table(name = "Bills")
 @Data
-public class Bill implements Serializable{
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+public class Bill implements Serializable {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
 
-	@Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id")
     private Long id;
@@ -30,23 +31,26 @@ public class Bill implements Serializable{
     private Date createDate;
 
     @Column(name = "Amount")
-    private Double amount;
+    private Long amount;
 
-    @Column(name = "Discount_Code")
+    @Column(name = "BankCode")
+    private String bankCode;
+
+    @Column(name = "DiscountCode")
     private String discountCode;
 
-    @Column(name = "Discount_Percent")
+    @Column(name = "DiscountPercent")
     private Double discountPercent;
 
-    @Column(name = "New_Amount")
-    private Double newAmount;
+    @Column(name = "NewAmount")
+    private Long newAmount;
 
-    @Column(name = "Payment_Method")
+    @Column(name = "PaymentMethod")
     private String paymentMethod;
 
     @Column(name = "Receiver_Address")
     private String receiverAddress;
 
     @Column(name = "Status")
-    private Boolean status;
+    private int status;
 }

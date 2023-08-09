@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.greenhouse.DAO.ProviderDAO;
-import com.greenhouse.model.Account;
 import com.greenhouse.model.Provider;
 
 @RestController
@@ -22,6 +22,11 @@ import com.greenhouse.model.Provider;
 public class restProvider {
     @Autowired
     ProviderDAO providerDAO;
+
+    @Autowired
+    public restProvider(ProviderDAO providerDAO) {
+        this.providerDAO = providerDAO;
+    }
 
     @GetMapping
     private ResponseEntity<List<Provider>> getAllProvider() {
@@ -63,4 +68,15 @@ public class restProvider {
         providerDAO.deleteById(id);
         return ResponseEntity.ok().build();
     } 
+
+    @GetMapping(value = "/search")
+    public ResponseEntity<Provider> searchData(@RequestParam("name") String name) {
+        Provider searchResult = providerDAO.findByName(name);
+
+        if (searchResult == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok(searchResult);
+    }
 }

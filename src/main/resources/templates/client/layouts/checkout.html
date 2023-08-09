@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html class="no-js" lang="" xmlns:th="http://www.thymeleaf.org"
-th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
+	th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
+
 <head>
 	<title>Thanh toán</title>
 </head>
 
 <!-- CONTENT PAGE START-->
-<th:block id="content">
+<section id="layout">
 	<section class="page-header">
 		<div class="container">
 			<div class="row">
@@ -23,44 +24,86 @@ th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
 		</div>
 	</section>
 	<div class="page-wrapper">
-		<div class="checkout shopping">
+		<div class="checkout shopping" ng-controller="checkoutController">
 			<div class="container">
 				<div class="row">
-					<div class="col-md-7">
+					<div class="col-md-12">
 						<div class="block billing-details">
-							<h4 class="widget-title">Thông tin người mua</h4>
+							<h4 class="widget-title">Thông tin nhận hàng</h4>
 							<form class="checkout-form">
-								<input type="hidden" id="idAccount" name="idAccount" th:value="${account.id}">
 								<div class="form-group">
-									<label for="full_name">Họ và tên</label>
-									<input type="text" class="form-control" id="full_name" placeholder=""
-										th:value="${account.fullname}">
-								</div>
-								<!-- Sử dụng các giá trị tương ứng của đối tượng account để hiển thị giá trị của các trường dữ liệu kiểu text -->
-								<div class="form-group">
-									<label for="email">Email</label>
-									<input type="text" class="form-control" id="email" placeholder=""
-										th:value="${account.email}">
-								</div>
-								<div class="form-group">
-									<label for="phone">Số điện thoại</label>
-									<input type="text" class="form-control" id="phone" placeholder=""
-										th:value="${account.phone}">
-								</div>
-								<div class="form-group">
-									<label for="user_address">Địa chỉ</label>
-									<input type="text" class="form-control" id="user_address" placeholder=""
-										th:value="${account.address}">
+									<label for="address">Địa chỉ nhận hàng |</label>
+									<input type="text" class="form-control" id="address" ng-model="receiverAddress">
 								</div>
 							</form>
+							<div class="product-checkout-details">
+								<!-- Danh sách sản phẩm được chọn mua -->
+								<div class="block">
+									<h4 class="widget-title">Sản phẩm mua</h4>
+									<div class="table-responsive">
+										<table class="table table-striped">
+											<thead>
+												<tr>
+													<th>STT</th>
+													<th>Tên sản phẩm</th>
+													<th>Số lượng</th>
+													<th>Giá</th>
+													<th>Tổng</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr ng-repeat="cart in carts track by $index">
+													<input name="cartId" type="hidden" ng-value="cart[0][0]">
+													<td>{{$index + 1}}</td>
+													<td class="row">
+														<div class="col-md-3">
+															<img class="img-fluid media-object"
+																ng-src="{{ '/images/' + cart[0][1] }}" alt="Image" />
+														</div>
+														<div class="col-md-9 product-name">
+															{{ cart[0][2] }}
+														</div>
+													</td>
+													<td>{{ cart[0][4] }}</td>
+													<td>{{ cart[0][3] | number: 0 }} VND</td>
+													<td>{{ cart[0][5] | number: 0}} VND</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+								<div class="discount-code">
+									<div class="input-group">
+										<input type="text" class="input" id="discountCode" name="discountCode"
+											ng-model="discountCode" placeholder="Mã giảm giá" autocomplete="off">
+										<input class="button--submit" value="Áp dụng" type="submit"
+											ng-click="applyDiscount()">
+									</div>
+								</div>
+								<div class="summary-total">
+									<span>Tổng tiền đơn hàng:</span>
+									<div class="total">
+										<span class="total-amount" ng-class="{'old-price': isAppliedDiscountCode}">
+											{{ totalAmount | number: 0 }} VND
+										</span>
+										<span ng-show="isAppliedDiscountCode" class="new-total-amount">{{ newTotalAmount
+											|
+											number: 0 }} VND</span>
+									</div>
+								</div>
 
+								<div class="verified-icon">
+									<img src="images/shop/verified.png">
+								</div>
+							</div>
 						</div>
 						<div class="block">
 							<h4 class="widget-title">Phương thức thanh toán</h4>
 							<div class="payment-method">
 								<div class="radio-tile-group">
 									<div class="input-container">
-										<input id="cod" class="radio-button" type="radio" name="radio" value="COD">
+										<input id="cod" class="radio-button" type="radio" name="radio" value="COD"
+											ng-click="toggleCOD()">
 										<div class="radio-tile">
 											<div class="icon cod-icon">
 												<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -74,9 +117,9 @@ th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
 											<label for="cod" class="radio-tile-label">COD</label>
 										</div>
 									</div>
-
 									<div class="input-container">
-										<input id="VNPay" class="radio-button" type="radio" name="radio" value="VNPay">
+										<input id="VNPay" class="radio-button" type="radio" name="radio" value="VNPay"
+											ng-click="toggleVNPay()">
 										<div class="radio-tile">
 											<div class="icon bank-icon">
 												<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -91,7 +134,7 @@ th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
 										</div>
 									</div>
 								</div>
-								<div class="sub-bank" id="sub-bank">
+								<div id="sub-bank" class="sub-bank" ng-show="isVNPay">
 									<div class="wrapper">
 										<div class="card">
 											<input class="input" type="radio" name="card" value="NCB">
@@ -161,52 +204,11 @@ th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
 										</div>
 									</div>
 								</div>
-								<div id="order-button">
-									<label class="total"
-										th:text="'Tổng: '+${#numbers.formatDecimal(total, 0, 'COMMA', 0, 'POINT')}+ ' VND'"></label>
-									<input type="hidden" id="totalAmount" name="totalAmount" th:value="${total}">
-									<button type="button" class="btn btn-primary" th:onclick="payment()">Đặt
-										hàng</button>
-								</div>
 							</div>
-						</div>
-					</div>
-					<div class="col-md-5">
-						<div class="product-checkout-details">
-							<div class="block">
-								<h4 class="widget-title">Sản phẩm mua</h4>
-								<div class="card-box">
-									<th:block th:each="cart, iStat : ${carts}">
-										<div class="media product-card">
-											<input type="hidden" th:value="${cart[0][0]}">
-											<a class="pull-left">
-												<img class="media-object" th:src="${'/images/'+cart[0][1]}"
-													alt="Image" />
-											</a>
-											<div class="media-body">
-												<h4 class="media-heading"><a th:text="${cart[0][2]}"></a>
-												</h4>
-												<p class="quantity" th:text="'SL: '+${cart[0][4]}"></p>
-												<p class="price"
-													th:text="'Giá: '+${#numbers.formatDecimal(cart[0][3], 0, 'COMMA', 0, 'POINT')} + ' VND'">
-												</p>
-												<p class="total"
-													th:text="'Tổng: '+${#numbers.formatDecimal(cart[0][4] * cart[0][3], 0, 'COMMA', 0, 'POINT')}+ ' VND'">
-												</p>
-											</div>
-										</div>
-										<hr>
-									</th:block>
-								</div>
-								<hr>
-								<div class="summary-total">
-									<span>Tổng tiền đơn hàng:</span>
-									<span class="total"
-										th:text="${#numbers.formatDecimal(total, 0, 'COMMA', 0, 'POINT')}+ ' VND'"></span>
-								</div>
-								<div class="verified-icon">
-									<img src="images/shop/verified.png">
-								</div>
+							<div id="order-button" ng-show="isCOD || isVNPay">
+								<label class="total">{{ 'Tổng: ' + total | number: 0 + ' VND' }}</label>
+								<input type="hidden" id="totalAmount" name="totalAmount" ng-value="total">
+								<button type="button" class="btn btn-primary" ng-click="payment()">Đặt hàng</button>
 							</div>
 						</div>
 					</div>
@@ -214,66 +216,7 @@ th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
 			</div>
 		</div>
 	</div>
-	<script>
-		function payment() {
-			var orderType = document.querySelector('input[name="radio"]:checked').value;
-			var codeBank = "";
-			if (orderType == 'VNPay') {
-				var codeBank = document.querySelector('input[name="card"]:checked').value;
-			}
-			var checkedIDs = [];
-			var checkboxes = document.querySelectorAll('.card-box input[type="hidden"]');
-
-			checkboxes.forEach(function (checkbox) {
-				checkedIDs.push(checkbox.value);
-			});
-			var checkedIDsStr = checkedIDs.join(',');
-
-			var totalAmount = document.querySelector('input[name="totalAmount"]').value;
-			var idAccount = document.querySelector('#idAccount').value;
-			var url = "/client/payment/create-payment";
-			var data = { orderType: orderType, totalAmount: totalAmount, checkedIDs: checkedIDsStr, codeBank: codeBank };
-
-			// Gửi yêu cầu Ajax tới controller
-			$.ajax({
-				url: url,
-				method: "POST",
-				data: data,
-				success: function (response) {
-					window.location.href = response.data;
-				},
-				error: function (jqXHR, textStatus, errorThrown) {
-					// Xử lý lỗi (nếu có)
-				}
-			});
-		}
-
-		var codRadioButton = document.getElementById("cod");
-		var vnPayRadioButton = document.getElementById("VNPay");
-
-		var orderButton = document.getElementById("order-button");
-		var subBank = document.getElementById("sub-bank");
-
-		codRadioButton.addEventListener("change", function () {
-			if (this.checked) {
-				orderButton.style.display = "flex";
-				subBank.style.display = "none";
-			} else {
-				orderButton.style.display = "none";
-			}
-		});
-
-		vnPayRadioButton.addEventListener("change", function () {
-			if (this.checked) {
-				orderButton.style.display = "flex";
-				subBank.style.display = "flex";
-			} else {
-				orderButton.style.display = "none";
-				subBank.style.display = "none";
-			}
-		});
-	</script>
-</th:block>
+</section>
 <!-- CONTENT PAGE END-->
 
 </html>

@@ -39,5 +39,5 @@ public class Discount implements Serializable{
     private Date endDate;
 
     @Column(name = "Status")
-    private String status;
+    private Boolean status;
 }

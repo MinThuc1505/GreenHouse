@@ -1,9 +1,10 @@
-appClient.controller('shopController', function ($scope, $http, urlShopClient) {
+appClient.controller('shopController', function ($scope, $http, urlShopClient, $cookies) {
     let host = urlShopClient;
 
 
     // Function Init
     $scope.init = function () {
+        $scope.sessionUsername = $cookies.get('username');
         var data = localStorage.getItem('category');
 
         if (data) {
@@ -31,6 +32,7 @@ appClient.controller('shopController', function ($scope, $http, urlShopClient) {
         })
     }
 
+    // Function submit filter
     $scope.submitFilter = function () {
         var selectedPrice = $scope.selectedPrice;
         var selectedCategory = $scope.selectedCategory;
@@ -55,6 +57,7 @@ appClient.controller('shopController', function ($scope, $http, urlShopClient) {
         }
     };
 
+    // Function show detail product selected
     $scope.showProductDetails = function(product) {
         $scope.selectedProduct = product; // Set selected product data
         $('#product-modal').modal('show'); // Show the modal

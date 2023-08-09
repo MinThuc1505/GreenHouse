@@ -1,5 +1,7 @@
 package com.greenhouse.service;
 
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,16 +40,19 @@ public class CookieService {
         return cookie;
     }
 
-    public void remove(String name) {
+    public void remove(String name, HttpServletResponse response) {
         Cookie cookie = get(name);
         if (cookie != null) {
             cookie.setMaxAge(0);
+            cookie.setPath("/");
             response.addCookie(cookie);
         }
     }
-    public static void setCookie(HttpServletResponse response, String name, String value, int maxAge) {
-        Cookie cookie = new Cookie(name, value);
+
+    public static void setCookie(HttpServletResponse response, String key, String value, int maxAge) {
+        Cookie cookie = new Cookie(key, value);
         cookie.setMaxAge(maxAge);
+        cookie.setPath("/");
         response.addCookie(cookie);
     }
 

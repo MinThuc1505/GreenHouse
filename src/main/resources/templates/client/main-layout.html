@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html class="no-js" lang="" xmlns:th="http://www.thymeleaf.org"
-th:fragment="layout(title, layout)">
+<html class="no-js" lang="" xmlns:th="http://www.thymeleaf.org" th:fragment="layout(title, layout)">
 <!-- HEAD START -->
 <th:block th:replace="~{client/layouts/template.html :: head (${title})}"></th:block>
 <!-- HEAD END -->
 
-<body ng-app="appClient">
+<body ng-app="appClient" ng-controller="bodyController">
+  <div ng-show="loading" class="loader">
+    <div loader="loading"></div>
+  </div>
+
   <div id="notification-container"></div>
-
-  <div class="notification" th:data-type="${typeMessage}" th:text="${message}"></div>
-
 
   <!-- TOP HEADER BAR START -->
   <th:block th:replace="~{client/layouts/template.html :: top-header-bar}"></th:block>

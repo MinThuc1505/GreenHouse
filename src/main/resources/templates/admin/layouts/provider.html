@@ -11,9 +11,9 @@ th:replace="~{admin/main-layout.html :: layout (~{::title}, ~{::#layout})}">
 				<div class="row header-filter-product header-action-product">
 					<div class="filter-search col-md-6">
 						<div class="input-group">
-							<input type="text" class="form-control" placeholder="Tìm kiếm nhà cung cấp...">
+							<input type="text" class="form-control" placeholder="Tìm kiếm tên nhà cung cấp..." ng-model="searchTerm">
 							<span class="input-group-btn">
-								<button class="btn btn-default" type="button"><span
+								<button class="btn btn-default" type="button" ng-click="searchData()"><span
 										class="glyphicon glyphicon-search"></span></button>
 							</span>
 						</div>
