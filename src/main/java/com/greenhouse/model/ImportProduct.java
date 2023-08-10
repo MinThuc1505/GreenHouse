@@ -43,5 +43,5 @@ public class ImportProduct implements Serializable{
     @Column(name = "Createdate")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createDate;
-    
+
 }

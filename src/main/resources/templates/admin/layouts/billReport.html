@@ -30,20 +30,19 @@
                                         </tr>
                                     </thead>
                                     <!-- ... -->
-                                    <tbody ng-repeat="item in items">
-                                        <tr data-toggle="collapse" data-target="#{{$index + 1}}"
-                                            class="tr-title-product">
+                                    <tbody>
+                                        <tr ng-repeat="item in items" data-toggle="collapse" data-target="#{{$index + 1}}" class="tr-title-product">
                                             <td class="text-center">{{$index + 1}}</td>
                                             <td>{{item.account.fullName}}</td>
                                             <td>{{item.amount}}</td>
-                                            <td>{{item.discountPercent|| 0}}</td>
+                                            <td>{{item.discountPercent || 0}}</td>
                                             <td>{{item.newAmount}}</td>
-                                            <td>{{item.createDate}}</td>
+                                            <td>{{formatDate(item.createDate)}}</td> <!-- Sử dụng hàm formatDate -->
                                             <td>
-                                                <button class="btn btn-info">In hóa đơn</button>
+                                                <button class="btn btn-info" ng-click="downloadInvoice(item)">In hóa đơn</button> <!-- Gọi hàm downloadInvoice khi nhấn nút -->
                                             </td>
                                         </tr>
-                                    </tbody>
+                                    </tbody>                                    
                                     <!-- ... -->
                                 </table>
                             </div>

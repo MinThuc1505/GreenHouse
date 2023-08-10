@@ -11,9 +11,9 @@ th:replace="~{admin/main-layout.html :: layout (~{::title}, ~{::#layout})}">
 				<div class="row header-filter-product header-action-product">
 					<div class="filter-search col-md-6">
 						<div class="input-group">
-							<input type="text" class="form-control" placeholder="Tìm kiếm nhà cung cấp...">
+							<input type="text" class="form-control" placeholder="Tìm kiếm tên nhà cung cấp..." ng-model="searchTerm">
 							<span class="input-group-btn">
-								<button class="btn btn-default" type="button"><span
+								<button class="btn btn-default" type="button" ng-click="searchData()"><span
 										class="glyphicon glyphicon-search"></span></button>
 							</span>
 						</div>
@@ -119,23 +119,32 @@ th:replace="~{admin/main-layout.html :: layout (~{::title}, ~{::#layout})}">
 		                    <div class="form-group">
 		                        <label for="name" class="fw-bold">Tên Nhà Cung Cấp</label>
 		                        <input type="text" class="form-control border-bottom" id="name" ng-model="form.name" name="name" placeholder="Nhập tên nhà cung cấp" required>
-		                    </div>
+								<small class="text-danger">{{ errorMessages.name }}</small>
+		                    
+							</div>
 		                    <div class="form-group">
 		                        <label for="address" class="fw-bold">Địa Chỉ</label>
 		                        <input type="text" class="form-control border-bottom" id="address" placeholder="Nhập địa chỉ" ng-model="form.address" name="address" required>
-		                    </div>
+								<small class="text-danger">{{ errorMessages.address }}</small>
+		                    
+							</div>
 		                    <div class="form-group">
 		                        <label for="email" class="fw-bold">Email</label>
 		                        <input type="email" class="form-control border-bottom" id="email"  placeholder="Nhập email" ng-model="form.email" name="email" required>
+								<small class="text-danger">{{ errorMessages.email }}</small>
+
 		                    </div>
 		                    <div class="form-group">
 		                        <label for="phone" class="fw-bold">Số Điện Thoại</label>
 		                        <input type="tel" class="form-control border-bottom" id="phone" placeholder="Nhập số điện thoại" ng-model="form.phone" name="phone" required>
+								<small class="text-danger">{{ errorMessages.phone }}</small>
+
 		                    </div>
 		                    <div class="form-group">
 		                        <label for="description" class="fw-bold">Mô Tả</label>
 		                        <textarea class="form-control border-bottom" rows="3.5" id="description" placeholder="Nhập mô tả" ng-model="form.description" name="description" required></textarea>
 		                    </div>
+
 		                </form>
 		            </div>
 		

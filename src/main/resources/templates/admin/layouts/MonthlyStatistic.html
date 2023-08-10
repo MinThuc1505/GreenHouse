@@ -1,17 +1,20 @@
 <!doctype html>
 <html class="no-js" lang="" xmlns:th="http://www.thymeleaf.org"
-	th:replace="~{admin/main-layout.html :: layout (~{::title}, ~{::#layout})}">
+    th:replace="~{admin/main-layout.html :: layout (~{::title}, ~{::#layout})}">
+
 <head>
-	<title>Thống kê</title>
+    <title>Thống kê</title>
+
 </head>
+
 <body>
     <section id="layout" ng-controller="reportStaticController">
         <div class="wizard-area">
             <div class="container">
                 <div class="row">
                     <div class="bar-chart-wp">
-                        <canvas height="140vh" width="180vw" id="barchart1"></canvas>
-                    </div>
+                        <canvas height="20vh" width="40vw" id="barStatic"></canvas>
+                    </div>                    
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         <div class="normal-table-list mg-t-30">
                             <div class="basic-tb-hd">
@@ -22,8 +25,8 @@
                                     <div class="form-group">
                                         <label for="thoiGianBatDau">Thời gian bắt đầu:</label>
                                         <div class="input-group">
-                                            <input type="date" id="thoiGianBatDau" class="form-control"
-                                                placeholder="Thời gian bắt đầu">
+                                            <input type="date" ng-model="form.startDate" class="form-control"
+                                                id="thoiGianBatDau" placeholder="Thời gian bắt đầu">
                                         </div>
                                     </div>
                                 </div>
@@ -31,51 +34,39 @@
                                     <div class="form-group">
                                         <label for="thoiGianKetThuc">Thời gian kết thúc:</label>
                                         <div class="input-group">
-                                            <input type="date" id="thoiGianKetThuc" class="form-control"
-                                                placeholder="Thời gian kết thúc">
+                                            <input type="date" ng-model="form.endDate" class="form-control"
+                                                id="thoiGianKetThuc" placeholder="Thời gian kết thúc">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-lg-2 d-flex justify-content-between">
                                     <div class="input-group">
                                         <br>
-                                        <button class="btn btn-primary" type="button">Tìm kiếm</button>
+                                        <button class="btn btn-primary" type="button" ng-click="searchData()">Tìm
+                                            kiếm</button>
                                     </div>
                                 </div>
                             </div>
-
                             <div class="bsc-tbl-hvr">
-                                <table class="table table-hover">
+                                <!-- <h2>Thống kê doanh thu</h2> -->
+                                <table class="table table-striped">
                                     <thead>
-                                        <tr>
-                                            <th>#</th>
+                                        <tr class="table-bordered custom-border tr-thead">
+                                            <th class="text-center">#</th>
                                             <th>Ngày giao dịch</th>
-                                            <th>Sản phẩm</th>
-                                            <th>Số lượng</th>
-                                            <th>Giá bán</th>
-                                            <th>Tổng tiền</th>
+                                            <th>Tổng số hóa đơn</th>
+                                            <th>Tổng doanh thu</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>2023-07-14</td>
-                                            <td>Sản phẩm A</td>
-                                            <td>5</td>
-                                            <td>100</td>
-                                            <td>500</td>
+                                        <tr ng-repeat="item in items">
+                                            <td class="text-center">{{$index + 1}}</td>
+                                            <td>{{item[2] + '-' + item[1] + '-' + item[0]}}</td>
+                                            <td>{{item[3]}}</td>
+                                            <td>{{item[4]}}</td>
                                         </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>2023-07-15</td>
-                                            <td>Sản phẩm B</td>
-                                            <td>3</td>
-                                            <td>150</td>
-                                            <td>450</td>
-                                        </tr>
-
                                     </tbody>
-                                </table>
+                              </table>
                             </div>
                         </div>
                     </div>
@@ -84,6 +75,6 @@
             </div>
         </div>
     </section>
-</body>
 
+</body>
 </html>

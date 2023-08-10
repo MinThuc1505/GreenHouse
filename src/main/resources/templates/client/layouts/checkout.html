@@ -27,18 +27,75 @@
 		<div class="checkout shopping" ng-controller="checkoutController">
 			<div class="container">
 				<div class="row">
-					<div class="col-md-7">
+					<div class="col-md-12">
 						<div class="block billing-details">
-							<h4 class="widget-title">Thông tin người mua</h4>
+							<h4 class="widget-title">Thông tin nhận hàng</h4>
 							<form class="checkout-form">
-								<input type="hidden" id="idAccount" name="idAccount" ng-value="account.id">
 								<div class="form-group">
-									<label for="full_name">Họ và tên</label>
-									<input type="text" class="form-control" id="full_name" placeholder=""
-										ng-model="account.fullname">
+									<label for="address">Địa chỉ nhận hàng |</label>
+									<input type="text" class="form-control" id="address" ng-model="receiverAddress">
 								</div>
-								<!-- Tương tự các input khác -->
 							</form>
+							<div class="product-checkout-details">
+								<!-- Danh sách sản phẩm được chọn mua -->
+								<div class="block">
+									<h4 class="widget-title">Sản phẩm mua</h4>
+									<div class="table-responsive">
+										<table class="table table-striped">
+											<thead>
+												<tr>
+													<th>STT</th>
+													<th>Tên sản phẩm</th>
+													<th>Số lượng</th>
+													<th>Giá</th>
+													<th>Tổng</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr ng-repeat="cart in carts track by $index">
+													<input name="cartId" type="hidden" ng-value="cart[0][0]">
+													<td>{{$index + 1}}</td>
+													<td class="row">
+														<div class="col-md-3">
+															<img class="img-fluid media-object"
+																ng-src="{{ '/images/' + cart[0][1] }}" alt="Image" />
+														</div>
+														<div class="col-md-9 product-name">
+															{{ cart[0][2] }}
+														</div>
+													</td>
+													<td>{{ cart[0][4] }}</td>
+													<td>{{ cart[0][3] | number: 0 }} VND</td>
+													<td>{{ cart[0][5] | number: 0}} VND</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+								<div class="discount-code">
+									<div class="input-group">
+										<input type="text" class="input" id="discountCode" name="discountCode"
+											ng-model="discountCode" placeholder="Mã giảm giá" autocomplete="off">
+										<input class="button--submit" value="Áp dụng" type="submit"
+											ng-click="applyDiscount()">
+									</div>
+								</div>
+								<div class="summary-total">
+									<span>Tổng tiền đơn hàng:</span>
+									<div class="total">
+										<span class="total-amount" ng-class="{'old-price': isAppliedDiscountCode}">
+											{{ totalAmount | number: 0 }} VND
+										</span>
+										<span ng-show="isAppliedDiscountCode" class="new-total-amount">{{ newTotalAmount
+											|
+											number: 0 }} VND</span>
+									</div>
+								</div>
+
+								<div class="verified-icon">
+									<img src="images/shop/verified.png">
+								</div>
+							</div>
 						</div>
 						<div class="block">
 							<h4 class="widget-title">Phương thức thanh toán</h4>
@@ -155,75 +212,10 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-md-5">
-						<div class="product-checkout-details">
-							<div class="block">
-								<h4 class="widget-title">Sản phẩm mua</h4>
-								<div class="card-box">
-									<div class="media product-card" ng-repeat="cart in carts track by $index">
-										<input type="hidden" ng-value="cart[0][0]">
-										<a class="pull-left">
-											<img class="media-object" ng-src="{{ '/images/' + cart[0][1] }}"
-												alt="Image" />
-										</a>
-										<div class="media-body">
-											<h4 class="media-heading"><a>{{ cart[0][2] }}</a></h4>
-											<p class="quantity">SL: {{ cart[0][4] }}</p>
-											<p class="price">Giá: {{ cart[0][3] | number: 0 }} VND</p>
-											<p class="total">Tổng: {{ cart[0][5] | number: 0 }} VND</p>
-										</div>
-									</div>
-								</div>
-								<hr>
-								<div class="summary-total">
-									<span>Tổng tiền đơn hàng:</span>
-									<span class="total">{{ totalAmount | number: 0 }} VND</span>
-								</div>
-								<div class="verified-icon">
-									<img src="images/shop/verified.png">
-								</div>
-							</div>
-						</div>
-					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-
-	<script>
-		function payment() {
-			var orderType = document.querySelector('input[name="radio"]:checked').value;
-			var codeBank = "";
-			if (orderType == 'VNPay') {
-				var codeBank = document.querySelector('input[name="card"]:checked').value;
-			}
-			var checkedIDs = [];
-			var checkboxes = document.querySelectorAll('.card-box input[type="hidden"]');
-
-			checkboxes.forEach(function (checkbox) {
-				checkedIDs.push(checkbox.value);
-			});
-			var checkedIDsStr = checkedIDs.join(',');
-
-			var totalAmount = document.querySelector('input[name="totalAmount"]').value;
-			var idAccount = document.querySelector('#idAccount').value;
-			var url = "/client/payment/create-payment";
-			var data = { orderType: orderType, totalAmount: totalAmount, checkedIDs: checkedIDsStr, codeBank: codeBank };
-
-			// Gửi yêu cầu Ajax tới controller
-			$.ajax({
-				url: url,
-				method: "POST",
-				data: data,
-				success: function (response) {
-					window.location.href = response.data;
-				},
-				error: function (jqXHR, textStatus, errorThrown) {
-					// Xử lý lỗi (nếu có)
-				}
-			});
-		}
-	</script>
 </section>
 <!-- CONTENT PAGE END-->
 

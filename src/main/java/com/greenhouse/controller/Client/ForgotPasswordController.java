@@ -35,27 +35,4 @@ public class ForgotPasswordController {
         model.addAttribute("account", account);
         return "client/layouts/forgot-password";
     }
-	
-	@PostMapping("/sendmail")
-    public String sendmail(@ModelAttribute("account") Account account,
-            @RequestParam("email") String email,
-            HttpServletRequest request,
-            Model model) {
-        Account acc = accountDAO.findByEmail(email);
-        
-//        if (acc != null) {
-            // Gửi mail kích hoạt tài khoản
-            String activationToken = tokenService.generateToken(acc.getEmail());
-            model.addAttribute("message1", "Kiểm tra email của bạn.");
-            // Tạo đường link kích hoạt tài khoản
-            String activationLink = request.getScheme() + "://" + request.getServerName() + ":"
-                    + request.getServerPort() + request.getContextPath() + "/client/change-password?id="
-                    + acc.getUsername() + "&token=" + activationToken;
-            emailService.sendEmailForgotPassword(acc.getEmail(), "Yêu cầu đặt lại mật khẩu GreenHouse", activationLink);
-            model.addAttribute("message",
-                    "Yêu cầu đặt lại mật khẩu đã được gửi tới email của bạn, hãy kiểm tra để đặt lại mật khẩu.");
-            model.addAttribute("typeMessage", "success");
-//        }
-        return "client/layouts/forgot-password";
-    }
 }

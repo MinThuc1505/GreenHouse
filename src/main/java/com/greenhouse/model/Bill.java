@@ -11,7 +11,7 @@ import lombok.ToString;
 @Data
 public class Bill implements Serializable{
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
 
@@ -30,7 +30,7 @@ public class Bill implements Serializable{
     private Date createDate;
 
     @Column(name = "Amount")
-    private Double amount;
+    private Long amount;
 
     @Column(name = "Discount_Code")
     private String discountCode;
@@ -39,13 +39,17 @@ public class Bill implements Serializable{
     private Double discountPercent;
 
     @Column(name = "New_Amount")
-    private Double newAmount;
+    private Long newAmount;
+
+    @Column(name = "Bank_Code")
+    private String bankCode;
 
     @Column(name = "Payment_Method")
     private String paymentMethod;
-      @Column(name = "Receiver_Address")
+
+    @Column(name = "Receiver_Address")
     private String receiverAddress;
 
     @Column(name = "Status")
-    private Boolean status;
+    private Integer status;
 }

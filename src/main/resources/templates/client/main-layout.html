@@ -1,15 +1,32 @@
 <!DOCTYPE html>
-<html class="no-js" lang="" xmlns:th="http://www.thymeleaf.org"
-th:fragment="layout(title, layout)">
+<html class="no-js" lang="" xmlns:th="http://www.thymeleaf.org" th:fragment="layout(title, layout)">
 <!-- HEAD START -->
 <th:block th:replace="~{client/layouts/template.html :: head (${title})}"></th:block>
 <!-- HEAD END -->
 
 <body ng-app="appClient" ng-controller="bodyController">
+  <div id="loading" class="loading-container">
+    <div aria-label="Orange and tan hamster running in a metal wheel" role="img" class="wheel-and-hamster">
+      <div class="wheel"></div>
+      <div class="hamster">
+        <div class="hamster__body">
+          <div class="hamster__head">
+            <div class="hamster__ear"></div>
+            <div class="hamster__eye"></div>
+            <div class="hamster__nose"></div>
+          </div>
+          <div class="hamster__limb hamster__limb--fr"></div>
+          <div class="hamster__limb hamster__limb--fl"></div>
+          <div class="hamster__limb hamster__limb--br"></div>
+          <div class="hamster__limb hamster__limb--bl"></div>
+          <div class="hamster__tail"></div>
+        </div>
+      </div>
+      <div class="spoke"></div>
+    </div>
+  </div>
+
   <div id="notification-container"></div>
-
-  <div class="notification" ng-data-type="{{ typeMessage }}" ng-bind="message"></div>
-
 
   <!-- TOP HEADER BAR START -->
   <th:block th:replace="~{client/layouts/template.html :: top-header-bar}"></th:block>

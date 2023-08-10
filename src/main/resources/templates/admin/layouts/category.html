@@ -12,9 +12,9 @@ th:replace="~{admin/main-layout.html :: layout (~{::title}, ~{::#layout})}">
 					<div class="filter-search col-md-6">
 						<div class="input-group">
 							<input type="text" class="form-control"
-								placeholder="Tìm kiếm nhiều loại sản phẩm..."> <span
+								placeholder="Tìm kiếm tên loại sản phẩm..." ng-model="searchTerm"> <span
 								class="input-group-btn">
-								<button class="btn btn-default" type="button">
+								<button class="btn btn-default" type="button" ng-click="searchData()">
 									<span class="glyphicon glyphicon-search"></span>
 								</button>
 							</span>
@@ -98,12 +98,16 @@ th:replace="~{admin/main-layout.html :: layout (~{::title}, ~{::#layout})}">
 									<div class="form-group mt-3">
 										<label for="categoryCode" class="fw-bold">Mã loại</label>
 										<input type="text" class="form-control border-bottom" id="id" ng-model="form.id" name="id" placeholder="Nhập mã loại sản phẩm" required>
+										
+										<small class="text-danger">{{ errorMessages.email }}</small>	
 									</div>
 								</div>
 								<div class="col-md-6">
 									<div class="form-group mt-3">
 										<label for="categoryName" class="fw-bold">Tên thể loại</label>
 										<input type="text" class="form-control border-bottom" id="name" ng-model="form.name" name="name" placeholder="Nhập tên loại sản phẩm" required>
+										
+										<small class="text-danger">{{ errorMessages.name }}</small>	
 									</div>
 								</div>
 							</div>

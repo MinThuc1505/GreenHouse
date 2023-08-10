@@ -1,6 +1,8 @@
 package com.greenhouse.restController.Admin;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -11,16 +13,26 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.greenhouse.DAO.CategoryDAO;
+import com.greenhouse.DAO.ProviderDAO;
 import com.greenhouse.model.Category;
+import com.greenhouse.model.Provider;
+
+import io.micrometer.common.util.StringUtils;
 
 @RestController
 @RequestMapping(value = "/rest/category")
 public class restCategory {
     @Autowired
     CategoryDAO categoryDAO;
+
+    @Autowired
+    public restCategory(CategoryDAO categoryDAO) {
+        this.categoryDAO = categoryDAO;
+    }
 
     @GetMapping
     private ResponseEntity<List<Category>> getAllCategory() {
@@ -36,13 +48,13 @@ public class restCategory {
     }
 
     @PostMapping
-    private ResponseEntity<Category> create(@RequestBody Category category) {
-        System.out.println(category);
-        if (categoryDAO.existsById(category.getId())) {
-            return ResponseEntity.badRequest().build();
-
+    private ResponseEntity<?> create(@RequestBody Category category) {
+        Map<String, String> errors = validateCategory(category);
+        if (category != null && errors.isEmpty()) {
+            Category createdCategory = categoryDAO.save(category);
+            return ResponseEntity.ok(createdCategory);
         }
-        return ResponseEntity.ok(categoryDAO.save(category));
+        return ResponseEntity.badRequest().body(errors);
     }
 
     @PutMapping(value = "/{id}")
@@ -63,4 +75,40 @@ public class restCategory {
         return ResponseEntity.ok().build();
     } 
 
+    @GetMapping(value = "/search")
+    public ResponseEntity<Category> searchData(@RequestParam("name") String name) {
+        Category searchResult = categoryDAO.findByName(name);
+
+        if (searchResult == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok(searchResult);
+    }
+
+
+        private Map<String, String> validateCategory(Category category) {
+        Map<String, String> errors = new HashMap<>();
+
+        if (StringUtils.isEmpty(category.getName())) {
+            errors.put("name", "Tên thể loại không bỏ trống.");
+        }
+        if (category.getId() == null || !isValidId(category.getId())) {
+            errors.put("email", "Định dạng mã loại sản phẩm không hợp lệ.");
+        } else if (categoryDAO.existsById(category.getId())) {
+            errors.put("idExists", "Mã loại sản phẩm đã tồn tại.");
+        }
+
+        if (categoryDAO.existsById(category.getId())) {
+            errors.put("CategoryExists", "Thể loại này đã tồn tại.");
+        }
+    // thêm dịa chỉ nữa code đi
+        return errors;
+    }
+
+    private boolean isValidId(String id) {
+        // Kiểm tra định dạng id, chỉ chứa kí tự in hoa
+        String idePattern = "^[A-Z]+$";
+        return id.matches(idePattern);
+    }
 }

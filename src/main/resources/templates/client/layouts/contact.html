@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html class="no-js" lang="" xmlns:th="http://www.thymeleaf.org"
-th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
+	th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
+
 <head>
 	<title>Liên hệ</title>
 </head>
@@ -27,33 +28,79 @@ th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
 		<div class="container">
 			<div class="row">
 				<div class="bg1 col-md-6">
-
 				</div>
 				<div class="bg2 col-md-6">
-
 					<h3>Bạn cần hỗ trợ gì?</h3>
 					<p>Sự lựa chọn của bạn là sự ưu tiên hàng đầu và quan trọng nhất của chúng tôi</p>
-					<form class="form1">
-						<div class="form-group">
-							<label for="name">Họ và tên:</label>
-							<input type="text" class="form-control" id="name" placeholder="Nhập họ và tên">
+					<form class="contact-form" id="form">
+						<div class="row">
+							<div class="col-md-6 form-group">
+								<label for="name">Họ và tên:</label>
+								<input type="text" class="form-control" id="name" name="from_name" placeholder="Tên của bạn...">
+							</div>
+							<div class="col-md-6 form-group">
+								<label for="email">Email:</label>
+								<input type="email" class="form-control" id="email" name="to_name" placeholder="E-mail">
+							</div>
+					
+							<div class="col-md-12 form-group">
+								<label for="subject">Tiêu đề:</label>
+								<input type="text" class="form-control" id="subject" placeholder="Tiêu đề">
+								<label for="message">Tin nhắn:</label>
+								<textarea class="form-control" id="message" name="message" placeholder="Tin nhắn"></textarea>
+							</div>
 						</div>
-						<div class="form-group">
-							<label for="email">Email:</label>
-							<input type="email" class="form-control" id="email" placeholder="Nhập địa chỉ email">
+						<div class="text-md-right">
+							<button type="submit" id="button" class="site-btn btn btn-primary btn-main btn-medium btn-round">Gửi tin</button>
 						</div>
-						<div class="form-group">
-							<label for="description">Tin nhắn:</label>
-							<textarea class="form-control" id="description" rows="5"
-								placeholder="Đừng ngại hỏi về đơn hàng của bạn"></textarea>
-						</div>
-						<button type="submit" class="btn btn-primarybtn btn-main btn-medium btn-round">Gửi</button>
 					</form>
-
 				</div>
 			</div>
 		</div>
+		<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+		<script type="text/javascript">
+			emailjs.init('xIszwHSz9yqzXfHMt')
+		</script>
+		<script>
+			const btn = document.getElementById('button');
 
+			document.getElementById('form').addEventListener('submit', function (event) {
+				event.preventDefault();
+
+				// Kiểm tra xem các trường dữ liệu có giá trị không
+				const name = document.getElementById('name').value;
+				const email = document.getElementById('email').value;
+				const subject = document.getElementById('subject').value;
+				const message = document.getElementById('message').value;
+
+				if (!name || !email || !subject || !message) {
+					Swal.fire({
+						icon: 'error',
+						title: 'Lỗi',
+						text: 'Vui lòng điền đầy đủ thông tin.',
+					});
+					return;
+				}
+
+				btn.value = 'Sending...';
+
+				const serviceID = 'default_service';
+				const templateID = 'template_kym08ai';
+
+				emailjs.sendForm(serviceID, templateID, this)
+					.then(() => {
+						btn.value = 'Send Email';
+						Swal.fire({
+							icon: 'success',
+							title: 'Thành công',
+							text: 'Cảm ơn bạn đã liên hệ với chúng tôi! Chúng tôi sẽ xem xét email của bạn và phản hồi trong thời gian sớm nhất. Xin cảm ơn!.',
+						});
+					}, (err) => {
+						btn.value = 'Send Email';
+						alert(JSON.stringify(err));
+					});
+			});
+		</script>
 	</section>
 </th:block>
 <!-- CONTENT PAGE END-->

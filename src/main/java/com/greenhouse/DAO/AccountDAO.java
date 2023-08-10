@@ -10,10 +10,10 @@ public interface AccountDAO extends JpaRepository<Account, String> {
     Account findByUsernameAndPassword(String username, String password);
 
     @Query(value = "SELECT SUM(c.Quantity) FROM dbo.Accounts acc "
-    +"JOIN dbo.Carts c ON c.Username = acc.Username "
-    +"WHERE acc.Username = ?1 AND c.Status = 'true'", nativeQuery = true)
-    int getQtyCartByUsername(String username); 
-    
+            + "JOIN dbo.Carts c ON c.Username = acc.Username "
+            + "WHERE acc.Username = ?1 AND c.Status = 'true'", nativeQuery = true)
+    Integer getQtyCartByUsername(String username);
+
     Account findByEmail(String email);
 
     boolean existsByEmail(String email);

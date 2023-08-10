@@ -19,6 +19,8 @@ public class VNPayConfig {
     public static String vnp_Command = "pay";
     public static String vnp_HashSecret = "FJBETRLMJONRKAZOWRRUEMUIJBPUOOTA";
     public static String vnp_apiUrl = "https://sandbox.vnpayment.vn/merchant_webapi/api/transaction";
+    public static String vnp_OrderType = "other";
+    public static String vnp_ReturnUrl = "http://localhost:8081/client/checkout/donePay";
 
     //Util for VNPAY
     public static String hashAllFields(Map fields) {
