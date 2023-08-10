@@ -6,9 +6,9 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
-@Table(name = "SetCategory")
+@Table(name = "Set_Category")
 @Data
-public class SetCategory implements Serializable{
+public class Set_Category implements Serializable{
 	/**
 	 * 
 	 */
@@ -20,10 +20,10 @@ public class SetCategory implements Serializable{
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "ProductId")
+    @JoinColumn(name = "Product_Id")
     private Product product;
 
     @ManyToOne
-    @JoinColumn(name = "CategoryId")
+    @JoinColumn(name = "Category_Id")
     private Category category;
 }

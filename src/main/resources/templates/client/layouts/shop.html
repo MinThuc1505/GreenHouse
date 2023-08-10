@@ -69,13 +69,12 @@
 				<div class="col-md-3" ng-repeat="product in products">
 					<div class="product-item product-shop">
 						<div class="product-thumb">
-							<img class="img-responsive" ng-src="a" ng-lazy-src="{{'/images/' + product.image}}"
-								alt="product-img" />
+							<img class="img-responsive" ng-src="{{ '/images/' + product.image }}"
+								ng-lazy-src="{{'/images/' + product.image}}" alt="product-img" />
 							<div class="preview-meta">
 								<ul>
 									<li>
-										<span
-											ng-click="showProductDetails(product)">
+										<span ng-click="showProductDetails(product)">
 											<i class="tf-ion-ios-search-strong"></i>
 										</span>
 									</li>
@@ -87,8 +86,7 @@
 							</div>
 						</div>
 						<div class="product-content">
-							<h4><a href="#"
-									ng-click="showProductDetails(product)">{{product.name}}</a>
+							<h4><a href="#" ng-click="showProductDetails(product)">{{product.name}}</a>
 							</h4>
 							<p class="price">{{product.price | number:'0':'COMMA':'POINT'}} VND</p>
 						</div>
@@ -106,19 +104,23 @@
 								<div class="row">
 									<div class="col-md-8 col-sm-6 col-xs-12">
 										<div class="modal-image">
-											<img class="img-responsive" id="product-img" ng-src="{{ selectedProduct.image }}" alt="product-img" />
-											<p id="text-image">{{ selectedProduct.description }}</p>
+											<img id="product-img"
+												ng-src="{{ '/images/' + selectedProduct.image }}" alt="product-img" />
 										</div>
 									</div>
 									<div class="col-md-4 col-sm-6 col-xs-12">
 										<div class="product-short-details">
-											<h2 class="product-title" id="product-title">{{ selectedProduct.productName }}</h2>
-											<p class="product-price" id="product-price">{{ selectedProduct.price | number:0 }} VND</p>
-											<p class="product-short-description" id="product-description">{{ selectedProduct.shortDescription }}</p>
+											<h2 class="product-title" id="product-title">{{ selectedProduct.name
+												}}</h2>
+											<p class="product-price" id="product-price">{{ selectedProduct.price |
+												number:0 }} VND</p>
+											<p class="product-short-description" id="product-description">{{
+												selectedProduct.description }}</p>
 											<!-- Hiển thị thông tin size, chất liệu, và các thông tin khác tương ứng của sản phẩm -->
-											
+
 											<p id="modal-idProduct" style="display: none">{{ selectedProduct.id }}</p>
-											<a href="#" class="btn btn-main" id="modal-addToCart" ng-click="modalAddToCart(selectedProduct)">Thêm vào giỏ hàng</a>
+											<a href="#" class="btn btn-main" id="modal-addToCart"
+												ng-click="modalAddToCart(selectedProduct)">Thêm vào giỏ hàng</a>
 										</div>
 									</div>
 								</div>

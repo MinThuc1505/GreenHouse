@@ -182,18 +182,29 @@ function lazyLoad() {
   }
 }
 
+function showLoading() {
+  var loadingElement = document.getElementById('loading');
+  loadingElement.style.display = 'flex';
+}
+
+function hideLoading() {
+  var loadingElement = document.getElementById('loading');
+  loadingElement.style.display = 'none';
+}
+
+
 document.addEventListener('DOMContentLoaded', lazyLoad)
 
-function showProductDetails(id, name, price, image, description) {
-  $('#product-img').attr('src', '/images/' + image);
-  $('#product-title').text(name);
-  var formattedPrice = price.toLocaleString('vi', { style: 'currency', currency: 'VND' });
-  $('#product-price').text(formattedPrice);
-  $('#product-description').text(description);
-  $('#modal-idProduct').text(id);
-  // Hiển thị modal chi tiết sản phẩm
-  $('#product-modal').modal('show');
-}
+// function showProductDetails(id, name, price, image, description) {
+//   $('#product-img').attr('src', '/images/' + image);
+//   $('#product-title').text(name);
+//   var formattedPrice = price.toLocaleString('vi', { style: 'currency', currency: 'VND' });
+//   $('#product-price').text(formattedPrice);
+//   $('#product-description').text(description);
+//   $('#modal-idProduct').text(id);
+//   // Hiển thị modal chi tiết sản phẩm
+//   $('#product-modal').modal('show');
+// }
 
 function previewImage(input) {
   if (input.files && input.files[0]) {

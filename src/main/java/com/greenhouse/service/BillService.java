@@ -13,7 +13,7 @@ import com.greenhouse.DAO.DiscountDAO;
 import com.greenhouse.DTO.OrderDTO;
 import com.greenhouse.model.Account;
 import com.greenhouse.model.Bill;
-import com.greenhouse.model.Bill_Detail;
+import com.greenhouse.model.BillDetail;
 import com.greenhouse.model.Cart;
 import com.greenhouse.model.Discount;
 
@@ -45,7 +45,7 @@ public class BillService {
         String[] checked = orderIds.split(";");
         for (String string : checked) {
             Cart cart = cartDAO.findById(Integer.parseInt(string)).orElse(null);
-            Bill_Detail billDetail = createBillDetailFromCart(cart, bill);
+            BillDetail billDetail = createBillDetailFromCart(cart, bill);
             billDetailDAO.save(billDetail);
             // Xử lí giỏ hàng sau khi thêm vào hóa đơn chi tiết (detail bill)
             cart.setStatus(false);
@@ -81,8 +81,8 @@ public class BillService {
         return bill;
     }
 
-    private Bill_Detail createBillDetailFromCart(Cart cart, Bill bill) {
-        Bill_Detail billDetail = new Bill_Detail();
+    private BillDetail createBillDetailFromCart(Cart cart, Bill bill) {
+        BillDetail billDetail = new BillDetail();
         billDetail.setBill(bill);
         billDetail.setProduct(cart.getProduct());
         billDetail.setQuantity(cart.getQuantity());

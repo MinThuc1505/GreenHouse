@@ -11,6 +11,8 @@ appClient.constant('urlCheckoutClient', 'http://localhost:8081/client/rest/check
 appClient.constant('urlSignUpClient', 'http://localhost:8081/client/rest/signup');
 appClient.constant('urlProfileClient', 'http://localhost:8081/client/rest/profile');
 appClient.constant('urlChangePasswordClient', 'http://localhost:8081/client/rest/change-password');
+appClient.constant('urlForgotPasswordClient', 'http://localhost:8081/client/rest/forgot-password');
+
 // Constant - end
 
 //Service - start

@@ -29,6 +29,7 @@ app.controller('productCtrl', function($scope, $http, urlProduct) {
         console.log("Error", Error);
     });
 
+
    $scope.Edit = function(key, index) {
     var url = `${host}/${key}`;
     $http.get(url).then(resp => {

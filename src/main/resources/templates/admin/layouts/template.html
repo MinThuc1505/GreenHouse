@@ -63,12 +63,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.2/angular.min.js"></script>
 	<!-- Thư viện AngularJS -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.2/angular.min.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-resource.min.js"></script>
 	 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"></script>
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"></script>
+</head>
 
 <body>
     <th:block th:fragment="header">
@@ -439,10 +437,6 @@
         <!-- plugins JS
 		============================================ -->
         <script src="js/plugins.js"></script>
-        <!--  Chat JS
-		============================================ -->
-        <script src="js/chat/moment.min.js"></script>
-        <script src="js/chat/jquery.chat.js"></script>
         <!-- main JS
 		============================================ -->
         <script src="js/main.js"></script>
@@ -451,8 +445,9 @@
         <script src="js/tawk-chat.js"></script>
         <!-- Charts JS
 		============================================ -->
-        <script src="js/charts/Chart.js"></script>
-        <script src="js/charts/bar-chart.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+
 
         <script src="js/Controller/app.js"></script>
         <script src="js/Controller/discountController.js"></script>
@@ -473,6 +468,20 @@
         <script src="js/Controller/sizeCtrl.js"></script>
         <script src="js/Controller/materialCtrl.js"></script>
         <script src="js/Controller/importProductCtrl.js"></script>
+        <script src="js/Controller/productCtrl.js"></script>
+        <script src="js/Controller/reportBillController.js"></script>
+        <script src="js/Controller/reportCategoryController.js"></script>
+        <script src="js/Controller/categoryController.js"></script>
+        <script src="js/Controller/sizeCtrl.js"></script>
+        <script src="js/Controller/materialCtrl.js"></script>
+        <script src="js/Controller/importProductCtrl.js"></script>
+        <script src="js/Controller/priceHistoryCtrl.js"></script>
+        <script src="js/Controller/materialCtrl.js"></script>
+        <script src="js/Controller/importProductCtrl.js"></script>
+        <script src="js/Controller/reportStaticController.js"></script>
+        <script src="js/Controller/productCtrl.js"></script>
+        <script src="js/Controller/reportChart.js"></script>
+
     </th:block>
 </body>
 
