@@ -6,6 +6,71 @@ app.controller('categoryController', function($scope, $http, urlCategory){
         var url = `${host}`;
         $http.get(url).then(resp => {
         	$scope.items = resp.data;
+
+            $scope.currentPage = 0; // Trang hiện tại
+            $scope.pageSize = 5; // Số mục trên mỗi trang
+            $scope.totalItems  = resp.data.length;
+            $scope.totalPages = Math.ceil($scope.totalItems / $scope.pageSize); // Tổng số trang
+
+            // Xử lý phân trang
+            $scope.loadPage = function () {
+                $http.get(host + "/page", {
+                    params: {
+                        page: $scope.currentPage,
+                        size: $scope.pageSize
+                    }
+                }).then(function (response) {
+                    $scope.items = response.data.content;
+                });
+            };
+
+            $scope.nextPage = function () {
+                if ($scope.currentPage < $scope.totalPages - 1) {
+                    $scope.currentPage++;
+                    $scope.updatePageNumbers();
+                }
+            };
+
+            $scope.prevPage = function () {
+                if ($scope.currentPage > 0) {
+                    $scope.currentPage--;
+                    $scope.updatePageNumbers();
+                }
+            };
+
+            $scope.updatePageNumbers = function () {
+                $scope.pageNumbers = [];
+
+                var startPage = Math.max(0, $scope.currentPage - 2);
+                var endPage = Math.min($scope.totalPages - 1, $scope.currentPage + 2);
+
+                for (var i = startPage; i <= endPage; i++) {
+                    $scope.pageNumbers.push(i + 1);
+                }
+
+                // Kiểm tra nếu cần hiển thị dấu ba chấm ở đầu hoặc cuối
+                if (startPage > 0) {
+                    $scope.pageNumbers.unshift('...');
+                }
+                if (endPage < $scope.totalPages - 1) {
+                    $scope.pageNumbers.push('...');
+                }
+                $scope.loadPage();
+            };
+
+            $scope.goToPage = function (pageNumber) {
+                if (pageNumber === '...') {
+                    return;
+                }
+                $scope.currentPage = pageNumber - 1;
+                $scope.updatePageNumbers();
+            };
+
+            // Gọi hàm loadPage() khi controller được khởi tạo
+            $scope.loadPage();
+            //hiển thị các số phân trang
+            $scope.updatePageNumbers();
+            
         }).catch(Error =>{
             console.log("Error", Error);
         })
