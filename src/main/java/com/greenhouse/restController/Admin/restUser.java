@@ -6,6 +6,10 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -21,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.greenhouse.DAO.AccountDAO;
 import com.greenhouse.model.Account;
+import com.greenhouse.model.Provider;
 
 import io.micrometer.common.util.StringUtils;
 
@@ -98,6 +103,23 @@ public class restUser {
         return ResponseEntity.ok(searchResult);
     }
 
+    @GetMapping("/page")
+    public ResponseEntity<Page<Account>> getAllAccounts(
+            @RequestParam("page") Integer page,
+            @RequestParam("size") Integer size) {
+        try {
+            System.out.println("Requested Page: " + page);
+            System.out.println("Page Size: " + size);
+
+            Pageable pageable = PageRequest.of(page, size);
+            Page<Account> accounts = accountDAO.findAll(pageable);
+
+            return ResponseEntity.ok(accounts);
+        } catch (Exception e) {
+            // Xử lý các exception nếu cần thiết
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
 
     private Map<String, String> validateAccount(Account account) {
         Map<String, String> errors = new HashMap<>();
