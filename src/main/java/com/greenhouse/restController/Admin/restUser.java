@@ -1,11 +1,15 @@
 package com.greenhouse.restController.Admin;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -18,7 +22,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.google.gson.Gson;
 import com.greenhouse.DAO.AccountDAO;
 import com.greenhouse.model.Account;
 
@@ -31,6 +37,9 @@ public class restUser {
     
     @Autowired
     AccountDAO accountDAO;
+      @Value("${upload.path}")
+    private String uploadPath;
+
 
     @GetMapping
     private ResponseEntity<List<Account>> getAllAccounts(){
@@ -45,38 +54,74 @@ public class restUser {
         return ResponseEntity.ok(accountDAO.findById(username).get());
     }
 
-   @PostMapping
-    private ResponseEntity<?> create(@RequestBody Account account) {
-
+    @PostMapping
+    private ResponseEntity<?> create(
+        @RequestBody Account account,
+        @RequestParam(value = "file", required = false) MultipartFile file) {
+    
         Map<String, String> errors = validateAccount(account);
-
-        if (account.getUsername() != null && errors.isEmpty()) {
-            PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-            String encodedPassword = passwordEncoder.encode(account.getPassword());
-            account.setPassword(encodedPassword);
-            Account createdAccount = accountDAO.save(account);
-            return ResponseEntity.ok(createdAccount);
-        } else if (!errors.isEmpty()) {
-            return ResponseEntity.badRequest().body(errors);
-        } else {
-            errors.put("otherError", "Thông tin tài khoản không hợp lệ.");
+    
+        if (!errors.isEmpty()) {
             return ResponseEntity.badRequest().body(errors);
         }
-
+    
+        // Kiểm tra nếu có tệp ảnh được tải lên
+        if (file != null && !file.isEmpty()) {
+            try {
+                String fileName = file.getOriginalFilename();
+                String filePath = Paths.get("").toAbsolutePath().toString() + "/src/main/resources/static/images/" + fileName;
+                File dest = new File(filePath);
+                file.transferTo(dest);
+                account.setImage(fileName);
+            } catch (IOException e) {
+                e.printStackTrace();
+                return ResponseEntity.badRequest().build();
+            }
+        }
+    
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String encodedPassword = passwordEncoder.encode(account.getPassword());
+        account.setPassword(encodedPassword);
+    
+        Account createdAccount = accountDAO.save(account);
+    
+        return ResponseEntity.ok(createdAccount);
     }
+    
     
 
     @PutMapping(value = "/{username}")
-    private ResponseEntity<Account> update (@PathVariable("username") String username, @RequestBody Account account){
-    	
-    	System.out.println( account);
-    	
+    private ResponseEntity<Account> update(
+        @PathVariable("username") String username,
+        @RequestParam("account") String accountJson,
+        @RequestParam(value = "file", required = false) MultipartFile file) {
+            Account account = new Gson().fromJson(accountJson, Account.class);
+    
         if (!accountDAO.existsById(username)) {
             return ResponseEntity.notFound().build();
-            
         }
-        return ResponseEntity.ok(accountDAO.save(account));
+    
+        // Kiểm tra nếu có tệp ảnh mới được tải lên
+        if (file != null && !file.isEmpty()) {
+            try {
+                String fileName = file.getOriginalFilename();
+                String filePath = Paths.get("").toAbsolutePath().toString() +  "/src/main/resources/static/images/" + fileName;
+                File dest = new File(filePath);
+                file.transferTo(dest);
+                account.setImage(fileName);
+            } catch (IOException e) {
+                e.printStackTrace();
+                return ResponseEntity.badRequest().build();
+            }
+        }
+     account.setUsername(username); // Gán giá trị ID vào đối tượng
+    
+        // Lưu thông tin tài khoản đã cập nhật
+        Account updatedAccount = accountDAO.save(account);
+    
+        return ResponseEntity.ok(updatedAccount);
     }
+    
 
     @DeleteMapping(value = "/{username}")
     private ResponseEntity <Void> delete(@PathVariable("username") String username){
