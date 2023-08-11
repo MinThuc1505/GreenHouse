@@ -35,7 +35,6 @@ appClient.controller('change-passwordController', function ($scope, $http, urlCh
 
         var token = getParameterByName("token");
         if (token && cookieUsername == null) {
-            $scope.isLoading = true; // Bắt đầu loading khi gửi mail
             var password = $scope.password;
             var confirmPassword = $scope.confirmPassword;
             var data = {
