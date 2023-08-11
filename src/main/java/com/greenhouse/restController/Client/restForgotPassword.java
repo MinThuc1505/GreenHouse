@@ -28,7 +28,7 @@ public class restForgotPassword {
     @Autowired
     private AccountDAO accountDAO;
     @Autowired
-    HttpServletRequest request;
+    private HttpServletRequest request;
 
     @PostMapping("/sendmail")
     public ResponseEntity<Map<String, String>> sendResetPasswordEmail(
@@ -39,7 +39,7 @@ public class restForgotPassword {
         try {
             String email = requestData.get("email");
             if (email != null) {
-                // Gửi mail kích hoạt tài khoản
+                // Gửi mail đổi mật khẩu tài khoản
                 Account acc = accountDAO.findByEmail(email);
                 System.out.println(acc);
                 if (acc != null) {
