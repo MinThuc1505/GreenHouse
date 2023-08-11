@@ -1,5 +1,7 @@
 package com.greenhouse.DAO;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -19,4 +21,7 @@ public interface AccountDAO extends JpaRepository<Account, String> {
     boolean existsByEmail(String email);
 
     boolean existsByPhone(String phone);
+
+    @Query("SELECT a.email FROM Account a")
+    List<String> getAllEmails();
 }
