@@ -128,7 +128,9 @@
 
 									<p id="modal-idProduct" style="display: none">{{ selectedProduct.id }}</p>
 									<a href="#" class="btn btn-main" id="modal-addToCart"
-										ng-click="modalAddToCart(selectedProduct)">Thêm vào giỏ hàng</a>
+										ng-click="modalAddToCart(selectedProduct.id)">Thêm vào giỏ hàng</a>
+									<a href="#!" class="btn btn-transparent" ng-click="viewProductDetails(selectedProduct.id)">Xem
+										chi tiết sản phẩm</a>
 								</div>
 							</div>
 						</div>

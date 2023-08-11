@@ -1,5 +1,6 @@
 package com.greenhouse.restController.Client;
 
+import java.io.ObjectInputFilter.Config;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
@@ -76,7 +77,10 @@ public class restCheckout {
                 for (String string : checked) {
                     var cart = cartDAO.getProductInCartByCartId(string);
                     carts.add(cart);
-                    totalAmount += Long.parseLong(cartDAO.getAmountFromCart(string).toString());
+                    if (cartDAO.getAmountFromCart(string) != null) {
+                        Long amount = Long.parseLong(cartDAO.getAmountFromCart(string).toString());
+                        totalAmount += amount;
+                    }
                 }
                 if (carts.size() > 0) {
                     status = "success";
@@ -85,8 +89,6 @@ public class restCheckout {
                     responseData.put("totalAmount", totalAmount);
                 }
             } else {
-                responseData.put("carts", "");
-                responseData.put("totalAmount", "");
                 status = "error";
                 message = "Chưa chọn sản phẩm mà vào đây à, đấm phát giờ!!!";
             }
@@ -143,6 +145,7 @@ public class restCheckout {
             Bill bill = billService.createBillFromOrderDTO(orderDTO);
             bill.setStatus(1);
             billService.saveBillToDatabase(bill, orderDTO, orderIds);
+            billService.subtractQuantity(orderIds);
             paymentUrl = "http://localhost:8081/client/checkout/donePay";
         } else {
             try {
@@ -170,14 +173,12 @@ public class restCheckout {
         String vnp_Command = "pay";
         String vnp_TmnCode = VNPayConfig.vnp_TmnCode;
         long vnp_Amount = 100 * Optional.ofNullable(bill.getNewAmount()).orElse(bill.getAmount());
-        String vnp_BankCode = bill.getBankCode();
         String vnp_CreateDate = formatter.format(cld.getTime());
         String vnp_CurrCode = "VND";
         String vnp_IpAddr = getCustomerIP();
         String vnp_Local = "vn";
         String vnp_ReturnUrl = VNPayConfig.vnp_ReturnUrl;
         String vnp_TxnRef = String.format("%08d", bill.getId());
-        ;
         String vnp_OrderInfo = "Thanh toan don hang:" + vnp_TxnRef;
         String vnp_OrderType = VNPayConfig.vnp_OrderType;
         cld.add(Calendar.MINUTE, 15);
@@ -188,7 +189,6 @@ public class restCheckout {
         vnp_Params.put("vnp_Command", vnp_Command);
         vnp_Params.put("vnp_TmnCode", vnp_TmnCode);
         vnp_Params.put("vnp_Amount", String.valueOf(vnp_Amount));
-        vnp_Params.put("vnp_BankCode", vnp_BankCode);
         vnp_Params.put("vnp_CreateDate", vnp_CreateDate);
         vnp_Params.put("vnp_CurrCode", vnp_CurrCode);
         vnp_Params.put("vnp_IpAddr", vnp_IpAddr);
@@ -202,7 +202,7 @@ public class restCheckout {
         List<String> fieldNames = new ArrayList<>(vnp_Params.keySet());
         Collections.sort(fieldNames);
         StringBuilder hashData = new StringBuilder();
-        StringBuilder queryUrl = new StringBuilder();
+        StringBuilder query = new StringBuilder();
         Iterator itr = fieldNames.iterator();
         while (itr.hasNext()) {
             String fieldName = (String) itr.next();
@@ -213,19 +213,19 @@ public class restCheckout {
                 hashData.append('=');
                 hashData.append(URLEncoder.encode(fieldValue, StandardCharsets.US_ASCII.toString()));
                 // Build query
-                queryUrl.append(URLEncoder.encode(fieldName, StandardCharsets.US_ASCII.toString()));
-                queryUrl.append('=');
-                queryUrl.append(URLEncoder.encode(fieldValue, StandardCharsets.US_ASCII.toString()));
+                query.append(URLEncoder.encode(fieldName, StandardCharsets.US_ASCII.toString()));
+                query.append('=');
+                query.append(URLEncoder.encode(fieldValue, StandardCharsets.US_ASCII.toString()));
                 if (itr.hasNext()) {
-                    queryUrl.append('&');
+                    query.append('&');
                     hashData.append('&');
                 }
             }
         }
-        String query = queryUrl.toString();
+        String queryUrl = query.toString();
         String vnp_SecureHash = VNPayConfig.hmacSHA512(VNPayConfig.vnp_HashSecret, hashData.toString());
-        query += "&vnp_SecureHash=" + vnp_SecureHash;
-        return VNPayConfig.vnp_PayUrl + "?" + query;
+        queryUrl += "&vnp_SecureHash=" + vnp_SecureHash;
+        return VNPayConfig.vnp_PayUrl + "?" + queryUrl;
     }
 
     @PostMapping("/vnpay-ipn")
@@ -255,13 +255,16 @@ public class restCheckout {
             if (bill.getStatus() != 0) {
                 checkOrderStatus = false;
             }
-
             if (checkOrderId) {
                 if (checkAmount) {
                     if (checkOrderStatus) {
                         if ("00".equals(vnpayData.get("vnp_ResponseCode"))) {
                             bill.setStatus(1);
                             billDAO.save(bill);
+                            billService.subtractQuantity(orderIds);
+                            responseData.put("RspCode", "00");
+                            responseData.put("Message", "Xác nhận thành công");
+                            orderIds = null;
                         } else {
                             bill.setStatus(2);
                             billDAO.save(bill);
@@ -306,8 +309,6 @@ public class restCheckout {
                             responseData.put("RspCode", vnpayData.get("vnp_ResponseCode"));
                             responseData.put("Message", errorMessage);
                         }
-                        responseData.put("RspCode", "00");
-                        responseData.put("Message", "Xác nhận thành công");
                     } else {
                         responseData.put("RspCode", "02");
                         responseData.put("Message", "Đơn hàng đã được xác nhận trước đó");

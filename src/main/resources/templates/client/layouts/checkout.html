@@ -27,194 +27,143 @@
 		<div class="checkout shopping" ng-controller="checkoutController">
 			<div class="container">
 				<div class="row">
-					<div class="col-md-12">
+					<div class="col-md-8">
 						<div class="block billing-details">
-							<h4 class="widget-title">Thông tin nhận hàng</h4>
+							<h4 class="widget-title">Thông tin người nhận hàng</h4>
 							<form class="checkout-form">
+								<div class="form-group">
+									<label for="fullname">Họ và tên |</label>
+									<input type="text" class="form-control" id="fullname" ng-model="receiverFullname">
+								</div>
+								<div class="form-group">
+									<label for="phone">Số điện thoại |</label>
+									<input type="text" class="form-control" id="phone" ng-model="receiverPhone">
+								</div>
 								<div class="form-group">
 									<label for="address">Địa chỉ nhận hàng |</label>
 									<input type="text" class="form-control" id="address" ng-model="receiverAddress">
 								</div>
 							</form>
-							<div class="product-checkout-details">
-								<!-- Danh sách sản phẩm được chọn mua -->
-								<div class="block">
-									<h4 class="widget-title">Sản phẩm mua</h4>
-									<div class="table-responsive">
-										<table class="table table-striped">
-											<thead>
-												<tr>
-													<th>STT</th>
-													<th>Tên sản phẩm</th>
-													<th>Số lượng</th>
-													<th>Giá</th>
-													<th>Tổng</th>
-												</tr>
-											</thead>
-											<tbody>
-												<tr ng-repeat="cart in carts track by $index">
-													<input name="cartId" type="hidden" ng-value="cart[0][0]">
-													<td>{{$index + 1}}</td>
-													<td class="row">
-														<div class="col-md-3">
-															<img class="img-fluid media-object"
-																ng-src="{{ '/images/' + cart[0][1] }}" alt="Image" />
-														</div>
-														<div class="col-md-9 product-name">
-															{{ cart[0][2] }}
-														</div>
-													</td>
-													<td>{{ cart[0][4] }}</td>
-													<td>{{ cart[0][3] | number: 0 }} VND</td>
-													<td>{{ cart[0][5] | number: 0}} VND</td>
-												</tr>
-											</tbody>
-										</table>
-									</div>
-								</div>
-								<div class="discount-code">
-									<div class="input-group">
-										<input type="text" class="input" id="discountCode" name="discountCode"
-											ng-model="discountCode" placeholder="Mã giảm giá" autocomplete="off">
-										<input class="button--submit" value="Áp dụng" type="submit"
-											ng-click="applyDiscount()">
-									</div>
-								</div>
-								<div class="summary-total">
-									<span>Tổng tiền đơn hàng:</span>
-									<div class="total">
-										<span class="total-amount" ng-class="{'old-price': isAppliedDiscountCode}">
-											{{ totalAmount | number: 0 }} VND
-										</span>
-										<span ng-show="isAppliedDiscountCode" class="new-total-amount">{{ newTotalAmount
-											|
-											number: 0 }} VND</span>
-									</div>
-								</div>
-
-								<div class="verified-icon">
-									<img src="images/shop/verified.png">
-								</div>
+						</div>
+						<div class="product-checkout-details">
+							<!-- Danh sách sản phẩm được chọn mua -->
+							<h4 class="widget-title">Sản phẩm mua</h4>
+							<div class="table-responsive">
+								<table class="table table-striped">
+									<thead>
+										<tr>
+											<th>STT</th>
+											<th>Tên sản phẩm</th>
+											<th>Số lượng</th>
+											<th>Giá</th>
+											<th>Tổng</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr ng-repeat="cart in carts track by $index">
+											<input name="cartId" type="hidden" ng-value="cart[0][0]">
+											<td>{{$index + 1}}</td>
+											<td class="row product-name">
+												<div class="col-md-3 image-cell">
+													<img class="img-fluid media-object"
+														ng-src="{{ '/images/' + cart[0][1] }}" alt="Image" />
+												</div>
+												<div class="col-md-9 product-name-cell">{{ cart[0][2] }}</div>
+											</td>
+											<td class="quantity-cell">{{ cart[0][4] }}</td>
+											<td class="price-cell">{{ cart[0][3] | number: 0 }} VND</td>
+											<td class="total-cell">{{ cart[0][5] | number: 0}} VND</td>
+										</tr>
+									</tbody>
+								</table>
 							</div>
 						</div>
-						<div class="block">
-							<h4 class="widget-title">Phương thức thanh toán</h4>
-							<div class="payment-method">
-								<div class="radio-tile-group">
-									<div class="input-container">
-										<input id="cod" class="radio-button" type="radio" name="radio" value="COD"
-											ng-click="toggleCOD()">
-										<div class="radio-tile">
-											<div class="icon cod-icon">
-												<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-													viewBox="0 0 24 24">
-													<path d="M0 0h24v24H0z" fill="none"></path>
-													<path
-														d="M19.15 8a2 2 0 0 0-1.72-1H15V5a1 1 0 0 0-1-1H4a2 2 0 0 0-2 2v10a2 2 0 0 0 1 1.73 3.49 3.49 0 0 0 7 .27h3.1a3.48 3.48 0 0 0 6.9 0 2 2 0 0 0 2-2v-3a1.07 1.07 0 0 0-.14-.52zM15 9h2.43l1.8 3H15zM6.5 19A1.5 1.5 0 1 1 8 17.5 1.5 1.5 0 0 1 6.5 19zm10 0a1.5 1.5 0 1 1 1.5-1.5 1.5 1.5 0 0 1-1.5 1.5z">
-													</path>
-												</svg>
-											</div>
-											<label for="cod" class="radio-tile-label">COD</label>
-										</div>
-									</div>
-									<div class="input-container">
-										<input id="VNPay" class="radio-button" type="radio" name="radio" value="VNPay"
-											ng-click="toggleVNPay()">
-										<div class="radio-tile">
-											<div class="icon bank-icon">
-												<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-													viewBox="0 0 24 24">
-													<path d="M0 0h24v24H0z" fill="none"></path>
-													<path
-														d="M20 4H4c-1.103 0-2 .897-2 2v2h20V6c0-1.103-.897-2-2-2zM2 18c0 1.103.897 2 2 2h16c1.103 0 2-.897 2-2v-6H2v6zm3-3h6v2H5v-2z">
-													</path>
-												</svg>
-											</div>
-											<label for="bank" class="radio-tile-label">VNPay</label>
-										</div>
-									</div>
-								</div>
-								<div id="sub-bank" class="sub-bank" ng-show="isVNPay">
-									<div class="wrapper">
-										<div class="card">
-											<input class="input" type="radio" name="card" value="NCB">
-											<span class="check"></span>
-											<label class="label">
-												<div class="title">NCB</div>
-												<div class="logo-bank">
-													<img src="https://sandbox.vnpayment.vn/paymentv2/images/img/logos/bank/big/ncb.svg"
-														alt="">
-												</div>
-											</label>
-										</div>
-										<div class="card">
-											<input class="input" type="radio" name="card" value="TPBank">
-											<span class="check"></span>
-											<label class="label">
-												<div class="title">TPBank</div>
-												<div class="logo-bank">
-													<img src="https://sandbox.vnpayment.vn/paymentv2/images/img/logos/bank/big/tpbank.svg"
-														alt="">
-												</div>
-											</label>
-										</div>
-										<div class="card">
-											<input class="input" type="radio" name="card" value="VISA">
-											<span class="check"></span>
-											<label class="label">
-												<div class="title">VISA</div>
-												<div class="logo-bank">
-													<img src="https://sandbox.vnpayment.vn/paymentv2/images/img/logos/bank/big/visa.svg"
-														alt="">
-												</div>
-											</label>
-										</div>
-										<div class="card">
-											<input class="input" type="radio" name="card" value="MasterCard">
-											<span class="check"></span>
-											<label class="label">
-												<div class="title">MasterCard</div>
-												<div class="logo-bank">
-													<img src="https://sandbox.vnpayment.vn/paymentv2/images/img/logos/bank/big/mastercard.svg"
-														alt="">
-												</div>
-											</label>
-										</div>
-										<div class="card">
-											<input class="input" type="radio" name="card" value="JCB">
-											<span class="check"></span>
-											<label class="label">
-												<div class="title">JCB</div>
-												<div class="logo-bank">
-													<img src="https://sandbox.vnpayment.vn/paymentv2/images/img/logos/bank/big/jcb.svg"
-														alt="">
-												</div>
-											</label>
-										</div>
-										<div class="card">
-											<input class="input" type="radio" name="card" value="EXIMBANK">
-											<span class="check"></span>
-											<label class="label">
-												<div class="title">EXIMBANK</div>
-												<div class="logo-bank">
-													<img src="https://sandbox.vnpayment.vn/paymentv2/images/img/logos/bank/big/eximbank.svg"
-														alt="">
-												</div>
-											</label>
-										</div>
-									</div>
+					</div>
+					<div class="col-md-4">
+						<div class="product-checkout-details">
+							<div class="discount-code">
+								<div class="input-group">
+									<input type="text" class="input" id="discountCode" name="discountCode"
+										ng-model="discountCode" placeholder="Mã giảm giá" autocomplete="off">
+									<input class="button--submit" value="Áp dụng" type="submit"
+										ng-click="applyDiscount()">
 								</div>
 							</div>
-							<div id="order-button" ng-show="isCOD || isVNPay">
-								<label class="total">{{ 'Tổng: ' + total | number: 0 + ' VND' }}</label>
-								<input type="hidden" id="totalAmount" name="totalAmount" ng-value="total">
-								<button type="button" class="btn btn-primary" ng-click="payment()">Đặt hàng</button>
+							<div class="summary-total">
+								<div class="total d-flex">
+									<span>Tổng tiền đơn hàng:</span>
+									<span class="total-amount" ng-class="{'old-price': isAppliedDiscountCode}">
+										{{ totalAmount | number: 0 }} VND
+									</span>
+
+								</div>
+								<div class="discount d-flex" ng-show="isAppliedDiscountCode">
+									<span>Số tiền giảm ({{discountPercent}}%): </span><span>{{totalAmount - newTotalAmount | number: 0}} VND</span>
+								</div>
+								<div class="amout-after-discount d-flex" ng-show="isAppliedDiscountCode">
+									<span>Tổng tiền sau giảm: </span>
+									<span class="new-total-amount">{{
+										newTotalAmount
+										|
+										number: 0 }} VND</span>
+								</div>
+							</div>
+							<div class="block">
+								<h4 class="widget-title">Phương thức thanh toán</h4>
+								<div class="payment-method">
+									<div class="radio-tile-group">
+										<div class="input-container">
+											<input id="cod" class="radio-button" type="radio" name="radio" value="COD"
+												ng-click="toggleCOD()">
+											<div class="radio-tile">
+												<div class="icon cod-icon">
+													<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+														viewBox="0 0 24 24">
+														<path d="M0 0h24v24H0z" fill="none"></path>
+														<path
+															d="M19.15 8a2 2 0 0 0-1.72-1H15V5a1 1 0 0 0-1-1H4a2 2 0 0 0-2 2v10a2 2 0 0 0 1 1.73 3.49 3.49 0 0 0 7 .27h3.1a3.48 3.48 0 0 0 6.9 0 2 2 0 0 0 2-2v-3a1.07 1.07 0 0 0-.14-.52zM15 9h2.43l1.8 3H15zM6.5 19A1.5 1.5 0 1 1 8 17.5 1.5 1.5 0 0 1 6.5 19zm10 0a1.5 1.5 0 1 1 1.5-1.5 1.5 1.5 0 0 1-1.5 1.5z">
+														</path>
+													</svg>
+												</div>
+												<label for="cod" class="radio-tile-label">COD</label>
+											</div>
+										</div>
+										<div class="input-container">
+											<input id="VNPay" class="radio-button" type="radio" name="radio"
+												value="VNPay" ng-click="toggleVNPay()">
+											<div class="radio-tile">
+												<div class="icon bank-icon">
+													<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+														viewBox="0 0 24 24">
+														<path d="M0 0h24v24H0z" fill="none"></path>
+														<path
+															d="M20 4H4c-1.103 0-2 .897-2 2v2h20V6c0-1.103-.897-2-2-2zM2 18c0 1.103.897 2 2 2h16c1.103 0 2-.897 2-2v-6H2v6zm3-3h6v2H5v-2z">
+														</path>
+													</svg>
+												</div>
+												<label for="bank" class="radio-tile-label">VNPay</label>
+											</div>
+										</div>
+									</div>
+									<div id="order-button" ng-show="isCOD || isVNPay">
+										<label class="total">{{ 'Tổng: ' + total | number: 0 + ' VND' }}</label>
+										<input type="hidden" id="totalAmount" name="totalAmount" ng-value="total">
+										<button type="button" class="btn btn-primary" ng-click="payment()">Đặt
+											hàng</button>
+									</div>
+									<div class="verified-icon">
+										<img src="images/shop/verified.png">
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+	</div>
+	</div>
+	</div>
 	</div>
 </section>
 <!-- CONTENT PAGE END-->

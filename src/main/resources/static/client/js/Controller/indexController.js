@@ -16,15 +16,5 @@ appClient.controller('indexController', function ($scope, $http, urlIndexClient,
         $scope.sessionUsername = $cookies.get('username');
     };
 
-    // Function show detail product selected
-    $scope.showProductDetails = function (product) {
-        $scope.selectedProduct = product; // Set selected product data
-        $('#product-modal').modal('show'); // Show the modal
-    };
-
-
-
-
     $scope.init();
-
 })

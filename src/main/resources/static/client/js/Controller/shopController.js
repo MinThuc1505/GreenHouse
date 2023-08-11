@@ -1,5 +1,6 @@
-appClient.controller('shopController', function ($scope, $http, urlShopClient, $cookies) {
+appClient.controller('shopController', function ($scope, $http, urlShopClient, $cookies, UserService, CartService) {
     let host = urlShopClient;
+    var username = UserService.getCookiesUsername();
 
 
     // Function Init
@@ -44,7 +45,7 @@ appClient.controller('shopController', function ($scope, $http, urlShopClient, $
                 var url = `${host}/filter?category=${selectedCategory.id}`;
             } else if (!selectedCategory || selectedCategory === "") {
                 var url = `${host}/filter?price=${selectedPrice}`;
-            }else{
+            } else {
                 var url = `${host}/filter?category=${selectedCategory.id}&price=${selectedPrice}`;
             }
             // Tiếp tục gọi API và xử lý dữ liệu khi đã chọn đủ giá trị
@@ -56,20 +57,6 @@ appClient.controller('shopController', function ($scope, $http, urlShopClient, $
             });
         }
     };
-
-    // Function show detail product selected
-    $scope.showProductDetails = function(product) { 
-        $scope.selectedProduct = product; // Set selected product data
-        $('#product-modal').modal('show'); // Show the modal
-    };
-
-    $scope.modalAddToCart = function(product) {
-        // Implement your logic to add the product to cart
-        console.log('Adding product to cart:', product);
-    };
-
-
-
 
     $scope.init();
 })

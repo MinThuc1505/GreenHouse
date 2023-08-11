@@ -1,8 +1,9 @@
-app.controller('userController', function($scope, $http, urlAccount){
-	let host = urlAccount;
-    $scope.form = {};
-    $scope.items = {};
-    $scope.load_all = function(){
+app.controller("userController", function ($scope, $http, urlAccount) {
+  let host = urlAccount;
+  $scope.form = {};
+  $scope.items = {};
+  $scope.selectedItemIndex = -1; // Biến lưu trạng thái sản phẩm đang được chỉnh sửa
+  $scope.load_all = function(){
         var url = `${host}`;
         $http.get(url).then(resp => {
         	$scope.items = resp.data;
@@ -74,46 +75,7 @@ app.controller('userController', function($scope, $http, urlAccount){
         }).catch(Error =>{
             console.log("Error", Error);
         })
-    }
-    $scope.Edit = function(key){
-        var url = `${host}/${key}`;
-        $http.get(url).then(resp => {
-            $scope.form = resp.data;
-            $scope.key = key;
-           $scope.form.createDate = formatDateToISOString($scope.form.createDate);
-        }).catch(Error =>{
-            console.log("Error", Error);
-        })
-    }
-    $scope.Update = function(key){var item = {
-        username: $scope.form.username,
-        password: $scope.form.password,
-        fullName: $scope.form.fullName,
-        email: $scope.form.email,
-        phone: $scope.form.phone,
-        gender: $scope.form.gender,
-        address: $scope.form.address,
-        image: $scope.form.image,
-        role:  $scope.form.role,
-        createDate: $scope.form.createDate
     };
-
-app.controller("userController", function ($scope, $http, urlAccount) {
-  let host = urlAccount;
-  $scope.form = {};
-  $scope.items = {};
-  $scope.selectedItemIndex = -1; // Biến lưu trạng thái sản phẩm đang được chỉnh sửa
-  $scope.load_all = function () {
-    var url = `${host}`;
-    $http
-      .get(url)
-      .then((resp) => {
-        $scope.items = resp.data;
-      })
-      .catch((Error) => {
-        console.log("Error", Error);
-      });
-  };
   $scope.Edit = function (key, index) {
     var url = `${host}/${key}`;
     $http
@@ -133,7 +95,7 @@ app.controller("userController", function ($scope, $http, urlAccount) {
   $scope.Update = function (key) {
     var formData = new FormData();
     formData.append("file", document.getElementById("fileInput33").files[0]);
-    
+
     formData.append("account", JSON.stringify({
       password: $scope.form.password,
       fullName: $scope.form.fullName,
@@ -141,7 +103,7 @@ app.controller("userController", function ($scope, $http, urlAccount) {
       phone: $scope.form.phone,
       gender: $scope.form.gender,
       address: $scope.form.address,
-      role: $scope.form.role,   
+      role: $scope.form.role,
       createDate: new Date(),
     }));
     formData.append("file", $scope.form.image);
@@ -287,46 +249,16 @@ function formatDateToISOString(dateString) {
   var minutes = date.getMinutes().toString().padStart(2, "0");
   return `${year}-${month}-${day}T${hours}:${minutes}`;
 }
-function displayImage(event) {
-  var input = event.target;
-  if (input.files && input.files[0]) {
-    var reader = new FileReader();
-
-    reader.onload = function (e) {
-      var imageContainer = document.getElementById("uploadedImage");
-      imageContainer.src = e.target.result;
-      imageContainer.style.display = "block";
-    };
-
-    reader.readAsDataURL(input.files[0]);
-  }
-}
 
 function displayImages(event) {
   var input = event.target;
   if (input.files && input.files[0]) {
     var reader = new FileReader();
-
     reader.onload = function (e) {
       var imageContainer = document.getElementById("uploadedImages");
       imageContainer.src = e.target.result;
       imageContainer.style.display = "block";
     };
-
-    reader.readAsDataURL(input.files[0]);
-  }
-}
-function displayImage(event) {
-  var input = event.target;
-  if (input.files && input.files[0]) {
-    var reader = new FileReader();
-
-    reader.onload = function (e) {
-      var imageContainer = document.getElementById("uploadedImage");
-      imageContainer.src = e.target.result;
-      imageContainer.style.display = "block";
-    };
-
     reader.readAsDataURL(input.files[0]);
   }
 }
