@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html class="no-js" lang="" xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{client/main-layout.html :: layout (~{::title}, ~{::#layout})}">
+
+<head>
+	<title>Sản phẩm</title>
+</head>
+<section id="layout" ng-controller="single-productController">
+	<section class="single-product">
+		<div class="container">
+			<div class="row">
+				<ol class="breadcrumb">
+					<li><a href="/client/index">Home</a></li>
+					<li><a href="/client/shop">Shop</a></li>
+					<li class="active">Single Product</li>
+				</ol>
+			</div>
+			<div class="row mt-20">
+				<div class="col-md-5">
+					<div class="single-product-slider">
+						<div id='carousel-custom' class='carousel slide' data-ride='carousel'>
+							<div class='carousel-outer'>
+								<!-- me art lab slider -->
+								<div class='carousel-inner'>
+									<div class='item active'>
+										<img ng-src="{{ '/images/' + product.image }}" alt=''
+											data-zoom-image="{{ '/images/' + product.image }}" />
+									</div>
+									<div class='item'>
+										<img ng-src="{{ '/images/' + product.image }}" alt=''
+											data-zoom-image="{{ '/images/' + product.image }}" />
+									</div>
+
+									<div class='item'>
+										<img ng-src="{{ '/images/' + product.image }}" alt=''
+											data-zoom-image="{{ '/images/' + product.image }}" />
+									</div>
+									<div class='item'>
+										<img ng-src="{{ '/images/' + product.image }}" alt=''
+											data-zoom-image="{{ '/images/' + product.image }}" />
+									</div>
+									<div class='item'>
+										<img ng-src="{{ '/images/' + product.image }}" alt=''
+											data-zoom-image="{{ '/images/' + product.image }}" />
+									</div>
+									<div class='item'>
+										<img ng-src="{{ '/images/' + product.image }}" alt=''
+											data-zoom-image="{{ '/images/' + product.image }}" />
+									</div>
+
+								</div>
+
+								<!-- sag sol -->
+								<a class='left carousel-control' href='#carousel-custom' data-slide='prev'>
+									<i class="tf-ion-ios-arrow-left"></i>
+								</a>
+								<a class='right carousel-control' href='#carousel-custom' data-slide='next'>
+									<i class="tf-ion-ios-arrow-right"></i>
+								</a>
+							</div>
+
+							<!-- thumb -->
+							<ol class='carousel-indicators mCustomScrollbar meartlab'>
+								<li data-target='#carousel-custom' data-slide-to='0' class='active'>
+									<img src="{{ '/images/' + product.image }}" alt='' />
+								</li>
+								<li data-target='#carousel-custom' data-slide-to='1'>
+									<img src="{{ '/images/' + product.image }}" alt='' />
+								</li>
+								<li data-target='#carousel-custom' data-slide-to='2'>
+									<img src="{{ '/images/' + product.image }}" alt='' />
+								</li>
+								<li data-target='#carousel-custom' data-slide-to='3'>
+									<img src="{{ '/images/' + product.image }}" alt='' />
+								</li>
+								<li data-target='#carousel-custom' data-slide-to='4'>
+									<img src="{{ '/images/' + product.image }}" alt='' />
+								</li>
+								<li data-target='#carousel-custom' data-slide-to='5'>
+									<img src="{{ '/images/' + product.image }}" alt='' />
+								</li>
+								<li data-target='#carousel-custom' data-slide-to='6'>
+									<img src="{{ '/images/' + product.image }}" alt='' />
+								</li>
+							</ol>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-7">
+					<div class="single-product-details">
+						<h2>{{ product.name }}</h2>
+						<p class="product-price">{{ product.price | number:0 }} VND</p>
+
+						<p class="product-description mt-20">
+							{{ product.description }}
+						</p>
+						<div class="color-swatches">
+							<span>Chất liệu:</span>
+							<ul>
+								<li>
+									<a href="#!">{{materialOfProduct}}</a>
+								</li>
+							</ul>
+						</div>
+						<div class="product-size">
+							<span>Kích thước:</span>
+							<ul>
+								<li>
+									<a href="#!">{{sizeOfProduct}} (Dài x Rộng x Cao)</a>
+								</li>
+							</ul>
+						</div>
+						<div class="product-quantity">
+							<span>Số lượng:</span>
+							<div class="product-quantity-slider">
+								<input id="product-quantity" type="text" ng-model="productQuantity"
+									name="product-quantity">
+							</div>
+						</div>
+						<a href="#!" class="btn btn-main mt-20" ng-click="addProductToCart(product.id)">Thêm vào giỏ
+							hàng</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section class="products related-products section">
+		<div class="container">
+			<div class="row">
+				<div class="title text-center">
+					<h2>Sản phẩm tương tự</h2>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-3" ng-repeat="relatedProduct in relatedProducts">
+					<div class="product-item">
+						<div class="product-thumb">
+							<img class="img-responsive" ng-src="{{ '/images/' + relatedProduct.image }}"
+								alt="product-img" />
+							<div class="preview-meta">
+								<ul>
+									<li>
+										<span ng-click="showProductDetails(relatedProduct)">
+											<i class="tf-ion-ios-search-strong"></i>
+										</span>
+									</li>
+									<li>
+										<a href="#" ng-click="addToCart(relatedProduct.id)">
+											<i class="tf-ion-android-cart"></i>
+										</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<div class="product-content">
+							<h4><a href="product-single.html">{{ relatedProduct.name }}</a></h4>
+							<p class="price">{{ relatedProduct.price | number:0 }} VND</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- Modal -->
+	<div class="modal product-modal fade" id="product-modal">
+		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			<i class="tf-ion-close"></i>
+		</button>
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-md-8 col-sm-6 col-xs-12">
+							<div class="modal-image">
+								<img id="product-img" ng-src="{{ '/images/' + selectedProduct.image }}"
+									alt="product-img" />
+							</div>
+						</div>
+						<div class="col-md-4 col-sm-6 col-xs-12">
+							<div class="product-short-details">
+								<h2 class="product-title" id="product-title">{{ selectedProduct.name
+									}}</h2>
+								<p class="product-price" id="product-price">{{ selectedProduct.price |
+									number:0 }} VND</p>
+								<p class="product-short-description" id="product-description">{{
+									selectedProduct.description }}</p>
+								<!-- Hiển thị thông tin size, chất liệu, và các thông tin khác tương ứng của sản phẩm -->
+
+								<p id="modal-idProduct" style="display: none">{{ selectedProduct.id }}</p>
+								<a href="#" class="btn btn-main" id="modal-addToCart"
+									ng-click="modalAddToCart(selectedProduct.id)">Thêm vào giỏ hàng</a>
+								<a href="#!" class="btn btn-transparent"
+									ng-click="viewProductDetails(selectedProduct.id)">Xem chi tiết sản phẩm</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+
+
+
+</html>

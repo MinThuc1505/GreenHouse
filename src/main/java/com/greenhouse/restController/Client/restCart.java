@@ -92,6 +92,41 @@ public class restCart {
         return ResponseEntity.ok(responseData);
     }
 
+    @GetMapping("/addFormProductDetail")
+    private ResponseEntity<Map<String, Object>> addToCartFormProductDetail(@RequestParam String productId, @RequestParam String quantity, 
+            @RequestParam String username) {
+        String status = "";
+        String message = "";
+        Map<String, Object> responseData = new HashMap<>();
+        Cart cart = cartDAO.getCart(username, productId);
+        Product product = productDAO.findById(Integer.parseInt(productId)).get();
+        if (cart != null) {
+            // update quantity
+            int qty = cart.getQuantity() + Integer.parseInt(quantity);
+            cart.setQuantity(qty);
+            cart.setAmount(getTotalAmount(cart));
+            cartDAO.save(cart);
+            status = "success";
+            message = "Sản phẩm đã có -> thêm số lượng";
+        } else {
+            // add to the cart table and set default values for amount & quantity
+            cart = new Cart();
+            cart.setUsername(username);
+            cart.setProduct(product);
+            cart.setQuantity(Integer.parseInt(quantity));
+            cart.setPrice(product.getPrice());
+            cart.setAmount(getTotalAmount(cart));
+            cart.setStatus(true);
+            cartDAO.save(cart);
+            status = "success";
+            message = "Thêm giỏ hàng thành công";
+        }
+
+        responseData.put("status", status);
+        responseData.put("message", message);
+        return ResponseEntity.ok(responseData);
+    }
+
     @GetMapping("/remove")
     private ResponseEntity<Map<String, Object>> removeCart(@RequestParam String cartId) {
         Map<String, Object> responseData = new HashMap<>();

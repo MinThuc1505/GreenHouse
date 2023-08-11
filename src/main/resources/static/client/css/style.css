@@ -1491,6 +1491,14 @@ input[type="tel"]:focus {
   vertical-align: middle;
 }
 
+.single-product-slider .carousel .carousel-inner .item{
+  width: 100%;
+}
+
+.single-product-slider .carousel .carousel-inner .item img{
+  width: 100%;
+}
+
 .single-product-slider .carousel .carousel-inner .carousel-caption {
   text-shadow: none;
   text-align: left;
@@ -1586,8 +1594,6 @@ input[type="tel"]:focus {
 
 .single-product-details .color-swatches a {
   display: inline-block;
-  width: 36px;
-  height: 36px;
   margin-right: 5px;
 }
 
@@ -2635,8 +2641,11 @@ input[type="tel"]:focus {
 }
 
 .checkout .block {
-  padding: 15px;
   margin-bottom: 10px;
+}
+
+.checkout .billing-details {
+  margin-bottom: 50px;
 }
 
 .checkout-form .form-group {
@@ -2665,6 +2674,9 @@ input[type="tel"]:focus {
   -moz-appearance: none;
   -webkit-appearance: none;
   height: 50px;
+  color: #242424;
+  font-size: 12px;
+  font-weight: 500;
 }
 
 .checkout-form .checkout-country-code .form-group {
@@ -2714,15 +2726,37 @@ input[type="tel"]:focus {
   margin: 20px 0;
 }
 
-.product-checkout-details .table tbody .img-fluid {
+.product-checkout-details .verified-icon {
+  margin-top: 50px;
+}
+
+.product-checkout-details .verified-icon img {
   width: 100%;
 }
 
-.product-checkout-details .table tbody .product-name {
-  max-width: 60%;
+.product-checkout-details .table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.product-checkout-details .table tbody .product-name-cell {
+  width: 200px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.product-checkout-details .table tbody .quantity-cell {
+  width: 100px;
+}
+
+.product-checkout-details .table tbody .price-cell,
+.product-checkout-details .table tbody .total-cell {
+  width: 150px;
+}
+
+.product-checkout-details .table tbody .img-fluid {
+  width: 100%;
 }
 
 .product-checkout-details .discount-code {
@@ -2732,51 +2766,6 @@ input[type="tel"]:focus {
   padding: 10px 0;
 }
 
-.product-checkout-details .summary-prices {
-  border-style: solid;
-  border-color: #dedede;
-  border-width: 0px 0 1px 0;
-  padding-bottom: 10px;
-}
-
-.product-checkout-details .summary-prices li {
-  padding: 5px 0;
-}
-
-.product-checkout-details .summary-prices li span+span {
-  float: right;
-}
-
-.product-checkout-details .summary-total {
-  margin-top: 5px;
-  border-bottom: lightgray solid 1px;
-  padding-bottom: 10px;
-}
-
-.product-checkout-details .summary-total {
-  font-weight: 500;
-  font-size: 24px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.product-checkout-details .summary-total .total {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.product-checkout-details .summary-total .total .total-amount {
-  margin-right: 30px;
-}
-
-.product-checkout-details .summary-total .total .old-price {
-  text-decoration: line-through;
-  color: rgb(150, 150, 150);
-}
-
-
 .product-checkout-details .discount-code .input-group {
   display: flex;
   align-items: center;
@@ -2784,7 +2773,7 @@ input[type="tel"]:focus {
 
 .product-checkout-details .discount-code .input {
   min-height: 50px;
-  max-width: 500px;
+  width: 100%;
   padding: 0 1rem;
   color: #000000;
   font-size: 15px;
@@ -2816,8 +2805,44 @@ input[type="tel"]:focus {
   outline: none;
 }
 
-.product-checkout-details .verified-icon {
-  margin-top: 25px;
+.product-checkout-details .summary-prices {
+  border-style: solid;
+  border-color: #dedede;
+  border-width: 0px 0 1px 0;
+  padding-bottom: 10px;
+}
+
+.product-checkout-details .summary-prices li {
+  padding: 5px 0;
+}
+
+.product-checkout-details .summary-prices li span+span {
+  float: right;
+}
+
+.product-checkout-details .summary-total {
+  margin-top: 5px;
+  border-bottom: lightgray solid 1px;
+  padding-bottom: 10px;
+}
+
+.product-checkout-details .summary-total {
+  font-weight: 500;
+  font-size: 16px;
+  max-width: 360px;
+}
+
+.product-checkout-details .summary-total .d-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.product-checkout-details .summary-total .total .old-price {
+  text-decoration: line-through;
+  color: rgb(150, 150, 150);
 }
 
 .purchase-confirmation .purchase-confirmation-details {
@@ -3887,6 +3912,9 @@ input[type="tel"]:focus {
 .cart .product-list table .product-info p {
   margin-left: 10px;
   font-size: medium;
+  max-width: 600px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .cart .product-list .table th {
@@ -3895,6 +3923,10 @@ input[type="tel"]:focus {
 }
 
 /* Payment */
+.payment-method {
+  margin-bottom: 50px;
+}
+
 .payment-method .radio-tile-group {
   display: flex;
   flex-wrap: wrap;
@@ -4006,8 +4038,7 @@ input[type="tel"]:focus {
   align-items: center;
   background: #fff;
   text-align: center;
-  transform: perspective(1000px) rotate(-15deg) skew(20deg)
-    translate(0, 0);
+  transform: perspective(1000px) rotate(-15deg) skew(20deg) translate(0, 0);
   transition: all 0.4s ease;
 }
 
@@ -4147,7 +4178,7 @@ input[type="tel"]:focus {
 }
 
 .wheel {
-  background: radial-gradient(100% 100% at center,hsla(0, 0%, 17%, 0) 47.8%,hsl(0,0%,60%) 48%);
+  background: radial-gradient(100% 100% at center, hsla(0, 0%, 17%, 0) 47.8%, hsl(0, 0%, 60%) 48%);
   z-index: 2;
 }
 
@@ -4157,17 +4188,17 @@ input[type="tel"]:focus {
   left: calc(50% - 3.5em);
   width: 7em;
   height: 3.75em;
-  transform: rotate(4deg) translate(-0.8em,1.85em);
+  transform: rotate(4deg) translate(-0.8em, 1.85em);
   transform-origin: 50% 0;
   z-index: 1;
 }
 
 .hamster__head {
   animation: hamsterHead var(--dur) ease-in-out infinite;
-  background: hsl(30,90%,55%);
+  background: hsl(30, 90%, 55%);
   border-radius: 70% 30% 0 100% / 40% 25% 25% 60%;
-  box-shadow: 0 -0.25em 0 hsl(30,90%,80%) inset,
-		0.75em -1.55em 0 hsl(30,90%,90%) inset;
+  box-shadow: 0 -0.25em 0 hsl(30, 90%, 80%) inset,
+    0.75em -1.55em 0 hsl(30, 90%, 90%) inset;
   top: 0;
   left: -2em;
   width: 2.75em;
@@ -4177,9 +4208,9 @@ input[type="tel"]:focus {
 
 .hamster__ear {
   animation: hamsterEar var(--dur) ease-in-out infinite;
-  background: hsl(0,90%,85%);
+  background: hsl(0, 90%, 85%);
   border-radius: 50%;
-  box-shadow: -0.25em 0 hsl(30,90%,55%) inset;
+  box-shadow: -0.25em 0 hsl(30, 90%, 55%) inset;
   top: -0.25em;
   right: -0.25em;
   width: 0.75em;
@@ -4189,7 +4220,7 @@ input[type="tel"]:focus {
 
 .hamster__eye {
   animation: hamsterEye var(--dur) linear infinite;
-  background-color: hsl(0,0%,0%);
+  background-color: hsl(0, 0%, 0%);
   border-radius: 50%;
   top: 0.375em;
   left: 1.25em;
@@ -4198,7 +4229,7 @@ input[type="tel"]:focus {
 }
 
 .hamster__nose {
-  background: hsl(0,90%,75%);
+  background: hsl(0, 90%, 75%);
   border-radius: 35% 65% 85% 15% / 70% 50% 50% 30%;
   top: 0.75em;
   left: 0;
@@ -4208,10 +4239,10 @@ input[type="tel"]:focus {
 
 .hamster__body {
   animation: hamsterBody var(--dur) ease-in-out infinite;
-  background: hsl(30,90%,90%);
+  background: hsl(30, 90%, 90%);
   border-radius: 50% 30% 50% 30% / 15% 60% 40% 40%;
-  box-shadow: 0.1em 0.75em 0 hsl(30,90%,55%) inset,
-		0.15em -0.5em 0 hsl(30,90%,80%) inset;
+  box-shadow: 0.1em 0.75em 0 hsl(30, 90%, 55%) inset,
+    0.15em -0.5em 0 hsl(30, 90%, 80%) inset;
   top: 0.25em;
   left: 2em;
   width: 4.5em;
@@ -4222,7 +4253,7 @@ input[type="tel"]:focus {
 
 .hamster__limb--fr,
 .hamster__limb--fl {
-  clip-path: polygon(0 0,100% 0,70% 80%,60% 100%,0% 100%,40% 80%);
+  clip-path: polygon(0 0, 100% 0, 70% 80%, 60% 100%, 0% 100%, 40% 80%);
   top: 2em;
   left: 0.5em;
   width: 1em;
@@ -4232,20 +4263,20 @@ input[type="tel"]:focus {
 
 .hamster__limb--fr {
   animation: hamsterFRLimb var(--dur) linear infinite;
-  background: linear-gradient(hsl(30,90%,80%) 80%,hsl(0,90%,75%) 80%);
+  background: linear-gradient(hsl(30, 90%, 80%) 80%, hsl(0, 90%, 75%) 80%);
   transform: rotate(15deg) translateZ(-1px);
 }
 
 .hamster__limb--fl {
   animation: hamsterFLLimb var(--dur) linear infinite;
-  background: linear-gradient(hsl(30,90%,90%) 80%,hsl(0,90%,85%) 80%);
+  background: linear-gradient(hsl(30, 90%, 90%) 80%, hsl(0, 90%, 85%) 80%);
   transform: rotate(15deg);
 }
 
 .hamster__limb--br,
 .hamster__limb--bl {
   border-radius: 0.75em 0.75em 0 0;
-  clip-path: polygon(0 0,100% 0,100% 30%,70% 90%,70% 100%,30% 100%,40% 90%,0% 30%);
+  clip-path: polygon(0 0, 100% 0, 100% 30%, 70% 90%, 70% 100%, 30% 100%, 40% 90%, 0% 30%);
   top: 1em;
   left: 2.8em;
   width: 1.5em;
@@ -4255,21 +4286,21 @@ input[type="tel"]:focus {
 
 .hamster__limb--br {
   animation: hamsterBRLimb var(--dur) linear infinite;
-  background: linear-gradient(hsl(30,90%,80%) 90%,hsl(0,90%,75%) 90%);
+  background: linear-gradient(hsl(30, 90%, 80%) 90%, hsl(0, 90%, 75%) 90%);
   transform: rotate(-25deg) translateZ(-1px);
 }
 
 .hamster__limb--bl {
   animation: hamsterBLLimb var(--dur) linear infinite;
-  background: linear-gradient(hsl(30,90%,90%) 90%,hsl(0,90%,85%) 90%);
+  background: linear-gradient(hsl(30, 90%, 90%) 90%, hsl(0, 90%, 85%) 90%);
   transform: rotate(-25deg);
 }
 
 .hamster__tail {
   animation: hamsterTail var(--dur) linear infinite;
-  background: hsl(0,90%,85%);
+  background: hsl(0, 90%, 85%);
   border-radius: 0.25em 50% 50% 0.25em;
-  box-shadow: 0 -0.2em 0 hsl(0,90%,75%) inset;
+  box-shadow: 0 -0.2em 0 hsl(0, 90%, 75%) inset;
   top: 1.5em;
   right: -0.5em;
   width: 1em;
@@ -4280,33 +4311,46 @@ input[type="tel"]:focus {
 
 .spoke {
   animation: spoke var(--dur) linear infinite;
-  background: radial-gradient(100% 100% at center,hsl(0,0%,60%) 4.8%,hsla(0,0%,60%,0) 5%),
-		linear-gradient(hsla(0,0%,55%,0) 46.9%,hsl(0,0%,65%) 47% 52.9%,hsla(0,0%,65%,0) 53%) 50% 50% / 99% 99% no-repeat;
+  background: radial-gradient(100% 100% at center, hsl(0, 0%, 60%) 4.8%, hsla(0, 0%, 60%, 0) 5%),
+    linear-gradient(hsla(0, 0%, 55%, 0) 46.9%, hsl(0, 0%, 65%) 47% 52.9%, hsla(0, 0%, 65%, 0) 53%) 50% 50% / 99% 99% no-repeat;
 }
 
 /* Animations */
 @keyframes hamster {
-  from, to {
-    transform: rotate(4deg) translate(-0.8em,1.85em);
+
+  from,
+  to {
+    transform: rotate(4deg) translate(-0.8em, 1.85em);
   }
 
   50% {
-    transform: rotate(0) translate(-0.8em,1.85em);
+    transform: rotate(0) translate(-0.8em, 1.85em);
   }
 }
 
 @keyframes hamsterHead {
-  from, 25%, 50%, 75%, to {
+
+  from,
+  25%,
+  50%,
+  75%,
+  to {
     transform: rotate(0);
   }
 
-  12.5%, 37.5%, 62.5%, 87.5% {
+  12.5%,
+  37.5%,
+  62.5%,
+  87.5% {
     transform: rotate(8deg);
   }
 }
 
 @keyframes hamsterEye {
-  from, 90%, to {
+
+  from,
+  90%,
+  to {
     transform: scaleY(1);
   }
 
@@ -4316,71 +4360,127 @@ input[type="tel"]:focus {
 }
 
 @keyframes hamsterEar {
-  from, 25%, 50%, 75%, to {
+
+  from,
+  25%,
+  50%,
+  75%,
+  to {
     transform: rotate(0);
   }
 
-  12.5%, 37.5%, 62.5%, 87.5% {
+  12.5%,
+  37.5%,
+  62.5%,
+  87.5% {
     transform: rotate(12deg);
   }
 }
 
 @keyframes hamsterBody {
-  from, 25%, 50%, 75%, to {
+
+  from,
+  25%,
+  50%,
+  75%,
+  to {
     transform: rotate(0);
   }
 
-  12.5%, 37.5%, 62.5%, 87.5% {
+  12.5%,
+  37.5%,
+  62.5%,
+  87.5% {
     transform: rotate(-2deg);
   }
 }
 
 @keyframes hamsterFRLimb {
-  from, 25%, 50%, 75%, to {
+
+  from,
+  25%,
+  50%,
+  75%,
+  to {
     transform: rotate(50deg) translateZ(-1px);
   }
 
-  12.5%, 37.5%, 62.5%, 87.5% {
+  12.5%,
+  37.5%,
+  62.5%,
+  87.5% {
     transform: rotate(-30deg) translateZ(-1px);
   }
 }
 
 @keyframes hamsterFLLimb {
-  from, 25%, 50%, 75%, to {
+
+  from,
+  25%,
+  50%,
+  75%,
+  to {
     transform: rotate(-30deg);
   }
 
-  12.5%, 37.5%, 62.5%, 87.5% {
+  12.5%,
+  37.5%,
+  62.5%,
+  87.5% {
     transform: rotate(50deg);
   }
 }
 
 @keyframes hamsterBRLimb {
-  from, 25%, 50%, 75%, to {
+
+  from,
+  25%,
+  50%,
+  75%,
+  to {
     transform: rotate(-60deg) translateZ(-1px);
   }
 
-  12.5%, 37.5%, 62.5%, 87.5% {
+  12.5%,
+  37.5%,
+  62.5%,
+  87.5% {
     transform: rotate(20deg) translateZ(-1px);
   }
 }
 
 @keyframes hamsterBLLimb {
-  from, 25%, 50%, 75%, to {
+
+  from,
+  25%,
+  50%,
+  75%,
+  to {
     transform: rotate(20deg);
   }
 
-  12.5%, 37.5%, 62.5%, 87.5% {
+  12.5%,
+  37.5%,
+  62.5%,
+  87.5% {
     transform: rotate(-60deg);
   }
 }
 
 @keyframes hamsterTail {
-  from, 25%, 50%, 75%, to {
+
+  from,
+  25%,
+  50%,
+  75%,
+  to {
     transform: rotate(30deg) translateZ(-1px);
   }
 
-  12.5%, 37.5%, 62.5%, 87.5% {
+  12.5%,
+  37.5%,
+  62.5%,
+  87.5% {
     transform: rotate(10deg) translateZ(-1px);
   }
 }
