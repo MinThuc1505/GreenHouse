@@ -48,7 +48,7 @@
 									<td class="text-center">{{$index + 1}}</td>
 									<td >	<img class="object-fit" ng-src="/images/{{item.image}}"
 										name="image" style="max-height: 50px; width: 50%;">
-										{{item.username}}  
+										{{item.username}}
 									</td>
 									<td>{{item.fullName}}</td>
 									<td>{{item.email}}</td>
@@ -182,10 +182,33 @@
 							</tbody>
 						</table>
 					</div>
+					<div class="text-center">
+						<nav aria-label="Page navigation">
+							<ul class="pagination justify-content-center">
+								<li ng-class="{disabled: currentPage === 1}" class="page-item">
+									<button ng-click="goToPage(1)" class="page-link btn btn-info">Trang đầu</button>
+								</li>
+								<li ng-class="{disabled: currentPage === 1}" class="page-item">
+									<button ng-click="prevPage()" class="page-link btn btn-info">Trước</button>
+								</li>
+
+								<li ng-repeat="pageNumber in pageNumbers" class="page-item">
+									<button ng-click="goToPage(pageNumber)" class="page-link btn btn-info">{{pageNumber}}</button>
+								</li>
+
+								<li ng-class="{disabled: currentPage === totalPages}" class="page-item">
+									<button ng-click="nextPage()" class="page-link btn btn-info">Tiếp</button>
+								</li>
+								<li ng-class="{disabled: currentPage === totalPages}" class="page-item">
+									<button ng-click="goToPage(totalPages)" class="page-link btn btn-info">Trang cuối</button>
+								</li>
+							</ul>
+						</nav>
+					</div>
 				</div>
 			</div>
 		</div>
-	
+
 
 
 		<!-- The Modal -->

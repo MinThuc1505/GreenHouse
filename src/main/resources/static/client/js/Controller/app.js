@@ -12,7 +12,7 @@ appClient.constant('urlSignUpClient', 'http://localhost:8081/client/rest/signup'
 appClient.constant('urlProfileClient', 'http://localhost:8081/client/rest/profile');
 appClient.constant('urlChangePasswordClient', 'http://localhost:8081/client/rest/change-password');
 appClient.constant('urlForgotPasswordClient', 'http://localhost:8081/client/rest/forgot-password');
-
+appClient.constant('urlSingleProductClient', 'http://localhost:8081/client/rest/single-product');
 // Constant - end
 
 //Service - start
@@ -52,6 +52,18 @@ appClient.service('CartService', ['$http', 'urlCartClient', '$rootScope', functi
 
     this.addToCart = function (productId, username) {
         var url = `${host}/add?productId=${productId}&username=${username}`;
+        $http.get(url).then(resp => {
+            console.log(resp.data.status);
+            console.log(resp.data.message);
+            this.getTotalQuantity(username);
+        }).catch(Error => {
+            console.log("Lỗi thêm giỏ hàng");
+            console.log("Error: ", Error);
+        })
+    };
+
+    this.addToCartFormProductDetail = function (productId, quantity, username) {
+        var url = `${host}/addFormProductDetail?productId=${productId}&quantity=${quantity}&username=${username}`;
         $http.get(url).then(resp => {
             console.log(resp.data.status);
             console.log(resp.data.message);

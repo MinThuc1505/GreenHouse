@@ -20,14 +20,14 @@ appClient.controller('forgot-passwordController', ['$scope', '$http', 'urlForgot
             hideLoading();
             if (response.data.status == "success") {
                 Swal.fire({
-                    icon: 'info',
-                    title: 'Thông tin',
+                    icon: 'success',
+                    title: 'Gửi mail thành công',
                     text: response.data.message
                 });
             } else {
                 Swal.fire({
-                    icon: 'info',
-                    title: 'Thông tin',
+                    icon: 'error',
+                    title: 'Lỗi khi gửi mail',
                     text: response.data.message
                 });
             }

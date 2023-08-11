@@ -84,7 +84,7 @@
 							<a href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"
 								data-delay="350" role="button" aria-haspopup="true" aria-expanded="false"><i
 									class='bx bxs-user-circle'></i>
-									<span *ngIf="cookiesUsername">{{ cookiesUsername.length > 10 ? cookiesUsername.substr(0, 10) + '...' : cookiesUsername }}</span>
+									<span ng-if="cookiesUsername">{{ cookiesUsername.length > 13 ? cookiesUsername.substr(0, 13) + '...' : cookiesUsername }}</span>
 								<span ng-if="!cookiesUsername" th:text="#{lo.mn.account}"></span>
 								<span class="tf-ion-ios-arrow-down"></span>
 							</a>
@@ -301,6 +301,7 @@
 	<script src="/client/js/Controller/checkoutController.js"></script>
 	<script src="/client/js/Controller/donePayController.js"></script>
 	<script src="/client/js/Controller/forgot-passwordController.js"></script>
+	<script src="/client/js/Controller/single-productController.js"></script>
 </th:block>
 <!-- Script End -->
 

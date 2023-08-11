@@ -9,6 +9,10 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -27,6 +31,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.google.gson.Gson;
 import com.greenhouse.DAO.AccountDAO;
 import com.greenhouse.model.Account;
+import com.greenhouse.model.Provider;
 
 import io.micrometer.common.util.StringUtils;
 
@@ -55,25 +60,39 @@ public class restUser {
     }
 
     @PostMapping
-    private ResponseEntity<?> create(@RequestBody Account account) {
+    private ResponseEntity<?> create(
+        @RequestBody Account account,
+        @RequestParam(value = "file", required = false) MultipartFile file) {
 
         Map<String, String> errors = validateAccount(account);
 
-        if (account.getUsername() != null && errors.isEmpty()) {
-            PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-            String encodedPassword = passwordEncoder.encode(account.getPassword());
-            account.setPassword(encodedPassword);
-            Account createdAccount = accountDAO.save(account);
-            return ResponseEntity.ok(createdAccount);
-        } else if (!errors.isEmpty()) {
-            return ResponseEntity.badRequest().body(errors);
-        } else {
-            errors.put("otherError", "Thông tin tài khoản không hợp lệ.");
+        if (!errors.isEmpty()) {
             return ResponseEntity.badRequest().body(errors);
         }
 
+        // Kiểm tra nếu có tệp ảnh được tải lên
+        if (file != null && !file.isEmpty()) {
+            try {
+                String fileName = file.getOriginalFilename();
+                String filePath = Paths.get("").toAbsolutePath().toString() + "/src/main/resources/static/images/" + fileName;
+                File dest = new File(filePath);
+                file.transferTo(dest);
+                account.setImage(fileName);
+            } catch (IOException e) {
+                e.printStackTrace();
+                return ResponseEntity.badRequest().build();
+            }
+        }
+
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String encodedPassword = passwordEncoder.encode(account.getPassword());
+        account.setPassword(encodedPassword);
+
+        Account createdAccount = accountDAO.save(account);
+
+        return ResponseEntity.ok(createdAccount);
     }
-    
+
     
 
     @PutMapping(value = "/{username}")
@@ -82,11 +101,11 @@ public class restUser {
         @RequestParam("account") String accountJson,
         @RequestParam(value = "file", required = false) MultipartFile file) {
             Account account = new Gson().fromJson(accountJson, Account.class);
-    
+
         if (!accountDAO.existsById(username)) {
             return ResponseEntity.notFound().build();
         }
-    
+
         // Kiểm tra nếu có tệp ảnh mới được tải lên
         if (file != null && !file.isEmpty()) {
             try {
@@ -101,13 +120,13 @@ public class restUser {
             }
         }
      account.setUsername(username); // Gán giá trị ID vào đối tượng
-    
+
         // Lưu thông tin tài khoản đã cập nhật
         Account updatedAccount = accountDAO.save(account);
-    
+
         return ResponseEntity.ok(updatedAccount);
     }
-    
+
 
     @DeleteMapping(value = "/{username}")
     private ResponseEntity <Void> delete(@PathVariable("username") String username){
@@ -129,6 +148,23 @@ public class restUser {
         return ResponseEntity.ok(searchResult);
     }
 
+    @GetMapping("/page")
+    public ResponseEntity<Page<Account>> getAllAccounts(
+            @RequestParam("page") Integer page,
+            @RequestParam("size") Integer size) {
+        try {
+            System.out.println("Requested Page: " + page);
+            System.out.println("Page Size: " + size);
+
+            Pageable pageable = PageRequest.of(page, size);
+            Page<Account> accounts = accountDAO.findAll(pageable);
+
+            return ResponseEntity.ok(accounts);
+        } catch (Exception e) {
+            // Xử lý các exception nếu cần thiết
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
 
     private Map<String, String> validateAccount(Account account) {
         Map<String, String> errors = new HashMap<>();

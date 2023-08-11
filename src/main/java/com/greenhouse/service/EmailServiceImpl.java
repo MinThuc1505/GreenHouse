@@ -40,6 +40,22 @@ public class EmailServiceImpl implements EmailService {
         }
     }
 
+    @Override
+    public void sendEmailActivationAccount(String to, String idAccount) {
+        try {
+            MimeMessage message = mailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
+
+            helper.setTo(to);
+            helper.setSubject("Kích hoạt tài khoản GREEN HOUSE");
+            helper.setText(emailActivationAccount(idAccount), true);
+
+            mailSender.send(message);
+        } catch (MessagingException e) { 
+            e.printStackTrace(); 
+        }
+    }
+
     private String getEmailContentFromFile(String filePath) {
         try {
             Resource resource = resourceLoader.getResource("classpath:" + filePath);
@@ -56,4 +72,11 @@ public class EmailServiceImpl implements EmailService {
         return "<!DOCTYPE html><html lang='en'><head><meta charset='UTF-8'><meta http-equiv='X-UA-Compatible' content='IE=edge'><meta name='viewport' content='width=device-width, initial-scale=1.0'><title>Email Confirmation</title><style>body {font-family: Arial, sans-serif;background-color: #f2f2f2;margin: 0;padding: 0;}.container {max-width: 800px;margin: 0 auto;padding: 20px;background-color: #fff;border-radius: 5px;box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);}.container h1 {color: #333;text-align: center;}.container p {margin-bottom: 20px;text-align: center;}.container .btn {display: inline-block;padding: 10px 20px;background-color: #007bff;color: #fff;text-decoration: none;border-radius: 3px;}.container .btn:hover {background-color: #0056b3;}.container .company {color: #18cf00;}</style></head><body><div class='container'><h1>YÊU CẦU ĐẶT LẠI MẬT KHẨU <span class='company'>GREEN HOUSE</span></h1><p>Hãy bấm vào nút bên dưới để tiếp tục đặt lại mật khẩu cho tài khoản của bạn.</p><p><a class='btn' href='"
                 + activationLink + "' style='color: #fff;'>ĐẶT LẠI MẬT KHẨU</a></p></div></body></html>";
     }
+
+    private String emailActivationAccount(String activationLink) {
+        return "<!DOCTYPE html><html lang='en'><head><meta charset='UTF-8'><meta http-equiv='X-UA-Compatible' content='IE=edge'><meta name='viewport' content='width=device-width, initial-scale=1.0'><title>Email Confirmation</title><style>body {font-family: Arial, sans-serif;background-color: #f2f2f2;margin: 0;padding: 0;}.container {max-width: 800px;margin: 0 auto;padding: 20px;background-color: #fff;border-radius: 5px;box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);}.container h1 {color: #333;text-align: center;}.container p {margin-bottom: 20px;text-align: center;}.container .btn {display: inline-block;padding: 10px 20px;background-color: #007bff;color: #fff;text-decoration: none;border-radius: 3px;}.container .btn:hover {background-color: #0056b3;}.container .company {color: #18cf00;}</style></head><body><div class='container'><h1>KÍCH HOẠT TÀI KHOẢN<span class='company'>GREEN HOUSE</span></h1><p>Hãy bấm vào nút bên dưới để tiếp tục đặt lại mật khẩu cho tài khoản của bạn.</p><p><a class='btn' href='"
+                + activationLink + "' style='color: #fff;'>KÍCH HOẠT TÀI KHOẢN</a></p></div></body></html>";
+    }
+
+    
 }

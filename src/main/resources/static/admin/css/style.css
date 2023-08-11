@@ -2589,6 +2589,11 @@ hr {
 	color:#333;
 	padding:15px;
 }
+.table.table-striped>tbody>tr>.image{
+    max-width: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 .table.table-hover>tbody>tr>td, .table.table-hover>tbody>tr>th, .table.table-hover>tfoot>tr>td, .table.table-hover>tfoot>tr>th, .table.table-hover>thead>tr>td, .table.table-hover>thead>tr>th{
 	border-top: 1px solid #F5F5F5;
 	font-size:14px;
