@@ -38,49 +38,50 @@
 									<th>Số điện thoại</th>
 									<th>Giới tính</th>
 									<th>Địa chỉ</th>
-									<th>Hình ảnh</th>
 									<th>Vai trò</th>
 									<th>Ngày tạo tài khoản</th>
 								</tr>
 							</thead>
 							<tbody ng-repeat="item in items">
 								<tr data-toggle="collapse" data-target="#{{$index + 1}}" class="tr-title-product"
-									ng-click="Edit(item.username)">
+									ng-click="Edit(item.username, $index)">
 									<td class="text-center">{{$index + 1}}</td>
-									<td>{{item.username}}</td>
+									<td >	<img class="object-fit" ng-src="/images/{{item.image}}"
+										name="image" style="max-height: 50px; width: 50%;">
+										{{item.username}}  
+									</td>
 									<td>{{item.fullName}}</td>
 									<td>{{item.email}}</td>
 									<td>{{item.phone}}</td>
 									<td>{{item.gender ? 'Nam' : 'Nữ'}}</td>
 									<td>{{item.address}}</td>
-									<td>{{item.image}}</td>
 									<td>{{item.role ? 'Quản lý' : 'Người dùng'}}</td>
 									<td>{{item.createDate | date:'HH:mm dd-MM-yyyy'}}</td>
 
 								</tr>
-								<tr id="{{$index + 1}}" class="collapse">
+								<tr id="{{$index + 1}}" class="collapse"  ng-if="$index === selectedItemIndex">
 									<td colspan="12" class="product-info border-1">
 										<h4>Thông tin tài khoản</h4>
-										<form>
+										<form enctype="multipart/form-data">
 											<div class="row">
 												<div class="col-md-4">
 													<div class="form-group"
-														style="border: 1px solid rgb(221, 218, 218); height: 250px;">
-														<div class="nk-int-st image-container">
-															<img class="object-fit" id="product4" src="#"
-																alt="Uploaded Image"
-																style="display: none; max-height: 250px; width: 100%;">
-														</div>
-
+													style="border: 1px solid rgb(221, 218, 218); height: 250px;">
+													<div class="nk-int-st image-container">
+														<img class="object-fit" id="uploadedImages"
+															ng-src="/images/{{form.image}}" alt="Uploaded Image"
+															name="image" style="max-height: 250px; width: 100%;">
 													</div>
-													<div class="form-group mt-3">
-														<label for="fileInput" class="fw-bold">Chọn Hình</label>
-														<div class="input-group">
-															<input style="object-fit: contain;" type="file"
-																class="form-control" id="fileInput"
-																onchange="displayImageUser(event, 'product4')">
-														</div>
+												</div>
+												<div class="form-group">
+													<label for="fileInput" class="fw-bold">Chọn Hình</label>
+													<div class="input-group">
+														<input style="object-fit: contain;" type="file"
+															class="form-control" ng-model="form.image"
+															accept=".png, .jpg, .jpeg, .gif" id="fileInput33"  name="file"
+															onchange="displayImages(event)">
 													</div>
+												</div>
 												</div>
 												<div class="col-md-8">
 													<div class="row">
@@ -184,13 +185,7 @@
 				</div>
 			</div>
 		</div>
-		<script>
-			function displayImageUser(event, idImg) {
-				var image = document.getElementById(idImg);
-				image.src = URL.createObjectURL(event.target.files[0]);
-				image.style.display = "block";
-			}
-		</script>
+	
 
 
 		<!-- The Modal -->
@@ -205,21 +200,22 @@
 
 					<!-- Modal body -->
 					<div class="modal-body">
-						<form>
+						<form enctype="multipart/form-data">
 							<div class="row">
 								<div class="col-md-4">
 									<div class="form-group"
 										style="border: 1px solid rgb(221, 218, 218); height: 250px;">
 										<div class="nk-int-st image-container">
-											<img class="object-fit" id="imgUser" src="#" alt="Uploaded Image"
+											<img class="object-fit" id="uploadedImage" src="#" alt="Uploaded Image"
 												style="display: none; max-height: 250px; width: 100%;">
 										</div>
 									</div>
-									<div class="form-group mt-3">
+									<div class="form-group">
 										<label for="fileInput" class="fw-bold">Chọn Hình</label>
 										<div class="input-group">
-											<input style="object-fit: contain;" type="file" class="form-control"
-												accept=".png, .jpg, .jpeg, .gif" id="fileInputCreateUser" onchange="displayImageUser(event, 'imgUser')" ng-model="image">
+											<input style="object-fit: contain;" type="file" name="image"
+												ng-model="image" class="form-control" accept=".png, .jpg, .jpeg, .gif"
+												id="fileInputCreateUser" onchange="displayImage(event)">
 										</div>
 									</div>
 								</div>
