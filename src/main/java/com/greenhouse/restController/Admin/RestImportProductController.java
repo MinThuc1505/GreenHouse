@@ -2,11 +2,15 @@ package com.greenhouse.restController.Admin;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.greenhouse.DAO.ImportProductDAO;
 import com.greenhouse.DAO.ProductDAO; // Thêm import cho ProductDAO
+import com.greenhouse.model.Account;
 import com.greenhouse.model.ImportProduct;
 import com.greenhouse.model.Product; // Thêm import cho Product
 
@@ -58,7 +62,8 @@ public class RestImportProductController {
     }
 
     @PutMapping(value = "/{id}")
-    private ResponseEntity<ImportProduct> update(@PathVariable("id") Integer id, @RequestBody ImportProduct importProduct) {
+    private ResponseEntity<ImportProduct> update(@PathVariable("id") Integer id,
+            @RequestBody ImportProduct importProduct) {
         if (!importProductDAO.existsById(id)) {
             return ResponseEntity.notFound().build();
         }
@@ -88,7 +93,7 @@ public class RestImportProductController {
 
         // Cập nhật các thông tin khác của ImportProduct
         existingImportProduct.setProduct(importProduct.getProduct());
-          existingImportProduct.setBillImportProduct(importProduct.getBillImportProduct());
+        existingImportProduct.setBillImportProduct(importProduct.getBillImportProduct());
         existingImportProduct.setPriceImport(importProduct.getPriceImport());
         existingImportProduct.setQuantityImport(importProduct.getQuantityImport());
         existingImportProduct.setDescription(importProduct.getDescription());
@@ -106,7 +111,6 @@ public class RestImportProductController {
         return ResponseEntity.ok(updatedImportProduct);
     }
 
-
     @DeleteMapping(value = "/{id}")
     private ResponseEntity<Void> delete(@PathVariable("id") Integer id) {
         if (!importProductDAO.existsById(id)) {
@@ -115,4 +119,23 @@ public class RestImportProductController {
         importProductDAO.deleteById(id);
         return ResponseEntity.ok().build();
     }
+
+    @GetMapping("/page")
+    public ResponseEntity<Page<ImportProduct>> getAllAccounts(
+            @RequestParam("page") Integer page,
+            @RequestParam("size") Integer size) {
+        try {
+            System.out.println("Requested Page: " + page);
+            System.out.println("Page Size: " + size);
+
+            Pageable pageable = PageRequest.of(page, size);
+            Page<ImportProduct> importproducts = importProductDAO.findAll(pageable);
+
+            return ResponseEntity.ok(importproducts);
+        } catch (Exception e) {
+            // Xử lý các exception nếu cần thiết
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
 }

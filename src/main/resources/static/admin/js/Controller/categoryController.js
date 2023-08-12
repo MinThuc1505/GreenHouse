@@ -150,10 +150,9 @@ app.controller('categoryController', function($scope, $http, urlCategory){
         })
     }
 
-    $scope.Delete = function(key){
+    $scope.Delete = function(key) {
         var url = `${host}/${key}`;
-
-
+    
         Swal.fire({
             title: 'Bạn chắc chắn?',
             text: 'Dữ liệu sẽ bị xóa vĩnh viễn.',
@@ -163,26 +162,42 @@ app.controller('categoryController', function($scope, $http, urlCategory){
             cancelButtonText: 'Hủy',
         }).then((result) => {
             if (result.isConfirmed) {
-                $http.delete(url).then(resp => {
-                    $scope.load_all();
-                    Swal.fire({
-                            icon: 'success',
-                            title: 'Thành công',
-                            text: `Đã xóa tài khoản ${key}`,
-                        });
-                }).catch(Error =>{
-                      Swal.fire({
+                // Kiểm tra sự tham chiếu trước khi xóa
+                $http.get(`${host}/check-references/${key}`).then(response => {
+                    if (response.data.referencesExist) {
+                        Swal.fire({
                             icon: 'error',
                             title: 'Thất bại',
-                            text: `Xóa tài khoản ${key} thất bại`,
+                            text: `Thể loại ${key} đang được sử dụng và không thể xóa.`,
                         });
-                })
+                    } else {
+                        // Tiến hành xóa nếu không có sự tham chiếu
+                        $http.delete(url).then(resp => {
+                            $scope.load_all();
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Thành công',
+                                text: `Đã xóa thể loại ${key}`,
+                            });
+                        }).catch(Error => {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Thất bại',
+                                text: `Xóa thể loại ${key} thất bại`,
+                            });
+                        });
+                    }
+                }).catch(error => {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Lỗi',
+                        text: 'Thể loại đang sử dụng, không thể xóa',
+                    });
+                });
             }
         });
-
-
-        
-    }
+    };
+    
 
     $scope.searchData = function() {
         if ($scope.searchTerm.trim() !== "") { 
