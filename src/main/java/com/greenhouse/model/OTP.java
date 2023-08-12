@@ -27,17 +27,18 @@ public class OTP implements Serializable{
     @Column(name = "OTPCode")
     private String otpCode;
 
-    @Column(name = "ExpirationTime")
+    @Column(name = "Expiration_Time")
+    @Temporal(TemporalType.TIMESTAMP)
     private Date expirationTime;
 
     @Column(name = "Status")
-    private String status;
+    private int status;
 
-    @Column(name = "CreateAt")
+    @Column(name = "Create_At")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createAt;
 
-    @Column(name = "UpdateAt")
+    @Column(name = "Update_At")
     @Temporal(TemporalType.TIMESTAMP)
     private Date updateAt;
 }
