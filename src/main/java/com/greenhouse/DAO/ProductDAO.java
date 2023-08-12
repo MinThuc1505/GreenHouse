@@ -23,4 +23,6 @@ public interface ProductDAO extends JpaRepository<Product, Integer> {
 
     @Query(value = "select p.* from Products p JOIN Set_Category sc ON p.Id = sc.Product_Id where sc.Category_Id = ?1", nativeQuery = true)
     List<Product> getProductsOfSameType(String category);
+
+    boolean existsByName(String name);
 }

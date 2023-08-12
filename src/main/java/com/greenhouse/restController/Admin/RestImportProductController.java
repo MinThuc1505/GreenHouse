@@ -12,7 +12,9 @@ import com.greenhouse.DAO.ImportProductDAO;
 import com.greenhouse.DAO.ProductDAO; // Thêm import cho ProductDAO
 import com.greenhouse.model.Account;
 import com.greenhouse.model.ImportProduct;
+import com.greenhouse.model.Material;
 import com.greenhouse.model.Product; // Thêm import cho Product
+import com.greenhouse.model.Size;
 
 @RestController
 @RequestMapping(value = "/rest/importProduct")
@@ -77,18 +79,29 @@ public class RestImportProductController {
         // Lấy thông tin sản phẩm từ ImportProduct
         Product product = importProduct.getProduct();
         if (product != null) {
-            Integer quantity = product.getQuantity();
             Integer oldQuantityImport = existingImportProduct.getQuantityImport();
             Integer newQuantityImport = importProduct.getQuantityImport();
 
-            if (quantity != null && oldQuantityImport != null) {
-                // Trả lại giá trị ban đầu của quantity và cộng thêm giá trị mới
-                int updatedQuantity = quantity - oldQuantityImport + newQuantityImport;
-
-                // Cập nhật số lượng sản phẩm
-                product.setQuantity(updatedQuantity);
-                productDAO.save(product);
+            // Lấy ImportProduct cũ từ cơ sở dữ liệu
+            Product existingProduct = productDAO.findById(id).orElse(null);
+            if (existingProduct == null) {
+                return ResponseEntity.notFound().build();
             }
+            // Lấy giá trị cũ của kích thước và chất liệu
+            Size oldSize = existingProduct.getSize();
+            Material oldMaterial = existingProduct.getMaterial();
+
+            // Cập nhật số lượng sản phẩm
+            Integer quantity = product.getQuantity();
+            if (quantity != null && oldQuantityImport != null) {
+                int updatedQuantity = quantity - oldQuantityImport + newQuantityImport;
+                product.setQuantity(updatedQuantity);
+            }
+
+            // Đặt lại kích thước và chất liệu về giá trị cũ
+            product.setSize(oldSize);
+            product.setMaterial(oldMaterial);
+            productDAO.save(product);
         }
 
         // Cập nhật các thông tin khác của ImportProduct

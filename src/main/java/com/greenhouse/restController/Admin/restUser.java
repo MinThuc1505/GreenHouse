@@ -60,46 +60,31 @@ public class restUser {
     }
 
     @PostMapping
-    private ResponseEntity<?> create(
-        @RequestBody Account account,
-        @RequestParam(value = "file", required = false) MultipartFile file) {
+    private ResponseEntity<?> create(@RequestBody Account account) {
 
         Map<String, String> errors = validateAccount(account);
 
-        if (!errors.isEmpty()) {
+        if (account.getUsername() != null && errors.isEmpty()) {
+            PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+            String encodedPassword = passwordEncoder.encode(account.getPassword());
+            account.setPassword(encodedPassword);
+            Account createdAccount = accountDAO.save(account);
+            return ResponseEntity.ok(createdAccount);
+        } else if (!errors.isEmpty()) {
+            return ResponseEntity.badRequest().body(errors);
+        } else {
+            errors.put("otherError", "Thông tin tài khoản không hợp lệ.");
             return ResponseEntity.badRequest().body(errors);
         }
 
-        // Kiểm tra nếu có tệp ảnh được tải lên
-        if (file != null && !file.isEmpty()) {
-            try {
-                String fileName = file.getOriginalFilename();
-                String filePath = Paths.get("").toAbsolutePath().toString() + "/src/main/resources/static/images/" + fileName;
-                File dest = new File(filePath);
-                file.transferTo(dest);
-                account.setImage(fileName);
-            } catch (IOException e) {
-                e.printStackTrace();
-                return ResponseEntity.badRequest().build();
-            }
-        }
-
-        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        String encodedPassword = passwordEncoder.encode(account.getPassword());
-        account.setPassword(encodedPassword);
-
-        Account createdAccount = accountDAO.save(account);
-
-        return ResponseEntity.ok(createdAccount);
     }
-
     
 
     @PutMapping(value = "/{username}")
     private ResponseEntity<Account> update(
         @PathVariable("username") String username,
         @RequestParam("account") String accountJson,
-        @RequestParam(value = "file", required = false) MultipartFile file) {
+        @RequestParam(value = "image", required = false) MultipartFile file) {
             Account account = new Gson().fromJson(accountJson, Account.class);
 
         if (!accountDAO.existsById(username)) {

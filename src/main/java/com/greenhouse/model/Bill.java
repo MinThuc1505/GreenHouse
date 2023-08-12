@@ -55,6 +55,7 @@ public class Bill implements Serializable{
 
     @Column(name = "Receiver_Address")
     private String receiverAddress;
+ 
 
     @Column(name = "Status")
     private Integer status;

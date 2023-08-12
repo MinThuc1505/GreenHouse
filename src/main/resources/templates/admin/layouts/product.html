@@ -52,7 +52,6 @@
 									<th>Giá Sản Phẩm</th>
 									<th>Số Lượng</th>
 									<th>Trạng Thái</th>
-									<th>Hình Ảnh</th>
 									<th>Chất Liệu</th>
 									<th>Kích Thước</th>
 									<th>Mô Tả</th>
@@ -63,11 +62,13 @@
 									ng-click="Edit(item.id, $index)">
 
 									<td>{{item.id}}</td>
-									<td>{{item.name}}</td>
+									<td><img class="object-fit"
+										ng-src="/images/{{item.image}}" 
+										name="image" style="max-height: 50px; width: 50%;">
+										{{item.name}}</td>
 									<td>{{item.price}}</td>
 									<td>{{item.quantity}}</td>
 									<td>{{item.status ? 'Kinh Doanh' : 'Ngừng Kinh doanh'}}</td>
-									<td>{{item.image}}</td>
 									<td>{{item.material.material}}</td>
 									<td>{{item.size.size}}</td>
 									<td>{{item.description}}</td>
@@ -110,11 +111,14 @@
 																<label for="name" class="fw-bold">Tên Sản Phẩm</label>
 																<input type="text" class="form-control border-bottom"
 																	id="name" ng-model="form.name">
+																	
 															</div>
 															<div class="form-group mt-3">
 																<label for="price" class="fw-bold">Giá Sản Phẩm</label>
 																<input type="text" class="form-control border-bottom"
 																	id="price" ng-model="form.price">
+																	<small class="text-danger">{{ errorMessages.price }}</small>
+										
 															</div>
 															<div class="form-group">
 																<label for="quantity" class="fw-bold">Số Lượng</label>
@@ -122,6 +126,7 @@
 																	class="form-control text-center border-bottom"
 																	id="quantity" placeholder="Số Lượng"
 																	ng-model="form.quantity">
+																	<small class="text-danger">{{ errorMessages.quantity }}</small>
 															</div>
 
 
@@ -142,6 +147,7 @@
 																			ng-checked="form.status" ng-value="false">
 																		Ngừng Kinh doanh
 																	</label>
+														
 																</div>
 															</div>
 															<div class="form-group mt-3">
@@ -225,6 +231,7 @@
 											<input style="object-fit: contain;" type="file" name="image"
 												ng-model="image" class="form-control" accept=".png, .jpg, .jpeg, .gif"
 												id="fileInputCreateProduct" onchange="displayImage(event)">
+											
 										</div>
 									</div>
 
@@ -239,12 +246,16 @@
 											<div class="form-group mt-3">
 												<label for="Name" class="fw-bold">Tên Sản Phẩm(*)</label>
 												<input type="text" class="form-control border-bottom" id="name"
-													ng-model="name" name="name" required>
+													ng-model="name" name="name" >
+													<small class="text-danger">{{ errorMessages.name }}</small>
+										
 											</div>
 											<div class="form-group mt-3">
 												<label for="price" class="fw-bold">Giá Sản Phẩm(*)</label>
 												<input type="text" class="form-control border-bottom" id="price"
-													ng-model="price" name="price" required>
+													ng-model="price" name="price" >
+													<small class="text-danger">{{ errorMessages.price }}</small>
+										
 											</div>
 											<div class="form-group mt-3">
 												<label class="fw-bold">Trạng Thái(*)</label>
@@ -259,6 +270,8 @@
 															ng-checked="status" ng-value="true">
 														Kinh doanh
 													</label>
+													<small class="text-danger">{{ errorMessages.status }}</small>
+										
 												</div>
 											</div>
 
@@ -268,7 +281,9 @@
 												<label for="quantity" class="fw-bold">Số Lượng(*)</label>
 												<input type="number" min="1" value="1"
 													class="form-control text-center border-bottom" id="quantity"
-													placeholder="Số Lượng" ng-model="quantity" name="quantity" required>
+													placeholder="Số Lượng" ng-model="quantity" name="quantity" >
+													<small class="text-danger">{{ errorMessages.quantity }}</small>
+										
 											</div>
 
 											<div class="form-group mt-3">
@@ -276,6 +291,7 @@
 												<select class="form-control border-bottom" id="size" ng-model="size"
 													ng-options="size as size.size for size in sizes track by size.id">
 													<option value="">Chọn Kích Thước</option>
+												
 												</select>
 											</div>
 
@@ -285,6 +301,7 @@
 													ng-model="material"
 													ng-options="material as material.material for material in materials track by material.id">
 													<option value="">Chọn Chất Liệu</option>
+													
 												</select>
 											</div>
 
@@ -305,7 +322,7 @@
 					<!-- Modal footer -->
 					<div class="modal-footer">
 						<button type="button" class="btn btn-primary" ng-click="Create()"
-							ng-disabled="myForm.$invalid"><i class="fa fa-save"></i> Thêm</button>
+							><i class="fa fa-save"></i> Thêm</button>
 						<button type="button" class="btn btn-info"><i class="fa fa-rotate-right"></i> Làm mới</button>
 					</div>
 				</div>
