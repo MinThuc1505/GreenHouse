@@ -94,8 +94,7 @@ app.controller("userController", function ($scope, $http, urlAccount) {
   };
   $scope.Update = function (key) {
     var formData = new FormData();
-    formData.append("file", document.getElementById("fileInput33").files[0]);
-
+    formData.append("image", document.getElementById("fileInput33").files[0]);
     formData.append("account", JSON.stringify({
       password: $scope.form.password,
       fullName: $scope.form.fullName,
@@ -103,10 +102,11 @@ app.controller("userController", function ($scope, $http, urlAccount) {
       phone: $scope.form.phone,
       gender: $scope.form.gender,
       address: $scope.form.address,
+      image: $scope.form.image,
       role: $scope.form.role,
       createDate: new Date(),
     }));
-    formData.append("file", $scope.form.image);
+   
     var url = `${host}/${key}`;
     $http
       .put(url,formData, {
@@ -142,7 +142,6 @@ app.controller("userController", function ($scope, $http, urlAccount) {
       gender: $scope.gender || "",
       address: $scope.address || "",
       image: files[0].name || '',
-
       role: $scope.form.role || "",
       createDate: new Date(),
     };
