@@ -34,3 +34,5 @@ app.constant('urlMaterial', 'http://localhost:8081/rest/materials');
 app.constant('urlImportProduct', 'http://localhost:8081/rest/importProduct');
 
 app.constant('urlPriceHistoryCtrl', 'http://localhost:8081/rest/priceHistorys');
+
+app.constant('indexController', 'http://localhost:8081/rest/index');

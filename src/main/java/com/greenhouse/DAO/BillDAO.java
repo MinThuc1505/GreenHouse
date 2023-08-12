@@ -1,6 +1,8 @@
 package com.greenhouse.DAO;
 
 import com.greenhouse.model.Bill;
+import com.greenhouse.model.Product;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -21,11 +23,11 @@ public interface BillDAO extends JpaRepository<Bill, Integer> {
         List<Object[]> getBillDetails();
 
         // @Query(value = "SELECT TOP 5 P.Id AS Product_Id, P.Name AS Product_Name, " +
-        //                 "SUM(BD.Quantity) AS Total_Sold_Quantity " +
-        //                 "FROM Products P " +
-        //                 "INNER JOIN Bill_Detail BD ON P.Id = BD.Product_Id " +
-        //                 "GROUP BY P.Id, P.Name " +
-        //                 "ORDER BY SUM(BD.Quantity) DESC", nativeQuery = true)
+        // "SUM(BD.Quantity) AS Total_Sold_Quantity " +
+        // "FROM Products P " +
+        // "INNER JOIN Bill_Detail BD ON P.Id = BD.Product_Id " +
+        // "GROUP BY P.Id, P.Name " +
+        // "ORDER BY SUM(BD.Quantity) DESC", nativeQuery = true)
         // List<Object[]> findTop5BestSellingProducts();
 
         // @Query(value = "SELECT * FROM dbo.Bills WHERE Id = ?1", nativeQuery = true)
@@ -52,13 +54,35 @@ public interface BillDAO extends JpaRepository<Bill, Integer> {
                         + "GROUP BY MONTH(b.createDate)")
         List<Object[]> getMonthlyRevenue();
 
-        @Query(value = "SELECT TOP 5 P.Id AS Product_Id, P.Name AS Product_Name, " +
-                        "SUM(BD.Quantity) AS Total_Sold_Quantity " +
-                        "FROM Products P " +
-                        "INNER JOIN BillDetail BD ON P.Id = BD.Product_Id " +
-                        "GROUP BY P.Id, P.Name " +
-                        "ORDER BY SUM(BD.Quantity) DESC", nativeQuery = true)
+        @Query("SELECT YEAR(b.createDate) AS Nam, SUM(b.newAmount) AS TongDoanhThu "
+                        + "FROM Bill b "
+                        + "WHERE b.status = true "
+                        + "GROUP BY YEAR(b.createDate)")
+        List<Object[]> getYearRevenue();
+
+        @Query("SELECT SUM(b.newAmount) FROM Bill b WHERE b.status = 1")
+        Long getTotalRevenue();
+
+        @Query("SELECT SUM(d.quantity) FROM Discount d")
+        Long getTotalDiscounts();
+
+        @Query("SELECT COUNT(a) FROM Account a")
+        Long getTotalUsers();
+
+        @Query("SELECT COUNT(p) FROM Product p")
+        Long getTotalProducts();
+
+        @Query("SELECT P.id AS Product_Id, P.name AS Product_Name, P.price AS Product_Price, " +
+                        "SUM(BD.quantity) AS Total_Sold_Quantity " +
+                        "FROM Product P " +
+                        "INNER JOIN BillDetail BD ON P.id = BD.product.id " +
+                        "GROUP BY P.id, P.name, P.price " +
+                        "ORDER BY Total_Sold_Quantity DESC " +
+                        "LIMIT 5")
         List<Object[]> findTop5BestSellingProducts();
+
+        @Query(value = "SELECT Role, COUNT(*) AS TotalCount FROM dbo.Accounts GROUP BY Role", nativeQuery = true)
+        List<Object[]> getRoleAndTotalCount();
 
         @Query(value = "SELECT * FROM dbo.Bills WHERE Id = ?1", nativeQuery = true)
         Bill getBillById(int id);
