@@ -16,7 +16,10 @@ appClient.controller('checkoutController', ['$scope', '$http', 'UserService', 'u
                 $scope.newTotalAmount = resp.data.totalAmount;
                 account = resp.data.account;
                 $scope.receiverAddress = account.address;
+                $scope.receiverFullname = account.fullName;
+                $scope.receiverPhone = account.phone;
             } else {
+                window.location.href = '/client/cart';
                 notificationDATA(resp.data.message, resp.data.status);
             }
         }).catch(Error => {
@@ -65,6 +68,7 @@ appClient.controller('checkoutController', ['$scope', '$http', 'UserService', 'u
                     notificationDATA(resp.data.message, resp.data.status);
                     discount = resp.data.discount;
                     $scope.newTotalAmount = $scope.totalAmount * (1 - discount.discountPercent / 100);
+                    $scope.discountPercent = discount.discountPercent;
                     $scope.isAppliedDiscountCode = true;
                 } else {
                     notificationDATA(resp.data.message, resp.data.status);
@@ -83,7 +87,6 @@ appClient.controller('checkoutController', ['$scope', '$http', 'UserService', 'u
     // Payment Function
     $scope.payment = function () {
         var paymentMethod = $scope.isCOD ? 'COD' : 'VNPay';
-        var bankCode = $scope.isVNPay ? document.querySelector('input[name="card"]:checked').value : "";
 
         var amount = $scope.totalAmount;
         var newAmount;
@@ -96,6 +99,23 @@ appClient.controller('checkoutController', ['$scope', '$http', 'UserService', 'u
             newAmount = amount * (1 - discountPercent / 100);
         }
 
+        var receiverFullname = $scope.receiverFullname;
+        if (!receiverFullname) {
+            var fullnameInput = document.getElementById('fullname');
+            fullnameInput.focus();
+            notificationDATA("Bạn vui lòng nhập họ tên đầy đủ!!!", "error");
+            return;
+        }
+
+        var receiverPhone = $scope.receiverPhone;
+        var phoneRegex = /^(03[2-9]|05[2689]|07[06-9]|08[1-9]|09[0-9])[0-9]{7}$/;
+        if (!phoneRegex.test(receiverPhone)) {
+            var phoneInput = document.getElementById('phone');
+            phoneInput.focus();
+            notificationDATA("Số điện thoại không hợp lệ hoặc không thuộc các nhà mạng Việt Nam.", "error");
+            return;
+        }
+
         var receiverAddress = $scope.receiverAddress;
         if (!receiverAddress) {
             var addressInput = document.getElementById('address');
@@ -103,6 +123,7 @@ appClient.controller('checkoutController', ['$scope', '$http', 'UserService', 'u
             notificationDATA("Bạn vui lòng nhập địa chỉ để chúng tôi gửi đến bạn nào!!!", "error");
             return;
         }
+
         var currentDate = new Date();
 
         var url = `${host}/create-payment`;
@@ -111,9 +132,10 @@ appClient.controller('checkoutController', ['$scope', '$http', 'UserService', 'u
             createDate: currentDate,
             amount: amount,
             discountCode: discountCode ? discountCode : null,
-            bankCode: bankCode ? bankCode : null,
             discountPercent: discountPercent ? discountPercent : null,
             newAmount: newAmount ? newAmount : null,
+            receiverFullname: receiverFullname,
+            receiverPhone: receiverPhone,
             receiverAddress: receiverAddress,
             paymentMethod: paymentMethod
         };

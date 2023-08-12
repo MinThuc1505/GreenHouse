@@ -1,4 +1,4 @@
-appClient.controller('cartController', ['$scope', '$http', 'urlCartClient', 'UserService', 'CartService', 'urlCheckoutClient', function ($scope, $http, urlCartClient, UserService, CartService, urlCheckoutClient) {
+appClient.controller('cartController', function ($scope, $http, urlCartClient, UserService, CartService, urlCheckoutClient) {
     var username = UserService.getCookiesUsername();
     var host = urlCartClient;
     var hostCheckout = urlCheckoutClient;
@@ -63,8 +63,6 @@ appClient.controller('cartController', ['$scope', '$http', 'urlCartClient', 'Use
         }
     }
 
-
-
     // Hàm cập nhật số lượng sản phẩm trong giỏ hàng
     $scope.updateCartItemQuantity = function (cart, index) {
         var quantity = $scope.carts[index][4];
@@ -116,7 +114,6 @@ appClient.controller('cartController', ['$scope', '$http', 'urlCartClient', 'Use
         });
         var checkedIDsStr = checkedIDs.join(';');
         if (checkedIDsStr.length > 0) {
-            // Tạo URL mới với query parameter
             var url = `${host}/checkout?checkedIDsStr=${checkedIDsStr}`;
             $http.get(url).then(resp => {
                 console.log(resp.data.status);
@@ -151,4 +148,4 @@ appClient.controller('cartController', ['$scope', '$http', 'urlCartClient', 'Use
     }
 
     $scope.initCart();
-}]);
+});

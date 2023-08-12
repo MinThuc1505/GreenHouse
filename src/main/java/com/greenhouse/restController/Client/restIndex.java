@@ -21,7 +21,7 @@ public class restIndex {
     @GetMapping
     private ResponseEntity<Map<String, Object>> get10Products() {
         Map<String, Object> responseData = new HashMap<>();
-        responseData.put("products", productDAO.findTop10ProductsBestSale());
+        responseData.put("products", productDAO.findTop12ProductsBestSale());
         return ResponseEntity.ok(responseData);
     }
     
