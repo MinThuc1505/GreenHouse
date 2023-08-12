@@ -104,8 +104,8 @@
 								<div class="row">
 									<div class="col-md-8 col-sm-6 col-xs-12">
 										<div class="modal-image">
-											<img id="product-img"
-												ng-src="{{ '/images/' + selectedProduct.image }}" alt="product-img" />
+											<img id="product-img" ng-src="{{ '/images/' + selectedProduct.image }}"
+												alt="product-img" />
 										</div>
 									</div>
 									<div class="col-md-4 col-sm-6 col-xs-12">
@@ -120,7 +120,8 @@
 
 											<p id="modal-idProduct" style="display: none">{{ selectedProduct.id }}</p>
 											<a href="#" class="btn btn-main" id="modal-addToCart"
-												ng-click="modalAddToCart(selectedProduct)">Thêm vào giỏ hàng</a>
+												ng-click="modalAddToCart(selectedProduct.id)">Thêm vào giỏ hàng</a>
+												<a href="#!" class="btn btn-transparent" ng-click="viewProductDetails(selectedProduct.id)">Xem chi tiết sản phẩm</a>
 										</div>
 									</div>
 								</div>

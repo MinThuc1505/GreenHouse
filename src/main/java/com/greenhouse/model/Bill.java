@@ -47,8 +47,15 @@ public class Bill implements Serializable{
     @Column(name = "Payment_Method")
     private String paymentMethod;
 
+    @Column(name = "Receiver_Fullname")
+    private String receiverFullname;
+
+    @Column(name = "Receiver_Phone")
+    private String receiverPhone;
+
     @Column(name = "Receiver_Address")
     private String receiverAddress;
+ 
 
     @Column(name = "Status")
     private Integer status;

@@ -10,9 +10,10 @@ public class OrderDTO {
     private Date createDate;
     private long amount;
     private String discountCode;
-    private String bankCode;
     private double discountPercent;
     private long newAmount;
+    private String receiverFullname;
+    private String receiverPhone;
     private String receiverAddress;
     private String paymentMethod;
 }

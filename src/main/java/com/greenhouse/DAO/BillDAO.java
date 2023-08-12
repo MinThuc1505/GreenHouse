@@ -32,6 +32,16 @@ public interface BillDAO extends JpaRepository<Bill, Integer> {
 
         // @Query(value = "SELECT * FROM dbo.Bills WHERE Id = ?1", nativeQuery = true)
         // Bill getBillById(int id);
+        // @Query(value = "SELECT TOP 5 P.Id AS Product_Id, P.Name AS Product_Name, " +
+        //                 "SUM(BD.Quantity) AS Total_Sold_Quantity " +
+        //                 "FROM Products P " +
+        //                 "INNER JOIN Bill_Detail BD ON P.Id = BD.Product_Id " +
+        //                 "GROUP BY P.Id, P.Name " +
+        //                 "ORDER BY SUM(BD.Quantity) DESC", nativeQuery = true)
+        // List<Object[]> findTop5BestSellingProducts();
+
+        // @Query(value = "SELECT * FROM dbo.Bills WHERE Id = ?1", nativeQuery = true)
+        // Bill getBillById(int id);
 
         @Query("SELECT YEAR(b.createDate) AS Year, MONTH(b.createDate) AS Month, DAY(b.createDate) AS Day, COUNT(b) AS Total_Bills, SUM(b.amount) AS Total_Revenue "
                         + "FROM Bill b "

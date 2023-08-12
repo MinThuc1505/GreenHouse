@@ -33,9 +33,21 @@ appClient.controller('change-passwordController', function ($scope, $http, urlCh
             return;
         }
 
+        var username = getParameterByName("username");
         var token = getParameterByName("token");
-        if (token && cookieUsername == null) {
-            $scope.isLoading = true; // Bắt đầu loading khi gửi mail
+
+        if (username && cookieUsername == null) {
+            var url = `${host}/${username}`;
+            $http.patch(url, $scope.accountData).then(resp => {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Thành công',
+                    text: `Đã đổi mật khẩu ` + username + ` thành công.`,
+                });
+            }).catch(Error => {
+                console.log(Error.data);
+            })
+        } else if (token && cookieUsername == null) {
             var password = $scope.password;
             var confirmPassword = $scope.confirmPassword;
             var data = {
@@ -70,7 +82,7 @@ appClient.controller('change-passwordController', function ($scope, $http, urlCh
                 Swal.fire({
                     icon: 'success',
                     title: 'Thành công',
-                    text: `Đã đổi mật khẩu` + cookieUsername + ` thành công.`,
+                    text: `Đã đổi mật khẩu ` + cookieUsername + ` thành công.`,
                 });
             }).catch(Error => {
                 console.log(Error.data);
