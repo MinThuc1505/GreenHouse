@@ -35,9 +35,9 @@ appClient.controller('change-passwordController', function ($scope, $http, urlCh
 
         var username = getParameterByName("username");
         var token = getParameterByName("token");
-
+        var newpassword = $scope.confirmPassword;
         if (username && cookieUsername == null) {
-            var url = `${host}/${username}`;
+            var url = `${host}/${username}/${newpassword}`;
             $http.patch(url, $scope.accountData).then(resp => {
                 Swal.fire({
                     icon: 'success',
@@ -77,7 +77,7 @@ appClient.controller('change-passwordController', function ($scope, $http, urlCh
                 console.error("Lỗi khi gọi API:", error);
             });
         } else {
-            var url = `${host}/${cookieUsername}`;
+            var url = `${host}/${cookieUsername}/${newpassword}`;
             $http.patch(url, $scope.accountData).then(resp => {
                 Swal.fire({
                     icon: 'success',

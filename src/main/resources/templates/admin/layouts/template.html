@@ -160,7 +160,6 @@
                                                 class="fas fa-bell"></i></span>
                                         <div class="spinner4 spinner-4"></div>
                                         <div class="ntd-ctn"><span>3</span></div>
-                                    </a>
                                     <div role="menu" class="dropdown-menu message-dd notification-dd animated zoomIn">
                                         <div class="hd-mg-tt">
                                             <h2>Notification</h2>
@@ -229,6 +228,77 @@
                                         </div>
                                         <div class="hd-mg-va">
                                             <a href="#">View All</a>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="dropdown menu-login cart-nav dropdown-slide">
+                                    <a href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"
+                                        data-delay="350" role="button" aria-haspopup="true" aria-expanded="false"><i
+                                            class='bx bxs-user-circle'></i>
+                                            <span ng-if="cookiesUsername">{{ cookiesUsername.length > 13 ? cookiesUsername.substr(0, 13) + '...' : cookiesUsername }}</span>
+                                        <span ng-if="!cookiesUsername" th:text="#{lo.mn.account}"></span>
+                                        <span class="tf-ion-ios-arrow-down"></span>
+                                    </a>
+                                    <div class="dropdown-menu">
+                                        <div class="row">
+                                            <div class="col-lg-12 col-md-6 mb-sm-3">
+                                                <ul>
+                                                    <li ng-if="cookiesUsername">
+                                                        <a href="#">
+                                                            <div class="hd-message-sn">
+                                                                <div class="hd-mg-ctn">
+                                                                    <p th:text="#{lo.mn.account}"></p>
+                                                                </div>
+                                                            </div>
+                                                        </a>
+                                                    </li>
+                                                   <li ng-if="cookiesUsername">
+                                                        <a href="#">
+                                                            <div class="hd-message-sn">
+                                                                <div class="hd-mg-ctn">
+                                                                    <p th:text="#{lo.mn.logout}"></p>
+                                                                </div>
+                                                            </div>
+                                                        </a>
+                                                    </li>
+                                                    <li ng-if="cookiesUsername">
+                                                        <a href="#">
+                                                            <div class="hd-message-sn">
+                                                                <div class="hd-mg-ctn">
+                                                                    <p th:text="#{lo.mn.changepasswod}"></p>
+                                                                </div>
+                                                            </div>
+                                                        </a>
+                                                    </li>
+                                                    <li ng-if="!cookiesUsername">
+                                                        <a href="#">
+                                                            <div class="hd-message-sn">
+                                                                <div class="hd-mg-ctn">
+                                                                    <p th:text="#{lo.mn.signin}"></p>
+                                                                </div>
+                                                            </div>
+                                                        </a>
+                                                    </li>
+                                                    <li ng-if="!cookiesUsername">
+                                                        <a href="#">
+                                                            <div class="hd-message-sn">
+                                                                <div class="hd-mg-ctn">
+                                                                    <p th:text="#{lo.mn.signup}"></p>
+                                                                </div>
+                                                            </div>
+                                                        </a>
+                                                    </li>
+                                                    <li ng-if="!cookiesUsername">
+                                                        <a href="#">
+                                                            <div class="hd-message-sn">
+                                                                <div class="hd-mg-ctn">
+                                                                    <p th:text="#{lo.mn.forgot}"></p>
+                                                                </div>
+                                                            </div>
+                                                        </a>
+                                                    </li> 
+                                                </ul>
+                                            </div>
                                         </div>
                                     </div>
                                 </li>

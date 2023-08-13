@@ -37,8 +37,8 @@ public class restChangePassword {
         return ResponseEntity.ok(accountDao.findById(username).get());
     }
 
-    @PatchMapping(value = "/{username}")
-    private ResponseEntity<?> update(@PathVariable("username") String username,
+    @PatchMapping(value = "/{username}/{newpassword}")
+    private ResponseEntity<?> update(@PathVariable("username") String username,@PathVariable("newpassword") String newpassword,
             @RequestBody Map<String, Object> updates) {
         Optional<Account> optionalAccount = accountDao.findById(username);
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
@@ -49,7 +49,7 @@ public class restChangePassword {
         Account account = optionalAccount.get();
 
         if (updates.containsKey("password")) {
-            String encodedPassword = passwordEncoder.encode(account.getPassword());
+            String encodedPassword = passwordEncoder.encode(newpassword);
             account.setPassword(encodedPassword);
         }
 
