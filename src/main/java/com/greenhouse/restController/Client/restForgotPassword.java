@@ -138,10 +138,10 @@ public class restForgotPassword {
                 otpDAO.save(otpModel);
 
                 responseData = twilioService.sendOTP(phone, otp);
-                requestData.put("status", "success");
+                responseData.put("status", "success");
                 responseData.put("message", "Đã gửi OTP đến số điện thoại của bạn");
             }else{
-                requestData.put("status", "error");
+                responseData.put("status", "error");
                 responseData.put("message", "Tài khoản này chưa đăng ký số điện thoại");
             }
 

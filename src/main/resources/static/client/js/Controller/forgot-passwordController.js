@@ -61,6 +61,7 @@ appClient.controller('forgot-passwordController', ['$scope', '$http', 'urlForgot
             url: url,
             data: { username: username }
         }).then(function (response) {
+            console.log(response.data);
             hideLoading();
             if (response.data.status == "success") {
                 Swal.fire({
