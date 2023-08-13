@@ -43,12 +43,30 @@ appClient.controller('profileController', function ($scope, $http, urlProfileCli
         var url = `${host}/${key}`;
         $http.get(url).then(resp => {
            console.log(resp.data);
-           $scope.accountData = resp.data;
-        }).catch(Error => {
+           $scope.accountData = resp.data.account;
+           $scope.bills = resp.data.bills;
+        }).catch(Error => { 
             console.log("Error", Error);
         })
     }
 
-    $scope.getDetail(cookieUsername);
+    $scope.showBillDetailsModal = function (billId) {
+        var url = `${host}/getBillDetails?billId=${billId}`;
+        $http.get(url)
+            .then(function (response) {
+                $scope.selectedBill = response.data.bill;
+                $scope.selectedBillDetails = response.data.billDetails;
+                $('#billDetailsModal').modal('show');
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    };
+
+    if(cookieUsername){
+        $scope.getDetail(cookieUsername);
+    }else{
+        window.location.href= "/client/signin";
+    }
 
 })

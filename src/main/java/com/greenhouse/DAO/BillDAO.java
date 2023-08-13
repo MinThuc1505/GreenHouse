@@ -52,4 +52,8 @@ public interface BillDAO extends JpaRepository<Bill, Integer> {
                         + "GROUP BY MONTH(b.createDate)")
         List<Object[]> getMonthlyRevenue();
 
+        @Query(value = "select b.Id, b.Createdate, SUM(bd.Quantity), b.Amount, b.discount_percent, b.new_amount, b.payment_method, b.Receiver_Fullname, b.Receiver_Phone, b.Receiver_Address "
+                        + "from Bills b JOIN Bill_Detail bd ON b.Id = bd.Bill_Id WHERE b.Username = ?1 and Status = 1 "
+                        + "GROUP BY b.Id, b.Createdate, b.Amount, b.discount_percent, b.new_amount, b.payment_method, b.Receiver_Fullname, b.Receiver_Phone, b.Receiver_Address Order by b.Createdate DESC", nativeQuery = true)
+        List<Object[]> getBillsForClient(String username);
 }

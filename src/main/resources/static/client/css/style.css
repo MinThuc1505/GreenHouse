@@ -1491,11 +1491,11 @@ input[type="tel"]:focus {
   vertical-align: middle;
 }
 
-.single-product-slider .carousel .carousel-inner .item{
+.single-product-slider .carousel .carousel-inner .item {
   width: 100%;
 }
 
-.single-product-slider .carousel .carousel-inner .item img{
+.single-product-slider .carousel .carousel-inner .item img {
   width: 100%;
 }
 
@@ -3874,13 +3874,13 @@ input[type="tel"]:focus {
 }
 
 /* Hình  */
-.profile-image-label {
+.profile-container .profile-image-label {
   display: inline-block;
   position: relative;
   cursor: pointer;
 }
 
-.profile-image-text {
+.profile-container .profile-image-text {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -3890,7 +3890,7 @@ input[type="tel"]:focus {
   pointer-events: none;
 }
 
-#profile-image-preview {
+.card-bills #profile-image-preview {
   display: block;
   width: 300px;
   height: 300px;
@@ -4315,6 +4315,7 @@ input[type="tel"]:focus {
     linear-gradient(hsla(0, 0%, 55%, 0) 46.9%, hsl(0, 0%, 65%) 47% 52.9%, hsla(0, 0%, 65%, 0) 53%) 50% 50% / 99% 99% no-repeat;
 }
 
+
 /* Animations */
 @keyframes hamster {
 
@@ -4493,4 +4494,15 @@ input[type="tel"]:focus {
   to {
     transform: rotate(-1turn);
   }
+}
+
+/* MODAL DETAIL BILL */
+#billDetailsModal table td {
+vertical-align: middle;
+}
+
+#billDetailsModal table .product-name{
+  max-width: 300px;
+  overflow-x: hidden;
+  text-overflow: ellipsis !important ;
 }
