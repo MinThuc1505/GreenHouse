@@ -9,7 +9,7 @@ import org.springframework.web.client.RestTemplate;
 
 
 @SpringBootApplication
-// @EnableScheduling
+@EnableScheduling
 public class GreenHouseApplication {
 
 	public static void main(String[] args) {
