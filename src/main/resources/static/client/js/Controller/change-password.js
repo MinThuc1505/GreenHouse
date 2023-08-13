@@ -38,12 +38,13 @@ appClient.controller('change-passwordController', function ($scope, $http, urlCh
         var newpassword = $scope.confirmPassword;
         if (username && cookieUsername == null) {
             var url = `${host}/${username}/${newpassword}`;
-            $http.patch(url, $scope.accountData).then(resp => {
+            $http.patch(url).then(resp => {
                 Swal.fire({
                     icon: 'success',
                     title: 'Thành công',
                     text: `Đã đổi mật khẩu ` + username + ` thành công.`,
                 });
+                console.log(resp.data);
             }).catch(Error => {
                 console.log(Error.data);
             })
