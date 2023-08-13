@@ -65,18 +65,19 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.2/angular.min.js"></script>
 	 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-cookies.min.js"></script>
 
 </head>
 
 <body>
-    <th:block th:fragment="header">
+    <th:block th:fragment="header" >
         <!-- Start Header Top Area -->
-        <div class="header-top-area">
+        <div class="header-top-area" ng-controller="headerAdminController">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
                         <div class="logo-area">
-                            <a href="#"><img src="img/logo/logo.png" alt="" /></a>
+                            <a href="/admin/index"><img src="img/logo/logoGH.png" alt="" /></a>
                         </div>
                     </div>
                     <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
@@ -237,8 +238,8 @@
                                     <a href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"
                                         data-delay="350" role="button" aria-haspopup="true" aria-expanded="false"><i
                                             class='bx bxs-user-circle'></i>
-                                            <span ng-if="cookiesUsername">{{ cookiesUsername.length > 13 ? cookiesUsername.substr(0, 13) + '...' : cookiesUsername }}</span>
-                                        <span ng-if="!cookiesUsername" th:text="#{lo.mn.account}"></span>
+                                            <span ng-if="username">{{ username.length > 13 ? username.substr(0, 13) + '...' : username }}</span>
+                                            <span ng-if="!username" th:text="#{lo.mn.account}"></span>
                                         <span class="tf-ion-ios-arrow-down"></span>
                                     </a>
                                     <div class="dropdown-menu">
@@ -539,6 +540,7 @@
         <script src="js/Controller/productCtrl.js"></script>
         <script src="js/Controller/reportChart.js"></script>
         <script src="js/Controller/indexController.js"></script>
+        <script src="js/Controller/headerController.js"></script>
     </th:block>
 </body>
 
