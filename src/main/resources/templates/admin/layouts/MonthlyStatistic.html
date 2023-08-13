@@ -14,19 +14,21 @@
                 <div class="row">
                     <div class="bar-chart-wp">
                         <canvas height="20vh" width="40vw" id="barStatic"></canvas>
-                    </div>                    
+                    </div>
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         <div class="normal-table-list mg-t-30">
                             <div class="basic-tb-hd">
                                 <h2>Thống kê doanh thu theo thời gian</h2>
                             </div>
                             <div class="row">
+                                <!-- Sử dụng ng-change để gọi hàm searchData() khi ngày bắt đầu hoặc kết thúc thay đổi -->
                                 <div class="col-lg-5">
                                     <div class="form-group">
                                         <label for="thoiGianBatDau">Thời gian bắt đầu:</label>
                                         <div class="input-group">
                                             <input type="date" ng-model="form.startDate" class="form-control"
-                                                id="thoiGianBatDau" placeholder="Thời gian bắt đầu">
+                                                id="thoiGianBatDau" placeholder="Thời gian bắt đầu"
+                                                ng-change="searchData()">
                                         </div>
                                     </div>
                                 </div>
@@ -35,17 +37,15 @@
                                         <label for="thoiGianKetThuc">Thời gian kết thúc:</label>
                                         <div class="input-group">
                                             <input type="date" ng-model="form.endDate" class="form-control"
-                                                id="thoiGianKetThuc" placeholder="Thời gian kết thúc">
+                                                id="thoiGianKetThuc" placeholder="Thời gian kết thúc"
+                                                ng-change="searchData()">
                                         </div>
+                                        <!-- Thông báo lỗi -->
+                                        <small class="text-danger" ng-show="startDateError">
+                                            Ngày kết thúc phải lớn hơn hoặc bằng ngày bắt đầu.
+                                        </small>
                                     </div>
-                                </div>
-                                <div class="col-lg-2 d-flex justify-content-between">
-                                    <div class="input-group">
-                                        <br>
-                                        <button class="btn btn-primary" type="button" ng-click="searchData()">Tìm
-                                            kiếm</button>
-                                    </div>
-                                </div>
+                                </div>                                
                             </div>
                             <div class="bsc-tbl-hvr">
                                 <!-- <h2>Thống kê doanh thu</h2> -->
@@ -63,10 +63,18 @@
                                             <td class="text-center">{{$index + 1}}</td>
                                             <td>{{item[2] + '-' + item[1] + '-' + item[0]}}</td>
                                             <td>{{item[3]}}</td>
-                                            <td>{{item[4]}}</td>
+                                            <td>{{item[4] | number:0}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center"></td>
+                                            <td><strong>Tổng: </strong></td>
+                                            <td style="color:rgb(255, 0, 204);"><strong>{{ getTotalQuantity() | number:0
+                                                    }}</strong></td>
+                                            <td style="color: rgb(255, 0, 204);"><strong>{{ getTotalRevenue() | number:0
+                                                    }}</strong></td>
                                         </tr>
                                     </tbody>
-                              </table>
+                                </table>
                             </div>
                         </div>
                     </div>
@@ -77,4 +85,5 @@
     </section>
 
 </body>
+
 </html>
