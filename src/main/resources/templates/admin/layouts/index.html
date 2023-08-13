@@ -1,9 +1,11 @@
 <!doctype html>
 <html class="no-js" lang="" xmlns:th="http://www.thymeleaf.org"
-	th:replace="~{admin/main-layout.html :: layout (~{::title}, ~{::#layout})}">
+    th:replace="~{admin/main-layout.html :: layout (~{::title}, ~{::#layout})}">
+
 <head>
-	<title>Trang chủ</title>
+    <title>Trang chủ</title>
 </head>
+
 <body>
     <section id="layout" ng-controller="indexController">
         <!-- Start Status area -->
@@ -13,7 +15,7 @@
                     <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
                         <div class="wb-traffic-inner notika-shadow sm-res-mg-t-30 tb-res-mg-t-30">
                             <div class="website-traffic-ctn">
-                                <h2><span class="">{{ revenue }}</span> VNĐ</h2>
+                                <h2><span class="">{{ revenue || 0 }} VNĐ</span></h2>
                                 <p>Tổng doanh thu bán hàng</p>
                             </div>
                             <div class="sparkline-bar-stats1">9,4,8,6,5,6,4,8,3,5,9,5</div>
@@ -59,14 +61,46 @@
                             <div class="curved-inner-pro">
                                 <div class="curved-ctn">
                                     <h2>Doanh thu theo năm</h2>
-                                    <!-- <p>Vestibulum purus quam scelerisque, mollis nonummy metus</p> -->
                                 </div>
                             </div>
                             <canvas id="barIndex" class="flot-chart-sts flot-chart"></canvas>
                         </div>
                     </div>
                     <div class="col-lg-5 col-md-4 col-sm-5 col-xs-12">
-            
+                        <div class="row">
+                            <div class="col-md-12">
+                                <!-- <h3 class="text-center">Lịch Tuần và Lịch Tháng</h3> -->
+                            </div>
+                        </div>
+                        <div class="row calendar-row">
+                            <div class="col-md-12 text-center calendar-controls">
+                                <button id="prev-month" class="btn btn-warning"><</button>
+                                <h3  id="current-month" class="mb-0 text-center"></h3>
+                                <button id="next-month" class="btn btn-warning">></button>
+                            </div>
+                        </div>
+                        <div class="row calendar-row">
+                            <div class="col-md-12">
+                                <div id="monthly-calendar" class="text-center">
+                                    <table class="table table-striped table-hover">
+                                        <thead>
+                                            <tr class="table-bordered custom-border tr-thead">
+                                                <th class="text-center">T2</th>
+                                                <th class="text-center">T3</th>
+                                                <th class="text-center">T4</th>
+                                                <th class="text-center">T5</th>
+                                                <th class="text-center">T6</th>
+                                                <th class="text-center">T7</th>
+                                                <th class="text-center">CN</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="monthly-calendar-body">
+                                            <!-- Đây là nơi dữ liệu ngày trong tháng sẽ được thêm vào bằng JavaScript -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -76,48 +110,17 @@
         <div class="notika-email-post-area">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                         <div class="email-statis-inner notika-shadow">
                             <div class="email-ctn-round">
                                 <div class="email-rdn-hd">
                                     <h2>Thống kê người dùng</h2>
                                     <canvas id="barRoleChart"></canvas> <!-- Thêm canvas để vẽ biểu đồ -->
-                                </div>                      
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
-                        <div class="recent-items-wp notika-shadow sm-res-mg-t-30">
-                            <div class="rc-it-ltd">
-                                <div class="recent-items-ctn">
-                                    <div class="recent-items-title">
-                                        <h2>Sản phẩm mới thêm</h2>
-                                    </div>
-                                </div>
-                                <div class="recent-items-inn">
-                                    <table class="table table-inner table-vmiddle">
-                                        <thead>
-                                            <tr>
-                                                <th class="text-center">ID</th>
-                                                <th class="text-center">Tên sản phẩm</th>
-                                                <th class="text-center">Giá</th>
-                                                <th class="text-center">Số lượng</th>
-                                            </tr>
-                                        </thead>
-                                        <!-- <tbody>
-                                            <tr ng-repeat="item in items">
-                                                <td class="text-center">{{item.id}}</td>
-                                                <td>{{item.name}}</td>
-                                                <td>{{item.price | number:0}}</td>
-                                                <td class="text-center">{{item.quantity | number:0}}</td>
-                                            </tr>
-                                        </tbody> -->
-                                    </table>
-                                </div>
-                            </div>
-                        </div>                                      
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                         <div class="recent-items-wp notika-shadow sm-res-mg-t-30">
                             <div class="rc-it-ltd">
                                 <div class="recent-items-ctn">
@@ -139,7 +142,7 @@
                                             <tr ng-repeat="item in items">
                                                 <td class="text-center">{{item[0]}}</td>
                                                 <td>{{item[1]}}</td>
-                                                <td >{{item[2] | number:0}}</td>
+                                                <td>{{item[2] | number:0}}</td>
                                                 <td class="text-center">{{item[3] | number:0}}</td>
                                             </tr>
                                         </tbody>
