@@ -52,7 +52,7 @@ public interface BillDAO extends JpaRepository<Bill, Integer> {
         @Query("SELECT SUM(b.newAmount) FROM Bill b WHERE b.status = 1")
         Long getTotalRevenue();
 
-        @Query("SELECT SUM(d.quantity) FROM Discount d")
+        @Query("SELECT  COUNT(d) FROM Discount d")
         Long getTotalDiscounts();
 
         @Query("SELECT COUNT(a) FROM Account a")
