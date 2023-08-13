@@ -8,8 +8,8 @@ import java.util.Random;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.greenhouse.DAO.OtpDAO;
 import com.greenhouse.config.TwilioConfig;
+import com.twilio.Twilio;
 import com.twilio.rest.api.v2010.account.Message;
 import com.twilio.type.PhoneNumber;
 
@@ -20,6 +20,8 @@ public class TwilioOTPService {
     private TwilioConfig twilioConfig;
 
     public Map<String, String> sendOTP(String phoneNumber, String otp) {
+        Twilio.init(twilioConfig.getAccountSid(), twilioConfig.getAuthToken());
+
         Map<String, String> result = new HashMap();
         PhoneNumber to = new PhoneNumber(phoneNumber);
         PhoneNumber from = new PhoneNumber(twilioConfig.getTrialNumber());
@@ -30,7 +32,7 @@ public class TwilioOTPService {
                 from,
                 otpMessage)
                 .create();
-       
+
         result.put("phoneNumber", phoneNumber);
         result.put("otp", otp);
         return result;

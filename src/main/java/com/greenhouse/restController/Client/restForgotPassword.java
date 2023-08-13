@@ -107,41 +107,43 @@ public class restForgotPassword {
         Account acc = accountDAO.findById(username).orElse(null);
         System.out.println("Send OTP: " + acc);
         if (acc != null) {
-
-            List<OTP> otpList = otpDAO.getOTPstatus0ByUsername(username);
-            if (otpList != null) {
-                for (OTP otp : otpList) {
-                    LocalDateTime currentDateTime = LocalDateTime.now();
-                    Timestamp timestamp = Timestamp.valueOf(currentDateTime);
-                    otp.setUpdateAt(timestamp);
-                    otp.setStatus(2);
-                    otpDAO.save(otp);
+            if (acc.getPhone() != null) {
+                List<OTP> otpList = otpDAO.getOTPstatus0ByUsername(username);
+                if (otpList != null) {
+                    for (OTP otp : otpList) {
+                        LocalDateTime currentDateTime = LocalDateTime.now();
+                        Timestamp timestamp = Timestamp.valueOf(currentDateTime);
+                        otp.setUpdateAt(timestamp);
+                        otp.setStatus(2);
+                        otpDAO.save(otp);
+                    }
                 }
+                String phone = "+84" + acc.getPhone().substring(1);
+
+                LocalDateTime currentDateTime = LocalDateTime.now();
+                Timestamp timestamp = Timestamp.valueOf(currentDateTime);
+
+                LocalDateTime expirationDateTime = currentDateTime.plus(5, ChronoUnit.MINUTES);
+                Timestamp timestampExpiration = Timestamp.valueOf(expirationDateTime);
+
+                String otp = twilioService.generateOTP();
+
+                OTP otpModel = new OTP();
+                otpModel.setAccount(acc);
+                otpModel.setOtpCode(otp);
+                otpModel.setCreateAt(timestamp);
+                otpModel.setExpirationTime(timestampExpiration);
+                otpModel.setStatus(0);
+
+                otpDAO.save(otpModel);
+
+                responseData = twilioService.sendOTP(phone, otp);
+                requestData.put("status", "success");
+                responseData.put("message", "Đã gửi OTP đến số điện thoại của bạn");
+            }else{
+                requestData.put("status", "error");
+                responseData.put("message", "Tài khoản này chưa đăng ký số điện thoại");
             }
-
-            Twilio.init(twilioConfig.getAccountSid(), twilioConfig.getAuthToken());
-
-            String phone = "+84" + acc.getPhone().substring(1);
-
-            LocalDateTime currentDateTime = LocalDateTime.now();
-            Timestamp timestamp = Timestamp.valueOf(currentDateTime);
-
-            LocalDateTime expirationDateTime = currentDateTime.plus(5, ChronoUnit.MINUTES);
-            Timestamp timestampExpiration = Timestamp.valueOf(expirationDateTime);
-
-            String otp = twilioService.generateOTP();
-
-            OTP otpModel = new OTP();
-            otpModel.setAccount(acc);
-            otpModel.setOtpCode(otp);
-            otpModel.setCreateAt(timestamp);
-            otpModel.setExpirationTime(timestampExpiration);
-            otpModel.setStatus(0);
-
-            otpDAO.save(otpModel);
-
-            requestData = twilioService.sendOTP(phone, otp);
-            System.out.println(requestData);
 
         }
 

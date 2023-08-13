@@ -61,14 +61,22 @@ appClient.controller('forgot-passwordController', ['$scope', '$http', 'urlForgot
             url: url,
             data: { username: username }
         }).then(function (response) {
-            Swal.fire({
-                icon: 'success',
-                title: 'Xác minh',
-                text: 'Đã gửi mã OTP đến số điện thoại của tài khoản!'
-            });
             hideLoading();
-            $scope.openModalOTP();
-            $scope.startCountdown();
+            if (response.data.status == "success") {
+                Swal.fire({
+                    icon: "success",
+                    title: 'Xác minh',
+                    text: response.data.message
+                });
+                $scope.openModalOTP();
+                $scope.startCountdown();
+            } else {
+                Swal.fire({
+                    icon: "error",
+                    title: 'Lỗi',
+                    text: response.data.message
+                });
+            }
         }).catch(function (error) {
             console.error(error);
         });
@@ -95,8 +103,8 @@ appClient.controller('forgot-passwordController', ['$scope', '$http', 'urlForgot
                 otp: otp
             }
         }).then(function (response) {
-            console.log("=============="+response.data.status);
-            if(response.data.status == "success"){
+            console.log("==============" + response.data.status);
+            if (response.data.status == "success") {
                 window.location.href = `/client/change-password?username=${username}`;
             }
         }).catch(function (error) {
