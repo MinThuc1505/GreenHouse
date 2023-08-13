@@ -31,7 +31,8 @@
                                     </thead>
                                     <!-- ... -->
                                     <tbody>
-                                        <tr ng-repeat="item in items" data-toggle="collapse" data-target="#{{$index + 1}}" class="tr-title-product">
+                                        <tr ng-repeat="item in items" data-toggle="collapse"
+                                            data-target="#{{$index + 1}}" class="tr-title-product">
                                             <td class="text-center">{{$index + 1}}</td>
                                             <td>{{item.account.fullName}}</td>
                                             <td>{{formatCurrency(item.amount)}}</td>
@@ -42,7 +43,7 @@
                                                 <button class="btn btn-info" ng-click="printInvoice(item)">In hóa đơn</button> <!-- Gọi hàm downloadInvoice khi nhấn nút -->
                                             </td>
                                         </tr>
-                                    </tbody>                                    
+                                    </tbody>
                                     <!-- ... -->
                                 </table>
                             </div>
@@ -52,7 +53,8 @@
                 </div>
             </div>
         </div>
-        </th:bloc>
+    </section>
+    </th:block>
 
 </body>
 

@@ -15,7 +15,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.greenhouse.DAO.AccountDAO;
@@ -26,7 +25,6 @@ import com.greenhouse.model.OTP;
 import com.greenhouse.service.EmailService;
 import com.greenhouse.service.TokenService;
 import com.greenhouse.service.TwilioOTPService;
-import com.twilio.Twilio;
 
 import jakarta.servlet.http.HttpServletRequest;
 
