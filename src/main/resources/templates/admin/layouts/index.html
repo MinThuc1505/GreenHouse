@@ -13,7 +13,7 @@
                     <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
                         <div class="wb-traffic-inner notika-shadow sm-res-mg-t-30 tb-res-mg-t-30">
                             <div class="website-traffic-ctn">
-                                <h2><span class="">{{ revenue }}</span> VNĐ</h2>
+                                <h2><span class="">{{ formatCurrency(revenue) }}</span></h2>
                                 <p>Tổng doanh thu bán hàng</p>
                             </div>
                             <div class="sparkline-bar-stats1">9,4,8,6,5,6,4,8,3,5,9,5</div>
@@ -54,7 +54,7 @@
         <div class="sale-statistic-area">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-7 col-md-8 col-sm-7 col-xs-12">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         <div class="sale-statistic-inner notika-shadow mg-tb-30">
                             <div class="curved-inner-pro">
                                 <div class="curved-ctn">
@@ -64,9 +64,6 @@
                             </div>
                             <canvas id="barIndex" class="flot-chart-sts flot-chart"></canvas>
                         </div>
-                    </div>
-                    <div class="col-lg-5 col-md-4 col-sm-5 col-xs-12">
-            
                     </div>
                 </div>
             </div>
@@ -85,37 +82,6 @@
                                 </div>                      
                             </div>
                         </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
-                        <div class="recent-items-wp notika-shadow sm-res-mg-t-30">
-                            <div class="rc-it-ltd">
-                                <div class="recent-items-ctn">
-                                    <div class="recent-items-title">
-                                        <h2>Sản phẩm mới thêm</h2>
-                                    </div>
-                                </div>
-                                <div class="recent-items-inn">
-                                    <table class="table table-inner table-vmiddle">
-                                        <thead>
-                                            <tr>
-                                                <th class="text-center">ID</th>
-                                                <th class="text-center">Tên sản phẩm</th>
-                                                <th class="text-center">Giá</th>
-                                                <th class="text-center">Số lượng</th>
-                                            </tr>
-                                        </thead>
-                                        <!-- <tbody>
-                                            <tr ng-repeat="item in items">
-                                                <td class="text-center">{{item.id}}</td>
-                                                <td>{{item.name}}</td>
-                                                <td>{{item.price | number:0}}</td>
-                                                <td class="text-center">{{item.quantity | number:0}}</td>
-                                            </tr>
-                                        </tbody> -->
-                                    </table>
-                                </div>
-                            </div>
-                        </div>                                      
                     </div>
                     <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
                         <div class="recent-items-wp notika-shadow sm-res-mg-t-30">

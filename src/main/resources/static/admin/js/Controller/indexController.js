@@ -7,17 +7,6 @@ app.controller('indexController', function ($scope, $http, indexController) {
     $scope.totalUsers = null;
     $scope.totalProducts = null;
 
-    // $scope.load_all = function() {
-    //     var url = `${host}`;
-    //     $http.get(url).then(function(resp) {
-    //         $scope.items = resp.data;
-    //         console.log("Success - All items", $scope.items);
-    //     }).catch(function(error) {
-    //         console.log("Error - All items", error);
-    //     });
-
-    // };
-
     $scope.getRevenue = function () {
         var url = `${host}/revenue`;
         $http.get(url).then(function (resp) {
@@ -80,16 +69,6 @@ app.controller('indexController', function ($scope, $http, indexController) {
 
     $scope.loadAllData = function () {
         var url = `${host}/topProducts`;
-        $http.get(url).then(resp => {
-            $scope.items = resp.data;
-            console.log("Success", $scope.items);
-        }).catch(error => {
-            console.log("Error", error);
-        });
-    };
-
-    $scope.load_Product = function () {
-        var url = `${host}/newProduct`;
         $http.get(url).then(resp => {
             $scope.items = resp.data;
             console.log("Success", $scope.items);
@@ -188,6 +167,11 @@ app.controller('indexController', function ($scope, $http, indexController) {
             console.log(error);
         });
     };
+
+    $scope.formatCurrency = function(amount) {
+        // Thực hiện chuyển đổi số thành chuỗi định dạng tiền tệ
+        return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(amount);
+    };
     
 
     $scope.getRevenue();
@@ -195,7 +179,6 @@ app.controller('indexController', function ($scope, $http, indexController) {
     $scope.getTotalUsers();
     $scope.getTotalProducts();
     $scope.loadAllData();
-    $scope.load_Product();
     $scope.getRevenueData1();
     $scope.getRevenueData2();
 });
