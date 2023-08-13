@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.client.RestTemplate;
 
+
 @SpringBootApplication
 // @EnableScheduling
 public class GreenHouseApplication {
@@ -14,8 +15,9 @@ public class GreenHouseApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(GreenHouseApplication.class, args);
 	}
+
 	@Bean
-    public RestTemplate restTemplate(RestTemplateBuilder builder) {
-        return builder.build();
-    }
+	public RestTemplate restTemplate(RestTemplateBuilder builder) {
+		return builder.build();
+	}
 }

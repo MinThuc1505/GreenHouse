@@ -34,7 +34,7 @@ public class restChangePassword {
         if (!accountDao.existsById(username)) {
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(accountDao.findById(username).get());
+        return ResponseEntity.ok(accountDao.findById(username).get()); 
     }
 
     @PatchMapping(value = "/{username}/{newpassword}")
