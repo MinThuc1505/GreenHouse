@@ -279,14 +279,15 @@ app.controller("productCtrl", function ($scope, $http, urlProduct) {
         Swal.fire({
           icon: "success",
           title: "Thành công",
-          text: `Cập nhật sản phẩm ${key}`,
+          text: `cập nhật sản phẩm ` + $scope.items[$scope.key].name + ` thành công`,
         });
+        
       })
       .catch((Error) => {
         Swal.fire({
           icon: "error",
           title: "Thất bại",
-          text: `Cập nhật sản phẩm ${key} thất bại`,
+          text: `cập nhật sản phẩm ` + $scope.items[$scope.key].name+ ` thất bại`,
         });
       });
   };
@@ -300,7 +301,7 @@ app.controller("productCtrl", function ($scope, $http, urlProduct) {
         Swal.fire({
           icon: "success",
           title: "Thành công",
-          text: `Đã xóa sản phẩm ${key}`,
+          text: `Xóa sản phẩm ${key} thành công`,
         });
       })
       .catch((Error) => {
@@ -309,7 +310,7 @@ app.controller("productCtrl", function ($scope, $http, urlProduct) {
           Swal.fire({
             icon: "error",
             title: "Thất bại",
-            text: `Sản phẩm ${key} đang được sử dụng và không thể xóa.`,
+            text: `Sản phẩm mã ${key} đang được sử dụng và không thể xóa.`,
           });
         } else {
           Swal.fire({

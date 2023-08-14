@@ -21,7 +21,9 @@ appClient.service('UserService', ['$cookies', function ($cookies) {
 
     this.logoutUser = function () {
         $cookies.remove('username');
+        $cookies.remove('role');
         window.location.href = "/client/index";
+        
     };
 
     this.getCookiesUsername = function () {

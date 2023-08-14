@@ -32,20 +32,20 @@ public interface BillDAO extends JpaRepository<Bill, Integer> {
 
         @Query("SELECT YEAR(b.createDate) AS Year, MONTH(b.createDate) AS Month, DAY(b.createDate) AS Day, COUNT(b) AS Total_Bills, SUM(b.amount) AS Total_Revenue "
                         + "FROM Bill b "
-                        + "WHERE b.status = true "
+                        + "WHERE b.status = 1 "
                         + "GROUP BY YEAR(b.createDate), MONTH(b.createDate), DAY(b.createDate) "
                         + "ORDER BY YEAR(b.createDate), MONTH(b.createDate), DAY(b.createDate) ASC")
         List<Object[]> findAllTotalRevenue();
 
         @Query("SELECT MONTH(b.createDate) AS Thang, SUM(b.newAmount) AS TongDoanhThu "
                         + "FROM Bill b "
-                        + "WHERE b.status = true "
+                        + "WHERE b.status = 1 "
                         + "GROUP BY MONTH(b.createDate)")
         List<Object[]> getMonthlyRevenue();
 
         @Query("SELECT YEAR(b.createDate) AS Nam, SUM(b.newAmount) AS TongDoanhThu "
                         + "FROM Bill b "
-                        + "WHERE b.status = true "
+                        + "WHERE b.status = 1 "
                         + "GROUP BY YEAR(b.createDate)")
         List<Object[]> getYearRevenue();
 

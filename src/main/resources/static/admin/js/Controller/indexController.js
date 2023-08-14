@@ -84,6 +84,7 @@ app.controller('indexController', function ($scope, $http, indexController) {
             var data = response.data;
             var years = [];
             var revenues = [];
+            console.log(data);
             for (var i = 0; i < data.length; i++) {
                 years.push(data[i][0]);
                 revenues.push(data[i][1]);
