@@ -5,4 +5,7 @@ import com.greenhouse.model.Size;
 
 public interface SizeDAO extends JpaRepository<Size, Integer> {
 
+
+    boolean existsBySize(String size);
+
 }

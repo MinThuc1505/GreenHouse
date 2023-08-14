@@ -24,5 +24,5 @@ public class ImageProduct implements Serializable{
     private Product product;
 
     @Column(name = "Name")
-    private String name;
+    private String image;
 }

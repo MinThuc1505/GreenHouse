@@ -1,0 +1,147 @@
+<!doctype html>
+<html class="no-js" lang="" xmlns:th="http://www.thymeleaf.org"
+th:replace="~{admin/main-layout.html :: layout (~{::title}, ~{::#layout})}">
+<head>
+	<title>Quản lý ảnh sản phẩm</title>
+</head>
+<body>
+	<section id="layout" ng-controller="imageProductCtrl">
+		<div class="wizard-area">
+			<div class="container">
+				<div class="row header-filter-product header-action-product">
+					<div class="filter-search col-md-6">
+						<div class="input-group">
+							<input type="text" class="form-control"
+								placeholder="Tìm kiếm tên loại sản phẩm..." ng-model="searchTerm"> <span
+								class="input-group-btn">
+								<button class="btn btn-default" type="button" ng-click="searchData()">
+									<span class="glyphicon glyphicon-search"></span>
+								</button>
+							</span>
+						</div>
+					</div>
+					<div class="action-product col-md-6">
+						<button type="button" class="btn btn-success" data-toggle="modal" data-target="#imageProductModal">
+							Thêm mới
+						</button>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+						<table class="table table-striped">
+							<thead>
+								<tr class="table-bordered custom-border tr-thead">
+									<th class="text-center">#</th>
+									<th>Tên Sản Phẩm</th>
+									<th>Ảnh</th>
+								</tr>
+							</thead>
+							<tbody ng-repeat="item in items">
+								 <tr data-toggle="collapse" data-target="#{{$index + 1}}" class="tr-title-product" ng-click="Edit(item.id , $index)" >
+									<td class="text-center">{{item.id}}</td>
+									<td>{{item.product.name}}</td>
+									<td><img class="object-fit"
+										ng-src="/images/{{item.image}}" 
+										name="image" style="max-height: 100px; width: 80%;"></td>
+								</tr>
+								<tr id="{{$index + 1}}"  ng-if="$index === selectedItemIndex" class="collapse">
+									<td colspan="12" class="product-info border-1">
+										<h4>Thông tin loại sản phẩm</h4>
+										<form>
+											<div class="row">
+												<div class="col-md-6">
+													<div class="form-group mt-3">
+														<label for="id" class="fw-bold">Mã ảnh sản phảm</label> 
+														<input type="text" class="form-control border-bottom" id="id" name="id" ng-model="form.id" disabled
+																>
+													</div>
+												</div>
+												<div class="col-md-6">
+                                                    <div class="form-group mt-3">
+                                                        <label for="product" class="fw-bold">Tên sản phẩm</label>
+                                                        <select class="form-control border-bottom" id="product"
+                                                        ng-model="form.product"
+                                                        ng-options="product as product.name for product in products track by product.id">
+                                                        <option value="">Chọn Tên sản phẩm</option>
+                                                    </select>
+                                                              
+                                                    </div>
+                                                </div>
+												<div class="col-md-6">
+                                                    <div class="form-group mt-3">
+                                                        <label for="image" class="fw-bold">Ảnh</label>
+                                                        <input type="text" class="form-control text-center border-bottom" id="image" name="image"
+                                                            ng-model="form.image" >
+                                                    </div>
+                                                </div>
+												<div class="col-md-12 text-right mt-5">
+													<div class="btn-group ib-btn-gp active-hook nk-email-inbox">
+
+														<button class="btn btn-primary notika-btn-primary waves-effect" ng-click="Update(item.id)"><i class="fa fa-save"></i> Lưu</button>
+						                                <button class="btn btn-danger notika-btn-danger waves-effect" ng-click="Delete(item.id)"><i class="fa fa-trash"></i> Xóa</button>
+													</div>
+												</div>
+											</div>
+										</form>
+									</td>
+								</tr>
+								<!-- Thêm các dòng sản phẩm khác tương tự ở đây -->
+							</tbody>
+						</table>
+					</div>
+				
+				</div>
+			</div>
+		</div>
+
+		<!-- The Modal -->
+		<div class="modal fade" id="imageProductModal">
+			<div class="modal-dialog modal-dialog-centered modal-lg">
+				<div class="modal-content">
+					<!-- Modal Header -->
+					<div class="modal-header">
+						<h4 class="modal-title">Thêm ảnh sản phẩm</h4>
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+					</div>
+	
+					<!-- Modal body -->
+					<div class="modal-body">
+						<form>
+							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group mt-3">
+											<input type="hidden" class="form-control border-bottom" id="id" name="id" ng-model="id"
+												>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group mt-3">
+                                        <label for="product" class="fw-bold">Tên sản phẩm</label>
+                                        <select class="form-control border-bottom" id="product" ng-model="product" ng-options="product as product.name for product in products" >
+                                            <option value="">Chọn Tên sản phẩm</option>
+                                        </select>
+                                    </div>
+								</div>
+							<div class="col-md-6">
+									<div class="form-group mt-3">
+										<label for="image" class="fw-bold">Ảnh</label>
+										<input type="text" multiple  accept="image/*" class="form-control text-center border-bottom" id="image" name="image"
+											ng-model="image" >
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+	
+					<!-- Modal footer -->
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" ng-click="Create()" ><i class="fa fa-save"></i> Lưu</button>
+		                <button type="button" class="btn btn-info" data-dismiss="modal"><i class="fa fa-times"></i> Hủy</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	
+
+	</section>
+</html>

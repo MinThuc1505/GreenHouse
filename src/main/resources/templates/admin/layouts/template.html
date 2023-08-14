@@ -66,6 +66,8 @@
 	 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-cookies.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.3/xlsx.full.min.js"></script>
+
 
 </head>
 
@@ -299,7 +301,7 @@
                                                                 </div>
                                                             </div>
                                                         </a>
-                                                    </li> 
+                                                    </li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -379,7 +381,9 @@
                                     </li>
                                     <li><a href="/admin/discount">Giảm giá</a>
                                     </li>
-                                    <li><a href="/admin/importProduct">Kho sản phẩm</a>
+                                    <li><a href="/admin/importProduct">Nhập sản phẩm</a>
+                                    </li>
+                                    <li><a href="/admin/imageProducts">Nhập ảnh sản phẩm</a>
                                     </li>
                                 </ul>
                             </div>
@@ -500,7 +504,7 @@
         <script src="js/plugins.js"></script>
         <!-- main JS
 		============================================ -->
-        <script src="js/main.js"></script>  
+        <script src="js/main.js"></script>
         <!-- Charts JS
 		============================================ -->
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -511,22 +515,6 @@
         <script src="js/Controller/discountController.js"></script>
         <script src="js/Controller/userController.js"></script>
         <script src="js/Controller/providerController.js"></script>
-        <script src="js/Controller/reportBillController.js"></script>
-        <script src="js/Controller/reportCategoryController.js"></script>
-        <script src="js/Controller/reportStaticController.js"></script>
-        <script src="js/Controller/productCtrl.js"></script>
-        <script src="js/Controller/reportChart.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
-        </head>
-        <script src="js/Controller/productCtrl.js"></script>
-        <script src="js/Controller/reportBillController.js"></script>
-        <script src="js/Controller/reportCategoryController.js"></script>
-        <script src="js/Controller/categoryController.js"></script>
-        <script src="js/Controller/sizeCtrl.js"></script>
-        <script src="js/Controller/materialCtrl.js"></script>
-        <script src="js/Controller/importProductCtrl.js"></script>
         <script src="js/Controller/productCtrl.js"></script>
         <script src="js/Controller/reportBillController.js"></script>
         <script src="js/Controller/reportCategoryController.js"></script>
@@ -542,6 +530,7 @@
         <script src="js/Controller/reportChart.js"></script>
         <script src="js/Controller/indexController.js"></script>
         <script src="js/Controller/headerController.js"></script>
+        <script src="js/Controller/imageProductCtrl.js"></script>
     </th:block>
 </body>
 

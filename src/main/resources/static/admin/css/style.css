@@ -3148,6 +3148,11 @@ textarea.auto-size {
 .chosen-select-act .chosen-container-multi .chosen-choices li.search-choice span{
 	
 }
+.white-links a {
+    color: white; /* Màu chữ trắng */
+    text-decoration: none; /* Loại bỏ gạch chân */
+}
+
 .chosen-container-multi .chosen-choices li.search-choice .search-choice-close{
 	width: 15px;
     height: 10px;
