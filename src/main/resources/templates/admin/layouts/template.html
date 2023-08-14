@@ -59,39 +59,31 @@
     <script src="js/vendor/modernizr-2.8.3.min.js"></script>
     <!-- Nhúng Font Awesome từ CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <!-- Thư viện AngularJS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.2/angular.min.js"></script>
 	<!-- Thư viện AngularJS -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.2/angular.min.js"></script>
 	 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-cookies.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.3/xlsx.full.min.js"></script>
-
 
 </head>
 
 <body>
-    <th:block th:fragment="header">
+    <th:block th:fragment="header" >
         <!-- Start Header Top Area -->
-        <div class="header-top-area">
+        <div class="header-top-area" ng-controller="headerAdminController">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
                         <div class="logo-area">
-                            <a href="#"><img src="img/logo/logo.png" alt="" /></a>
+                            <a href="/admin/index"><img src="img/logo/logoGH.png" alt="" /></a>
                         </div>
                     </div>
                     <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
                         <div class="header-top-menu">
                             <ul class="nav navbar-nav notika-top-nav">
-                                <li class="nav-item dropdown">
-                                    <a href="#" data-toggle="dropdown" role="button" aria-expanded="false"
-                                        class="nav-link dropdown-toggle"><span> <i class="fas fa-search"></i></span></a>
-                                    <div role="menu" class="dropdown-menu search-dd animated flipInX">
-                                        <div class="search-input">
-                                            <i class="fas fa-search"></i>
-                                            <input type="text" />
-                                        </div>
-                                    </div>
-                                </li>
                                 <li class="nav-item dropdown">
                                     <a href="#" data-toggle="dropdown" role="button" aria-expanded="false"
                                         class="nav-link dropdown-toggle"><span> <i
@@ -172,7 +164,6 @@
                                                 class="fas fa-bell"></i></span>
                                         <div class="spinner4 spinner-4"></div>
                                         <div class="ntd-ctn"><span>3</span></div>
-                                    </a>
                                     <div role="menu" class="dropdown-menu message-dd notification-dd animated zoomIn">
                                         <div class="hd-mg-tt">
                                             <h2>Notification</h2>
@@ -244,6 +235,77 @@
                                         </div>
                                     </div>
                                 </li>
+                                <li class="dropdown menu-login cart-nav dropdown-slide">
+                                    <a href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"
+                                        data-delay="350" role="button" aria-haspopup="true" aria-expanded="false"><i
+                                            class='bx bxs-user-circle'></i>
+                                            <span ng-if="username">{{ username.length > 13 ? username.substr(0, 13) + '...' : username }}</span>
+                                            <span ng-if="!username" th:text="#{lo.mn.account}"></span>
+                                        <span class="tf-ion-ios-arrow-down"></span>
+                                    </a>
+                                    <div class="dropdown-menu">
+                                        <div class="row">
+                                            <div class="col-lg-12 col-md-6 mb-sm-3">
+                                                <ul>
+                                                    <li ng-if="cookiesUsername">
+                                                        <a href="#">
+                                                            <div class="hd-message-sn">
+                                                                <div class="hd-mg-ctn">
+                                                                    <p th:text="#{lo.mn.account}"></p>
+                                                                </div>
+                                                            </div>
+                                                        </a>
+                                                    </li>
+                                                   <li ng-if="cookiesUsername">
+                                                        <a href="#">
+                                                            <div class="hd-message-sn">
+                                                                <div class="hd-mg-ctn">
+                                                                    <p th:text="#{lo.mn.logout}"></p>
+                                                                </div>
+                                                            </div>
+                                                        </a>
+                                                    </li>
+                                                    <li ng-if="cookiesUsername">
+                                                        <a href="#">
+                                                            <div class="hd-message-sn">
+                                                                <div class="hd-mg-ctn">
+                                                                    <p th:text="#{lo.mn.changepasswod}"></p>
+                                                                </div>
+                                                            </div>
+                                                        </a>
+                                                    </li>
+                                                    <li ng-if="!cookiesUsername">
+                                                        <a href="#">
+                                                            <div class="hd-message-sn">
+                                                                <div class="hd-mg-ctn">
+                                                                    <p th:text="#{lo.mn.signin}"></p>
+                                                                </div>
+                                                            </div>
+                                                        </a>
+                                                    </li>
+                                                    <li ng-if="!cookiesUsername">
+                                                        <a href="#">
+                                                            <div class="hd-message-sn">
+                                                                <div class="hd-mg-ctn">
+                                                                    <p th:text="#{lo.mn.signup}"></p>
+                                                                </div>
+                                                            </div>
+                                                        </a>
+                                                    </li>
+                                                    <li ng-if="!cookiesUsername">
+                                                        <a href="#">
+                                                            <div class="hd-message-sn">
+                                                                <div class="hd-mg-ctn">
+                                                                    <p th:text="#{lo.mn.forgot}"></p>
+                                                                </div>
+                                                            </div>
+                                                        </a>
+                                                    </li> 
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -298,7 +360,7 @@
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         <ul class="nav nav-tabs notika-menu-wrap menu-it-icon-pro">
-                            <li><a href="/admin/index"><i class="fas fa-home"></i> Tổng quang</a>
+                            <li><a href="/admin/index"><i class="fas fa-home"></i> Tổng quan</a>
                             </li>
                             <li><a href="/admin/user"><i class="fas fa-user"></i> Người dùng</a>
                             </li>
@@ -441,10 +503,7 @@
         <script src="js/plugins.js"></script>
         <!-- main JS
 		============================================ -->
-        <script src="js/main.js"></script>
-        <!-- tawk chat JS
-		============================================ -->
-        <script src="js/tawk-chat.js"></script>
+        <script src="js/main.js"></script>  
         <!-- Charts JS
 		============================================ -->
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -455,21 +514,20 @@
         <script src="js/Controller/discountController.js"></script>
         <script src="js/Controller/userController.js"></script>
         <script src="js/Controller/providerController.js"></script>
-        <script src="js/Controller/productCtrl.js"></script>
         <script src="js/Controller/reportBillController.js"></script>
         <script src="js/Controller/reportCategoryController.js"></script>
-        <script src="js/Controller/categoryController.js"></script>
-        <script src="js/Controller/sizeCtrl.js"></script>
-        <script src="js/Controller/materialCtrl.js"></script>
-        <script src="js/Controller/importProductCtrl.js"></script>
-        <script src="js/Controller/priceHistoryCtrl.js"></script>
-        <script src="js/Controller/materialCtrl.js"></script>
-        <script src="js/Controller/importProductCtrl.js"></script>
         <script src="js/Controller/reportStaticController.js"></script>
         <script src="js/Controller/productCtrl.js"></script>
-        <!-- <script src="js/Controller/reportChart.js"></script> -->
+        <script src="js/Controller/reportChart.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+      <script src="js/Controller/sizeCtrl.js"></script>
+        <script src="js/Controller/materialCtrl.js"></script>
+        <script src="js/Controller/importProductCtrl.js"></script>
+     <script src="js/Controller/priceHistoryCtrl.js"></script>
+       <script src="js/Controller/indexController.js"></script>
+        <script src="js/Controller/headerController.js"></script>
         <script src="js/Controller/imageProductCtrl.js"></script>
-
     </th:block>
 </body>
 

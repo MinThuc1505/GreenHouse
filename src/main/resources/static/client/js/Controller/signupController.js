@@ -85,23 +85,9 @@ appClient.controller('singUpController', function ($scope, $http, urlSignUpClien
         var url = `${host}/validate`;
         $http.post(url, item).then(resp => {
             var account = resp.data
-            Swal.fire({
-                title: 'Xác Minh',
-                text: 'Hãy chọn cách xác minh tài khoản',
-                icon: 'question',
-                showCancelButton: true,
-                confirmButtonText: 'Gửi mail',
-                cancelButtonText: 'OTP',
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    console.log(account);
-                    // Xử lí khi nhấn nút "Gửi Mail"
-                    $scope.sendEmail(account.email, account.username);
-                } else if (result.dismiss === Swal.DismissReason.cancel) {
-                    // Xử lí khi nhấn nút "OTP"
-
-                }
-            });
+            console.log(account);
+            // Xử lí khi nhấn nút "Gửi Mail"
+            $scope.sendEmail(account.email, account.username);
         }).catch(Error => {
             if (Error.data) {
                 $scope.errorMessages = Error.data;

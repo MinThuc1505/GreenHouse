@@ -33,8 +33,22 @@ appClient.controller('change-passwordController', function ($scope, $http, urlCh
             return;
         }
 
+        var username = getParameterByName("username");
         var token = getParameterByName("token");
-        if (token && cookieUsername == null) {
+        var newpassword = $scope.confirmPassword;
+        if (username && cookieUsername == null) {
+            var url = `${host}/${username}/${newpassword}`;
+            $http.patch(url).then(resp => {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Thành công',
+                    text: `Đã đổi mật khẩu ` + username + ` thành công.`,
+                });
+                console.log(resp.data);
+            }).catch(Error => {
+                console.log(Error.data);
+            })
+        } else if (token && cookieUsername == null) {
             var password = $scope.password;
             var confirmPassword = $scope.confirmPassword;
             var data = {
@@ -64,12 +78,12 @@ appClient.controller('change-passwordController', function ($scope, $http, urlCh
                 console.error("Lỗi khi gọi API:", error);
             });
         } else {
-            var url = `${host}/${cookieUsername}`;
+            var url = `${host}/${cookieUsername}/${newpassword}`;
             $http.patch(url, $scope.accountData).then(resp => {
                 Swal.fire({
                     icon: 'success',
                     title: 'Thành công',
-                    text: `Đã đổi mật khẩu` + cookieUsername + ` thành công.`,
+                    text: `Đã đổi mật khẩu ` + cookieUsername + ` thành công.`,
                 });
             }).catch(Error => {
                 console.log(Error.data);

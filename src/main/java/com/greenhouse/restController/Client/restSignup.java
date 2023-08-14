@@ -23,7 +23,6 @@ import com.greenhouse.DAO.AccountDAO;
 import com.greenhouse.model.Account;
 import com.greenhouse.service.EmailService;
 import com.greenhouse.service.TokenService;
-
 import io.micrometer.common.util.StringUtils;
 import jakarta.servlet.http.HttpServletRequest;
 

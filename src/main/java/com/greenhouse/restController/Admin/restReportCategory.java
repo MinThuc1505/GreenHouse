@@ -24,4 +24,5 @@ public class restReportCategory {
         List<Object[]> billDetails = billDAO.getBillDetails();
         return ResponseEntity.ok(billDetails);
     }
+    
 }

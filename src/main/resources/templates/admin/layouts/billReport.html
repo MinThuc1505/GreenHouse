@@ -20,7 +20,7 @@
                                 <table class="table table-striped">
                                     <thead>
                                         <tr class="table-bordered custom-border tr-thead">
-                                            <th class="text-center">#</th>
+                                            <th class="text-center">Mã hóa đơn</th>
                                             <th>Tên tài khoản</th>
                                             <th>Tiền sản phẩm</th>
                                             <th>Giảm giá</th>
@@ -31,20 +31,44 @@
                                     </thead>
                                     <!-- ... -->
                                     <tbody>
-                                        <tr ng-repeat="item in items" data-toggle="collapse" data-target="#{{$index + 1}}" class="tr-title-product">
+                                        <tr ng-repeat="item in items" data-toggle="collapse"
+                                            data-target="#{{$index + 1}}" class="tr-title-product">
                                             <td class="text-center">{{$index + 1}}</td>
                                             <td>{{item.account.fullName}}</td>
-                                            <td>{{item.amount}}</td>
+                                            <td>{{formatCurrency(item.amount)}}</td>
                                             <td>{{item.discountPercent || 0}}</td>
-                                            <td>{{item.newAmount}}</td>
+                                            <td>{{formatCurrency(item.newAmount)}}</td>
                                             <td>{{formatDate(item.createDate)}}</td> <!-- Sử dụng hàm formatDate -->
                                             <td>
-                                                <button class="btn btn-info" ng-click="downloadInvoice(item)">In hóa đơn</button> <!-- Gọi hàm downloadInvoice khi nhấn nút -->
+                                                <button class="btn btn-info" ng-click="printInvoice(item)">In hóa đơn</button> <!-- Gọi hàm downloadInvoice khi nhấn nút -->
                                             </td>
                                         </tr>
-                                    </tbody>                                    
+                                    </tbody>
                                     <!-- ... -->
                                 </table>
+                            </div>
+                            <div class="text-center">
+                                <nav aria-label="Page navigation">
+                                    <ul class="pagination justify-content-center">
+                                        <li ng-class="{disabled: currentPage === 1}" class="page-item">
+                                            <button ng-click="goToPage(1)" class="page-link btn btn-info">Trang đầu</button>
+                                        </li>
+                                        <li ng-class="{disabled: currentPage === 1}" class="page-item">
+                                            <button ng-click="prevPage()" class="page-link btn btn-info">Trước</button>
+                                        </li>
+
+                                        <li ng-repeat="pageNumber in pageNumbers" class="page-item">
+                                            <button ng-click="goToPage(pageNumber)" class="page-link btn btn-info">{{pageNumber}}</button>
+                                        </li>
+
+                                        <li ng-class="{disabled: currentPage === totalPages}" class="page-item">
+                                            <button ng-click="nextPage()" class="page-link btn btn-info">Tiếp</button>
+                                        </li>
+                                        <li ng-class="{disabled: currentPage === totalPages}" class="page-item">
+                                            <button ng-click="goToPage(totalPages)" class="page-link btn btn-info">Trang cuối</button>
+                                        </li>
+                                    </ul>
+                                </nav>
                             </div>
                         </div>
                     </div>
@@ -52,7 +76,8 @@
                 </div>
             </div>
         </div>
-        </th:bloc>
+    </section>
+    </th:block>
 
 </body>
 

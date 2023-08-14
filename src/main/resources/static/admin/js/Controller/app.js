@@ -1,31 +1,27 @@
-const app = angular.module('app', []);
-app.constant('urlDiscount', 'http://localhost:8081/rest/discounts');
+const app = angular.module("app", ["ngCookies"]);
+app.constant("urlDiscount", "http://localhost:8081/rest/discounts");
 
-app.constant('urlAccount', 'http://localhost:8081/rest/user');
+app.constant("urlAccount", "http://localhost:8081/rest/user");
 
-app.constant('urlProvider', 'http://localhost:8081/rest/provider');
+app.constant("urlProvider", "http://localhost:8081/rest/provider");
 
-app.constant('urlProduct', 'http://localhost:8081/rest/products');
+app.constant("urlProduct", "http://localhost:8081/rest/products");
 
-app.constant('urlReportBill', 'http://localhost:8081/rest/reportBill')
+app.constant("urlReportBill", "http://localhost:8081/rest/reportBill");
 
-app.constant('urlReportCategory', 'http://localhost:8081/rest/reportCategory')
+app.constant("urlReportCategory", "http://localhost:8081/rest/reportCategory");
 
-app.constant('urlCategory', 'http://localhost:8081/rest/category');
+app.constant("urlReportStatic", "http://localhost:8081/rest/MonthlyStatistic");
 
-app.constant('urlSize', 'http://localhost:8081/rest/sizes');
+app.constant("urlCategory", "http://localhost:8081/rest/category");
 
-app.constant('urlMaterial', 'http://localhost:8081/rest/materials');
+app.constant("urlSize", "http://localhost:8081/rest/sizes");
 
-app.constant('urlImportProduct', 'http://localhost:8081/rest/importProduct');
+app.constant("urlMaterial", "http://localhost:8081/rest/materials");
 
-app.constant('urlReportStatic', 'http://localhost:8081/rest/MonthlyStatistic');
+app.constant("urlImportProduct", "http://localhost:8081/rest/importProduct");
 
-app.constant('urlProduct', 'http://localhost:8081/rest/products');
-
-app.constant('urlMaterial', 'http://localhost:8081/rest/materials');
-
-app.constant('urlImportProduct', 'http://localhost:8081/rest/importProduct');
-
-app.constant('urlPriceHistoryCtrl', 'http://localhost:8081/rest/priceHistorys');
-app.constant('urlImageProduct', 'http://localhost:8081/rest/imageProducts');
+app.constant("urlReportStatic", "http://localhost:8081/rest/MonthlyStatistic");
+app.constant("urlPriceHistoryCtrl", "http://localhost:8081/rest/priceHistorys");
+app.constant("urlImageProduct", "http://localhost:8081/rest/imageProducts");
+app.constant("indexController", "http://localhost:8081/rest/index");
