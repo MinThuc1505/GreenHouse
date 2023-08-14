@@ -1,9 +1,11 @@
 <!doctype html>
 <html class="no-js" lang="" xmlns:th="http://www.thymeleaf.org"
-	th:replace="~{admin/main-layout.html :: layout (~{::title}, ~{::#layout})}">
+    th:replace="~{admin/main-layout.html :: layout (~{::title}, ~{::#layout})}">
+
 <head>
-	<title>Trang chủ</title>
+    <title>Trang chủ</title>
 </head>
+
 <body>
     <section id="layout" ng-controller="indexController">
         <!-- Start Status area -->
@@ -73,13 +75,13 @@
         <div class="notika-email-post-area">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                         <div class="email-statis-inner notika-shadow">
                             <div class="email-ctn-round">
                                 <div class="email-rdn-hd">
                                     <h2>Thống kê người dùng</h2>
                                     <canvas id="barRoleChart"></canvas> <!-- Thêm canvas để vẽ biểu đồ -->
-                                </div>                      
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -105,7 +107,7 @@
                                             <tr ng-repeat="item in items">
                                                 <td class="text-center">{{item[0]}}</td>
                                                 <td>{{item[1]}}</td>
-                                                <td >{{item[2] | number:0}}</td>
+                                                <td>{{item[2] | number:0}}</td>
                                                 <td class="text-center">{{item[3] | number:0}}</td>
                                             </tr>
                                         </tbody>

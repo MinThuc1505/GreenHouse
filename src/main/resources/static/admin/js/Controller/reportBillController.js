@@ -76,62 +76,77 @@ app.controller('reportBillController', function ($scope, $http, urlReportBill) {
         })
     }
 
-    $scope.printInvoice = function(invoice) {
+    $scope.printInvoice = function (invoice) {
         var printWindow = window.open('', '_blank');
-        
+    
         var content = `
-        <!DOCTYPE html>
-        <html>
-        <head>
-            <title>Hóa đơn</title>
-            <!-- Thêm liên kết đến tệp CSS của Bootstrap -->
-            <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-            <style>
-                body {
-                    font-family: Arial, sans-serif;
-                }
-                .invoice-container {
-                    margin: 0 auto;
-                    border: 1px solid #ccc;
-                    padding: 20px;
-                }
-                .left-column {
-                    text-align: left;
-                }
-                h2 {
-                    margin-bottom: 10px;
-                }
-                p {
-                    margin: 5px 0;
-                }
-            </style>
-        </head>
-        <body>
-            <div class="container invoice-container">
-                <h2>Hóa đơn chi tiết</h2>
-                <div class="row">
-                    <div class="col-md-6 left-column">
-                        <p>Họ và tên: ${invoice.account.fullName}</p>
-                        <p>Giảm giá: ${ invoice.discountPercent || 0}</p>
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <title>Hóa đơn</title>
+                <!-- Thêm liên kết đến tệp CSS của Bootstrap -->
+                <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+                <style>
+                    body {
+                        font-family: Arial, sans-serif;
+                        background-color: #f5f5f5;
+                    }
+                    .invoice-container {
+                        margin: 0 auto;
+                        border: 1px solid #ccc;
+                        padding: 20px;
+                        background-color: white;
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        flex-wrap: wrap;
+                        max-width: 500px; /* Điều chỉnh độ rộng tối đa ở đây */
+                    }                    
+                    .invoice-header {
+                        text-align: center;
+                        width: 100%;
+                        margin-bottom: 20px;
+                    }
+                    .invoice-details {
+                        flex: 1;
+                        padding: 0 15px;
+                    }
+                    h2 {
+                        margin-bottom: 20px;
+                    }
+                    p {
+                        margin: 10px 0;
+                    }
+                </style>
+            </head>
+            <body>
+                <div class="container invoice-container">
+                    <div class="invoice-header">
+                        <h2>Hóa đơn chi tiết</h2>
                     </div>
-                    <div class="col-md-6">
-                        <p>Tiền sản phẩm: ${ $scope.formatCurrency(invoice.amount)}</p>
-                        <p>Tổng tiền: ${  $scope.formatCurrency(invoice.newAmount)}</p>
-                        <p>Ngày thanh toán: ${ $scope.formatDate(invoice.createDate)}</p>
+                    <div class="invoice-details">
+                        <p><strong>Họ và tên:</strong> ${invoice.account.fullName}</p>
+                        <p><strong>Ngày thanh toán:</strong> ${$scope.formatDate(invoice.createDate)}</p>
+                        <p><strong>Tiền sản phẩm:</strong> ${$scope.formatCurrency(invoice.amount)}</p>
+                        <p>------------------------------------------------------------------------</p>
+                        <p><strong>Giảm giá:</strong> ${invoice.discountPercent || 0}%</p>
+                        <p>------------------------------------------------------------------------</p>
+                        <p><strong>Thành tiền:</strong> ${$scope.formatCurrency(invoice.newAmount)}</p>
                     </div>
                 </div>
-            </div>
-
-            <!-- Thêm liên kết đến tệp JavaScript của Bootstrap (tuỳ chọn) -->
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-        </body>
-        </html>
-            `;
+    
+                <!-- Thêm liên kết đến tệp JavaScript của Bootstrap (tuỳ chọn) -->
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+                <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+            </body>
+            </html>
+        `;
         printWindow.document.write(content);
         printWindow.print();
     };
+    
+    
     
     $scope.formatDate = function (dateString) {
         var date = new Date(dateString);
