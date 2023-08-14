@@ -26,5 +26,3 @@ app.constant('urlReportStatic', 'http://localhost:8081/rest/MonthlyStatistic');
 app.constant('urlPriceHistoryCtrl', 'http://localhost:8081/rest/priceHistorys');
 
 app.constant('indexController', 'http://localhost:8081/rest/index');
-
-app.constant('urlImageProduct', 'http://localhost:8081/rest/imageProducts');

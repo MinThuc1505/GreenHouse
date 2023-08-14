@@ -2,6 +2,8 @@ app.controller('categoryController', function($scope, $http, urlCategory){
 	let host = urlCategory; http://localhost:8081/rest/discounts
     $scope.form = {};
     $scope.items = {};
+    $scope.selectedItemIndex = -1; // Biến lưu trạng thái sản phẩm đang được chỉnh sửa
+
     $scope.load_all = function(){
         var url = `${host}`;
         $http.get(url).then(resp => {
@@ -72,15 +74,15 @@ app.controller('categoryController', function($scope, $http, urlCategory){
             $scope.updatePageNumbers();
             
         }).catch(Error =>{
-            console.log("Error", Error);
+            console.log("Error", Error);    
         })
     }
-    $scope.Edit = function(key){
+    $scope.Edit = function(key,index){
         var url = `${host}/${key}`;
         $http.get(url).then(resp => {
             $scope.form = resp.data;
             $scope.key = key;
-   
+            $scope.selectedItemIndex = index; // Lưu chỉ số sản phẩm đang được chỉnh sửa
           /*   console.log("Success", resp);*/
         }).catch(Error =>{
             console.log("Error", Error);
