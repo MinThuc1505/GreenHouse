@@ -56,7 +56,7 @@
         <div class="sale-statistic-area">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="col-lg-7 col-md-8 col-sm-7 col-xs-12">
                         <div class="sale-statistic-inner notika-shadow mg-tb-30">
                             <div class="curved-inner-pro">
                                 <div class="curved-ctn">
@@ -65,6 +65,42 @@
                                 </div>
                             </div>
                             <canvas id="barIndex" class="flot-chart-sts flot-chart"></canvas>
+                        </div>
+                    </div>
+                    <div class="col-lg-5 col-md-4 col-sm-5 col-xs-12">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <!-- <h3 class="text-center">Lịch Tuần và Lịch Tháng</h3> -->
+                            </div>
+                        </div>
+                        <div class="row calendar-row">
+                            <div class="col-md-12 text-center calendar-controls">
+                                <button id="prev-month" class="btn btn-warning"><</button>
+                                <h3  id="current-month" class="mb-0 text-center"></h3>
+                                <button id="next-month" class="btn btn-warning">></button>
+                            </div>
+                        </div>
+                        <div class="row calendar-row">
+                            <div class="col-md-12">
+                                <div id="monthly-calendar" class="text-center">
+                                    <table class="table table-striped table-hover">
+                                        <thead>
+                                            <tr class="table-bordered custom-border tr-thead">
+                                                <th class="text-center">T2</th>
+                                                <th class="text-center">T3</th>
+                                                <th class="text-center">T4</th>
+                                                <th class="text-center">T5</th>
+                                                <th class="text-center">T6</th>
+                                                <th class="text-center">T7</th>
+                                                <th class="text-center">CN</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="monthly-calendar-body">
+                                            <!-- Đây là nơi dữ liệu ngày trong tháng sẽ được thêm vào bằng JavaScript -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -85,7 +121,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                         <div class="recent-items-wp notika-shadow sm-res-mg-t-30">
                             <div class="rc-it-ltd">
                                 <div class="recent-items-ctn">

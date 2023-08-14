@@ -21,8 +21,6 @@ app.constant('urlSize', 'http://localhost:8081/rest/sizes');
 
 app.constant('urlMaterial', 'http://localhost:8081/rest/materials');
 
-app.constant('urlImportProduct', 'http://localhost:8081/rest/importProducts');
-
 app.constant('urlImportProduct', 'http://localhost:8081/rest/importProduct');
 
 app.constant('urlReportStatic', 'http://localhost:8081/rest/MonthlyStatistic');

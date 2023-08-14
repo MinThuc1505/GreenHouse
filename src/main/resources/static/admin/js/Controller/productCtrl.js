@@ -52,15 +52,16 @@ app.controller("productCtrl", function ($scope, $http, urlProduct) {
     
     // Chuẩn bị dữ liệu để in ra tệp Excel
     const formattedData = $scope.items.map(item => {
+      console.log(item);
         return {
             'STT': item.id,
             'Tên Sản Phẩm': item.name,
             'Giá Sản Phẩm': item.price + ' VND',
             'Số Lượng': item.quantity + ' cái',
             'Trạng Thái': item.status ? 'Kinh Doanh' : 'Ngừng Kinh doanh',
-            'Chất Liệu': item.material.material,
-            'Kích Thước': item.size.size,
-            'Mô Tả': item.description
+            'Chất Liệu': item.material.material || "",
+            'Kích Thước': item.size.size || "",
+            'Mô Tả': item.description || ""
         };
     });
 
