@@ -1,4 +1,4 @@
-package com.greenhouse.controller.admin;
+package com.greenhouse.controller.Admin;
 
 
 import org.springframework.stereotype.Controller;
