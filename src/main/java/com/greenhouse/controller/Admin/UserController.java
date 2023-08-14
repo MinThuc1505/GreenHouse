@@ -1,4 +1,4 @@
-package com.greenhouse.controller.Admin;
+package com.greenhouse.controller.admin;
 
 import java.io.IOException;
 import java.nio.file.Files;

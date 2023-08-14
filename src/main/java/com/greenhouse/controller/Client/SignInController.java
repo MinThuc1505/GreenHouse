@@ -54,6 +54,7 @@ public class SignInController {
 			
 			Account account = accountDAO.findById(username).get();
 			cookieService.setCookie(response, "username", account.getUsername().replaceAll("\\s", ""), 3600);
+			cookieService.setCookie(response, "role", account.getRole() ? "admin" : "user", 3600);
 			System.out.println("Đăng nhập LOCAL thành công");
 			return "redirect:/client/index";
 		} else {

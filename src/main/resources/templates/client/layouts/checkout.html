@@ -13,10 +13,10 @@
 			<div class="row">
 				<div class="col-md-12">
 					<div class="content">
-						<h1 class="page-name">Checkout</h1>
+						<h1 class="page-name">Thanh toán</h1>
 						<ol class="breadcrumb">
-							<li><a href="/client/index">Home</a></li>
-							<li class="active">checkout</li>
+							<li><a href="/client/index">Trang chủ</a></li>
+							<li class="active">Thanh toán</li>
 						</ol>
 					</div>
 				</div>
@@ -63,7 +63,7 @@
 										<tr ng-repeat="cart in carts track by $index">
 											<input name="cartId" type="hidden" ng-value="cart[0][0]">
 											<td>{{$index + 1}}</td>
-											<td class="row product-name">
+											<td class="row product-name" title="{{cart[0][2]}}">
 												<div class="col-md-3 image-cell">
 													<img class="img-fluid media-object"
 														ng-src="{{ '/images/' + cart[0][1] }}" alt="Image" />

@@ -60,6 +60,8 @@
     <!-- Nhúng Font Awesome từ CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <!-- Thư viện AngularJS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.2/angular.min.js"></script>
+	<!-- Thư viện AngularJS -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.2/angular.min.js"></script>
 	 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"></script>
@@ -70,208 +72,53 @@
 </head>
 
 <body>
-    <th:block th:fragment="header" >
+    <th:block th:fragment="header">
         <!-- Start Header Top Area -->
         <div class="header-top-area" ng-controller="headerAdminController">
             <div class="container">
-                <div class="row">
-                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-                        <div class="logo-area">
-                            <a href="/admin/index"><img src="img/logo/logoGH.png" alt="" /></a>
-                        </div>
+                <div class="header-container">
+                    <div class="logo-area">
+                        <a href="/admin/index"><img src="/images/logoAdmin.jpg" alt="" /></a>
                     </div>
-                    <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-                        <div class="header-top-menu">
-                            <ul class="nav navbar-nav notika-top-nav">
-                                <!-- <li class="nav-item dropdown">
-                                    <a href="#" data-toggle="dropdown" role="button" aria-expanded="false"
-                                        class="nav-link dropdown-toggle"><span> <i
-                                                class="fas fa-envelope"></i></span></a>
-                                    <div role="menu" class="dropdown-menu message-dd animated zoomIn">
-                                        <div class="hd-mg-tt">
-                                            <h2>Messages</h2>
-                                        </div>
-                                        <div class="hd-message-info">
-                                            <a href="#">
-                                                <div class="hd-message-sn">
-                                                    <div class="hd-message-img">
-                                                        <img src="img/post/1.jpg" alt="" />
-                                                    </div>
-                                                    <div class="hd-mg-ctn">
-                                                        <h3>David Belle</h3>
-                                                        <p>Cum sociis natoque penatibus et magnis dis parturient montes
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                            <a href="#">
-                                                <div class="hd-message-sn">
-                                                    <div class="hd-message-img">
-                                                        <img src="img/post/2.jpg" alt="" />
-                                                    </div>
-                                                    <div class="hd-mg-ctn">
-                                                        <h3>Jonathan Morris</h3>
-                                                        <p>Cum sociis natoque penatibus et magnis dis parturient montes
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                            <a href="#">
-                                                <div class="hd-message-sn">
-                                                    <div class="hd-message-img">
-                                                        <img src="img/post/4.jpg" alt="" />
-                                                    </div>
-                                                    <div class="hd-mg-ctn">
-                                                        <h3>Fredric Mitchell</h3>
-                                                        <p>Cum sociis natoque penatibus et magnis dis parturient montes
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                            <a href="#">
-                                                <div class="hd-message-sn">
-                                                    <div class="hd-message-img">
-                                                        <img src="img/post/1.jpg" alt="" />
-                                                    </div>
-                                                    <div class="hd-mg-ctn">
-                                                        <h3>David Belle</h3>
-                                                        <p>Cum sociis natoque penatibus et magnis dis parturient montes
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                            <a href="#">
-                                                <div class="hd-message-sn">
-                                                    <div class="hd-message-img">
-                                                        <img src="img/post/2.jpg" alt="" />
-                                                    </div>
-                                                    <div class="hd-mg-ctn">
-                                                        <h3>Glenn Jecobs</h3>
-                                                        <p>Cum sociis natoque penatibus et magnis dis parturient montes
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>
-                                        <div class="hd-mg-va">
-                                            <a href="#">View All</a>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="nav-item nc-al"><a href="#" data-toggle="dropdown" role="button"
-                                        aria-expanded="false" class="nav-link dropdown-toggle"><span><i
-                                                class="fas fa-bell"></i></span>
-                                        <div class="spinner4 spinner-4"></div>
-                                        <div class="ntd-ctn"><span>3</span></div>
-                                    </a>
-                                    <div role="menu" class="dropdown-menu message-dd notification-dd animated zoomIn">
-                                        <div class="hd-mg-tt">
-                                            <h2>Notification</h2>
-                                        </div>
-                                        <div class="hd-message-info">
-                                            <a href="#">
-                                                <div class="hd-message-sn">
-                                                    <div class="hd-message-img">
-                                                        <img src="img/post/1.jpg" alt="" />
-                                                    </div>
-                                                    <div class="hd-mg-ctn">
-                                                        <h3>David Belle</h3>
-                                                        <p>Cum sociis natoque penatibus et magnis dis parturient montes
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                            <a href="#">
-                                                <div class="hd-message-sn">
-                                                    <div class="hd-message-img">
-                                                        <img src="img/post/2.jpg" alt="" />
-                                                    </div>
-                                                    <div class="hd-mg-ctn">
-                                                        <h3>Jonathan Morris</h3>
-                                                        <p>Cum sociis natoque penatibus et magnis dis parturient montes
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                            <a href="#">
-                                                <div class="hd-message-sn">
-                                                    <div class="hd-message-img">
-                                                        <img src="img/post/4.jpg" alt="" />
-                                                    </div>
-                                                    <div class="hd-mg-ctn">
-                                                        <h3>Fredric Mitchell</h3>
-                                                        <p>Cum sociis natoque penatibus et magnis dis parturient montes
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                            <a href="#">
-                                                <div class="hd-message-sn">
-                                                    <div class="hd-message-img">
-                                                        <img src="img/post/1.jpg" alt="" />
-                                                    </div>
-                                                    <div class="hd-mg-ctn">
-                                                        <h3>David Belle</h3>
-                                                        <p>Cum sociis natoque penatibus et magnis dis parturient montes
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                            <a href="#">
-                                                <div class="hd-message-sn">
-                                                    <div class="hd-message-img">
-                                                        <img src="img/post/2.jpg" alt="" />
-                                                    </div>
-                                                    <div class="hd-mg-ctn">
-                                                        <h3>Glenn Jecobs</h3>
-                                                        <p>Cum sociis natoque penatibus et magnis dis parturient montes
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>
-                                        <div class="hd-mg-va">
-                                            <a href="#">View All</a>
-                                        </div>
-                                    </div>
-                                </li> -->
-                                <li class="dropdown menu-login cart-nav dropdown-slide">
-                                    <a href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"
-                                        data-delay="350" role="button" aria-haspopup="true" aria-expanded="false"><i
-                                            class='bx bxs-user-circle'></i>
-                                            <span ng-if="username">{{ username.length > 13 ? username.substr(0, 13) + '...' : username }}</span>
-                                            <span ng-if="!username" th:text="#{lo.mn.account}"></span>
-                                        <span class="tf-ion-ios-arrow-down"></span>
-                                    </a>
-                                    <div class="dropdown-menu">
-                                        <div class="row">
-                                            <div class="col-lg-12 col-md-6 mb-sm-3">
-                                                <ul>
-                                                   <li ng-if="!cookiesUsername">
-                                                        <a href="/client/logout">
-                                                            <div class="hd-message-sn">
-                                                                <div class="hd-mg-ctn">
-                                                                    <p th:text="#{lo.mn.logout}"></p>
-                                                                </div>
+                    <div class="header-top-menu">
+                        <ul class="nav navbar-nav notika-top-nav">
+                            <li class="dropdown menu-login cart-nav dropdown-slide">
+                                <a href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"
+                                    data-delay="350" role="button" aria-haspopup="true" aria-expanded="false"><i
+                                        class='bx bxs-user-circle'></i>
+                                    <span ng-if="username">Xin chào, {{ username.length > 13 ? username.substr(0, 13) + '...' :
+                                        username }}</span>
+                                    <span ng-if="!username" th:text="#{lo.mn.account}"></span>
+                                    <span class="tf-ion-ios-arrow-down"></span>
+                                </a>
+                                <div class="dropdown-menu">
+                                    <div class="row">
+                                        <div class="col-lg-12 col-md-6 mb-sm-3">
+                                            <ul>
+                                                <li ng-if="!cookiesUsername">
+                                                    <a href="/client/logout">
+                                                        <div class="hd-message-sn">
+                                                            <div class="hd-mg-ctn">
+                                                                <p th:text="#{lo.mn.logout}"></p>
                                                             </div>
-                                                        </a>
-                                                    </li>
-                                                    <li ng-if="!cookiesUsername">
-                                                        <a href="/client/index">
-                                                            <div class="hd-message-sn">
-                                                                <div class="hd-mg-ctn">
-                                                                    <p>GreenHouse</p>
-                                                                </div>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                                <li ng-if="!cookiesUsername">
+                                                    <a href="/client/index">
+                                                        <div class="hd-message-sn">
+                                                            <div class="hd-mg-ctn">
+                                                                <p>GreenHouse</p>
                                                             </div>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                            </ul>
                                         </div>
                                     </div>
-                                </li>
-                            </ul>
-                        </div>
+                                </div>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -346,7 +193,7 @@
                                     </li>
                                     <li><a href="/admin/importProduct">Nhập sản phẩm</a>
                                     </li>
-                                   
+
                                 </ul>
                             </div>
                             <div id="Tables" class="tab-pane notika-tab-menu-bg animated flipInX">
@@ -490,8 +337,9 @@
         <script src="js/Controller/reportStaticController.js"></script>
         <script src="js/Controller/productCtrl.js"></script>
         <script src="js/Controller/reportChart.js"></script>
-        <script src="js/Controller/headerController.js"></script>
         <script src="js/Controller/indexController.js"></script>
+        <script src="js/Controller/headerController.js"></script>
+        <script src="js/Controller/imageProductCtrl.js"></script>
     </th:block>
 </body>
 

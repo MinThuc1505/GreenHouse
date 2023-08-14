@@ -94,7 +94,7 @@ public class SecurityConfig{
 				.logout(logout -> logout
 						.logoutUrl("/client/logout")
 						.logoutSuccessUrl("/client/logout/success"));
-		return http.build();
+		return http.build(); 
 	}
 	
 	

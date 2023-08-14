@@ -1,4 +1,4 @@
-const appClient = angular.module('appClient', ['ngRoute', 'ngCookies']);
+const appClient = angular.module('appClient', ['ngRoute', 'ngCookies',]);
 
 // Constant - start
 appClient.constant('urlIndexClient', 'http://localhost:8081/client/rest/index');
@@ -26,6 +26,10 @@ appClient.service('UserService', ['$cookies', function ($cookies) {
 
     this.getCookiesUsername = function () {
         return $cookies.get('username');
+    }
+
+    this.getRoleString = function () {
+        return $cookies.get('role');
     }
 }]);
 // User service - end
