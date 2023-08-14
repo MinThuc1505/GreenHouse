@@ -4804,3 +4804,22 @@ body{
 .calendar-row {
     margin-bottom: 5px; /* Điều chỉnh khoảng cách theo mong muốn */
 }
+
+.header-top-area .container .header-container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header-top-area .container .header-container .logo-area {
+    width: 250px;
+    padding: 0;
+}
+.header-top-area .container .header-container .logo-area img{
+    width: 100%;
+    mix-blend-mode: darken;
+}
+
+.table-middle tbody tr td{
+    vertical-align: middle;
+}

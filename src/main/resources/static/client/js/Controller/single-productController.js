@@ -4,7 +4,7 @@ appClient.controller('single-productController', function ($scope, $http, urlSin
     $scope.productQuantity = 1;
 
     function getParameterByName(name, url) {
-        if (!url) url = window.location.href;
+        if (!url) url = window.location.href; 
         name = name.replace(/[\[\]]/g, '\\$&');
         var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
             results = regex.exec(url);
@@ -23,6 +23,8 @@ appClient.controller('single-productController', function ($scope, $http, urlSin
                 $scope.product = response.data.product;
                 $scope.sizeOfProduct = response.data.size;
                 $scope.materialOfProduct = response.data.material;
+                $scope.imageProducts = response.data.imageProducts;
+                console.log(response.data.imageProducts);
                 console.log(response.data.product);
                 console.log(response.data.status);
                 console.log(response.data.message);

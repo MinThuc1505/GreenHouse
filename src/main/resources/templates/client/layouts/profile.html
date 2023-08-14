@@ -93,7 +93,7 @@
 										<td class="text-center">{{$index + 1}}</td>
 										<td>{{item[7]}}</td>
 										<td>{{item[2]}}</td>
-										<td>{{item[4] || 0}} %</td>
+										<td>{{item[4] || 0}}%</td>
 										<td>
 											<span ng-if="item[4] != 0">
 												<del style="color: rgb(128, 128, 128);">{{item[3] | number: 0}}</del>
@@ -148,10 +148,10 @@
 							<tbody>
 								<tr ng-repeat="item in selectedBillDetails">
 									<td>{{$index + 1}}</td>
-									<td class="product-name">
+									<td class="product-name-box">
 										<img style="width: 80px" ng-src="{{ '/images/' + item[4] }}"
 											alt="product-img" />
-										{{item[5]}}
+										<p class="product-name">{{item[5]}}</p>
 									</td>
 									<td>{{item[6] | number:0}} VND</td>
 									<td>{{item[7]}}</td>

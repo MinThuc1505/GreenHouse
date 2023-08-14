@@ -69,8 +69,9 @@
 			<div class="row">
 				<div class="col-md-3" ng-repeat="product in products">
 					<div class="product-item product-shop">
-						<div class="product-thumb">
-							<img class="img-responsive" ng-src="{{ '/images/' + product.image }}" alt="Product Image" />
+						<div class="product-thumb"> 
+							<div class="bage" ng-if="product.quantity == 0">SOLD</div>
+							<img class="img-responsive" ng-src="{{ '/images/' + product.image }}" loading="lazy" alt="Product Image" />
 							<div class="preview-meta">
 								<ul>
 									<li>

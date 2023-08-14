@@ -158,30 +158,6 @@ function notificationDATA(message, type) {
   }
 };
 
-// lazy load
-function load(img) {
-  const url = img.getAttribute('lazy-src');
-  img.setAttribute('src', url);
-}
-
-function lazyLoad() {
-  if ('IntersectionObserver' in window) {
-    var lazyImgs = document.querySelectorAll('[lazy-src]')
-
-    let observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          load(entry.target)
-        }
-      })
-    });
-
-    lazyImgs.forEach(img => {
-      observer.observe(img)
-    })
-  }
-}
-
 function showLoading() {
   var loadingElement = document.getElementById('loading');
   loadingElement.style.display = 'flex';
@@ -191,20 +167,6 @@ function hideLoading() {
   var loadingElement = document.getElementById('loading');
   loadingElement.style.display = 'none';
 }
-
-
-document.addEventListener('DOMContentLoaded', lazyLoad)
-
-// function showProductDetails(id, name, price, image, description) {
-//   $('#product-img').attr('src', '/images/' + image);
-//   $('#product-title').text(name);
-//   var formattedPrice = price.toLocaleString('vi', { style: 'currency', currency: 'VND' });
-//   $('#product-price').text(formattedPrice);
-//   $('#product-description').text(description);
-//   $('#modal-idProduct').text(id);
-//   // Hiển thị modal chi tiết sản phẩm
-//   $('#product-modal').modal('show');
-// }
 
 function previewImage(input) {
   if (input.files && input.files[0]) {

@@ -26,7 +26,7 @@ public class restShop {
     @GetMapping
     private ResponseEntity<Map<String, Object>> getProducts() {
         Map<String, Object> responseData = new HashMap<>();
-        responseData.put("products", productDAO.findAll());
+        responseData.put("products", productDAO.getProduct());
         responseData.put("categories", categoryDAO.findAll());
         return ResponseEntity.ok(responseData);
     }
