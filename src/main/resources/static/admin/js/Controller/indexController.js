@@ -137,6 +137,7 @@ app.controller('indexController', function ($scope, $http, indexController) {
                 counts.push(data[i][1]);
             }
 
+
             // Tạo biểu đồ tròn
             var ctx = document.getElementById('barRoleChart').getContext('2d');
             var chart = new Chart(ctx, {
@@ -174,6 +175,7 @@ app.controller('indexController', function ($scope, $http, indexController) {
         // Thực hiện chuyển đổi số thành chuỗi định dạng tiền tệ
         return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(amount);
     };
+
 
 
     $scope.getRevenue();
