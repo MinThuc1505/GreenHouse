@@ -5,4 +5,6 @@ import com.greenhouse.model.Material;
 
 public interface MaterialDAO extends JpaRepository<Material, Integer> {
 
+    Material findByMaterial(String material);
+
 }

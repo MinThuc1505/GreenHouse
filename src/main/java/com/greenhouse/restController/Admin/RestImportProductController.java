@@ -49,19 +49,32 @@ public class RestImportProductController {
         Product product = importProduct.getProduct();
         if (product != null) {
             Integer quantity = product.getQuantity();
+            // Lấy thông tin sản phẩm cũ từ cơ sở dữ liệu (nếu có)
+            Product existingProduct = productDAO.findById(importProduct.getProduct().getId()).orElse(null);
+            if (existingProduct == null) {
+                return ResponseEntity.notFound().build();
+            }
+
+            // Lấy giá trị cũ của kích thước và chất liệu
+            Size oldSize = existingProduct.getSize();
+            Material oldMaterial = existingProduct.getMaterial();
+
             if (quantity != null) {
                 // Cập nhật số lượng sản phẩm
+                // Đặt lại kích thước và chất liệu về giá trị cũ
+                product.setSize(oldSize);
+                product.setMaterial(oldMaterial);
                 product.setQuantity(quantity + importProduct.getQuantityImport());
                 productDAO.save(product);
             }
+
         }
 
         return ResponseEntity.ok(importProductDAO.save(importProduct));
     }
 
-   @PutMapping(value = "/{id}")
-    private ResponseEntity<ImportProduct> update(@PathVariable("id") Integer id,
-            @RequestBody ImportProduct importProduct) {
+    @PutMapping(value = "/{id}")
+    private ResponseEntity<ImportProduct> update(@PathVariable("id") Integer id, @RequestBody ImportProduct importProduct) {
         if (!importProductDAO.existsById(id)) {
             return ResponseEntity.notFound().build();
         }
@@ -75,34 +88,32 @@ public class RestImportProductController {
         // Lấy thông tin sản phẩm từ ImportProduct
         Product product = importProduct.getProduct();
         if (product != null) {
+            Integer quantity = product.getQuantity();
             Integer oldQuantityImport = existingImportProduct.getQuantityImport();
             Integer newQuantityImport = importProduct.getQuantityImport();
-
-            // Lấy ImportProduct cũ từ cơ sở dữ liệu
-            Product existingProduct = productDAO.findById(id).orElse(null);
+              Product existingProduct = productDAO.findById(importProduct.getProduct().getId()).orElse(null);
             if (existingProduct == null) {
                 return ResponseEntity.notFound().build();
             }
+
             // Lấy giá trị cũ của kích thước và chất liệu
             Size oldSize = existingProduct.getSize();
             Material oldMaterial = existingProduct.getMaterial();
-
-            // Cập nhật số lượng sản phẩm
-            Integer quantity = product.getQuantity();
             if (quantity != null && oldQuantityImport != null) {
+                // Trả lại giá trị ban đầu của quantity và cộng thêm giá trị mới
                 int updatedQuantity = quantity - oldQuantityImport + newQuantityImport;
-                product.setQuantity(updatedQuantity);
-            }
 
-            // Đặt lại kích thước và chất liệu về giá trị cũ
-            product.setSize(oldSize);
-            product.setMaterial(oldMaterial);
-            productDAO.save(product);
+                // Cập nhật số lượng sản phẩm
+                   product.setSize(oldSize);
+                product.setMaterial(oldMaterial);
+                product.setQuantity(updatedQuantity);
+                productDAO.save(product);
+            }
         }
 
         // Cập nhật các thông tin khác của ImportProduct
         existingImportProduct.setProduct(importProduct.getProduct());
-        existingImportProduct.setBillImportProduct(importProduct.getBillImportProduct());
+          existingImportProduct.setBillImportProduct(importProduct.getBillImportProduct());
         existingImportProduct.setPriceImport(importProduct.getPriceImport());
         existingImportProduct.setQuantityImport(importProduct.getQuantityImport());
         existingImportProduct.setDescription(importProduct.getDescription());
@@ -119,9 +130,8 @@ public class RestImportProductController {
 
         return ResponseEntity.ok(updatedImportProduct);
     }
-
     @DeleteMapping(value = "/{id}")
-    private ResponseEntity<Void> delete(@PathVariable("id") Integer id) {
+    private ResponseEntity<ImportProduct> delete(@PathVariable("id") Integer id) {
         if (!importProductDAO.existsById(id)) {
             return ResponseEntity.notFound().build();
         }

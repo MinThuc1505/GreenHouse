@@ -13,7 +13,8 @@
                 <div class="row header-filter-product header-action-product">
                     <div class="filter-search col-md-6">
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Tìm kiếm ..."> <span
+                            <input type="text" class="form-control" placeholder="Tìm kiếm nhiều sản phẩm..." ng-model="searchText">
+                            <span
                                 class="input-group-btn">
                                 <button class="btn btn-default" type="button">
                                     <span class="glyphicon glyphicon-search"></span>
@@ -33,26 +34,30 @@
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         <table class="table table-striped">
                             <thead>
-                                <tr class="table-bordered custom-border tr-thead">
-                                    <th class="text-center">#</th>
-                                    <th>Tên Sản Phẩm</th>
-                                    <th>Người nhập</th>
-                                    <th>Giá Nhập </th>
-                                    <th>Số Lượng Nhập</th>
-                                    <th>Tổng Giá Trị</th>
-                                    <th>Ngày Nhập</th>
+                                <tr class="table-bordered custom-border tr-thead white-links">
+                                    <th class="text-center"><a href="#" ng-click="orderByField = 'id'; reverseSort = !reverseSort"># <i class="fas fa-sort"></i></a></th>
+                                    <th colspan="2" class="text-center" ><a href="#" ng-click="orderByField = 'product.name'; reverseSort = !reverseSort">Tên Sản Phẩm <i class="fas fa-sort"></i></a></th>
+                                    <th><a href="#" ng-click="orderByField = 'billImportProduct.id'; reverseSort = !reverseSort">tài khoản nhập <i class="fas fa-sort"></i></a> </th>
+                                    <th><a href="#" ng-click="orderByField = 'priceImport'; reverseSort = !reverseSort">Giá Nhập VNĐ <i class="fas fa-sort"></i></a> </th>
+                                    <th><a href="#" ng-click="orderByField = 'quantityImport'; reverseSort = !reverseSort">Số Lượng Nhập <i class="fas fa-sort"></i></a></th>
+                                    <th><a href="#" ng-click="orderByField = 'amountImport'; reverseSort = !reverseSort">Tổng Giá Trị VNĐ <i class="fas fa-sort"></i></a></th>
+                                    <th><a href="#" ng-click="orderByField = 'createDate'; reverseSort = !reverseSort">Ngày Nhập <i class="fas fa-sort"></i></a></th>
                                     <th>Mô tả</th>
                                 </tr>
                             </thead>
-                            <tbody  ng-repeat="item in items"  >
+                            <tbody  ng-repeat="item in filterItems() | orderBy: orderByField:reverseSort | limitTo: itemsPerPage : (currentPage - 1) * itemsPerPage" >
                                 <tr  data-toggle="collapse" data-target="#{{$index + 1}}"  	ng-click="Edit(item.id, $index)"
                                 class="tr-title-product">
                                 <td class="text-center">{{$index + 1}}</td>
+                                <td><img class="object-fit"
+                                    ng-src="/images/{{item.product.image}}" 
+                                    name="image" style="max-height: 50px; width: 80%;">
+                                </td>
                                 <td>{{item.product.name}}</td>
                                 <td>{{item.billImportProduct.account.username}}</td>
-                                <td>{{item.priceImport}}</td>
-                                <td>{{item.quantityImport}}</td>
-                                <td>{{item.amountImport}}</td>
+                                <td>{{item.priceImport | currency : '' : 0 }} VNĐ</td>
+                                <td>{{item.quantityImport}} cái</td>
+                                <td>{{item.amountImport | currency : '' : 0 }} VNĐ</td>
                                 <td>{{item.createDate | date:'HH:mm dd-MM-yyyy'}}</td>
                                 <td>{{item.description}}</td>
                             </tr>
@@ -95,7 +100,7 @@
                                                 <div class="col-md-6">
                                                     <div class="form-group mt-3">
                                                         <label for="priceImport" class="fw-bold">Giá</label>
-                                                        <input type="number" min="1" value="1"
+                                                        <input type="number" min="1" value="1" max="10000000"
                                                             class="form-control text-center border-bottom"
                                                             ng-model="form.priceImport" required>
                                                     </div>
@@ -103,7 +108,7 @@
                                                 <div class="col-md-6">
                                                     <div class="form-group mt-3">
                                                         <label for="quantityImport" class="fw-bold">Số lượng </label>
-                                                        <input type="number" min="1" value="1"
+                                                        <input type="number" min="1" value="1" max="100"
                                                             class="form-control text-center border-bottom"
                                                             ng-model="form.quantityImport"  required>
                                                     </div>
@@ -128,7 +133,7 @@
                                                 <div class="col-md-12 text-right mt-5">
                                                     <div class="btn-group ib-btn-gp active-hook nk-email-inbox">
                                                         <button class="btn btn-primary notika-btn-primary waves-effect"
-                                                        ng-click="Update()" ng-disabled="myForm.$invalid">
+                                                        ng-click="Update(form.id)" ng-disabled="myForm.$invalid">
                                                             <i class="fa fa-save"></i> Lưu
                                                         </button>
                                                         <button class="btn btn-danger notika-btn-danger waves-effect"
@@ -146,6 +151,29 @@
                         </table>
                     </div>
                 </div>
+                <div class="text-center">
+					<nav aria-label="Page navigation">
+						<ul class="pagination justify-content-center">
+							<li ng-class="{disabled: currentPage === 1}" class="page-item">
+								<button ng-click="goToPage(1)" class="page-link btn btn-info">Trang đầu</button>
+							</li>
+							<li ng-class="{disabled: currentPage === 1}" class="page-item">
+								<button ng-click="prevPage()" class="page-link btn btn-info">Trước</button>
+							</li>
+				
+							<li ng-repeat="pageNumber in pageNumbers" class="page-item">
+								<button ng-click="goToPage(pageNumber)" class="page-link btn btn-info">{{pageNumber}}</button>
+							</li>
+				
+							<li ng-class="{disabled: currentPage === totalPages}" class="page-item">
+								<button ng-click="nextPage()" class="page-link btn btn-info">Tiếp</button>
+							</li>
+							<li ng-class="{disabled: currentPage === totalPages}" class="page-item">
+								<button ng-click="goToPage(totalPages)" class="page-link btn btn-info">Trang cuối</button>
+							</li>
+						</ul>
+					</nav>
+				</div>
             </div>
         </div>
     
@@ -185,7 +213,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group mt-3">
                                         <label for="priceImport" class="fw-bold">Giá nhập</label>
-                                        <input type="number" min="1" value="1"
+                                        <input type="number" min="1" value="1" max="10000000"
                                             class="form-control text-center border-bottom" ng-model="priceImport" id="priceImport"
                                             name="priceImport"
                                             required>
@@ -194,7 +222,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group mt-3">
                                         <label for="quantityImport" class="fw-bold">Số lượng nhập</label>
-                                        <input type="number" min="1" value="1"
+                                        <input type="number" min="1" value="1" max="100"
                                             class="form-control text-center border-bottom" ng-model="quantityImport"   id="quantityImport"
                                             name="quantityImport"
                                             required>

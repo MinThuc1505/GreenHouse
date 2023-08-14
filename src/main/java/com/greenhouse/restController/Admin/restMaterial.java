@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.greenhouse.DAO.MaterialDAO;
-import com.greenhouse.model.Category;
 import com.greenhouse.model.Material;
 
 @RestController
@@ -34,11 +33,20 @@ public class restMaterial {
     }
 
     @PostMapping
-    private ResponseEntity<Material> create(@RequestBody Material material) {
+    private ResponseEntity<?> create(@RequestBody Material material) {
         System.out.println(material);
+    
+        // Kiểm tra tên chất liệu đã tồn tại hay chưa
+        Material existingMaterial = materialDAO.findByMaterial(material.getMaterial());
+        if (existingMaterial != null) {
+            return ResponseEntity.badRequest().build();
+        }
+    
         if (material.getId() != null && materialDAO.existsById(material.getId())) {
             return ResponseEntity.badRequest().build();
         }
+    
         return ResponseEntity.ok(materialDAO.save(material));
     }
+    
 }

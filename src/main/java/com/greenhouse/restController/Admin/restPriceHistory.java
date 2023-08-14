@@ -20,7 +20,7 @@ public class restPriceHistory {
     @Autowired
     PriceHistoryDAO priceHistoryDAO;
      @GetMapping
-    private ResponseEntity<List<PriceHistory>> getAllAccounts(){
+    private ResponseEntity<List<PriceHistory>> getAllPriceHistorys(){
         return ResponseEntity.ok(priceHistoryDAO.findAll());
     }
      @GetMapping(value = "/{id}")

@@ -16,22 +16,14 @@ app.controller('sizeCtrl', function ($scope, $http, urlSize) {
         console.log("height:", $scope.height);
         console.log("width:", $scope.width);
         console.log("length:", $scope.length);
-
-        if (!$scope.height || !$scope.width || !$scope.length) {
-            Swal.fire({
-                icon: 'error',
-                title: 'Thất bại',
-                text: 'Vui lòng nhập đầy đủ thông tin chiều cao, chiều rộng và chiều dài.',
-            });
-            return;
-        }
-
+    
         var size = {
+            id: $scope.id,
             height: $scope.height,
             width: $scope.width,
             length: $scope.length
         };
-
+    
         var url = `${host}`;
         $http.post(url, size).then(resp => {
             console.log("Success", resp.data);
@@ -42,13 +34,17 @@ app.controller('sizeCtrl', function ($scope, $http, urlSize) {
                 text: 'Đã tạo kích thước mới.',
             });
         }).catch(error => {
-            Swal.fire({
-                icon: 'error',
-                title: 'Thất bại',
-                text: 'Tạo kích thước mới thất bại.',
-            });
+            if (error.status === 409) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Thất bại',
+                    text: 'Kích thước đã tồn tại.',
+                });
+            } 
         });
     };
+    
+    
 
     $scope.loadAll();
 });

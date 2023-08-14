@@ -14,6 +14,11 @@ import java.util.Map;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -158,12 +163,13 @@ public class restProduct {
         return ResponseEntity.ok(updatedProductDTO);
     }
 
-    @DeleteMapping(value = "/{id}")
-    private ResponseEntity<Void> delete(@PathVariable("id") Integer id) {
-        if (!productDAO.existsById(id)) {
-            return ResponseEntity.notFound().build();
-        }
+   @DeleteMapping(value = "/{id}")
+private ResponseEntity<Product> delete(@PathVariable("id") Integer id) {
+    if (!productDAO.existsById(id)) {
+        return ResponseEntity.notFound().build();
+    }
 
+    try {
         // Xóa lịch sử giá liên quan đến sản phẩm
         Product productToDelete = productDAO.findById(id).orElse(null);
         if (productToDelete != null) {
@@ -173,7 +179,35 @@ public class restProduct {
         // Xóa sản phẩm chính
         productDAO.deleteById(id);
         return ResponseEntity.ok().build();
+    } catch (DataIntegrityViolationException e) {
+        return ResponseEntity.status(HttpStatus.CONFLICT).build(); // 409 Conflict
     }
+}
+     @GetMapping("/page")
+    public ResponseEntity<Page<ProductDTO>> getAllProducts(
+            @RequestParam("page") Integer page,
+            @RequestParam("size") Integer size) {
+        try {
+            Pageable pageable = PageRequest.of(page, size);
+            Page<Product> products = productDAO.findAll(pageable);
+
+            Page<ProductDTO> productDTOPage = products.map(this::convertToDTO);
+
+            return ResponseEntity.ok(productDTOPage);
+        } catch (Exception e) {
+            // Xử lý các exception nếu cần thiết
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    private ProductDTO convertToDTO(Product product) {
+        ProductDTO productDTO = new ProductDTO();
+        BeanUtils.copyProperties(product, productDTO);
+        return productDTO;
+    }
+
+
+
     private Map<String, String> validateProductDTO(ProductDTO productDTO) {
     Map<String, String> errors = new HashMap<>();
 

@@ -6,10 +6,95 @@ app.controller('importProductCtrl', function ($scope, $http, urlImportProduct) {
     $scope.products = [];
     $scope.billImportProducts = [];
     $scope.selectedItemIndex = -1; // Biến lưu trạng thái sản phẩm đang được chỉnh sửa
+    $scope.currentPage = 1; // Trang hiện tại
+    $scope.itemsPerPage = 10; // Số lượng sản phẩm mỗi trang
+    $scope.totalItems = 0; // Tổng số sản phẩm
+    $scope.totalPages = 0; // Tổng số trang
+    
+    $scope.pageNumbers = []; // Danh sách số trang hiển thị
+    
+    $scope.searchText = ''; // Văn bản tìm kiếm
+    
+  
+    $scope.selectedItemIndex = -1; // Biến lưu trạng thái sản phẩm đang được chỉnh sửa
+  
+    $scope.orderByField = ""; // Khởi tạo giá trị mặc định của cột sắp xếp
+    $scope.reverseSort = true; // Khởi tạo giá trị mặc định của hướng sắp xếp
+
+    
+    $scope.setOrderByField = function (field) {
+        if ($scope.orderByField === field) {
+          $scope.reverseSort = !$scope.reverseSort; // Đảo ngược hướng sắp xếp nếu cùng một cột được nhấp liên tiếp
+        } else {
+          $scope.orderByField = field;
+          $scope.reverseSort = true; // Đặt hướng sắp xếp mặc định khi chọn một cột mới
+        }
+      };
+    
+
+      $scope.$watch('searchText', function(newVal, oldVal) {
+        if (newVal !== oldVal) {
+            $scope.load_all(); // Tải lại dữ liệu với bộ lọc tìm kiếm mới
+        }
+    });
+    
+      $scope.filterItems = function() {
+        if (!$scope.searchText) {
+            return $scope.items; // Trả về tất cả sản phẩm nếu không có văn bản tìm kiếm
+        }
+    
+        const searchText = $scope.searchText.toLowerCase();
+    
+        return $scope.items.filter(item => {
+            // Kiểm tra sự trùng khớp trong tất cả các thuộc tính của sản phẩm
+            const propertiesToSearch = [ 'product.name', 'priceImport', 'quantityImport', 'amountImport',   'description'];
+            for (const prop of propertiesToSearch) {
+                if (item[prop] && item[prop].toString().toLowerCase().includes(searchText)) {
+                    return true;
+                }
+            }
+            return false; // Không có sự trùng khớp trong bất kỳ thuộc tính nào
+        });
+    };
+
+    
+    $scope.prevPage = function () {
+        if ($scope.currentPage > 1) {
+          $scope.currentPage--;
+        }
+      };
+      
+      $scope.nextPage = function () {
+        if ($scope.currentPage < $scope.totalPages) {
+          $scope.currentPage++;
+        }
+      };
+      
+      $scope.goToPage = function (pageNumber) {
+        if (pageNumber >= 1 && pageNumber <= $scope.totalPages) {
+          $scope.currentPage = pageNumber;
+        }
+      };
+      $scope.calculateTotalPages = function() {
+        $scope.totalPages = Math.ceil($scope.totalItems / $scope.itemsPerPage);
+      
+        // Tạo danh sách số trang hiển thị
+        $scope.pageNumbers = [];
+        for (let i = 1; i <= $scope.totalPages; i++) {
+            $scope.pageNumbers.push(i);
+        }
+      };
+      
+
+
     $scope.load_all = function(){
         var url = `${host}`;
         $http.get(url).then(resp => {
             $scope.items = resp.data;
+            $scope.totalItems = resp.data.length; // Cập nhật tổng số sản phẩm
+            $scope.calculateTotalPages(); // Tính toán lại số trang và số lượng sản phẩm trên trang
+            $scope.filterItems(); // Áp dụng bộ lọc tìm kiếm
+ 
         }).catch(Error =>{
             console.log("Error", Error);
         })
@@ -80,27 +165,34 @@ app.controller('importProductCtrl', function ($scope, $http, urlImportProduct) {
     
 
     
-    // Cập nhật sản phẩm
-    $scope.Update = function() {
+    $scope.Update = function(key){
         
-        var url = `${host}/${$scope.form.id}`;
-
-        $http.put(url, $scope.form).then(resp => {
-            $scope.items[$scope.selectedItemIndex] = resp.data;
-            Swal.fire({
-                icon: 'success',
-                title: 'Thành công',
-                text: 'Cập nhật sản phẩm thành công',
-            });
-            $scope.form = {}; // Reset form
-            $scope.selectedItemIndex = -1; // Reset chỉ số sản phẩm đang được chỉnh sửa
-        }).catch(Error => {
-            Swal.fire({
-                icon: 'error',
-                title: 'Thất bại',
-                text: 'Cập nhật sản phẩm thất bại',
-            });
-        });
+        var item = {
+            id: $scope.form.id,
+            product: $scope.form.product,
+            billImportProduct:$scope.form.billImportProduct,
+            priceImport: $scope.form.priceImport,
+            quantityImport: $scope.form.quantityImport,
+            amountImport: $scope.form.amountImport,
+            createDate: new Date(),
+            description: $scope.form.description
+        };
+        var url = `${host}/${key}`;
+        $http.put(url, item).then(resp => {
+           $scope.items[$scope.key] = resp.data;
+           $scope.load_all();
+           Swal.fire({
+			    icon: 'success',
+			    title: 'Thành công',
+			    text: `Cập nhật nhập thêm sản phẩm ${key} thành công`,
+			});
+        }).catch(Error =>{
+			Swal.fire({
+			    icon: 'error',
+			    title: 'Thất bại',
+			    text: `Cập nhật nhập thêm sản phẩm ${key} thất bại`,
+			});
+        })
     }
     $scope.Delete = function(key){
         var url = `${host}/${key}`;
@@ -109,13 +201,13 @@ app.controller('importProductCtrl', function ($scope, $http, urlImportProduct) {
             Swal.fire({
                 icon: 'success',
                 title: 'Thành công',
-                text: `Đã xóa tài khoản ${key}`,
+                text: ` Đã xóa sản phẩm  ${key} thành công`,
             });
         }).catch(Error =>{
             Swal.fire({
                 icon: 'error',
                 title: 'Thất bại',
-                text: `Xóa tài khoản ${key} thất bại`,
+                text: `Xóa sản phẩm ${key} thất bại`,
             });
         })
     }
@@ -132,3 +224,31 @@ function formatDateToISOString(dateString) {
     var minutes = date.getMinutes().toString().padStart(2, '0');
     return `${year}-${month}-${day}T${hours}:${minutes}`;
 }
+
+$scope.prevPage = function () {
+    if ($scope.currentPage > 1) {
+      $scope.currentPage--;
+    }
+  };
+  
+  $scope.nextPage = function () {
+    if ($scope.currentPage < $scope.totalPages) {
+      $scope.currentPage++;
+    }
+  };
+  
+  $scope.goToPage = function (pageNumber) {
+    if (pageNumber >= 1 && pageNumber <= $scope.totalPages) {
+      $scope.currentPage = pageNumber;
+    }
+  };
+  $scope.calculateTotalPages = function () {
+    $scope.totalPages = Math.ceil($scope.totalItems / $scope.itemsPerPage);
+  
+    // Tạo danh sách số trang hiển thị
+    $scope.pageNumbers = [];
+    for (let i = 1; i <= $scope.totalPages; i++) {
+      $scope.pageNumbers.push(i);
+    }
+  };
+  
