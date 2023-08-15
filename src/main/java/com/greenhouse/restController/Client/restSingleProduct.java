@@ -69,10 +69,12 @@ public class restSingleProduct {
             for (Product p : products) {
                 String pDescription = p.getDescription();
                 String description = product.getDescription();
-                double similarityScore = textSimilarityService.calculateCosineSimilarity(pDescription, description);
-                System.out.println("Phần trăm tương đồng của :"+ p.getName() +": " + similarityScore + "%");
-                if (similarityScore >= 50) {
-                    recommendedProducts.add(p);
+                if (description != null && pDescription != null) {
+                    double similarityScore = textSimilarityService.calculateCosineSimilarity(pDescription, description);
+                    System.out.println("Phần trăm tương đồng của :" + p.getName() + ": " + similarityScore + "%");
+                    if (similarityScore >= 50) {
+                        recommendedProducts.add(p);
+                    }
                 }
             }
             status = "success";

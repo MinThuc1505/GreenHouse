@@ -2,7 +2,7 @@ app.controller("userController", function ($scope, $http, urlAccount) {
   let host = urlAccount;
   $scope.form = {};
   $scope.items = {};
-  $scope.selectedItemIndex = -1; // Biến lưu trạng thái sản phẩm đang được chỉnh sửa
+  $scope.selectedItemIndex = -1;
   $scope.load_all = function(){
         var url = `${host}`;
         $http.get(url).then(resp => {
@@ -146,6 +146,7 @@ app.controller("userController", function ($scope, $http, urlAccount) {
       createDate: new Date(),
     };
 
+    $scope.Reset();
     var url = `${host}`;
     $http.post(url,item)
       .then((resp) => {
@@ -183,6 +184,19 @@ app.controller("userController", function ($scope, $http, urlAccount) {
         }
       });
   };
+
+  $scope.Reset = function () {
+    $scope.username = "";
+    $scope.password = "";
+    $scope.fullName = "";
+    $scope.email = "";
+    $scope.phone = "";
+    $scope.gender = "";
+    $scope.address = "";
+    $scope.image = "";
+    $scope.form.role = "";
+    // Đặt lại các giá trị khác tùy theo yêu cầu của bạn
+};
   $scope.Delete = function (key) {
     var url = `${host}/${key}`;
 

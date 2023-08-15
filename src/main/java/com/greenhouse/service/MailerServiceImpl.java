@@ -78,7 +78,7 @@ public class MailerServiceImpl implements MailerService {
 	}
 
 	// @Scheduled(cron = "0 0 9 * * *")
-	@Scheduled(fixedRate = 1000) // Chạy mỗi 10 giây
+	@Scheduled(fixedRate = 10000) // Chạy mỗi 10 giây
 	public void startSending() {
 		Discount discount = getRandomDiscountCode();
 		String discountCode = discount.getDiscountCode();

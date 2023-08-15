@@ -12,15 +12,17 @@ import java.util.List;
 
 public interface BillDAO extends JpaRepository<Bill, Integer> {
 
-        @Query(value = "SELECT C.Id AS Category_Id, C.Name AS Category_Name, " +
-                        "SUM(BD.Quantity) AS Sold_Quantity, SUM(BD.Amount) AS Total_Sales, " +
-                        "(P.Quantity - COALESCE(SUM(BD.Quantity), 0)) AS Remaining_Quantity " +
-                        "FROM Categories C " +
-                        "INNER JOIN Set_Category SC ON C.Id = SC.Category_Id " +
-                        "INNER JOIN Products P ON SC.Product_Id = P.Id " +
-                        "LEFT JOIN Bill_Detail BD ON P.Id = BD.Product_Id " +
-                        "GROUP BY C.Id, C.Name, P.Quantity", nativeQuery = true)
-        List<Object[]> getBillDetails();
+        @Query(value = "SELECT C.Id AS CategoryId, C.Name AS CategoryName, " +
+        "COALESCE(SUM(BD.Quantity), 0) AS TotalSoldQuantity, " +
+        "COALESCE(SUM(BD.Amount), 0) AS TotalAmount, " +
+        "COALESCE(SUM(P.Quantity), 0) AS TotalQuantity " +
+        "FROM Categories C " +
+        "INNER JOIN Set_Category SC ON C.Id = SC.Category_Id " +
+        "INNER JOIN Products P ON SC.Product_Id = P.Id " +
+        "LEFT JOIN Bill_Detail BD ON P.Id = BD.Product_Id " +
+        "LEFT JOIN Bills B ON BD.Bill_Id = B.Id AND B.Status = 1 " +
+        "GROUP BY C.Id, C.Name", nativeQuery = true)
+List<Object[]> getBillDetails(); 
 
         @Query("SELECT YEAR(b.createDate) AS Year, MONTH(b.createDate) AS Month, DAY(b.createDate) AS Day, COUNT(b) AS Total_Bills, SUM(b.amount) AS Total_Revenue "
                         + "FROM Bill b "

@@ -17,7 +17,7 @@ public class TextSimilarityService {
         double magnitude2 = calculateMagnitude(wordFrequency2);
 
         if (magnitude1 == 0 || magnitude2 == 0) {
-            return 0; // To avoid division by zero
+            return 0; // To avoid division by zero 
         }
 
         return dotProduct / (magnitude1 * magnitude2) * 100;

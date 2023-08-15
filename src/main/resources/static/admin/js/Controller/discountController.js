@@ -129,8 +129,10 @@ app.controller('discountController', function ($scope, $http, urlDiscount) {
             endDate: $scope.endDate,
             discountPercent: $scope.discountPercent,
             status: $scope.status
+            
         };
-
+    
+        $scope.Reset();
 
         var url = `${host}`;
         $http.post(url, item).then(resp => {
@@ -149,6 +151,17 @@ app.controller('discountController', function ($scope, $http, urlDiscount) {
             });
         })
     }
+
+    $scope.Reset = function () {
+        $scope.discountCode = "";
+        $scope.startDate = "";
+        $scope.quantity = "";
+        $scope.endDate = "";
+        $scope.discountPercent = "";
+        $scope.status = "";
+    };
+    
+
     $scope.Delete = function (key) {
         var url = `${host}/${key}`;
 

@@ -142,6 +142,9 @@ app.controller('importProductCtrl', function ($scope, $http, urlImportProduct) {
             createDate: new Date(),
             description: $scope.description
         };
+
+        
+    $scope.Reset();
     
         console.log(item);
         var url = `${host}`;
@@ -164,6 +167,15 @@ app.controller('importProductCtrl', function ($scope, $http, urlImportProduct) {
     };
     
 
+    $scope.Reset = function () {
+      $scope.product = "";
+      $scope.billImportProduct = "";
+      $scope.priceImport = "";
+      $scope.quantityImport = "";
+      $scope.amountImport = "";
+      $scope.description = "";
+      // Đặt lại các giá trị khác tùy theo yêu cầu của bạn
+  };
     
     $scope.Update = function(key){
         

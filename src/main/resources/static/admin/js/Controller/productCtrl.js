@@ -216,6 +216,7 @@ app.controller("productCtrl", function ($scope, $http, urlProduct) {
       description: $scope.description,
     };
 
+    $scope.Reset();
     var url = `${host}`;
     $http
       .post(url, item)
@@ -248,6 +249,18 @@ app.controller("productCtrl", function ($scope, $http, urlProduct) {
         }
       });
   };
+
+  $scope.Reset = function () {
+    $scope.name = "";
+    $scope.price = "";
+    $scope.quantity = "";
+    $scope.status = "";
+    $scope.size = "";
+    $scope.material = "";
+    $scope.image = "";
+    $scope.description = "";
+    // Đặt lại các giá trị khác tùy theo yêu cầu của bạn
+};
 
   $scope.Update = function (key) {
     $scope.errorMessages = {};
