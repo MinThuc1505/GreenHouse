@@ -184,13 +184,13 @@ app.controller('importProductCtrl', function ($scope, $http, urlImportProduct) {
            Swal.fire({
 			    icon: 'success',
 			    title: 'Thành công',
-			    text: `Cập nhật nhập thêm sản phẩm ${key} thành công`,
+			    text: `Cập nhật nhập sản phẩm  ` + item.product.name + ` thành công`,
 			});
         }).catch(Error =>{
 			Swal.fire({
 			    icon: 'error',
 			    title: 'Thất bại',
-			    text: `Cập nhật nhập thêm sản phẩm ${key} thất bại`,
+			    text: `Cập nhật nhập thêm sản phẩm  ` + item.product.name + ` thất bại`,
 			});
         })
     }
@@ -201,13 +201,13 @@ app.controller('importProductCtrl', function ($scope, $http, urlImportProduct) {
             Swal.fire({
                 icon: 'success',
                 title: 'Thành công',
-                text: ` Đã xóa sản phẩm  ${key} thành công`,
+                text: ` Đã xóa mã sản phẩm  ${key} thành công`,
             });
         }).catch(Error =>{
             Swal.fire({
                 icon: 'error',
                 title: 'Thất bại',
-                text: `Xóa sản phẩm ${key} thất bại`,
+                text: `Xóa mã sản phẩm ${key} thất bại`,
             });
         })
     }

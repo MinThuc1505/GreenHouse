@@ -2,6 +2,8 @@ app.controller('discountController', function ($scope, $http, urlDiscount) {
     let host = urlDiscount;
     $scope.form = {};
     $scope.items = {};
+    $scope.selectedItemIndex = -1; // Biến lưu trạng thái sản phẩm đang được chỉnh sửa
+ 
 
     $scope.load_all = function () {
         var url = `${host}`;
@@ -78,11 +80,13 @@ app.controller('discountController', function ($scope, $http, urlDiscount) {
     }
 
 
-    $scope.Edit = function (key) {
+    $scope.Edit = function (key,index) {
         var url = `${host}/${key}`;
         $http.get(url).then(resp => {
             $scope.form = resp.data;
             $scope.key = key;
+            $scope.selectedItemIndex = index; // Lưu chỉ số sản phẩm đang được chỉnh sửa
+   
             $scope.form.startDate = formatDateToISOString($scope.form.startDate);
             $scope.form.endDate = formatDateToISOString($scope.form.endDate);
             $scope.form.status = ($scope.form.status === "1");

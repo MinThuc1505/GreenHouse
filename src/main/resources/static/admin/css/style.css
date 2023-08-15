@@ -4743,6 +4743,83 @@ body{
         text-overflow: ellipsis;
 }
 /* Submenu */
-.submenu li {
-  margin-bottom: 5px; /* Đặt khoảng cách dưới cho các nút trong submenu */
+.current-day {
+    background-color: #00FF00; /* Màu hồng */
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.current-month-day {
+    background-color: #a0e8e8; /* Màu xanh */
+}
+
+.other-month-day {
+    background-color: #dcdcdc; /* Màu xám */
+}
+
+.weekday-header {
+    text-align: center;
+    font-weight: bold;
+}
+
+.day-cell {
+    width: calc(100% / 7);
+    border-radius: 5px;
+    box-sizing: border-box;
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #ccc;
+    transition: all 0.3s ease;
+}
+
+.day-cell:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    transform: scale(1.05);
+}
+
+.calendar-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 30px;
+    margin-bottom: 0px;
+}
+
+.calendar-controls button {
+    background-color: #5cb85c; /* Màu xanh lá cây */
+    border: none;
+    color: #333; /* Màu chữ */
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.calendar-controls button:hover {
+    background-color: #333; /* Màu nền khi hover */
+    color: #fff; /* Màu chữ khi hover */
+}
+/* ... Code CSS hiện tại ... */
+
+.calendar-row {
+    margin-bottom: 5px; /* Điều chỉnh khoảng cách theo mong muốn */
+}
+
+.header-top-area .container .header-container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header-top-area .container .header-container .logo-area {
+    width: 250px;
+    padding: 0;
+}
+.header-top-area .container .header-container .logo-area img{
+    width: 100%;
+    mix-blend-mode: darken;
+}
+
+.table-middle tbody tr td{
+    vertical-align: middle;
 }

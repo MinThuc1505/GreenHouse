@@ -101,6 +101,9 @@
 											<li ng-if="cookiesUsername">
 												<a href="/client/change-password" th:text="#{lo.mn.changepasswod}"></a>
 											</li>
+											<li ng-if="roleString == 'admin' ">
+												<a href="/admin/index" >Quản trị</a>
+											</li>
 											<li ng-if="!cookiesUsername">
 												<a href="/client/signin" th:text="#{lo.mn.signin}"></a>
 											</li>

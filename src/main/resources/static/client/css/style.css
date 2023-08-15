@@ -1246,7 +1246,7 @@ input[type="tel"]:focus {
   right: 12px;
   background: #000;
   color: #fff;
-  font-size: 12px;
+  font-size: 15px;
   padding: 4px 12px;
   font-weight: 300;
   display: inline-block;
@@ -4498,11 +4498,18 @@ input[type="tel"]:focus {
 
 /* MODAL DETAIL BILL */
 #billDetailsModal table td {
-vertical-align: middle;
+  vertical-align: middle;
 }
 
-#billDetailsModal table .product-name{
+#billDetailsModal table .product-name-box {
   max-width: 300px;
+  display: flex;
+  justify-self: center;
+  align-items: center;
+  border: none;
+}
+
+#billDetailsModal table .product-name {
   overflow-x: hidden;
-  text-overflow: ellipsis !important ;
+  text-overflow: ellipsis !important;
 }

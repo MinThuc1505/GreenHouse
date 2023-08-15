@@ -52,15 +52,16 @@ app.controller("productCtrl", function ($scope, $http, urlProduct) {
     
     // Chuẩn bị dữ liệu để in ra tệp Excel
     const formattedData = $scope.items.map(item => {
+      console.log(item);
         return {
             'STT': item.id,
             'Tên Sản Phẩm': item.name,
             'Giá Sản Phẩm': item.price + ' VND',
             'Số Lượng': item.quantity + ' cái',
             'Trạng Thái': item.status ? 'Kinh Doanh' : 'Ngừng Kinh doanh',
-            'Chất Liệu': item.material.material,
-            'Kích Thước': item.size.size,
-            'Mô Tả': item.description
+            'Chất Liệu': item.material.material || "",
+            'Kích Thước': item.size.size || "",
+            'Mô Tả': item.description || ""
         };
     });
 
@@ -278,14 +279,15 @@ app.controller("productCtrl", function ($scope, $http, urlProduct) {
         Swal.fire({
           icon: "success",
           title: "Thành công",
-          text: `Cập nhật sản phẩm ${key}`,
+          text: `cập nhật sản phẩm ` + $scope.items[$scope.key].name + ` thành công`,
         });
+        
       })
       .catch((Error) => {
         Swal.fire({
           icon: "error",
           title: "Thất bại",
-          text: `Cập nhật sản phẩm ${key} thất bại`,
+          text: `cập nhật sản phẩm ` + $scope.items[$scope.key].name+ ` thất bại`,
         });
       });
   };
@@ -299,7 +301,7 @@ app.controller("productCtrl", function ($scope, $http, urlProduct) {
         Swal.fire({
           icon: "success",
           title: "Thành công",
-          text: `Đã xóa sản phẩm ${key}`,
+          text: `Xóa sản phẩm ${key} thành công`,
         });
       })
       .catch((Error) => {
@@ -308,7 +310,7 @@ app.controller("productCtrl", function ($scope, $http, urlProduct) {
           Swal.fire({
             icon: "error",
             title: "Thất bại",
-            text: `Sản phẩm ${key} đang được sử dụng và không thể xóa.`,
+            text: `Sản phẩm mã ${key} đang được sử dụng và không thể xóa.`,
           });
         } else {
           Swal.fire({

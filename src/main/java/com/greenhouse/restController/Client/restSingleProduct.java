@@ -1,8 +1,6 @@
 package com.greenhouse.restController.Client;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,9 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.greenhouse.DAO.ImageProductDAO;
 import com.greenhouse.DAO.ProductDAO;
+import com.greenhouse.model.ImageProduct;
 import com.greenhouse.model.Product;
-import com.greenhouse.model.Set_Category;
 import com.greenhouse.service.TextSimilarityService;
 
 @RestController
@@ -25,6 +24,8 @@ public class restSingleProduct {
 
     @Autowired
     private ProductDAO productDAO;
+    @Autowired
+    private ImageProductDAO imageProductDAO;
     @Autowired
     private TextSimilarityService textSimilarityService;
 
@@ -37,6 +38,9 @@ public class restSingleProduct {
         if (product != null) {
             String size = product.getSize().getSize();
             String material = product.getMaterial().getMaterial();
+            List<ImageProduct> imageProducts = imageProductDAO.getImageByProductId(productId);
+
+            responseData.put("imageProducts", imageProducts);
             responseData.put("product", product);
             responseData.put("size", size);
             responseData.put("material", material);

@@ -104,7 +104,7 @@ app.controller("userController", function ($scope, $http, urlAccount) {
       address: $scope.form.address,
       image: $scope.form.image,
       role: $scope.form.role,
-      createDate: new Date(),
+      createDate: $scope.form.createDate
     }));
    
     var url = `${host}/${key}`;

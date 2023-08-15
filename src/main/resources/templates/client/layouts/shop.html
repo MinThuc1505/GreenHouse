@@ -15,10 +15,10 @@
 			<div class="row">
 				<div class="col-md-12">
 					<div class="content">
-						<h1 class="page-name">Shop</h1>
+						<h1 class="page-name">Sản phẩm</h1>
 						<ol class="breadcrumb">
-							<li><a href="/client/index">Home</a></li>
-							<li class="active">shop</li>
+							<li><a href="/client/index">Trang chủ</a></li>
+							<li class="active">Sản phẩm</li>
 						</ol>
 					</div>
 				</div>
@@ -69,8 +69,9 @@
 				<div class="col-md-3" ng-repeat="product in products">
 					<div class="product-item product-shop">
 						<div class="product-thumb">
+							<div class="bage" ng-if="product.quantity == 0">SOLD</div>
 							<img class="img-responsive" ng-src="{{ '/images/' + product.image }}"
-								ng-lazy-src="{{'/images/' + product.image}}" alt="product-img" />
+								alt="product-img" loading="lazy"/>
 							<div class="preview-meta">
 								<ul>
 									<li>
@@ -115,9 +116,7 @@
 											<p class="product-price" id="product-price">{{ selectedProduct.price |
 												number:0 }} VND</p>
 											<p class="product-short-description" id="product-description">{{
-												selectedProduct.description }}</p>
-											<!-- Hiển thị thông tin size, chất liệu, và các thông tin khác tương ứng của sản phẩm -->
-
+												selectedProduct.description }}</p> 
 											<p id="modal-idProduct" style="display: none">{{ selectedProduct.id }}</p>
 											<a href="#" class="btn btn-main" id="modal-addToCart"
 												ng-click="modalAddToCart(selectedProduct.id)">Thêm vào giỏ hàng</a>

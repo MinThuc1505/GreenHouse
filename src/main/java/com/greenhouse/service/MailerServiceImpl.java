@@ -69,7 +69,7 @@ public class MailerServiceImpl implements MailerService {
 
 	@Override
 	public void queue(MailInfo mail) {
-		list.add(mail);
+		list.add(mail); 
 	}
 
 	@Override
